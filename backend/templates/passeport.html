@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Passeport d'Installation — {{install_id}}</title>
+<style>
+  @page { size: A4; margin: 14mm; }
+  * { box-sizing: border-box; }
+  body { font-family: 'Helvetica', Arial, sans-serif; color: #0e2238; background: #f4f7fb; margin: 0; padding: 24px; }
+  .page { max-width: 980px; margin: 0 auto; background: #fff; border-radius: 18px; padding: 32px; box-shadow: 0 10px 40px rgba(14,34,56,.08); }
+  .header { display: flex; justify-content: space-between; align-items: flex-start; padding-bottom: 18px; border-bottom: 1px solid #e3eaf2; margin-bottom: 24px; }
+  .brand { font-size: 28px; font-weight: 800; letter-spacing: 2px; color: #0e2238; }
+  .brand small { display: block; font-size: 12px; font-weight: 500; color: #4a6b8a; letter-spacing: 4px; margin-top: 4px; }
+  .grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 24px; }
+  .card { background: #fff; border: 1px solid #e3eaf2; border-radius: 12px; padding: 18px 20px; margin-bottom: 16px; }
+  .card-title { font-size: 11px; font-weight: 700; letter-spacing: 3px; color: #3A8FE8; text-transform: uppercase; margin-bottom: 14px; }
+  .id-row { display: flex; gap: 24px; margin-bottom: 16px; }
+  .id-row > div { flex: 1; }
+  .k { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; color: #6c8aa8; text-transform: uppercase; margin-bottom: 4px; }
+  .v { font-size: 16px; font-weight: 700; color: #0e2238; }
+  .v.statut { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; background: #e7f7ed; color: #1a7a3e; font-size: 12px; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: #1a7a3e; }
+  .info-list { margin: 0; padding: 0; list-style: none; }
+  .info-row { padding: 10px 0; border-bottom: 1px solid #f0f4f9; }
+  .info-row:last-child { border-bottom: none; }
+  .hint { font-size: 10px; color: #88a0bb; margin-top: 2px; }
+  .qr { text-align: center; padding: 12px; }
+  .qr img { width: 140px; height: 140px; }
+  .qr-txt { font-size: 11px; color: #6c8aa8; margin-top: 8px; }
+  .footer { margin-top: 24px; padding-top: 16px; border-top: 1px solid #e3eaf2; font-size: 11px; color: #88a0bb; text-align: center; }
+  .doc-id { font-family: 'Courier New', monospace; font-size: 10px; color: #88a0bb; margin-top: 8px; }
+  table.histo { width: 100%; border-collapse: collapse; font-size: 12px; }
+  table.histo th { text-align: left; padding: 8px; background: #f4f7fb; color: #4a6b8a; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+  table.histo td { padding: 10px 8px; border-bottom: 1px solid #f0f4f9; }
+</style>
+</head>
+<body>
+  <div class="page">
+    <div class="header">
+      <div class="brand">GEOBUILDER<small>PASSEPORT D'INSTALLATION</small></div>
+      <div style="text-align:right">
+        <div class="k">INSTALL ID</div>
+        <div class="v">{{install_id}}</div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div>
+        <section class="card">
+          <div class="id-row">
+            <div><div class="k">PIONNIER</div><div class="v">{{pio_id}}</div></div>
+            <div><div class="k">TITULAIRE</div><div class="v">{{nom_complet}}</div></div>
+            <div><div class="k">STATUT</div><div class="v statut"><span class="dot"></span>{{statut_label}}</div></div>
+          </div>
+          <div class="card-title">INFORMATIONS INSTALLATION</div>
+          <ul class="info-list">
+            <li class="info-row"><div class="k">Produit</div><div class="v">{{produit}}</div></li>
+            <li class="info-row"><div class="k">Numéro de série</div><div class="v">{{numero_serie}}</div></li>
+            <li class="info-row"><div class="k">Date de mise en service</div><div class="v">{{date_installation}}</div></li>
+            <li class="info-row"><div class="k">Territoire</div><div class="v">{{territoire_installation}}</div></li>
+            <li class="info-row"><div class="k">Garantie</div><div class="v">{{garantie_label}}</div><div class="hint">Expire le {{date_garantie_fin}}</div></li>
+          </ul>
+        </section>
+
+        <section class="card">
+          <div class="card-title">HISTORIQUE DES INTERVENTIONS</div>
+          {{historique_html}}
+        </section>
+      </div>
+
+      <div>
+        <section class="card">
+          <div class="card-title">VÉRIFICATION</div>
+          <div class="qr">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=0&data={{passeport_url}}" alt="QR">
+            <div class="qr-txt">Scannez pour vérifier l'authenticité et l'état de garantie.</div>
+          </div>
+        </section>
+
+        <section class="card">
+          <div class="card-title">EMPLACEMENT</div>
+          <div class="v">{{localisation_precise}}</div>
+          <div class="hint">{{pays_affiche}}</div>
+        </section>
+
+        <section class="card">
+          <div class="card-title">ASSISTANCE</div>
+          <div style="font-size:12px; line-height:1.8">
+            <div>+262 262 66 63 74</div>
+            <div>contact@geobuilder.fr</div>
+            <div>www.geobuilder.fr</div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <div class="footer">
+      Passeport généré le {{date_generation}} — Geobuilder Pionniers
+      <div class="doc-id">ID DOCUMENT : {{doc_id}}</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><title>Certificat de Garantie — {{install_id}}</title>
+<style>
+@page { size: A4; margin: 0; }
+body { font-family: 'Helvetica', Arial, sans-serif; background: #0e2238; color: #fff; margin: 0; padding: 50px; min-height: 100vh; }
+.frame { border: 2px solid #3A8FE8; border-radius: 20px; padding: 50px; max-width: 760px; margin: 0 auto; }
+.head { text-align: center; padding-bottom: 30px; border-bottom: 1px solid rgba(58,143,232,0.3); margin-bottom: 30px; }
+.logo { font-size: 26px; letter-spacing: 4px; font-weight: 800; }
+.sub { font-size: 10px; letter-spacing: 5px; color: #3A8FE8; text-transform: uppercase; margin-top: 4px; }
+h1 { font-size: 32px; text-align: center; letter-spacing: 2px; margin: 30px 0; font-weight: 300; }
+.col-left, .col-right { display: inline-block; vertical-align: top; width: 48%; }
+.col-right { margin-left: 3%; }
+.section-label { font-size: 10px; letter-spacing: 3px; color: #3A8FE8; text-transform: uppercase; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 1px solid rgba(58,143,232,0.3); }
+.row { margin-bottom: 12px; }
+.k { font-size: 10px; letter-spacing: 1.5px; color: #88a0bb; text-transform: uppercase; }
+.v { font-size: 16px; color: #fff; font-weight: 600; margin-top: 2px; }
+.big-name { font-size: 24px; font-weight: 700; margin: 12px 0; }
+.pio-box { background: rgba(58,143,232,0.1); border: 1px solid #3A8FE8; border-radius: 12px; padding: 16px; margin-top: 20px; text-align: center; }
+.pio-label { font-size: 10px; letter-spacing: 3px; color: #88a0bb; }
+.pio-id { font-family: 'Courier New', monospace; font-size: 20px; color: #3A8FE8; letter-spacing: 3px; margin-top: 6px; }
+.footer { margin-top: 40px; padding-top: 20px; border-top: 1px solid rgba(58,143,232,0.3); text-align: center; font-size: 10px; color: #6c8aa8; letter-spacing: 2px; }
+.doc-id { font-family: 'Courier New', monospace; font-size: 9px; color: #6c8aa8; margin-top: 8px; }
+</style></head>
+<body><div class="frame">
+  <div class="head"><div class="logo">GEOBUILDER</div><div class="sub">Certificat de Garantie</div></div>
+  <h1>{{nom_complet}}</h1>
+
+  <div class="col-left">
+    <div class="section-label">Titulaire</div>
+    <div class="big-name">{{nom_complet}}</div>
+    <div class="pio-box">
+      <div class="pio-label">Pionnier N°</div>
+      <div class="pio-id">{{pio_id}}</div>
+    </div>
+  </div>
+
+  <div class="col-right">
+    <div class="section-label">Installation</div>
+    <div class="row"><div class="k">Produit</div><div class="v">{{produit}}</div></div>
+    <div class="row"><div class="k">Territoire</div><div class="v">{{pays}}</div></div>
+    <div class="row"><div class="k">Numéro de série</div><div class="v">{{numero_serie}}</div></div>
+    <div class="row"><div class="k">Date de mise en service</div><div class="v">{{date_installation}}</div></div>
+    <div class="row"><div class="k">Installation</div><div class="v">{{install_id}}</div></div>
+    <div class="row"><div class="k">Fin de garantie</div><div class="v">{{date_garantie_fin}}</div></div>
+  </div>
+
+  <div class="footer">
+    Certifié authentique — Vérification : geobuilder.fr/install/{{install_id}}
+    <div class="doc-id">ID DOCUMENT : {{doc_id}}</div>
+  </div>
+</div></body></html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Portail Pionnier — {{pio_id}}</title>
+<style>
+  body { font-family: 'Helvetica', Arial, sans-serif; background: #0e2238; color: #fff; margin: 0; padding: 24px; min-height: 100vh; }
+  .wrap { max-width: 880px; margin: 0 auto; }
+  h1 { font-size: 32px; letter-spacing: 2px; margin: 0 0 6px; }
+  .sub { color: #88a0bb; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 32px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .tile { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; text-decoration: none; color: inherit; transition: all .2s; }
+  .tile:hover { background: rgba(58,143,232,0.15); border-color: #3A8FE8; transform: translateY(-2px); }
+  .tile-title { font-size: 13px; letter-spacing: 2px; color: #3A8FE8; text-transform: uppercase; margin-bottom: 8px; }
+  .tile-desc { font-size: 14px; color: #c5d3e2; }
+  .badge { display: inline-block; padding: 4px 12px; background: #3A8FE8; color: #fff; border-radius: 999px; font-size: 11px; letter-spacing: 1.5px; margin-bottom: 16px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <span class="badge">PIONNIER {{pio_id}}</span>
+    <h1>Bienvenue {{prenom}}</h1>
+    <div class="sub">Famille des Pionniers Geobuilder</div>
+
+    <div class="grid">
+      <a class="tile" href="{{url_carte}}"><div class="tile-title">Ma Carte</div><div class="tile-desc">Télécharger ma carte Pionnier</div></a>
+      <a class="tile" href="{{url_certificat}}"><div class="tile-title">Mon Certificat</div><div class="tile-desc">Certificat officiel Pionnier</div></a>
+      <a class="tile" href="{{url_garantie}}"><div class="tile-title">Ma Garantie</div><div class="tile-desc">Certificat de garantie</div></a>
+      <a class="tile" href="{{url_passeport}}"><div class="tile-title">Mon Passeport</div><div class="tile-desc">Historique de mon installation</div></a>
+      <a class="tile" href="#"><div class="tile-title">Mon Espace</div><div class="tile-desc">Profil, badges, statut</div></a>
+      <a class="tile" href="#"><div class="tile-title">Ma Famille</div><div class="tile-desc">Communauté des Pionniers</div></a>
+    </div>
+  </div>
+</body>
+</html>

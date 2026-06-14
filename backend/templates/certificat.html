@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="UTF-8"><title>Certificat Pionnier — {{pio_id}}</title>
+<style>
+@page { size: A4; margin: 0; }
+body { font-family: 'Georgia', serif; background: #0e2238; color: #fff; margin: 0; padding: 60px; min-height: 100vh; }
+.frame { border: 2px solid #3A8FE8; border-radius: 24px; padding: 60px; text-align: center; max-width: 720px; margin: 0 auto; background: linear-gradient(135deg, rgba(58,143,232,0.05), rgba(255,255,255,0.02)); }
+.logo { font-size: 32px; letter-spacing: 4px; font-weight: 800; margin-bottom: 8px; }
+.sub { font-size: 11px; letter-spacing: 6px; color: #3A8FE8; text-transform: uppercase; margin-bottom: 50px; }
+h1 { font-size: 42px; letter-spacing: 2px; margin: 30px 0 8px; font-weight: 300; }
+.cert-type { font-size: 12px; letter-spacing: 4px; color: #88a0bb; text-transform: uppercase; }
+.name { font-size: 36px; font-weight: 700; margin: 50px 0 12px; color: #fff; }
+.country { font-size: 14px; letter-spacing: 3px; color: #c5d3e2; text-transform: uppercase; }
+.year { font-size: 64px; font-weight: 200; color: #3A8FE8; margin: 30px 0; letter-spacing: 6px; }
+.pio { font-family: 'Courier New', monospace; font-size: 14px; color: #88a0bb; letter-spacing: 4px; margin-top: 20px; }
+.footer { margin-top: 60px; font-size: 10px; color: #6c8aa8; letter-spacing: 2px; }
+</style></head>
+<body><div class="frame">
+  <div class="logo">GEOBUILDER</div>
+  <div class="sub">Famille des Pionniers</div>
+  <div class="cert-type">Certificat officiel</div>
+  <h1>Pionnier</h1>
+  <div class="name">{{nom_complet}}</div>
+  <div class="country">{{territoire}}</div>
+  <div class="year">{{annee}}</div>
+  <div class="pio">{{pio_id}}</div>
+  <div class="footer">Délivré le {{date_creation}} — geobuilder.fr</div>
+</div></body></html>
