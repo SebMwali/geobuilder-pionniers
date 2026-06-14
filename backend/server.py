@@ -157,7 +157,13 @@ async def health():
     except Exception as e:
         status["github"] = f"error: {e}"
     # Templates (présence locale)
-    expected = ["passeport.html", "certificat.html", "garantie.html", "portail.html", "email_bienvenue.html"]
+    expected = [
+        "passeport_installation.html",
+        "certificat-pionnier.html",
+        "certificat-garantie.html",
+        "portail_pionnier.html",
+        "email-final.html",
+    ]
     missing = [f for f in expected if not (TEMPLATE_DIR / f).exists()]
     status["templates"] = "ok" if not missing else f"missing: {missing}"
     # Counters (uniquement si Sheets OK)
@@ -203,14 +209,16 @@ async def counters(_: dict = Depends(require_admin)):
 # =========================================================================
 async def _process_livraison(payload: LivraisonInput) -> dict:
     """
-    Pipeline principal :
-    1. Allocate PIO-XXXX, INST-XXXX (counter_service, remplace Module 11)
-    2. Allocate doc IDs pour passeport/certificat/garantie
-    3. Generate HTML (template_service)
-    4. Push GitHub Pages (github_service, remplace Module 16)
-    5. Append rows in 01_Pionniers + 02_Installations (Sheets)
-    6. Append rows in 03_Documents
-    7. Mock email
+    Pipeline LIVRAISON (P3 - templates prod alignés).
+
+    1. Allocate PIO-XXXX, INST-XXXX (counter_service)
+    2. Allocate doc IDs pour passeport / certificat pionnier / certificat garantie / portail
+    3. Render templates PROD (passeport_installation, certificat-pionnier,
+       certificat-garantie, email-final, portail_pionnier)
+    4. Push GitHub Pages (chemins alignés convention prod)
+    5. Append rows in 01_Pionniers + 02_Installations + 03_Documents
+       NB: ordre des colonnes Sheets INCHANGÉ vs P0/P1/P2 (validation P3.6)
+    6. Mock email
     """
     sheets = get_sheets_service()
     gh = get_github_service()
@@ -218,85 +226,145 @@ async def _process_livraison(payload: LivraisonInput) -> dict:
     # 1. IDs
     _, pio_id = increment_counter("pionnier")
     _, install_id = increment_counter("installation")
-
-    # Doc IDs
     _, doc_passeport = increment_counter("document")
-    _, doc_certificat = increment_counter("document")
-    _, doc_garantie = increment_counter("document")
+    _, doc_cert_pio = increment_counter("document")
+    _, doc_cert_gar = increment_counter("document")
     _, doc_portail = increment_counter("document")
 
     date_inst = payload.date_installation or _today_iso()
     produit_info = get_product(payload.produit)
     date_garantie_fin = _compute_garantie_fin(date_inst, produit_info["garantie_mois"])
     now_iso = datetime.now(timezone.utc).isoformat()
-    annee = datetime.now(timezone.utc).year
+    annee = str(datetime.now(timezone.utc).year)
     nom_complet = f"{payload.prenom} {payload.nom}".strip()
+    pays_affiche = payload.pays or payload.territoire
 
-    # 2. URLs GitHub Pages (avant push)
+    # 2. URLs GitHub Pages (alignées convention prod)
     pages_base = _github_pages_base()
     url_passeport = f"{pages_base}/passeports/{install_id}/index.html"
-    url_portail = f"{pages_base}/portail/{pio_id}/index.html"
-    url_certificat = f"{pages_base}/certificats/{pio_id}/index.html"
-    url_garantie = f"{pages_base}/garanties/{install_id}/index.html"
+    url_certificat = f"{pages_base}/certificats/pionnier/{pio_id}.html"
+    url_garantie = f"{pages_base}/certificats/garantie/{install_id}.html"
+    url_portail = f"{pages_base}/pionniers/{pio_id}/index.html"
+    url_famille = pages_base + "/"  # Q4 = homepage GitHub Pages
 
-    # 3. Render templates
+    # 3. Render templates PROD
+    # 3a. Passeport (snake_case, 27 variables ; Q2 = display:none pour blocs sans donnée)
+    histo_html = (
+        '<table class="histo"><tr><th>Date</th><th>Type</th><th>Technicien</th></tr>'
+        f'<tr><td>{date_inst}</td><td>Installation initiale</td><td>—</td></tr></table>'
+    )
     ctx_passeport = {
-        "install_id": install_id, "pio_id": pio_id, "nom_complet": nom_complet,
-        "statut_label": "Garantie active", "statut_class": "active",
-        "produit": produit_info["label"], "numero_serie": payload.numero_serie,
-        "date_installation": date_inst, "territoire_installation": payload.territoire,
-        "pays_affiche": payload.pays or payload.territoire,
-        "localisation_precise": payload.localisation or payload.territoire,
-        "garantie_label": "Active", "garantie_class": "active",
+        "install_id": install_id,
+        "pio_id": pio_id,
+        "numero_serie": payload.numero_serie,
+        "produit": produit_info["label"],
+        "date_installation": date_inst,
         "date_garantie_fin": date_garantie_fin,
-        "historique_html": '<table class="histo"><tr><th>Date</th><th>Type</th><th>Technicien</th></tr>'
-                           f'<tr><td>{date_inst}</td><td>Installation initiale</td><td>—</td></tr></table>',
+        "territoire_installation": payload.territoire,
+        "pays_affiche": pays_affiche,
+        "localisation_precise": payload.localisation or payload.territoire,
+        "statut_label": "Pionnier",
+        "statut_class": "active",
+        "garantie_label": "Active",
+        "garantie_class": "active",
+        "historique_html": histo_html,
         "passeport_url": url_passeport,
-        "date_generation": _today_iso(),
-        "doc_id": doc_passeport,
-    }
-    html_passeport = render_template("passeport.html", ctx_passeport)
-
-    ctx_cert = {
-        "pio_id": pio_id, "nom_complet": nom_complet, "territoire": payload.territoire,
-        "annee": str(annee), "date_creation": _today_iso(),
-    }
-    html_certificat = render_template("certificat.html", ctx_cert)
-
-    ctx_gar = {
-        "pio_id": pio_id, "install_id": install_id, "nom_complet": nom_complet,
-        "produit": produit_info["label"], "pays": payload.pays or payload.territoire,
-        "numero_serie": payload.numero_serie, "date_installation": date_inst,
-        "date_garantie_fin": date_garantie_fin, "doc_id": doc_garantie,
-    }
-    html_garantie = render_template("garantie.html", ctx_gar)
-
-    ctx_portail = {
-        "pio_id": pio_id, "prenom": payload.prenom,
-        "url_carte": f"{pages_base}/cartes/{pio_id}/carte.png",
+        "url_fiche_technique": produit_info.get("fiche_technique_url", ""),
+        "url_manuel": produit_info.get("manuel_url", ""),
         "url_certificat": url_certificat,
-        "url_garantie": url_garantie,
-        "url_passeport": url_passeport,
+        "url_telecharger_tout": "",
+        # Blocs masqués V1 (Q2 = display:none) — Ambassadeur/Fondateur/photos/planning hors périmètre
+        "display_pionnier": "block",
+        "display_ambassadeur": "none",
+        "display_statut_communaute": "block",
+        "badge_pionnier_url": "",
+        "badge_ambassadeur_url": "",
+        "photo_generateur_url": "",
+        "photo_emplacement_url": "",
+        "prochain_entretien": "",
+        "prochain_dans": "",
+        "prochain_type": "",
+        "prochain_rdv_url": "",
     }
-    html_portail = render_template("portail.html", ctx_portail)
+    html_passeport = render_template("passeport_installation.html", ctx_passeport)
 
-    # 4. Push GitHub Pages
+    # 3b. Certificat Pionnier (UPPER_SNAKE)
+    ctx_cert_pio = {
+        "ANNEE": annee,
+        "NOM_COMPLET": nom_complet,
+        "PAYS": pays_affiche,
+        "PIO_ID": pio_id,
+    }
+    html_cert_pio = render_template("certificat-pionnier.html", ctx_cert_pio)
+
+    # 3c. Certificat Garantie (UPPER_SNAKE)
+    ctx_cert_gar = {
+        "DATE_INSTALLATION": date_inst,
+        "DOC_ID": doc_cert_gar,
+        "INSTALL_ID": install_id,
+        "NOM_COMPLET": nom_complet,
+        "PAYS": pays_affiche,
+        "PIO_ID": pio_id,
+        "PRODUIT": produit_info["label"],
+        "PRODUIT_IMG_ID": produit_info.get("image_cloudinary_id", ""),
+        "SERIAL": payload.numero_serie,
+    }
+    html_cert_gar = render_template("certificat-garantie.html", ctx_cert_gar)
+
+    # 3d. Portail Pionnier (simple, généré dans /docs/pionniers/{PIO}/index.html)
+    ctx_portail = {
+        "PIO_ID": pio_id,
+        "PRENOM": payload.prenom,
+        "ANNEE": annee,
+        "URL_CERTIFICAT": url_certificat,
+        "URL_GARANTIE": url_garantie,
+        "URL_PASSEPORT": url_passeport,
+        "URL_CARTE": "",
+        "URL_FAMILLE": url_famille,
+        # Q2 — display:none pour les blocs sans cible utile en V1
+        "DISPLAY_CERTIFICAT": "block",
+        "DISPLAY_GARANTIE": "block",
+        "DISPLAY_PASSEPORT": "block",
+        "DISPLAY_CARTE": "none",  # carte non générée en V1
+        "DISPLAY_FAMILLE": "block",
+    }
+    html_portail = render_template("portail_pionnier.html", ctx_portail)
+
+    # 3e. Email final (UPPER_SNAKE)
+    ctx_email = {
+        "ANNEE": annee,
+        "INSTALL_ID": install_id,
+        "PAYS": pays_affiche,
+        "PIO_ID": pio_id,
+        "URL_CARTE": "",
+        "URL_CERTIFICAT": url_certificat,
+        "URL_ESPACE": url_portail,
+        "URL_FAMILLE": url_famille,
+        "URL_GARANTIE": url_garantie,
+    }
+    email_html = render_template("email-final.html", ctx_email)
+
+    # 4. Push GitHub Pages (chemins prod-aligned)
     pushed = {}
     try:
-        pushed["passeport"] = gh.push_file(f"docs/passeports/{install_id}/index.html", html_passeport,
-                                            f"Add passeport {install_id} ({pio_id})")
-        pushed["certificat"] = gh.push_file(f"docs/certificats/{pio_id}/index.html", html_certificat,
-                                              f"Add certificat {pio_id}")
-        pushed["garantie"] = gh.push_file(f"docs/garanties/{install_id}/index.html", html_garantie,
-                                            f"Add garantie {install_id}")
-        pushed["portail"] = gh.push_file(f"docs/portail/{pio_id}/index.html", html_portail,
-                                           f"Add portail {pio_id}")
+        pushed["passeport"] = gh.push_file(
+            f"docs/passeports/{install_id}/index.html", html_passeport,
+            f"Add passeport {install_id} ({pio_id})")
+        pushed["certificat_pionnier"] = gh.push_file(
+            f"docs/certificats/pionnier/{pio_id}.html", html_cert_pio,
+            f"Add certificat pionnier {pio_id}")
+        pushed["certificat_garantie"] = gh.push_file(
+            f"docs/certificats/garantie/{install_id}.html", html_cert_gar,
+            f"Add certificat garantie {install_id}")
+        pushed["portail"] = gh.push_file(
+            f"docs/pionniers/{pio_id}/index.html", html_portail,
+            f"Add portail {pio_id}")
     except Exception as e:
         logger.error(f"GitHub push failed: {e}")
         sheets.log_event("ERROR", "github_push", str(e), f"pio={pio_id} inst={install_id}")
         raise HTTPException(502, f"GitHub push failed: {e}")
 
-    # 5. Append in 01_Pionniers (column order = header order in the sheet)
+    # 5. Append in 01_Pionniers (ordre colonnes INCHANGÉ — validation P3.6)
     try:
         sheets.append_row("pionniers", [
             pio_id, payload.nom, payload.prenom, payload.email, payload.telephone,
@@ -321,8 +389,8 @@ async def _process_livraison(payload: LivraisonInput) -> dict:
     try:
         for doc_id, dtype, url in [
             (doc_passeport, "PASSEPORT", url_passeport),
-            (doc_certificat, "CERTIFICAT", url_certificat),
-            (doc_garantie, "GARANTIE", url_garantie),
+            (doc_cert_pio, "CERTIFICAT_PIONNIER", url_certificat),
+            (doc_cert_gar, "CERTIFICAT_GARANTIE", url_garantie),
             (doc_portail, "PORTAIL", url_portail),
         ]:
             sheets.append_row("documents", [doc_id, pio_id, dtype, url, now_iso])
@@ -330,11 +398,12 @@ async def _process_livraison(payload: LivraisonInput) -> dict:
         logger.error(f"Sheet append documents failed: {e}")
 
     # 8. Mock email
-    email_html = render_template("email_bienvenue.html", {
-        "prenom": payload.prenom, "pio_id": pio_id, "url_portail": url_portail,
-    })
-    await send_email_mock(payload.email, "Bienvenue dans la Famille des Pionniers Geobuilder",
-                          email_html, metadata={"pio_id": pio_id, "install_id": install_id})
+    await send_email_mock(
+        payload.email,
+        "Bienvenue dans la Famille des Pionniers Geobuilder",
+        email_html,
+        metadata={"pio_id": pio_id, "install_id": install_id},
+    )
 
     sheets.log_event("INFO", "livraison", "Livraison processed",
                      f"pio={pio_id} inst={install_id} ns={payload.numero_serie}")
