@@ -10,33 +10,29 @@ Remplace les modules Make défaillants (11 + 16) et orchestre :
 - Portail Pionnier (lien magique)
 """
 from fastapi import FastAPI, APIRouter, HTTPException, Header, Depends
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
-from motor.motor_asyncio import AsyncIOMotorClient
-from pydantic import BaseModel, Field, EmailStr
+from pydantic import BaseModel, EmailStr
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
-from typing import Optional, List
+from typing import Optional
 import os
 import logging
-import uuid
 import jwt as pyjwt
-import secrets
 
 from services.sheets_service import get_sheets_service
 from services.counter_service import increment_counter, peek_next_id, get_current_counter
 from services.github_service import get_github_service
-from services.template_service import render_template
-from services.email_service import send_email_mock
+from services.template_service import render_template, TEMPLATE_DIR
+from services.email_service import send_email_mock, get_outbox_snapshot
 from services.catalog import get_product
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
-mongo_url = os.environ['MONGO_URL']
-client = AsyncIOMotorClient(mongo_url)
-db = client[os.environ['DB_NAME']]
+# NOTE P0: MongoDB retiré. Google Sheets est la seule source de vérité.
+# Les emails mockés sont stockés en mémoire dans services/email_service.py.
 
 app = FastAPI(title="Geobuilder Pionniers API")
 api_router = APIRouter(prefix="/api")
@@ -139,18 +135,40 @@ async def root():
 
 @api_router.get("/health")
 async def health():
-    """Vérifie l'état des intégrations critiques."""
-    status = {"backend": "ok", "sheets": "unknown", "github": "unknown"}
+    """Vérifie l'état des intégrations critiques (P0 — stabilisation technique)."""
+    status = {
+        "backend": "ok",
+        "sheets": "unknown",
+        "github": "unknown",
+        "templates": "unknown",
+        "counters_ready": "unknown",
+        "email_outbox_size": len(get_outbox_snapshot()),
+    }
+    # Sheets
     try:
         get_sheets_service()._get_spreadsheet()
         status["sheets"] = "ok"
     except Exception as e:
         status["sheets"] = f"error: {e}"
+    # GitHub
     try:
         get_github_service()._get_repo()
         status["github"] = "ok"
     except Exception as e:
         status["github"] = f"error: {e}"
+    # Templates (présence locale)
+    expected = ["passeport.html", "certificat.html", "garantie.html", "portail.html", "email_bienvenue.html"]
+    missing = [f for f in expected if not (TEMPLATE_DIR / f).exists()]
+    status["templates"] = "ok" if not missing else f"missing: {missing}"
+    # Counters (uniquement si Sheets OK)
+    if status["sheets"] == "ok":
+        try:
+            _ = get_current_counter("pionnier")
+            status["counters_ready"] = "ok"
+        except Exception as e:
+            status["counters_ready"] = f"error: {e}"
+    else:
+        status["counters_ready"] = "skipped (sheets not ready)"
     return status
 
 
@@ -315,7 +333,7 @@ async def _process_livraison(payload: LivraisonInput) -> dict:
     email_html = render_template("email_bienvenue.html", {
         "prenom": payload.prenom, "pio_id": pio_id, "url_portail": url_portail,
     })
-    await send_email_mock(db, payload.email, "Bienvenue dans la Famille des Pionniers Geobuilder",
+    await send_email_mock(payload.email, "Bienvenue dans la Famille des Pionniers Geobuilder",
                           email_html, metadata={"pio_id": pio_id, "install_id": install_id})
 
     sheets.log_event("INFO", "livraison", "Livraison processed",
@@ -368,7 +386,7 @@ async def _process_maintenance(payload: MaintenanceInput) -> dict:
     # 2. Allocate MAINT ID
     _, maint_id = increment_counter("maintenance")
     date_m = payload.date or _today_iso()
-    now_iso = datetime.now(timezone.utc).isoformat()
+    now_iso = datetime.now(timezone.utc).isoformat()  # noqa: F841 — variable préservée, sera utilisée en P3 (MAINTENANCE)
 
     # 3. Append row in 05_Maintenances
     try:
@@ -457,11 +475,8 @@ async def list_maintenances(_: dict = Depends(require_admin)):
         raise HTTPException(500, str(e))
 
 
-@api_router.get("/admin/emails-outbox")
-async def list_outbox(_: dict = Depends(require_admin)):
-    """Boîte d'envoi (MOCKED) — les emails qui auraient dû partir."""
-    items = await db.emails_outbox.find({}, {"_id": 0}).sort("created_at", -1).to_list(200)
-    return items
+# NOTE P0: /api/admin/emails-outbox retiré (dépendait de MongoDB).
+# Sera réintroduit en P4 (logs ou onglet Sheets, décision à venir).
 
 
 # =========================================================================
@@ -482,7 +497,7 @@ async def magic_link(email: EmailStr):
                   f"<p>Voici votre lien d'accès au portail Pionnier :</p>"
                   f'<p><a href="{link}">{link}</a></p>'
                   "<p>Ce lien est valable 30 jours.</p>")
-    await send_email_mock(db, email, "Votre lien d'accès — Portail Pionnier", email_html,
+    await send_email_mock(email, "Votre lien d'accès — Portail Pionnier", email_html,
                           metadata={"pio_id": pio_id, "type": "magic_link"})
     return {"status": "ok", "message": "Magic link mocked (check /api/admin/emails-outbox)"}
 
@@ -513,8 +528,3 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-@app.on_event("shutdown")
-async def shutdown_db_client():
-    client.close()
