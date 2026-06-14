@@ -434,7 +434,7 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
     now_iso = datetime.now(timezone.utc).isoformat()
     annee = str(datetime.now(timezone.utc).year)
     nom_complet = f"{payload.prenom} {payload.nom}".strip()
-    pays_affiche = payload.pays or payload.territoire
+    pays_affiche = payload.territoire or payload.pays
 
     # 2. URLs GitHub Pages (alignées convention prod)
     pages_base = _github_pages_base()
@@ -577,8 +577,6 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "URL_FAMILLE": url_famille,
         "URL_GARANTIE": url_garantie,
         "URL_PASSEPORT": url_passeport,
-        # Q2 — masquer les blocs sans donnée utile en V1
-        "DISPLAY_CARTE": "none",  # carte Pionnier non générée en V1
     }
     email_html = render_template("email-final.html", ctx_email)
 
@@ -869,7 +867,7 @@ def _regenerate_passeport(install_row: dict, sheets, gh) -> str:
         or _compute_garantie_fin(date_inst, produit_info["garantie_mois"])
     )
     territoire = install_row.get("territoire_installation") or install_row.get("territoire installation") or ""
-    pays_affiche = install_row.get("pays") or territoire
+    pays_affiche = install_row.get("territoire_installation") or install_row.get("pays") or territoire
     nom_complet = install_row.get("nom_client") or ""
     localisation_precise = install_row.get("localisation_precise") or territoire
     numero_serie = install_row.get("numero_serie") or install_row.get("numéro_serie") or install_row.get("Numéro série") or ""

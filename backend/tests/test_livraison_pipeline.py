@@ -141,7 +141,7 @@ class TestPipelineLivraison:
         cp_html = contents["docs/certificats/pionnier/PIO-1154.html"]
         assert "PIO-1154" in cp_html
         assert "Aïsha Diallo" in cp_html
-        assert "Mayotte" in cp_html
+        assert "MAYOTTE" in cp_html
         assert "{{" not in cp_html
 
         # Certificat Garantie

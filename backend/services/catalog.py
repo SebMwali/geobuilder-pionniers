@@ -21,8 +21,8 @@ CATALOG = {
     "G30_HOME": {
         "label": "G30 Home",
         "garantie_mois": 24,
-        "fiche_technique_url": "https://sebmwali.github.io/geobuilder-pionniers/fiches-techniques/g30_home.html",
-        "manuel_url": "https://sebmwali.github.io/geobuilder-pionniers/manuels/g30_home.html",
+        "fiche_technique_url": "https://sebmwali.github.io/geobuilder-pionniers/Geobuilder_Fiche_Technique_G30.pdf",
+        "manuel_url": "https://sebmwali.github.io/geobuilder-pionniers/G30%20USER%20MANUAL-1.pdf",
         "image_cloudinary_id": "g30",
         "photo_generateur_url": "https://res.cloudinary.com/dahmkv4ra/image/upload/v1781308463/G30-_fqyqhz.png",
     },
