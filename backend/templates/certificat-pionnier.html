@@ -98,7 +98,7 @@ html,body{
 </div>
 <button class="print-btn" onclick="window.print()">Imprimer / Sauvegarder en PDF</button>
 <script>
-const demo = {nom:'ANSEL JEAN YVES',pays:'MAYOTTE',annee:'2026',pio:'PIO-1066'};
+const demo = {nom:'{{NOM_COMPLET}}',pays:'{{PAYS}}',annee:'{{ANNEE}}',pio:'{{PIO_ID}}'};
 document.getElementById('cert-nom').textContent   = demo.nom;
 document.getElementById('cert-pays').textContent  = demo.pays;
 document.getElementById('cert-annee').textContent = demo.annee;
