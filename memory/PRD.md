@@ -1,143 +1,99 @@
 # PRD — Geobuilder Pionniers (Backend FastAPI)
 
 ## Original problem statement
+Remplacer une automatisation Make.com défaillante par un backend Python/FastAPI pour le produit "Geobuilder" (Pionniers de l'eau). Le système utilise STRICTEMENT Google Sheets comme base de données (pas de MongoDB), génère des documents HTML dynamiques (Passeport d'installation, Certificats Pionnier/Garantie, Badge, Ambassadeur), les publie sur GitHub Pages, et envoie un email de bienvenue via Resend.
 
-Remplacer une automation Make.com défaillante par un backend Python/FastAPI qui :
-- utilise **Google Sheets** comme **unique** source de vérité
-- pousse les documents (HTML, photos extraites du PDF) sur **GitHub Pages**
-- expose des webhooks **directs SAV → Pionniers** (suppression de Make)
-- conserve une architecture découplée pour qu'Odoo puisse remplacer SAV sans toucher Pionniers
-- envoie un email de bienvenue (mock V1)
+**Langue utilisateur**: Français uniquement.
 
-L'application doit rester **un moteur documentaire léger**. Aucun ERP, ticket, planning, stock, tournée.
+## Architecture
+- Backend: FastAPI (Python)
+- Database: Google Sheets ONLY
+- File storage/hosting: GitHub Pages (`PyGithub`)
+- Email: Resend SDK (domaine `geobuilder.fr` vérifié)
+- PDF extraction: PyMuPDF (image + texte `Modèle`/`Adresse`)
+- QR code: api.qrserver.com
 
-## Architecture validée (V2 — sans Make)
+## Webhook entrant
+`POST /api/webhook/livraison` — payload SAV-natif minimal (ns, client, email_client, date, rapport_pdf_url, report_id) OU payload PIONNIERS-DATA canonique complet. Idempotence via `report_id` stocké en col W de `02_Installations`.
 
-```
-SAV-app (ou Odoo demain) → POST /api/webhook/livraison
-                                   ↓
-                          Bloc PIONNIERS-DATA (JSON canonique)
-                                   ↓
-                       Backend Pionniers (FastAPI)
-                                   ↓
-                Google Sheets + GitHub Pages + Email
-```
+## Templates publiés (5 fichiers GitHub Pages par livraison)
+1. `docs/passeports/{INST_ID}/index.html` — Passeport d'installation
+2. `docs/certificats/pionnier/{PIO_ID}.html` — Certificat Pionnier
+3. `docs/certificats/garantie/{INST_ID}.html` — Certificat de garantie
+4. `docs/pionniers/{PIO_ID}/index.html` — Portail Pionnier (espace personnel)
+5. `docs/cartes/{PIO_ID}.html` — **Badge Pionnier HTML éditable** (avec QR code vers espace)
 
-- **Base de données** : Google Sheets (`01_Pionniers`, `02_Installations`, `04_Parametres`, `05_Maintenances`, `06_Documents`, `08_Automations_Log`)
-- **Stockage / hébergement** : GitHub Pages (branche `main-/-/(root)`, dossier `/docs/`)
-- **Photos installation** :
-  - `photo_generateur_url` : URL **Cloudinary statique** selon modèle (G30 mappé en V1)
-  - `photo_emplacement_url` : **extraite du PDF** d'installation (PyMuPDF, plus grand JPEG)
-  - Fallback : `https://res.cloudinary.com/dahmkv4ra/image/upload/v1781392846/G-30_myykrz.png`
-- **Idempotence** : `report_id` stocké en col W de `02_Installations`. Renvois ignorés.
-- **Fondateur** : `fondateur=true` → génère `docs/ambassadeurs/{pio_id}.html` immédiatement.
+Si `fondateur=true` : push supplémentaire `docs/ambassadeurs/{PIO_ID}.html`.
 
-## Schéma PIONNIERS-DATA officiel
+## What's been implemented
 
-Voir `/app/memory/SAV_INTEGRATION.md` pour la spec complète (champs, types, exemples curl).
+### Session du 14/02/2026
+- ✅ Bypass Make.com complet — webhook direct SAV → Pionniers
+- ✅ Extraction PDF (photo, Modèle, Adresse) via PyMuPDF
+- ✅ Idempotence par `report_id`
+- ✅ Génération `ambassadeur.html` pour fondateurs
+- ✅ Resend API intégré, email réel envoyé
+- ✅ QR garantie corrigé
 
-## Endpoints API
+### Session du 15/02/2026 (cette session)
+- ✅ **Email — Image bannière** : extraction du base64 inline (165KB) → hébergée sur GitHub Pages `assets/email-header.jpeg`. Gmail rend maintenant l'image (le base64 inline était bloqué/affiché en raw).
+- ✅ **Email — Multipart/alternative** : ajout fallback `text` dans Resend → Gmail mobile rend correctement le HTML.
+- ✅ **Email — Stats alignement** : refactor `display:table` → `<table>` HTML natif (compat Gmail mobile, plus de `...` de troncature).
+- ✅ **Email — Doublon image header** : suppression de la 2ème balise `<img>` en bas du template.
+- ✅ **Email — Liens corrigés** : `Mon Passeport` → `{{URL_PASSEPORT}}` GitHub Pages (avant : `geobuilder.fr/install/...` cassé). `Ma Carte` → URL badge généré.
+- ✅ **Email + Portail — `target="_blank"`** sur tous les boutons.
+- ✅ **Passeport** : MANUEL → `G30 USER MANUAL-1.pdf`, FICHE → `Geobuilder_Fiche_G30.pdf`, PRENDRE RDV + ASSISTANCE → `tel:+262262666374`, TÉLÉCHARGER TOUS LES DOCS → `display:none`.
+- ✅ **Certificat Pionnier** : TERRITOIRE = MAYOTTE (fix priorité `payload.territoire or payload.pays` au lieu de `payload.pays or payload.territoire`).
+- ✅ **Badge Pionnier HTML éditable** (`badge-pionnier.html`) :
+  - Design CSS pur selon charte Geobuilder V1 (Montserrat, #0D0D0D, #3A8FE8)
+  - Variables : `{{NOM_COMPLET}}`, `{{PIO_ID}}`, `{{TERRITOIRE}}`, `{{ANNEE}}`, `{{URL_ESPACE}}`, `{{QR_URL_ENCODED}}`
+  - Logo GEOBUILDER chrome + tagline "REPRENONS LE POUVOIR SUR L'EAU"
+  - QR code centré avec halo bleu → renvoie vers Espace Pionnier
+  - CTA bleu vers espace + ID PIO en footer
+  - 100% portable, sans dépendance image
+- ✅ **Tests pytest** : 80/80 passent.
 
-| Méthode | Route | Usage |
-|---------|-------|-------|
-| POST | `/api/webhook/livraison` | JSON PIONNIERS-DATA (mode principal) |
-| POST | `/api/webhook/livraison-upload` | multipart/form-data avec PDF en pièce jointe |
-| POST | `/api/sav/rapport` | Ajout intervention + régénère passeport |
-| POST | `/api/admin/sav` | Variant admin |
-| POST | `/api/admin/livraison` | Variant admin |
-| GET | `/api/admin/installation/{id}` | Détail + historique maintenances |
-| GET | `/api/admin/pionniers` / `installations` / `maintenances` | Listes |
-| GET | `/api/counters` | État compteurs |
-| GET | `/api/health` | Santé intégrations |
+## Schema Google Sheets
+- `01_Pionniers` (22 col) : col T `certificat_url`, col U `carte_url` (badge), col V `qr_code_url` (V1 vide)
+- `02_Installations` (23 col) : col U `photo_generateur_url`, col V `photo_emplacement_url`, col W `report_id`
+- `04_Parametres` : compteurs
+- `05_Maintenances` (12 col) : historique SAV
+- `06_Documents` (10 col) : log de documents générés
 
-## Inventaire QR codes
+## Prioritized backlog
 
-| Document | Destination du QR |
-|---|---|
-| `passeport_installation.html` | `passeport_url` (sa propre URL GitHub Pages) |
-| `certificat-garantie.html` | `URL_GARANTIE` (sa propre URL GitHub Pages) ← V2 corrigé |
-| `certificat-pionnier.html` | Aucun QR (document symbolique) |
-| `portail_pionnier.html` | Aucun QR |
-| `ambassadeur.html` | Aucun QR |
-| `email-final.html` | Aucun QR |
+### P0 — Backlog suivant
+- 🟡 **Refonte `portail_pionnier.html`** selon charte graphique V1 :
+  - Font Montserrat (Google Fonts)
+  - Fond #0D0D0D, accents #3A8FE8
+  - Logo Geobuilder header officiel (à héberger : asset `Geobuilder.png` disponible)
+  - Tagline "REPRENONS LE POUVOIR SUR L'EAU"
+  - Cards sobres, titres "Première lettre bleue + reste blanc"
+  - Style sobre, premium, humain, épuré
 
-## Structure réelle des Sheets
+### P1
+- ⏳ Recevoir version **vide** du badge image (sans nom hardcodé) si le user souhaite le design "image riche" plutôt que le CSS pur actuel
+- ⏳ Vérification visuelle QR code Passeport → Certificat Garantie
 
-### 02_Installations (23 colonnes)
-A install_id · B pio_id · C produit · D numero_serie · E date_installation · F date_sortie ·
-G territoire_installation · H installateur · I installation_status · J pionnier_created ·
-K nom_client · L gamme · M contrat_maintenance_type · N date_garantie_fin · O localisation_precise ·
-P statut_eau · Q derniere_maintenance · R prochain_entretien · S passeport_url ·
-T installation_active · U **photo_generateur_url** · V **photo_emplacement_url** · W **report_id**
+### P2 — Future
+- Adapter mapping territoire pour Maurice, Madagascar, Comores
+- Mapping Cloudinary G20/OCEAN500/TITAN1000/SOURCE (au-delà G30)
+- Conversion HTML→PDF (WeasyPrint) pour certificats imprimables
+- Refactor `server.py` (~1090 lignes) en routes/
 
-### 05_Maintenances (12 colonnes)
-A maintenance_id · B install_id · C pio_id · D date_intervention · E type_intervention ·
-F technicien · G statut · H rapport_url · I observations · J pieces_changees · K prochain_rdv · L source
+## 3rd party integrations
+- Google Sheets API (Service Account JSON, dans `/app/backend/.env`)
+- GitHub API (PAT, dans `.env`)
+- Resend (API key, dans `.env`, domaine `geobuilder.fr` vérifié)
+- QR code: api.qrserver.com (gratuit, sans clé)
 
-### 01_Pionniers (22 colonnes)
-A pio_id · B nom · C prenom · D email · E telephone · F pays · G territoire · H client_type ·
-I date_entree · J statut · **K fondateur** · **L ambassadeur** · M-V (divers)
-
-## What's been implemented (2026-02)
-
-### Phase V1
-- Backend FastAPI stable, MongoDB retiré
-- Compteurs `04_Parametres` thread-safe
-- Pipeline Livraison E2E (Sheets + GitHub Pages)
-- Templates HTML PROD (passeport, certificats, portail, email)
-- Extraction photo PDF (PyMuPDF, plus gros JPEG)
-- Mapping Cloudinary G30
-- Pipeline SAV minimal `/api/sav/rapport`
-- 61 tests pytest
-
-### Phase V4 — Envoi email RÉEL via Resend (2026-02)
-- ✅ Intégration SDK `resend>=2.0.0` (réutilise le compte SAV avec domaine `geobuilder.fr` déjà vérifié)
-- ✅ Clé API dédiée Pionniers (audit séparé SAV vs Pionniers)
-- ✅ `email_service.send_email_mock()` envoie maintenant via Resend, avec fallback mock automatique en cas d'erreur
-- ✅ Variables d'env : `RESEND_API_KEY`, `SENDER_EMAIL=pionniers@geobuilder.fr`, `SENDER_NAME=Pionniers Geobuilder`
-- ✅ Async non-bloquant via `asyncio.to_thread`
-- ✅ Test E2E live confirmé : email `Bienvenue dans la Famille des Pionniers Geobuilder` envoyé à `sebastien.fumaz@geobuilder.fr` (Resend ID `62089241-...`)
-- ✅ Tous les tests passent (80/80)
-
-### Phase V3 — Fusion webhook SAV-natif + parsing PDF (Plan C)
-- ✅ `LivraisonInput` accepte le payload **SAV natif** (`ns`, `client`, `email_client`, `date` DD/MM/YYYY, `rapport_pdf_url`, `report_id`, `prochain_entretien`) ET le format canonique PIONNIERS-DATA
-- ✅ Normalisation automatique : `ns→numero_serie`, split nom/prénom depuis `client`, conversion date FR→ISO
-- ✅ Parser PDF labellisé (`extract_fields` dans `pdf_extractor.py`) : `Modèle:`, `N° Série:`, `Adresse:`, `Date:`, `Client:`, `Technicien(s):`, `Type:`
-- ✅ Fusion automatique : webhook > PDF > defaults Mayotte/France (focus V1)
-- ✅ Validation explicite : 422 avec message clair si champ critique manque après normalisation
-- ✅ **PLUS BESOIN DE MAKE NI D'EMAIL ENTRANT** — SAV poste directement à Pionniers
-- ✅ E2E live validé avec le payload SAV exact (`PIO-1161/INST-2164`) — toutes les données extraites du PDF (G30, MAYOTTE, Mamoudzou, G30-MYT-TEST-001)
-- ✅ 9 nouveaux tests pytest (aliasing, parsing PDF, validation)
-
-**Total tests : 80/80 ✅**
-
-### Phase V2 — Architecture sans Make
-- ✅ Refonte `LivraisonInput` au schéma PIONNIERS-DATA canonique
-- ✅ Idempotence via `report_id` (col W, check pré-traitement)
-- ✅ Suppression toute logique dérivation NS
-- ✅ Champ `fondateur` → génère `ambassadeur.html` automatiquement
-- ✅ Template `ambassadeur.html` intégré (depuis le repo GitHub `docs/`)
-- ✅ Fix QR certificat-garantie (pointe maintenant vers sa propre URL, plus geobuilder.fr/install/)
-- ✅ Endpoint multipart accepte fondateur / report_id / type / technicien
-- ✅ Tests V2 : idempotence, fondateur, schéma PIONNIERS-DATA (10 tests)
-- ✅ E2E live validé : `PIO-1158/INST-2161` avec fondateur=true → ambassadeur publié + idempotence vérifiée
-- ✅ Doc d'intégration SAV → Pionniers (`/app/memory/SAV_INTEGRATION.md`)
-
-**Total tests : 71/71 ✅**
-
-## Roadmap
-
-### P1 — Court terme
-- Email réel (SendGrid / Resend / SMTP) — actuellement mocké
-- Mapper photo générateur Cloudinary pour G20, OCEAN500, TITAN1000, SOURCE
-- Configurer `AMBASSADEUR_WEBHOOK_URL` env var pour le formulaire ambassadeur (collecte consentement)
-
-### P2 — Futur
-- `URL_CARTE` (génération carte d'identité Pionnier) — variable du template aujourd'hui masquée
-- Conversion HTML → PDF via WeasyPrint (V1 = HTML statique uniquement)
-- Logique automatique "Ambassadeur après 60 jours" pour nouveaux clients (actuellement seuls les fondateurs déclenchent ambassadeur)
-- Migration future Odoo → Pionniers (architecture déjà compatible : même endpoint, même schéma)
-
-### Refactoring optionnel
-- Déplacement routes hors `server.py` vers `/app/backend/routes/`
-- Suppression `MaintenanceInput` (DEPRECATED) une fois confirmé qu'aucun consommateur ne l'utilise
+## Files of reference
+- `/app/backend/server.py` (orchestration pipeline)
+- `/app/backend/services/email_service.py` (Resend + fallback text)
+- `/app/backend/services/catalog.py` (URLs produits)
+- `/app/backend/services/pdf_extractor.py` (PyMuPDF)
+- `/app/backend/templates/email-final.html`
+- `/app/backend/templates/badge-pionnier.html` ⭐ nouveau
+- `/app/backend/templates/passeport_installation.html`
+- `/app/backend/templates/certificat-pionnier.html`
+- `/app/backend/templates/portail_pionnier.html` (à refondre)

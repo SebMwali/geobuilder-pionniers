@@ -442,6 +442,7 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
     url_certificat = f"{pages_base}/certificats/pionnier/{pio_id}.html"
     url_garantie = f"{pages_base}/certificats/garantie/{install_id}.html"
     url_portail = f"{pages_base}/pionniers/{pio_id}/index.html"
+    url_carte = f"{pages_base}/cartes/{pio_id}.html"
     url_ambassadeur = f"{pages_base}/ambassadeurs/{pio_id}.html" if payload.fondateur else ""
     url_famille = pages_base + "/"
 
@@ -554,13 +555,13 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "URL_CERTIFICAT": url_certificat,
         "URL_GARANTIE": url_garantie,
         "URL_PASSEPORT": url_passeport,
-        "URL_CARTE": "",
+        "URL_CARTE": url_carte,
         "URL_FAMILLE": url_famille,
         # Q2 — display:none pour les blocs sans cible utile en V1
         "DISPLAY_CERTIFICAT": "block",
         "DISPLAY_GARANTIE": "block",
         "DISPLAY_PASSEPORT": "block",
-        "DISPLAY_CARTE": "none",  # carte non générée en V1
+        "DISPLAY_CARTE": "block",
         "DISPLAY_FAMILLE": "block",
     }
     html_portail = render_template("portail_pionnier.html", ctx_portail)
@@ -571,7 +572,7 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "INSTALL_ID": install_id,
         "PAYS": pays_affiche,
         "PIO_ID": pio_id,
-        "URL_CARTE": "",
+        "URL_CARTE": url_carte,
         "URL_CERTIFICAT": url_certificat,
         "URL_ESPACE": url_portail,
         "URL_FAMILLE": url_famille,
@@ -579,6 +580,18 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "URL_PASSEPORT": url_passeport,
     }
     email_html = render_template("email-final.html", ctx_email)
+
+    # 3e-bis. Badge Pionnier (HTML éditable, QR vers espace pionnier)
+    from urllib.parse import quote as _quote
+    ctx_badge = {
+        "NOM_COMPLET": nom_complet,
+        "PIO_ID": pio_id,
+        "TERRITOIRE": pays_affiche,
+        "ANNEE": annee,
+        "URL_ESPACE": url_portail,
+        "QR_URL_ENCODED": _quote(url_portail, safe=""),
+    }
+    html_badge = render_template("badge-pionnier.html", ctx_badge)
 
     # 3f. Page Ambassadeur (uniquement si fondateur=true)
     html_ambassadeur = ""
@@ -610,6 +623,9 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         pushed["portail"] = gh.push_file(
             f"docs/pionniers/{pio_id}/index.html", html_portail,
             f"Add portail {pio_id}")
+        pushed["badge"] = gh.push_file(
+            f"docs/cartes/{pio_id}.html", html_badge,
+            f"Add badge pionnier {pio_id}")
         if payload.fondateur and html_ambassadeur:
             pushed["ambassadeur"] = gh.push_file(
                 f"docs/ambassadeurs/{pio_id}.html", html_ambassadeur,
@@ -642,7 +658,7 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
             "livraison_complete",         # R  workflow_status (Q4=b)
             "true",                       # S  welcome_email_sent
             url_certificat,               # T  certificat_url
-            "",                           # U  carte_url (V1)
+            url_carte,                    # U  carte_url
             "",                           # V  qr_code_url (V1)
         ])
     except Exception as e:

@@ -113,15 +113,16 @@ class TestPipelineLivraison:
         assert result["url_garantie"] == f"{base}/certificats/garantie/INST-2157.html"
         assert result["url_portail"] == f"{base}/pionniers/PIO-1154/index.html"
 
-    def test_pushes_4_files_to_github_with_correct_paths(self, run_pipeline, fake_github):
+    def test_pushes_5_files_to_github_with_correct_paths(self, run_pipeline, fake_github):
         run_pipeline()
-        assert fake_github.push_file.call_count == 4
+        assert fake_github.push_file.call_count == 5
         paths = [c.args[0] for c in fake_github.push_file.call_args_list]
         assert paths == [
             "docs/passeports/INST-2157/index.html",
             "docs/certificats/pionnier/PIO-1154.html",
             "docs/certificats/garantie/INST-2157.html",
             "docs/pionniers/PIO-1154/index.html",
+            "docs/cartes/PIO-1154.html",
         ]
 
     def test_pushed_html_contains_expected_markers(self, run_pipeline, fake_github):
@@ -159,8 +160,16 @@ class TestPipelineLivraison:
         assert "PIO-1154" in portail_html
         assert "Aïsha" in portail_html
         assert "{{" not in portail_html
-        # La carte est masquée (V1)
-        assert 'style="display:none"' in portail_html
+        # La carte pointe maintenant vers le badge généré
+        assert "cartes/PIO-1154.html" in portail_html
+
+        # Badge Pionnier (carte HTML éditable)
+        badge_html = contents["docs/cartes/PIO-1154.html"]
+        assert "Aïsha Diallo" in badge_html
+        assert "PIO-1154" in badge_html
+        assert "MAYOTTE" in badge_html
+        assert "qrserver.com" in badge_html  # QR généré
+        assert "{{" not in badge_html
 
     def test_appends_6_rows_to_sheets(self, run_pipeline, fake_sheets):
         """1 PIO + 1 INST + 4 DOC = 6 lignes append."""
