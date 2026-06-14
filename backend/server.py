@@ -444,6 +444,8 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
     url_portail = f"{pages_base}/pionniers/{pio_id}/index.html"
     url_carte = f"{pages_base}/cartes/{pio_id}.html"
     url_ambassadeur = f"{pages_base}/ambassadeurs/{pio_id}.html" if payload.fondateur else ""
+    # Page d'invitation Ambassadeur universelle (existe à la racine /docs/ambassadeur.html)
+    url_ambassadeur_landing = f"{pages_base}/ambassadeur.html"
     url_famille = pages_base + "/"
 
     # URL historique relative à stocker en Sheet (convention héritée Make)
@@ -507,6 +509,7 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "url_fiche_technique": produit_info.get("fiche_technique_url", ""),
         "url_manuel": produit_info.get("manuel_url", ""),
         "url_certificat": url_certificat,
+        "url_ambassadeur_cta": url_ambassadeur_landing,
         "url_telecharger_tout": "",
         # Blocs masqués V1 (Q2 = display:none) — Ambassadeur/Fondateur/planning hors périmètre
         "display_pionnier": "block",
@@ -568,14 +571,14 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
 
     # 3e. Email final (UPPER_SNAKE)
     # Logique CTA "Famille / Devenez Ambassadeur" :
-    # - Si le Pionnier est déjà fondateur/ambassadeur => bouton "Ma Famille"
-    # - Sinon => incitation "Devenez Ambassadeur" pointant vers le template ambassadeur
+    # - Si le Pionnier est déjà fondateur/ambassadeur => sa page perso
+    # - Sinon => page d'invitation Ambassadeur universelle
     if payload.fondateur:
-        cta_url = url_famille
-        cta_title = "Ma Famille"
-        cta_desc = "Rejoindre la famille des Pionniers"
+        cta_url = url_ambassadeur
+        cta_title = "Mon Espace Ambassadeur"
+        cta_desc = "Votre page personnelle de fondateur"
     else:
-        cta_url = url_ambassadeur or url_famille
+        cta_url = url_ambassadeur_landing
         cta_title = "Devenez Ambassadeur"
         cta_desc = "Rejoignez le cercle des Pionniers Ambassadeurs"
 
@@ -931,6 +934,7 @@ def _regenerate_passeport(install_row: dict, sheets, gh) -> str:
         "url_fiche_technique": produit_info.get("fiche_technique_url", ""),
         "url_manuel": produit_info.get("manuel_url", ""),
         "url_certificat": url_certificat,
+        "url_ambassadeur_cta": f"{pages_base}/ambassadeur.html",
         "url_telecharger_tout": "",
         "display_pionnier": "block",
         "display_ambassadeur": "none",

@@ -27,6 +27,18 @@ Si `fondateur=true` : push supplémentaire `docs/ambassadeurs/{PIO_ID}.html`.
 
 ## What's been implemented
 
+### Session du 15/02/2026 (suite — itération 2)
+- ✅ **Email — Pictogrammes bleu électrique** : SVG 40×40 #3A8FE8 au-dessus de chaque stat (Personne / Globe / Calendrier) selon charte V1
+- ✅ **Email — Bouton "Ma Famille" → "Devenez Ambassadeur"** :
+  - Pour non-fondateur : pointe vers `docs/ambassadeur.html` (landing universelle existante)
+  - Pour fondateur : pointe vers `docs/ambassadeurs/{PIO}.html` (page perso)
+  - Titre en bleu pour attirer l'œil + bordure carte plus marquée
+- ✅ **Email — Gmail trim "..." résolu** (marqueur invisible + `<table>` HTML, refactor cards en table-based)
+- ✅ **Passeport — middle button "Certificat de Garantie" → "Devenez Ambassadeur"** : doc-card du milieu remplacée avec pictogramme étoile et lien vers `ambassadeur.html`. Garantie reste accessible via le gros bouton "VOIR LE CERTIFICAT DE GARANTIE" du bloc Vérification.
+- ✅ **Badge Pionnier** : utilise maintenant la **vraie image vierge** fournie comme background + overlay HTML aux positions calibrées (1024×1536 ratio). Nom client, territoire, année, QR code parfaitement positionnés.
+- ✅ **Ambassadeur footer (per-pionnier)** : logo Geobuilder externe (URL job autre) → logo hébergé sur GitHub Pages `assets/geobuilder-logo.png`.
+- ✅ Tests pytest 80/80 OK.
+
 ### Session du 14/02/2026
 - ✅ Bypass Make.com complet — webhook direct SAV → Pionniers
 - ✅ Extraction PDF (photo, Modèle, Adresse) via PyMuPDF
