@@ -193,7 +193,7 @@ class TestPipelineLivraison:
         inst_call = fake_sheets.append_row.call_args_list[1]
         assert inst_call.args[0] == "installations"
         row = inst_call.args[1]
-        assert len(row) == 20  # 20 colonnes du Sheet réel
+        assert len(row) == 22  # 22 colonnes (U et V = photos)
         assert row[0] == "INST-2157"
         assert row[1] == "PIO-1154"
         assert row[2] == "G20 Moja"          # C = produit
@@ -203,6 +203,10 @@ class TestPipelineLivraison:
         assert row[9] == "true"              # J = pionnier_created
         assert row[18] == "/install/INST-2157"  # S = passeport_url (relative)
         assert row[19] == "true"             # T = installation_active
+        # U = photo_generateur_url (peut être vide pour G20 ou cloudinary)
+        assert isinstance(row[20], str)
+        # V = photo_emplacement_url (fallback historique si pas de PDF)
+        assert row[21].startswith("https://")
 
     def test_documents_4_rows_with_correct_types(self, run_pipeline, fake_sheets):
         run_pipeline()
@@ -254,6 +258,6 @@ class TestPipelineLivraison:
         pio_row = fake_sheets.append_row.call_args_list[0].args[1]
         assert len(pio_row) == 22
         inst_row = fake_sheets.append_row.call_args_list[1].args[1]
-        assert len(inst_row) == 20
+        assert len(inst_row) == 22
         doc_row = fake_sheets.append_row.call_args_list[2].args[1]
         assert len(doc_row) == 10

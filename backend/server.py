@@ -9,7 +9,7 @@ Remplace les modules Make défaillants (11 + 16) et orchestre :
 - Email de bienvenue (mock)
 - Portail Pionnier (lien magique)
 """
-from fastapi import FastAPI, APIRouter, HTTPException, Header, Depends
+from fastapi import FastAPI, APIRouter, HTTPException, Header, Depends, UploadFile, File, Form
 from fastapi.responses import HTMLResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
@@ -19,6 +19,7 @@ from pathlib import Path
 from typing import Optional
 import os
 import logging
+import httpx
 import jwt as pyjwt
 
 from services.sheets_service import get_sheets_service
@@ -26,7 +27,8 @@ from services.counter_service import increment_counter, peek_next_id, get_curren
 from services.github_service import get_github_service
 from services.template_service import render_template, TEMPLATE_DIR
 from services.email_service import send_email_mock, get_outbox_snapshot
-from services.catalog import get_product
+from services.catalog import get_product, HISTORIC_FALLBACK_PHOTO
+from services.pdf_extractor import extract_location_photo
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -56,11 +58,31 @@ class LivraisonInput(BaseModel):
     numero_serie: str
     date_installation: Optional[str] = None  # YYYY-MM-DD
     localisation: Optional[str] = ""
+    pdf_url: Optional[str] = None  # URL du rapport PDF (mode A : webhook depuis Make/Drive)
 
 
-class MaintenanceInput(BaseModel):
-    numero_serie: str  # on cherche l'installation à partir du NS
-    type: str  # ex: "Préventive", "Corrective"
+class SavInput(BaseModel):
+    """Payload du webhook SAV (rapport de maintenance).
+
+    Minimaliste : crée une ligne dans 05_Maintenances + régénère le passeport.
+    Aucune photo, aucun ticket, aucun ERP.
+    """
+    install_id: str
+    date_intervention: Optional[str] = None  # YYYY-MM-DD, défaut = aujourd'hui
+    type_intervention: str
+    technicien: Optional[str] = ""
+    statut: Optional[str] = "Réalisé"  # Réalisé / Terminé / OK / En cours / etc.
+    observations: Optional[str] = ""
+    pieces_changees: Optional[str] = ""
+    prochain_rdv: Optional[str] = ""
+    source: Optional[str] = "backend_sav"
+    rapport_url: Optional[str] = ""
+
+
+class MaintenanceInput(BaseModel):  # noqa: D401 — DEPRECATED, remplacé par SavInput
+    """DEPRECATED — conservé pour compat éventuelle. Utiliser SavInput."""
+    numero_serie: str
+    type: str
     date: Optional[str] = None
     technicien: str
     rapport: str
@@ -207,18 +229,18 @@ async def counters(_: dict = Depends(require_admin)):
 # =========================================================================
 # ROUTES — LIVRAISON (Webhook + Admin)
 # =========================================================================
-async def _process_livraison(payload: LivraisonInput) -> dict:
+async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes] = None) -> dict:
     """
     Pipeline LIVRAISON (P3 - templates prod alignés).
 
     1. Allocate PIO-XXXX, INST-XXXX (counter_service)
     2. Allocate doc IDs pour passeport / certificat pionnier / certificat garantie / portail
-    3. Render templates PROD (passeport_installation, certificat-pionnier,
+    3. Extraire la photo d'emplacement depuis le PDF (si fourni) et la pousser sur GitHub
+    4. Render templates PROD (passeport_installation, certificat-pionnier,
        certificat-garantie, email-final, portail_pionnier)
-    4. Push GitHub Pages (chemins alignés convention prod)
-    5. Append rows in 01_Pionniers + 02_Installations + 03_Documents
-       NB: ordre des colonnes Sheets INCHANGÉ vs P0/P1/P2 (validation P3.6)
-    6. Mock email
+    5. Push GitHub Pages (chemins alignés convention prod)
+    6. Append rows in 01_Pionniers + 02_Installations + 06_Documents
+    7. Mock email
     """
     sheets = get_sheets_service()
     gh = get_github_service()
@@ -250,11 +272,50 @@ async def _process_livraison(payload: LivraisonInput) -> dict:
     # URL historique relative à stocker en Sheet (convention héritée Make)
     passeport_url_sheet = f"/install/{install_id}"
 
+    # 2.bis Téléchargement / extraction de la photo d'emplacement
+    if pdf_bytes is None and payload.pdf_url:
+        try:
+            async with httpx.AsyncClient(timeout=30.0, follow_redirects=True) as client:
+                resp = await client.get(payload.pdf_url)
+                resp.raise_for_status()
+                pdf_bytes = resp.content
+        except Exception as e:
+            logger.warning(f"PDF download failed ({payload.pdf_url}): {e}")
+            pdf_bytes = None
+
+    photo_emplacement_url = ""
+    if pdf_bytes:
+        extracted = extract_location_photo(pdf_bytes)
+        if extracted:
+            img_bytes, ext = extracted
+            ext = "jpg" if ext.lower() in ("jpeg", "jpg") else ext
+            photo_path = f"docs/photos/{install_id}/emplacement.{ext}"
+            try:
+                photo_emplacement_url = gh.push_binary_file(
+                    photo_path, img_bytes,
+                    f"Add photo emplacement {install_id}",
+                )
+            except Exception as e:
+                logger.error(f"GitHub push photo failed: {e}")
+                sheets.log_event("github_push_photo", install_id, pio_id, "ERROR", str(e), "")
+
+    # Fallback clients historiques (pas de PDF) — photo générique
+    if not photo_emplacement_url:
+        photo_emplacement_url = HISTORIC_FALLBACK_PHOTO
+
+    # Photo générateur (statique Cloudinary selon modèle ; jamais extraite du PDF)
+    photo_generateur_url = produit_info.get("photo_generateur_url", "") or HISTORIC_FALLBACK_PHOTO
+
     # 3. Render templates PROD
     # 3a. Passeport (snake_case, 27 variables ; Q2 = display:none pour blocs sans donnée)
     histo_html = (
-        '<table class="histo"><tr><th>Date</th><th>Type</th><th>Technicien</th></tr>'
-        f'<tr><td>{date_inst}</td><td>Installation initiale</td><td>—</td></tr></table>'
+        '<div class="histo-row">'
+        f'<div class="histo-icon"></div>'
+        f'<div class="histo-date">{date_inst}</div>'
+        '<div class="histo-type">Installation initiale</div>'
+        '<div class="histo-tech">—</div>'
+        '<div class="histo-pdf"></div>'
+        '</div>'
     )
     ctx_passeport = {
         "install_id": install_id,
@@ -276,14 +337,14 @@ async def _process_livraison(payload: LivraisonInput) -> dict:
         "url_manuel": produit_info.get("manuel_url", ""),
         "url_certificat": url_certificat,
         "url_telecharger_tout": "",
-        # Blocs masqués V1 (Q2 = display:none) — Ambassadeur/Fondateur/photos/planning hors périmètre
+        # Blocs masqués V1 (Q2 = display:none) — Ambassadeur/Fondateur/planning hors périmètre
         "display_pionnier": "block",
         "display_ambassadeur": "none",
         "display_statut_communaute": "block",
         "badge_pionnier_url": "",
         "badge_ambassadeur_url": "",
-        "photo_generateur_url": "",
-        "photo_emplacement_url": "",
+        "photo_generateur_url": photo_generateur_url,
+        "photo_emplacement_url": photo_emplacement_url,
         "prochain_entretien": "",
         "prochain_dans": "",
         "prochain_type": "",
@@ -397,7 +458,7 @@ async def _process_livraison(payload: LivraisonInput) -> dict:
         logger.error(f"Sheet append pionniers failed: {e}")
         sheets.log_event("sheet_pionnier", install_id, pio_id, "ERROR", str(e), "")
 
-    # 6. Append in 02_Installations — 20 colonnes alignées Sheet réel
+    # 6. Append in 02_Installations — 22 colonnes alignées Sheet réel (U,V = photos)
     try:
         sheets.append_row("installations", [
             install_id,                                       # A  install_id
@@ -420,6 +481,8 @@ async def _process_livraison(payload: LivraisonInput) -> dict:
             "",                                               # R  prochain_entretien
             passeport_url_sheet,                              # S  passeport_url (Q1=a, URL relative)
             "true",                                           # T  installation_active (Q3=b)
+            photo_generateur_url,                             # U  photo_generateur_url
+            photo_emplacement_url,                            # V  photo_emplacement_url
         ])
     except Exception as e:
         logger.error(f"Sheet append installations failed: {e}")
@@ -471,13 +534,46 @@ async def _process_livraison(payload: LivraisonInput) -> dict:
 
 @api_router.post("/webhook/livraison")
 async def webhook_livraison(payload: LivraisonInput):
-    """Webhook public (à appeler depuis votre formulaire actuel ou Make)."""
+    """Webhook public en JSON (Make/Drive). Si payload.pdf_url est renseigné,
+    le PDF est téléchargé puis la photo terrain en est extraite."""
     try:
         return await _process_livraison(payload)
     except HTTPException:
         raise
     except Exception as e:
         logger.exception("Webhook livraison failed")
+        raise HTTPException(500, str(e))
+
+
+@api_router.post("/webhook/livraison-upload")
+async def webhook_livraison_upload(
+    nom: str = Form(...),
+    prenom: str = Form(...),
+    email: EmailStr = Form(...),
+    territoire: str = Form(...),
+    produit: str = Form(...),
+    numero_serie: str = Form(...),
+    telephone: str = Form(""),
+    pays: str = Form(""),
+    date_installation: Optional[str] = Form(None),
+    localisation: str = Form(""),
+    pdf: Optional[UploadFile] = File(None),
+):
+    """Webhook LIVRAISON en multipart/form-data, accepte un PDF directement
+    en pièce jointe (technicien / formulaire interne)."""
+    pdf_bytes = await pdf.read() if pdf is not None else None
+    payload = LivraisonInput(
+        nom=nom, prenom=prenom, email=email, telephone=telephone,
+        territoire=territoire, pays=pays, produit=produit,
+        numero_serie=numero_serie, date_installation=date_installation,
+        localisation=localisation,
+    )
+    try:
+        return await _process_livraison(payload, pdf_bytes=pdf_bytes)
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.exception("Webhook livraison-upload failed")
         raise HTTPException(500, str(e))
 
 
@@ -488,86 +584,207 @@ async def admin_create_livraison(payload: LivraisonInput, _: dict = Depends(requ
 
 
 # =========================================================================
-# ROUTES — MAINTENANCE (Webhook + Admin)
+# ROUTES — SAV (Maintenance) — pipeline minimal
 # =========================================================================
-async def _process_maintenance(payload: MaintenanceInput) -> dict:
-    sheets = get_sheets_service()
-    gh = get_github_service()
+# Statuts qui rendent une maintenance visible dans le passeport (cf. spec).
+_STATUTS_VISIBLES = {"réalisé", "realise", "réalisée", "terminé", "termine", "terminée", "ok"}
 
-    # 1. Find installation by NS
-    install = sheets.find_row_by("installations", "numéro série", payload.numero_serie)
-    if not install:
-        # Try alternative column name
-        install = sheets.find_row_by("installations", "Numéro série", payload.numero_serie)
-    if not install:
-        raise HTTPException(404, f"No installation found for NS={payload.numero_serie}")
 
-    install_id = install.get("install_id") or install.get("Install ID") or ""
-    pio_id = install.get("pio_id") or install.get("Pio ID") or ""
+def _build_historique_html(install_id: str, install_row: dict, sheets) -> str:
+    """Reconstruit le bloc HTML historique du passeport en lisant 05_Maintenances.
 
-    # 2. Allocate MAINT ID
-    _, maint_id = increment_counter("maintenance")
-    date_m = payload.date or _today_iso()
-    now_iso = datetime.now(timezone.utc).isoformat()  # noqa: F841 — variable préservée, sera utilisée en P3 (MAINTENANCE)
+    Affiche : Date / Type intervention / Technicien / Observations.
+    Filtre sur les statuts visibles (Réalisé / Terminé / OK).
+    Inclut systématiquement la ligne "Installation initiale" en tête.
+    """
+    date_inst = (
+        install_row.get("date_installation")
+        or install_row.get("date installation")
+        or ""
+    )
 
-    # 3. Append row in 05_Maintenances
+    rows_html = [
+        '<div class="histo-row">'
+        '<div class="histo-icon"></div>'
+        f'<div class="histo-date">{date_inst}</div>'
+        '<div class="histo-type">Installation initiale</div>'
+        '<div class="histo-tech">—</div>'
+        '<div class="histo-pdf"></div>'
+        '</div>'
+    ]
+
     try:
-        sheets.append_row("maintenances", [
-            maint_id, install_id, pio_id, payload.type, date_m,
-            payload.technicien, payload.rapport, "",  # pdf url filled later
-        ])
+        maint_rows = sheets.read_all("maintenances")
     except Exception as e:
-        logger.error(f"Sheet append maintenances failed: {e}")
-        raise HTTPException(500, f"Sheet write failed: {e}")
+        logger.warning(f"read maintenances failed: {e}")
+        maint_rows = []
 
-    # 4. Regenerate passeport with updated history
-    maint_rows = [r for r in sheets.read_all("maintenances") if str(r.get("install_id", "")) == install_id]
-    histo = '<table class="histo"><tr><th>Date</th><th>Type</th><th>Technicien</th><th>Rapport</th></tr>'
-    histo += f'<tr><td>{install.get("date installation", "")}</td><td>Installation</td><td>—</td><td>—</td></tr>'
-    for m in maint_rows:
-        histo += (f'<tr><td>{m.get("date","")}</td><td>{m.get("type","")}</td>'
-                  f'<td>{m.get("technicien","")}</td><td>{m.get("rapport","")[:80]}</td></tr>')
-    histo += "</table>"
+    # Tri par date décroissante (interventions récentes en haut)
+    filtered = [
+        r for r in maint_rows
+        if str(r.get("install_id", "")).strip() == install_id
+        and str(r.get("statut", "")).strip().lower() in _STATUTS_VISIBLES
+    ]
+    filtered.sort(key=lambda r: str(r.get("date_intervention", "")), reverse=True)
+
+    for r in filtered:
+        date = str(r.get("date_intervention", "") or "")
+        type_inter = str(r.get("type_intervention", "") or "")
+        technicien = str(r.get("technicien", "") or "—")
+        observations = str(r.get("observations", "") or "")[:120]
+        rows_html.append(
+            '<div class="histo-row">'
+            '<div class="histo-icon"></div>'
+            f'<div class="histo-date">{date}</div>'
+            f'<div class="histo-type">{type_inter}'
+            + (f'<span class="desc">{observations}</span>' if observations else "")
+            + '</div>'
+            f'<div class="histo-tech">{technicien}</div>'
+            '<div class="histo-pdf"></div>'
+            '</div>'
+        )
+    return "".join(rows_html)
+
+
+def _regenerate_passeport(install_row: dict, sheets, gh) -> str:
+    """Régénère le passeport HTML pour une installation et le push sur GitHub Pages.
+
+    Retourne l'URL publique du passeport.
+    """
+    install_id = (install_row.get("install_id") or "").strip()
+    pio_id = (install_row.get("pio_id") or "").strip()
+    produit_label = install_row.get("produit") or ""
+    produit_info = get_product(produit_label)
+    date_inst = install_row.get("date_installation") or install_row.get("date installation") or ""
+    date_garantie_fin = (
+        install_row.get("date_garantie_fin")
+        or install_row.get("date garantie fin")
+        or _compute_garantie_fin(date_inst, produit_info["garantie_mois"])
+    )
+    territoire = install_row.get("territoire_installation") or install_row.get("territoire installation") or ""
+    pays_affiche = install_row.get("pays") or territoire
+    nom_complet = install_row.get("nom_client") or ""
+    localisation_precise = install_row.get("localisation_precise") or territoire
+    numero_serie = install_row.get("numero_serie") or install_row.get("numéro_serie") or install_row.get("Numéro série") or ""
+    photo_gen = install_row.get("photo_generateur_url") or produit_info.get("photo_generateur_url") or HISTORIC_FALLBACK_PHOTO
+    photo_emp = install_row.get("photo_emplacement_url") or HISTORIC_FALLBACK_PHOTO
 
     pages_base = _github_pages_base()
     url_passeport = f"{pages_base}/passeports/{install_id}/index.html"
+    url_certificat = f"{pages_base}/certificats/pionnier/{pio_id}.html"
+
+    historique_html = _build_historique_html(install_id, install_row, sheets)
+
     ctx = {
-        "install_id": install_id, "pio_id": pio_id,
-        "nom_complet": "", "statut_label": "Garantie active", "statut_class": "active",
-        "produit": install.get("produit", ""), "numero_serie": payload.numero_serie,
-        "date_installation": install.get("date installation", ""),
-        "territoire_installation": "", "pays_affiche": "",
-        "localisation_precise": install.get("localisation", ""),
-        "garantie_label": "Active", "garantie_class": "active",
-        "date_garantie_fin": install.get("garantie fin", ""),
-        "historique_html": histo, "passeport_url": url_passeport,
-        "date_generation": _today_iso(), "doc_id": "",
+        "install_id": install_id,
+        "pio_id": pio_id,
+        "numero_serie": numero_serie,
+        "produit": produit_info["label"],
+        "date_installation": date_inst,
+        "date_garantie_fin": date_garantie_fin,
+        "territoire_installation": territoire,
+        "pays_affiche": pays_affiche,
+        "localisation_precise": localisation_precise,
+        "statut_label": "Pionnier",
+        "statut_class": "active",
+        "garantie_label": "Active",
+        "garantie_class": "active",
+        "historique_html": historique_html,
+        "passeport_url": url_passeport,
+        "url_fiche_technique": produit_info.get("fiche_technique_url", ""),
+        "url_manuel": produit_info.get("manuel_url", ""),
+        "url_certificat": url_certificat,
+        "url_telecharger_tout": "",
+        "display_pionnier": "block",
+        "display_ambassadeur": "none",
+        "display_statut_communaute": "block",
+        "badge_pionnier_url": "",
+        "badge_ambassadeur_url": "",
+        "photo_generateur_url": photo_gen,
+        "photo_emplacement_url": photo_emp,
+        "prochain_entretien": "",
+        "prochain_dans": "",
+        "prochain_type": "",
+        "prochain_rdv_url": "",
+        # Bonus contexte (nom client en cas de placeholder futur)
+        "nom_complet": nom_complet,
     }
-    html_passeport = render_template("passeport.html", ctx)
+    html = render_template("passeport_installation.html", ctx)
+    gh.push_file(
+        f"docs/passeports/{install_id}/index.html", html,
+        f"Update passeport {install_id} (SAV)",
+    )
+    return url_passeport
 
+
+async def _process_sav(payload: SavInput) -> dict:
+    """Pipeline SAV minimal :
+    1. Vérifier que l'installation existe (lecture 02_Installations).
+    2. Allouer MAINT-XXXX.
+    3. Append une ligne dans 05_Maintenances (12 colonnes A-L).
+    4. Régénérer le passeport + push GitHub.
+    Aucune photo, aucun ticket, aucun ERP.
+    """
+    sheets = get_sheets_service()
+    gh = get_github_service()
+
+    install = sheets.find_row_by("installations", "install_id", payload.install_id)
+    if not install:
+        raise HTTPException(404, f"No installation found for install_id={payload.install_id}")
+
+    pio_id = (install.get("pio_id") or "").strip()
+    _, maint_id = increment_counter("maintenance")
+    date_m = payload.date_intervention or _today_iso()
+
+    # 3. Append 05_Maintenances — 12 colonnes A..L (cf. structure réelle Sheet)
     try:
-        gh.push_file(f"docs/passeports/{install_id}/index.html", html_passeport,
-                     f"Update passeport {install_id} after maintenance {maint_id}")
+        sheets.append_row("maintenances", [
+            maint_id,                      # A  maintenance_id
+            payload.install_id,            # B  install_id
+            pio_id,                        # C  pio_id
+            date_m,                        # D  date_intervention
+            payload.type_intervention,     # E  type_intervention
+            payload.technicien or "",      # F  technicien
+            payload.statut or "Réalisé",   # G  statut
+            payload.rapport_url or "",     # H  rapport_url
+            payload.observations or "",    # I  observations
+            payload.pieces_changees or "", # J  pieces_changees
+            payload.prochain_rdv or "",    # K  prochain_rdv
+            payload.source or "backend_sav",  # L  source
+        ])
     except Exception as e:
-        logger.error(f"GitHub push (maintenance) failed: {e}")
+        logger.error(f"Sheet append maintenances failed: {e}")
+        sheets.log_event("sheet_maintenance", payload.install_id, pio_id, "ERROR", str(e), "")
+        raise HTTPException(500, f"Sheet write failed: {e}")
 
-    sheets.log_event("maintenance", install_id, pio_id, "OK",
-                     f"Maintenance added maint={maint_id} ns={payload.numero_serie}", "")
+    # 4. Régénération passeport + push GitHub
+    try:
+        url_passeport = _regenerate_passeport(install, sheets, gh)
+    except Exception as e:
+        logger.error(f"Passeport regeneration failed: {e}")
+        sheets.log_event("regen_passeport", payload.install_id, pio_id, "ERROR", str(e), "")
+        raise HTTPException(502, f"Passeport regeneration failed: {e}")
+
+    sheets.log_event("sav", payload.install_id, pio_id, "OK",
+                     f"SAV ajouté maint={maint_id} type={payload.type_intervention}", "")
 
     return {
-        "maint_id": maint_id, "install_id": install_id, "pio_id": pio_id,
+        "maintenance_id": maint_id,
+        "install_id": payload.install_id,
+        "pio_id": pio_id,
         "url_passeport": url_passeport,
     }
 
 
-@api_router.post("/webhook/maintenance")
-async def webhook_maintenance(payload: MaintenanceInput):
-    return await _process_maintenance(payload)
+@api_router.post("/sav/rapport")
+async def sav_rapport(payload: SavInput):
+    """Webhook public SAV (Make/Odoo). Append + régénération passeport."""
+    return await _process_sav(payload)
 
 
-@api_router.post("/admin/maintenance")
-async def admin_create_maintenance(payload: MaintenanceInput, _: dict = Depends(require_admin)):
-    return await _process_maintenance(payload)
+@api_router.post("/admin/sav")
+async def admin_create_sav(payload: SavInput, _: dict = Depends(require_admin)):
+    return await _process_sav(payload)
 
 
 # =========================================================================
@@ -595,6 +812,20 @@ async def list_maintenances(_: dict = Depends(require_admin)):
         return get_sheets_service().read_all("maintenances")
     except Exception as e:
         raise HTTPException(500, str(e))
+
+
+@api_router.get("/admin/installation/{install_id}")
+async def admin_get_installation(install_id: str, _: dict = Depends(require_admin)):
+    """Retourne une installation par son ID + historique des maintenances filtrées."""
+    sheets = get_sheets_service()
+    install = sheets.find_row_by("installations", "install_id", install_id)
+    if not install:
+        raise HTTPException(404, f"No installation found for {install_id}")
+    maints = [
+        r for r in sheets.read_all("maintenances")
+        if str(r.get("install_id", "")).strip() == install_id
+    ]
+    return {"installation": install, "maintenances": maints}
 
 
 # NOTE P0: /api/admin/emails-outbox retiré (dépendait de MongoDB).
