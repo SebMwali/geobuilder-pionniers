@@ -3,117 +3,195 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="x-apple-disable-message-reformatting">
+<meta name="format-detection" content="telephone=no,address=no,email=no,date=no,url=no">
 <title>Bienvenue — Geobuilder Pionniers</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { background:#0a0d14; font-family:'Helvetica Neue',Arial,sans-serif; color:#e8edf5; }
-.wrap { max-width:640px; margin:0 auto; }
-img.block { display:block; width:100%; line-height:0; font-size:0; }
-
-/* STATS */
-.stats { display:table; width:100%; background:#0b0f1a; border-top:1px solid rgba(58,143,232,0.25); border-bottom:1px solid rgba(58,143,232,0.25); }
-.stat { display:table-cell; text-align:center; padding:18px 8px; border-right:1px solid rgba(58,143,232,0.15); vertical-align:middle; }
-.stat:last-child { border-right:none; }
-.stat svg { margin:0 auto 5px; display:block; }
-.stat-label { font-size:7px; letter-spacing:3px; text-transform:uppercase; color:#6677aa; margin-bottom:4px; }
-.stat-value { font-size:18px; font-weight:800; color:#4FC3F7; letter-spacing:1px; }
-.stat-value.sm { font-size:13px; }
-
-/* CARDS */
-.section { background:#0a0d14; padding:24px 20px 20px; }
-.sep { font-size:8px; letter-spacing:5px; text-transform:uppercase; color:#6677aa; text-align:center; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
-.sep::before,.sep::after { content:''; flex:1; height:1px; background:rgba(58,143,232,0.15); }
-.row { display:table; width:100%; border-collapse:separate; border-spacing:0 8px; margin-bottom:0; }
-.pair { display:table-row; }
-.card { display:table-cell; width:50%; vertical-align:top; padding:0 4px 8px 4px; }
-.card:first-child { padding-left:0; padding-right:4px; }
-.card:last-child { padding-right:0; padding-left:4px; }
-.card a { display:flex; align-items:center; gap:10px; background:#0d1220; border:1px solid rgba(58,143,232,0.2); border-radius:8px; padding:12px 14px; text-decoration:none; color:inherit; }
-.card-body { flex:1; }
-.card-title { font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8edf5; margin-bottom:3px; }
-.card-desc { font-size:10px; color:#7788aa; line-height:1.4; }
-.arrow { color:#3A8FE8; font-size:16px; flex-shrink:0; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:#0a0d14; font-family:'Helvetica Neue',Arial,sans-serif; color:#e8edf5; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
+  table { border-collapse:collapse; mso-table-lspace:0; mso-table-rspace:0; }
+  img { border:0; outline:none; text-decoration:none; -ms-interpolation-mode:bicubic; display:block; }
+  a { color:inherit; text-decoration:none; }
+  .wrap { max-width:640px; margin:0 auto; background:#0a0d14; }
+  .stat-label { font-size:9px; letter-spacing:2.5px; text-transform:uppercase; color:#6677aa; margin-bottom:6px; }
+  .stat-value { font-size:18px; font-weight:800; color:#4FC3F7; letter-spacing:1px; }
+  .stat-value.sm { font-size:14px; }
+  .section-title { font-size:9px; letter-spacing:4px; text-transform:uppercase; color:#6677aa; padding:0 4px 16px; }
+  .card-cell { background:#0d1220; border:1px solid rgba(58,143,232,0.2); border-radius:10px; padding:14px 16px; }
+  .card-title { font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#e8edf5; margin-bottom:4px; }
+  .card-desc { font-size:11px; color:#7788aa; line-height:1.45; }
+  .arrow { color:#3A8FE8; font-size:18px; font-weight:600; }
 </style>
 </head>
 <body>
-<div class="wrap">
 
-<img class="block" src="https://sebmwali.github.io/geobuilder-pionniers/email-header.jpeg" alt="Geobuilder Pionniers">
+<!-- Preheader / hidden marker unique anti-Gmail-trim -->
+<div style="display:none;line-height:0;font-size:0;color:transparent;opacity:0;max-height:0;overflow:hidden;mso-hide:all">
+  Bienvenue Pionnier {{PIO_ID}} — votre dossier {{INSTALL_ID}} est prêt. {{ANNEE}}
+</div>
 
-<table class="stats" role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background:#0a0d14;border:1px solid #1c2230;border-radius:14px;margin:18px 0 22px;">
+<table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background:#0a0d14;">
   <tr>
-    <td class="stat" align="center" valign="middle" width="33.33%" style="padding:18px 8px;border-right:1px solid #1c2230;">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3A8FE8" stroke-width="1.5"><circle cx="12" cy="7" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-      <div class="stat-label">Pionnier N°</div>
-      <div class="stat-value">{{PIO_ID}}</div>
-    </td>
-    <td class="stat" align="center" valign="middle" width="33.33%" style="padding:18px 8px;border-right:1px solid #1c2230;">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3A8FE8" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-      <div class="stat-label">Territoire</div>
-      <div class="stat-value sm">{{PAYS}}</div>
-    </td>
-    <td class="stat" align="center" valign="middle" width="33.33%" style="padding:18px 8px;">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3A8FE8" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
-      <div class="stat-label">Membre depuis</div>
-      <div class="stat-value">{{ANNEE}}</div>
+    <td align="center">
+
+      <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="640" class="wrap" style="max-width:640px;">
+
+        <!-- 1) Hero image -->
+        <tr>
+          <td style="padding:0;line-height:0;font-size:0;">
+            <img src="https://sebmwali.github.io/geobuilder-pionniers/email-header.jpeg" alt="Geobuilder Pionniers" width="640" style="width:100%;max-width:640px;height:auto;display:block;">
+          </td>
+        </tr>
+
+        <!-- 2) Stats -->
+        <tr>
+          <td style="padding:22px 20px 8px;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background:#0b0f1a;border:1px solid rgba(58,143,232,0.25);border-radius:14px;">
+              <tr>
+                <td align="center" valign="middle" width="33.33%" style="padding:18px 8px;border-right:1px solid rgba(58,143,232,0.15);">
+                  <div class="stat-label">Pionnier N°</div>
+                  <div class="stat-value">{{PIO_ID}}</div>
+                </td>
+                <td align="center" valign="middle" width="33.33%" style="padding:18px 8px;border-right:1px solid rgba(58,143,232,0.15);">
+                  <div class="stat-label">Territoire</div>
+                  <div class="stat-value sm">{{PAYS}}</div>
+                </td>
+                <td align="center" valign="middle" width="33.33%" style="padding:18px 8px;">
+                  <div class="stat-label">Membre depuis</div>
+                  <div class="stat-value">{{ANNEE}}</div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <!-- 3) Section title -->
+        <tr>
+          <td style="padding:18px 24px 0;">
+            <div class="section-title">— Vos Ressources —</div>
+          </td>
+        </tr>
+
+        <!-- 4) Cards as nested tables (Gmail-safe) -->
+        <tr>
+          <td style="padding:0 20px 24px;">
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+
+              <tr>
+                <td width="50%" valign="top" style="padding:4px;">
+                  <a href="{{URL_CARTE}}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" class="card-cell" style="background:#0d1220;border:1px solid rgba(58,143,232,0.2);border-radius:10px;">
+                      <tr>
+                        <td valign="middle" style="padding:14px 14px;">
+                          <div class="card-title">Ma Carte</div>
+                          <div class="card-desc">Télécharger votre carte Pionnier</div>
+                        </td>
+                        <td valign="middle" align="right" width="20" style="padding:14px 14px;">
+                          <span class="arrow">›</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </a>
+                </td>
+                <td width="50%" valign="top" style="padding:4px;">
+                  <a href="{{URL_CERTIFICAT}}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" class="card-cell" style="background:#0d1220;border:1px solid rgba(58,143,232,0.2);border-radius:10px;">
+                      <tr>
+                        <td valign="middle" style="padding:14px 14px;">
+                          <div class="card-title">Mon Certificat</div>
+                          <div class="card-desc">Certificat Pionnier (PDF)</div>
+                        </td>
+                        <td valign="middle" align="right" width="20" style="padding:14px 14px;">
+                          <span class="arrow">›</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </a>
+                </td>
+              </tr>
+
+              <tr>
+                <td width="50%" valign="top" style="padding:4px;">
+                  <a href="{{URL_GARANTIE}}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" class="card-cell" style="background:#0d1220;border:1px solid rgba(58,143,232,0.2);border-radius:10px;">
+                      <tr>
+                        <td valign="middle" style="padding:14px 14px;">
+                          <div class="card-title">Ma Garantie</div>
+                          <div class="card-desc">Certificat de garantie (PDF)</div>
+                        </td>
+                        <td valign="middle" align="right" width="20" style="padding:14px 14px;">
+                          <span class="arrow">›</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </a>
+                </td>
+                <td width="50%" valign="top" style="padding:4px;">
+                  <a href="{{URL_PASSEPORT}}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" class="card-cell" style="background:#0d1220;border:1px solid rgba(58,143,232,0.2);border-radius:10px;">
+                      <tr>
+                        <td valign="middle" style="padding:14px 14px;">
+                          <div class="card-title">Mon Passeport</div>
+                          <div class="card-desc">Passeport d'installation</div>
+                        </td>
+                        <td valign="middle" align="right" width="20" style="padding:14px 14px;">
+                          <span class="arrow">›</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </a>
+                </td>
+              </tr>
+
+              <tr>
+                <td width="50%" valign="top" style="padding:4px;">
+                  <a href="{{URL_ESPACE}}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" class="card-cell" style="background:#0d1220;border:1px solid rgba(58,143,232,0.2);border-radius:10px;">
+                      <tr>
+                        <td valign="middle" style="padding:14px 14px;">
+                          <div class="card-title">Mon Espace</div>
+                          <div class="card-desc">Profil, badges, installations</div>
+                        </td>
+                        <td valign="middle" align="right" width="20" style="padding:14px 14px;">
+                          <span class="arrow">›</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </a>
+                </td>
+                <td width="50%" valign="top" style="padding:4px;">
+                  <a href="{{URL_AMBASSADEUR_CTA}}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;">
+                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" class="card-cell" style="background:#0d1220;border:1px solid rgba(58,143,232,0.35);border-radius:10px;">
+                      <tr>
+                        <td valign="middle" style="padding:14px 14px;">
+                          <div class="card-title" style="color:#4FC3F7;">{{CTA_AMBASSADEUR_TITLE}}</div>
+                          <div class="card-desc">{{CTA_AMBASSADEUR_DESC}}</div>
+                        </td>
+                        <td valign="middle" align="right" width="20" style="padding:14px 14px;">
+                          <span class="arrow">›</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </a>
+                </td>
+              </tr>
+
+            </table>
+          </td>
+        </tr>
+
+        <!-- 5) Footer (signature-style to break Gmail clustering) -->
+        <tr>
+          <td style="padding:8px 20px 28px;text-align:center;color:#4a5568;font-size:10px;letter-spacing:1.5px;">
+            Geobuilder — Reprenons le pouvoir sur l'eau<br>
+            Pionnier {{PIO_ID}} • Installation {{INSTALL_ID}} • {{ANNEE}}
+          </td>
+        </tr>
+
+      </table>
     </td>
   </tr>
 </table>
 
-<div class="section">
-  <div class="sep">VOS RESSOURCES</div>
-  <div class="row">
-    <div class="pair">
-      <div class="card">
-        <a href="{{URL_CARTE}}" target="_blank" rel="noopener">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3A8FE8" stroke-width="1.5"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-          <div class="card-body"><div class="card-title">Ma Carte</div><div class="card-desc">Télécharger votre carte Pionnier (PNG)</div></div>
-          <div class="arrow">›</div>
-        </a>
-      </div>
-      <div class="card">
-        <a href="{{URL_CERTIFICAT}}" target="_blank" rel="noopener">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3A8FE8" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M8 16l-3 5h14l-3-5"/></svg>
-          <div class="card-body"><div class="card-title">Mon Certificat</div><div class="card-desc">Télécharger votre certificat Pionnier (PDF)</div></div>
-          <div class="arrow">›</div>
-        </a>
-      </div>
-    </div>
-    <div class="pair">
-      <div class="card">
-        <a href="{{URL_GARANTIE}}" target="_blank" rel="noopener">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3A8FE8" stroke-width="1.5"><path d="M12 2L4 6v6c0 5.1 3.4 9.9 8 11.3C17.6 21.9 21 17.1 21 12V6l-8-4z"/></svg>
-          <div class="card-body"><div class="card-title">Ma Garantie</div><div class="card-desc">Télécharger votre certificat de garantie (PDF)</div></div>
-          <div class="arrow">›</div>
-        </a>
-      </div>
-      <div class="card">
-        <a href="{{URL_PASSEPORT}}" target="_blank" rel="noopener">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3A8FE8" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-          <div class="card-body"><div class="card-title">Mon Passeport</div><div class="card-desc">Accéder au passeport d'installation dynamique</div></div>
-          <div class="arrow">›</div>
-        </a>
-      </div>
-    </div>
-    <div class="pair">
-      <div class="card">
-        <a href="{{URL_ESPACE}}" target="_blank" rel="noopener">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3A8FE8" stroke-width="1.5"><circle cx="12" cy="7" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-          <div class="card-body"><div class="card-title">Mon Espace Pionnier</div><div class="card-desc">Gérer votre profil, vos badges et vos installations</div></div>
-          <div class="arrow">›</div>
-        </a>
-      </div>
-      <div class="card">
-        <a href="{{URL_FAMILLE}}" target="_blank" rel="noopener">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3A8FE8" stroke-width="1.5"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="7" r="3" opacity=".5"/><path d="M1 20c0-3.3 3.1-6 8-6s8 2.7 8 6"/><path d="M17 14c2.5.5 5 2 5 6" opacity=".5"/></svg>
-          <div class="card-body"><div class="card-title">Ma Famille</div><div class="card-desc">Rejoindre la famille des Pionniers</div></div>
-          <div class="arrow">›</div>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-</div>
 </body>
 </html>

@@ -11,132 +11,88 @@
   *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
   html,body { background:#0D0D0D; font-family:'Montserrat',-apple-system,Segoe UI,Roboto,sans-serif; color:#fff; }
   body { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px 12px; }
-
   .container { width:100%; max-width:560px; }
 
   .badge-wrap {
     position:relative;
     width:100%;
-    aspect-ratio: 1 / 1.25;
-    background:
-      radial-gradient(ellipse 120% 30% at 50% 110%, rgba(58,143,232,0.35) 0%, rgba(58,143,232,0.08) 30%, transparent 60%),
-      radial-gradient(ellipse 70% 12% at 50% 100%, rgba(120,180,255,0.55) 0%, transparent 70%),
-      #000;
-    border:1px solid rgba(255,255,255,0.08);
+    aspect-ratio: 1024 / 1536;   /* aligné sur l'image fournie */
     border-radius:18px;
     overflow:hidden;
-    box-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(58,143,232,.12) inset;
-    display:flex; flex-direction:column;
-    padding:7% 6% 5%;
-    text-align:center;
+    box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(58,143,232,.12);
   }
+  .badge-bg {
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+    user-select:none;
+    -webkit-user-drag:none;
+  }
+  .overlay { position:absolute; inset:0; pointer-events:none; }
 
-  /* Logo Geobuilder text */
-  .gb-logo {
-    font-family:'Montserrat',sans-serif;
-    font-weight:700;
-    font-size:clamp(20px, 4.2vw, 28px);
-    letter-spacing:0.08em;
-    color:#e7e7e7;
-    background:linear-gradient(180deg,#fff 20%,#7a7a7a 80%);
-    -webkit-background-clip:text;
-    background-clip:text;
-    -webkit-text-fill-color:transparent;
-    text-shadow:0 0 1px rgba(255,255,255,0.2);
-  }
-  .gb-tagline {
-    font-size:clamp(8px, 1.6vw, 10px);
-    letter-spacing:0.30em;
-    color:#9aa4b2;
-    margin-top:4px;
-    text-transform:uppercase;
-  }
-  .gb-tagline .accent { color:#3A8FE8; }
-
-  .divider {
-    width:60%;
-    margin:18px auto 14px;
-    height:1px;
-    background:linear-gradient(90deg, transparent, rgba(58,143,232,0.75), transparent);
-    box-shadow:0 0 6px rgba(58,143,232,0.55);
-  }
-
-  .pionnier-title {
-    font-family:'Montserrat',sans-serif;
-    font-weight:400;
-    font-size:clamp(28px, 6.4vw, 48px);
-    letter-spacing:0.18em;
-    color:#fff;
-    background:linear-gradient(180deg,#fff 20%,#7a7a7a 80%);
-    -webkit-background-clip:text;
-    background-clip:text;
-    -webkit-text-fill-color:transparent;
-    margin-top:8px;
-  }
-  .pionnier-sub {
-    font-size:clamp(11px, 2.0vw, 13px);
-    letter-spacing:0.32em;
-    color:#cfd6e0;
-    margin-top:6px;
-    text-transform:uppercase;
-  }
-
+  /* Nom client — entre les deux barres bleues, sous "DE L'EAU DE L'AIR" */
   .nom-client {
+    position:absolute;
+    top:40.5%;
+    left:0; right:0;
+    text-align:center;
     font-family:'Montserrat',sans-serif;
     font-weight:600;
     letter-spacing:0.18em;
-    font-size:clamp(18px, 4.0vw, 28px);
+    font-size:clamp(16px, 3.6vw, 26px);
     color:#ffffff;
     text-transform:uppercase;
-    margin-top:10px;
-    line-height:1.15;
+    line-height:1.1;
+    padding:0 10%;
+    text-shadow:0 2px 12px rgba(0,0,0,0.7);
   }
 
-  .pin {
-    margin:12px auto 0;
-    width:22px; height:22px;
-    color:#3A8FE8;
-  }
-  .pin svg { width:100%; height:100%; display:block; filter:drop-shadow(0 0 4px rgba(58,143,232,0.55)); }
-
+  /* Territoire — sous le pin bleu */
   .territoire {
+    position:absolute;
+    top:55.5%;
+    left:0; right:0;
+    text-align:center;
     font-family:'Montserrat',sans-serif;
     font-weight:500;
     letter-spacing:0.30em;
     font-size:clamp(11px, 2.0vw, 14px);
     color:#ffffff;
     text-transform:uppercase;
-    margin-top:6px;
+    text-shadow:0 2px 8px rgba(0,0,0,0.7);
   }
 
-  .depuis-label {
-    font-size:clamp(10px, 1.8vw, 12px);
-    letter-spacing:0.40em;
-    color:#9aa4b2;
-    margin-top:14px;
-    text-transform:uppercase;
-  }
+  /* Année — sous "DEPUIS" */
   .annee {
+    position:absolute;
+    top:69.5%;
+    left:0; right:0;
+    text-align:center;
     font-family:'Montserrat',sans-serif;
     font-weight:500;
     letter-spacing:0.30em;
     font-size:clamp(13px, 2.4vw, 17px);
     color:#ffffff;
-    margin-top:4px;
+    text-shadow:0 2px 8px rgba(0,0,0,0.7);
   }
 
+  /* QR code — centré dans le carré bleu en bas (zone Earth) */
   .qr-zone {
-    margin:auto auto 0;
-    width:24%;
+    position:absolute;
+    left:50%;
+    top:85%;
+    transform:translate(-50%, -50%);
+    width:22%;
     aspect-ratio:1/1;
     background:#fff;
-    border-radius:8px;
-    padding:5px;
-    box-shadow:0 0 0 2px rgba(58,143,232,0.85), 0 0 20px rgba(58,143,232,0.55);
+    border-radius:4px;
+    padding:4px;
+    display:flex; align-items:center; justify-content:center;
+    pointer-events:auto;
   }
   .qr-zone img { width:100%; height:100%; display:block; image-rendering:pixelated; }
 
-  /* CTA + meta */
   .cta {
     display:block;
     margin:24px auto 0;
@@ -168,30 +124,14 @@
 
 <div class="container">
   <div class="badge-wrap">
-    <div class="gb-logo">GEOBUILDER</div>
-    <div class="gb-tagline">Reprenons le pouvoir sur <span class="accent">l'eau</span></div>
-
-    <div class="pionnier-title">PIONNIER</div>
-    <div class="pionnier-sub">de l'eau de l'air</div>
-
-    <div class="divider"></div>
-
-    <div class="nom-client">{{NOM_COMPLET}}</div>
-
-    <div class="divider"></div>
-
-    <div class="pin">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
-    </div>
-    <div class="territoire">{{TERRITOIRE}}</div>
-
-    <div class="divider"></div>
-
-    <div class="depuis-label">Depuis</div>
-    <div class="annee">{{ANNEE}}</div>
-
-    <div class="qr-zone">
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=0&data={{QR_URL_ENCODED}}" alt="QR code Espace Pionnier">
+    <img class="badge-bg" src="https://sebmwali.github.io/geobuilder-pionniers/assets/badge-pionnier-bg.png" alt="Badge Pionnier Geobuilder">
+    <div class="overlay">
+      <div class="nom-client">{{NOM_COMPLET}}</div>
+      <div class="territoire">{{TERRITOIRE}}</div>
+      <div class="annee">{{ANNEE}}</div>
+      <div class="qr-zone">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=0&data={{QR_URL_ENCODED}}" alt="QR code Espace Pionnier">
+      </div>
     </div>
   </div>
 

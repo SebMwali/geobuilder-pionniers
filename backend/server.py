@@ -567,6 +567,18 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
     html_portail = render_template("portail_pionnier.html", ctx_portail)
 
     # 3e. Email final (UPPER_SNAKE)
+    # Logique CTA "Famille / Devenez Ambassadeur" :
+    # - Si le Pionnier est déjà fondateur/ambassadeur => bouton "Ma Famille"
+    # - Sinon => incitation "Devenez Ambassadeur" pointant vers le template ambassadeur
+    if payload.fondateur:
+        cta_url = url_famille
+        cta_title = "Ma Famille"
+        cta_desc = "Rejoindre la famille des Pionniers"
+    else:
+        cta_url = url_ambassadeur or url_famille
+        cta_title = "Devenez Ambassadeur"
+        cta_desc = "Rejoignez le cercle des Pionniers Ambassadeurs"
+
     ctx_email = {
         "ANNEE": annee,
         "INSTALL_ID": install_id,
@@ -578,6 +590,9 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "URL_FAMILLE": url_famille,
         "URL_GARANTIE": url_garantie,
         "URL_PASSEPORT": url_passeport,
+        "URL_AMBASSADEUR_CTA": cta_url,
+        "CTA_AMBASSADEUR_TITLE": cta_title,
+        "CTA_AMBASSADEUR_DESC": cta_desc,
     }
     email_html = render_template("email-final.html", ctx_email)
 
