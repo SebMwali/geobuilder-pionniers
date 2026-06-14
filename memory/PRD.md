@@ -90,6 +90,15 @@ I date_entree · J statut · **K fondateur** · **L ambassadeur** · M-V (divers
 - Pipeline SAV minimal `/api/sav/rapport`
 - 61 tests pytest
 
+### Phase V4 — Envoi email RÉEL via Resend (2026-02)
+- ✅ Intégration SDK `resend>=2.0.0` (réutilise le compte SAV avec domaine `geobuilder.fr` déjà vérifié)
+- ✅ Clé API dédiée Pionniers (audit séparé SAV vs Pionniers)
+- ✅ `email_service.send_email_mock()` envoie maintenant via Resend, avec fallback mock automatique en cas d'erreur
+- ✅ Variables d'env : `RESEND_API_KEY`, `SENDER_EMAIL=pionniers@geobuilder.fr`, `SENDER_NAME=Pionniers Geobuilder`
+- ✅ Async non-bloquant via `asyncio.to_thread`
+- ✅ Test E2E live confirmé : email `Bienvenue dans la Famille des Pionniers Geobuilder` envoyé à `sebastien.fumaz@geobuilder.fr` (Resend ID `62089241-...`)
+- ✅ Tous les tests passent (80/80)
+
 ### Phase V3 — Fusion webhook SAV-natif + parsing PDF (Plan C)
 - ✅ `LivraisonInput` accepte le payload **SAV natif** (`ns`, `client`, `email_client`, `date` DD/MM/YYYY, `rapport_pdf_url`, `report_id`, `prochain_entretien`) ET le format canonique PIONNIERS-DATA
 - ✅ Normalisation automatique : `ns→numero_serie`, split nom/prénom depuis `client`, conversion date FR→ISO
