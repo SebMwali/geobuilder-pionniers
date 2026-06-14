@@ -193,7 +193,7 @@ class TestPipelineLivraison:
         inst_call = fake_sheets.append_row.call_args_list[1]
         assert inst_call.args[0] == "installations"
         row = inst_call.args[1]
-        assert len(row) == 22  # 22 colonnes (U et V = photos)
+        assert len(row) == 23  # 23 colonnes (U+V = photos, W = report_id)
         assert row[0] == "INST-2157"
         assert row[1] == "PIO-1154"
         assert row[2] == "G20 Moja"          # C = produit
@@ -258,6 +258,6 @@ class TestPipelineLivraison:
         pio_row = fake_sheets.append_row.call_args_list[0].args[1]
         assert len(pio_row) == 22
         inst_row = fake_sheets.append_row.call_args_list[1].args[1]
-        assert len(inst_row) == 22
+        assert len(inst_row) == 23
         doc_row = fake_sheets.append_row.call_args_list[2].args[1]
         assert len(doc_row) == 10

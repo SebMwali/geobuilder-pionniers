@@ -3,108 +3,120 @@
 ## Original problem statement
 
 Remplacer une automation Make.com défaillante par un backend Python/FastAPI qui :
-- utilise **Google Sheets** comme **unique** source de vérité (pas de MongoDB)
-- pousse les documents générés (HTML, images extraites du PDF) sur **GitHub Pages**
-- expose des webhooks pour la **Livraison** (création complète d'un Pionnier + Installation + documents)
-et le **SAV** (ajout maintenance + régénération du passeport)
+- utilise **Google Sheets** comme **unique** source de vérité
+- pousse les documents (HTML, photos extraites du PDF) sur **GitHub Pages**
+- expose des webhooks **directs SAV → Pionniers** (suppression de Make)
+- conserve une architecture découplée pour qu'Odoo puisse remplacer SAV sans toucher Pionniers
 - envoie un email de bienvenue (mock V1)
 
-L'application doit rester **un moteur documentaire léger**. À terme, Odoo alimentera ce moteur.
-Pas d'ERP, pas de gestion de tickets, pas de stocks, pas de planning.
+L'application doit rester **un moteur documentaire léger**. Aucun ERP, ticket, planning, stock, tournée.
 
-## Architecture validée
+## Architecture validée (V2 — sans Make)
 
-- **Base de données** : Google Sheets (onglets `01_Pionniers`, `02_Installations`, `04_Parametres`,
-  `05_Maintenances`, `06_Documents`, `08_Automations_Log`)
+```
+SAV-app (ou Odoo demain) → POST /api/webhook/livraison
+                                   ↓
+                          Bloc PIONNIERS-DATA (JSON canonique)
+                                   ↓
+                       Backend Pionniers (FastAPI)
+                                   ↓
+                Google Sheets + GitHub Pages + Email
+```
+
+- **Base de données** : Google Sheets (`01_Pionniers`, `02_Installations`, `04_Parametres`, `05_Maintenances`, `06_Documents`, `08_Automations_Log`)
 - **Stockage / hébergement** : GitHub Pages (branche `main-/-/(root)`, dossier `/docs/`)
 - **Photos installation** :
-  - `photo_generateur_url` : URL **Cloudinary statique** selon le modèle (G30 → URL G30, etc.)
-  - `photo_emplacement_url` : **extraite du PDF** d'installation (plus grand JPEG) et poussée sur
-    `docs/photos/INST-XXXX/emplacement.jpg`
-  - Fallback (clients historiques sans PDF) : `https://res.cloudinary.com/dahmkv4ra/image/upload/v1781392846/G-30_myykrz.png`
-- **QR codes** : générés natively côté template via `api.qrserver.com`
-  - Passeport → URL du passeport
-  - Certificat garantie → URL de validation
+  - `photo_generateur_url` : URL **Cloudinary statique** selon modèle (G30 mappé en V1)
+  - `photo_emplacement_url` : **extraite du PDF** d'installation (PyMuPDF, plus grand JPEG)
+  - Fallback : `https://res.cloudinary.com/dahmkv4ra/image/upload/v1781392846/G-30_myykrz.png`
+- **Idempotence** : `report_id` stocké en col W de `02_Installations`. Renvois ignorés.
+- **Fondateur** : `fondateur=true` → génère `docs/ambassadeurs/{pio_id}.html` immédiatement.
+
+## Schéma PIONNIERS-DATA officiel
+
+Voir `/app/memory/SAV_INTEGRATION.md` pour la spec complète (champs, types, exemples curl).
 
 ## Endpoints API
 
-| Méthode | Route                         | Usage                                                |
-|---------|-------------------------------|------------------------------------------------------|
-| POST    | `/api/webhook/livraison`      | JSON, payload + optionnel `pdf_url`                  |
-| POST    | `/api/webhook/livraison-upload` | multipart/form-data avec PDF en pièce jointe       |
-| POST    | `/api/sav/rapport`            | Ajoute une intervention SAV + régénère le passeport  |
-| POST    | `/api/admin/sav`              | Admin variant                                         |
-| POST    | `/api/admin/livraison`        | Admin variant                                         |
-| GET     | `/api/admin/installation/{id}`| Détail installation + historique maintenances        |
-| GET     | `/api/admin/pionniers`        | Liste                                                 |
-| GET     | `/api/admin/installations`    | Liste                                                 |
-| GET     | `/api/admin/maintenances`     | Liste                                                 |
-| GET     | `/api/counters`               | État compteurs                                        |
-| GET     | `/api/health`                 | Santé intégrations (Sheets, GitHub, Templates)        |
+| Méthode | Route | Usage |
+|---------|-------|-------|
+| POST | `/api/webhook/livraison` | JSON PIONNIERS-DATA (mode principal) |
+| POST | `/api/webhook/livraison-upload` | multipart/form-data avec PDF en pièce jointe |
+| POST | `/api/sav/rapport` | Ajout intervention + régénère passeport |
+| POST | `/api/admin/sav` | Variant admin |
+| POST | `/api/admin/livraison` | Variant admin |
+| GET | `/api/admin/installation/{id}` | Détail + historique maintenances |
+| GET | `/api/admin/pionniers` / `installations` / `maintenances` | Listes |
+| GET | `/api/counters` | État compteurs |
+| GET | `/api/health` | Santé intégrations |
 
-## Pipeline Livraison
+## Inventaire QR codes
 
-1. Alloue IDs : PIO-XXXX, INST-XXXX, 4× DOC-XXXX
-2. Si PDF fourni : extrait la photo terrain (plus grand JPEG via PyMuPDF) → push GitHub
-3. Photo générateur ← URL Cloudinary statique selon modèle catalog
-4. Render templates (passeport, certificats pionnier+garantie, portail, email)
-5. Push 4 fichiers HTML sur GitHub Pages
-6. Append : 1 ligne `01_Pionniers` (22 cols), 1 ligne `02_Installations` (22 cols, U+V = photos),
-   4 lignes `06_Documents` (10 cols)
-7. Envoi email mocké
-
-## Pipeline SAV minimal
-
-1. Vérifie l'existence de l'installation
-2. Alloue MAINT-XXXX
-3. Append 1 ligne `05_Maintenances` (12 cols A→L)
-4. Lit l'historique filtré (statuts `Réalisé` / `Terminé` / `OK`)
-5. Régénère le passeport et le push sur GitHub
-**Aucune photo, aucun ticket, aucun ERP.**
+| Document | Destination du QR |
+|---|---|
+| `passeport_installation.html` | `passeport_url` (sa propre URL GitHub Pages) |
+| `certificat-garantie.html` | `URL_GARANTIE` (sa propre URL GitHub Pages) ← V2 corrigé |
+| `certificat-pionnier.html` | Aucun QR (document symbolique) |
+| `portail_pionnier.html` | Aucun QR |
+| `ambassadeur.html` | Aucun QR |
+| `email-final.html` | Aucun QR |
 
 ## Structure réelle des Sheets
 
-### 02_Installations (22 colonnes)
+### 02_Installations (23 colonnes)
 A install_id · B pio_id · C produit · D numero_serie · E date_installation · F date_sortie ·
 G territoire_installation · H installateur · I installation_status · J pionnier_created ·
 K nom_client · L gamme · M contrat_maintenance_type · N date_garantie_fin · O localisation_precise ·
 P statut_eau · Q derniere_maintenance · R prochain_entretien · S passeport_url ·
-T installation_active · **U photo_generateur_url** · **V photo_emplacement_url**
+T installation_active · U **photo_generateur_url** · V **photo_emplacement_url** · W **report_id**
 
 ### 05_Maintenances (12 colonnes)
 A maintenance_id · B install_id · C pio_id · D date_intervention · E type_intervention ·
 F technicien · G statut · H rapport_url · I observations · J pieces_changees · K prochain_rdv · L source
 
+### 01_Pionniers (22 colonnes)
+A pio_id · B nom · C prenom · D email · E telephone · F pays · G territoire · H client_type ·
+I date_entree · J statut · **K fondateur** · **L ambassadeur** · M-V (divers)
+
 ## What's been implemented (2026-02)
 
-- ✅ Backend FastAPI stable (MongoDB retiré, Google Sheets unique source)
-- ✅ Compteurs `04_Parametres` thread-safe
-- ✅ Pipeline Livraison E2E (push GitHub Pages, append Sheets)
-- ✅ Templates HTML PROD (passeport, certificats, portail, email)
-- ✅ **Extraction photo terrain depuis PDF (PyMuPDF, heuristique "plus gros JPEG")**
-- ✅ **Endpoint multipart `/api/webhook/livraison-upload`**
-- ✅ **Endpoint JSON `/api/webhook/livraison` avec téléchargement d'un `pdf_url`**
-- ✅ **Mapping Cloudinary photo générateur par modèle (catalog.py)**
-- ✅ **Pipeline SAV minimal `/api/sav/rapport` (append + régénération passeport)**
-- ✅ Ancien `/api/webhook/maintenance` retiré
-- ✅ Headers Sheets U + V ajoutés à `02_Installations`
-- ✅ 61 tests pytest passent (`tests/test_pdf_extractor.py` + `tests/test_sav_pipeline.py`)
-- ✅ E2E live sur la prod : `PIO-1157` / `INST-2160` / `MAINT-3124` avec extraction PDF
-  + SAV régénération passeport
+### Phase V1
+- Backend FastAPI stable, MongoDB retiré
+- Compteurs `04_Parametres` thread-safe
+- Pipeline Livraison E2E (Sheets + GitHub Pages)
+- Templates HTML PROD (passeport, certificats, portail, email)
+- Extraction photo PDF (PyMuPDF, plus gros JPEG)
+- Mapping Cloudinary G30
+- Pipeline SAV minimal `/api/sav/rapport`
+- 61 tests pytest
+
+### Phase V2 — Architecture sans Make
+- ✅ Refonte `LivraisonInput` au schéma PIONNIERS-DATA canonique
+- ✅ Idempotence via `report_id` (col W, check pré-traitement)
+- ✅ Suppression toute logique dérivation NS
+- ✅ Champ `fondateur` → génère `ambassadeur.html` automatiquement
+- ✅ Template `ambassadeur.html` intégré (depuis le repo GitHub `docs/`)
+- ✅ Fix QR certificat-garantie (pointe maintenant vers sa propre URL, plus geobuilder.fr/install/)
+- ✅ Endpoint multipart accepte fondateur / report_id / type / technicien
+- ✅ Tests V2 : idempotence, fondateur, schéma PIONNIERS-DATA (10 tests)
+- ✅ E2E live validé : `PIO-1158/INST-2161` avec fondateur=true → ambassadeur publié + idempotence vérifiée
+- ✅ Doc d'intégration SAV → Pionniers (`/app/memory/SAV_INTEGRATION.md`)
+
+**Total tests : 71/71 ✅**
 
 ## Roadmap
 
-### P1 (court terme)
+### P1 — Court terme
 - Email réel (SendGrid / Resend / SMTP) — actuellement mocké
-- Filtrage de la photo générateur Cloudinary pour tous les modèles (seul G30 mappé)
+- Mapper photo générateur Cloudinary pour G20, OCEAN500, TITAN1000, SOURCE
+- Configurer `AMBASSADEUR_WEBHOOK_URL` env var pour le formulaire ambassadeur (collecte consentement)
 
-### P2 (futur)
-- URL_CARTE (génération carte d'identité Pionnier) — variable du template aujourd'hui masquée
+### P2 — Futur
+- `URL_CARTE` (génération carte d'identité Pionnier) — variable du template aujourd'hui masquée
 - Conversion HTML → PDF via WeasyPrint (V1 = HTML statique uniquement)
-- Marquage manuel Fondateurs / page Ambassadeur pour clients Mayotte historiques
-- Migration future vers Odoo (Pionniers reste un moteur documentaire alimenté par Odoo)
+- Logique automatique "Ambassadeur après 60 jours" pour nouveaux clients (actuellement seuls les fondateurs déclenchent ambassadeur)
+- Migration future Odoo → Pionniers (architecture déjà compatible : même endpoint, même schéma)
 
 ### Refactoring optionnel
-- Déplacement des routes hors de `server.py` vers `/app/backend/routes/` si volume augmente
-- Suppression définitive de `MaintenanceInput` (actuellement marquée DEPRECATED)
-- Suppression de `pdf_service.py` (WeasyPrint) si on confirme qu'on n'en a pas besoin
+- Déplacement routes hors `server.py` vers `/app/backend/routes/`
+- Suppression `MaintenanceInput` (DEPRECATED) une fois confirmé qu'aucun consommateur ne l'utilise

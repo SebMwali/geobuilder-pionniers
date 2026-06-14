@@ -268,7 +268,7 @@ body { background:#0b0f18; display:flex; flex-direction:column; align-items:cent
 
   <!-- ══ QR CODE ══ -->
   <div class="qr-box">
-    <img id="qrimg" src="" alt="QR">
+    <img id="qrimg" src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=2&data={{URL_GARANTIE}}" alt="QR Certificat Garantie">
   </div>
 
   <!-- ══ DOC ID ══ -->
@@ -276,11 +276,7 @@ body { background:#0b0f18; display:flex; flex-direction:column; align-items:cent
 
 </div>
 <script>
-const p = new URLSearchParams(window.location.search);
-const iid = p.get('install_id') || '{{INSTALL_ID}}';
-document.getElementById('qrimg').src =
-  'https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=2&data='
-  + encodeURIComponent('https://geobuilder.fr/install/' + iid);
+// QR rendu côté serveur via {{URL_GARANTIE}}. Aucun JS nécessaire.
 </script>
 
 <!-- ══ BOUTON IMPRIMER ══ -->

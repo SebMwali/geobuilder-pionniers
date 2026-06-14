@@ -47,18 +47,45 @@ logger = logging.getLogger(__name__)
 # MODELS
 # =========================================================================
 class LivraisonInput(BaseModel):
-    """Payload reçu depuis le webhook LIVRAISON ou créé manuellement par l'admin."""
+    """Payload canonique PIONNIERS-DATA.
+
+    Source de vérité pour le webhook LIVRAISON (SAV → Pionniers aujourd'hui,
+    Odoo → Pionniers demain). Aucun champ n'est dérivé du numéro de série :
+    toutes les valeurs métier sont fournies explicitement par l'amont.
+    """
+    # Identifiants & contexte
+    type: Optional[str] = "LIVRAISON"
+    report_id: Optional[str] = None  # idempotence côté Pionniers
+
+    # Client
     nom: str
     prenom: str
     email: EmailStr
-    telephone: Optional[str] = ""
-    territoire: str  # ex: MAYOTTE, MOHELI, REUNION
-    pays: Optional[str] = ""
-    produit: str  # ex: G20 MOJA, OCEAN 500
+
+    # Matériel
     numero_serie: str
-    date_installation: Optional[str] = None  # YYYY-MM-DD
+    produit: str            # G30, G20, OCEAN500, …
+    territoire: str         # MAYOTTE, REUNION, …
+    pays: Optional[str] = ""
+
+    # Lieu et date
     localisation: Optional[str] = ""
-    pdf_url: Optional[str] = None  # URL du rapport PDF (mode A : webhook depuis Make/Drive)
+    date_installation: Optional[str] = None  # YYYY-MM-DD
+
+    # Intervention
+    technicien: Optional[str] = ""
+    fondateur: Optional[bool] = False  # ancien client → génère ambassadeur.html
+
+    # Photos (généralement vides ; remplies par extraction PDF côté Pionniers)
+    photo_generateur_url: Optional[str] = ""
+    photo_emplacement_url: Optional[str] = ""
+
+    # PDF source (optionnel ; supporte les 2 modes — JSON+URL ou multipart)
+    rapport_pdf_url: Optional[str] = None
+
+    # Champs auxiliaires utilisés en interne / admin (rétro-compat)
+    telephone: Optional[str] = ""
+    pdf_url: Optional[str] = None  # alias de rapport_pdf_url
 
 
 class SavInput(BaseModel):
@@ -231,19 +258,42 @@ async def counters(_: dict = Depends(require_admin)):
 # =========================================================================
 async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes] = None) -> dict:
     """
-    Pipeline LIVRAISON (P3 - templates prod alignés).
+    Pipeline LIVRAISON — bloc PIONNIERS-DATA canonique.
 
-    1. Allocate PIO-XXXX, INST-XXXX (counter_service)
-    2. Allocate doc IDs pour passeport / certificat pionnier / certificat garantie / portail
+    1. Idempotence : si report_id déjà présent dans 02_Installations, renvoyer les IDs existants
+    2. Allocate PIO-XXXX, INST-XXXX, 4× DOC-XXXX (5× si fondateur)
     3. Extraire la photo d'emplacement depuis le PDF (si fourni) et la pousser sur GitHub
-    4. Render templates PROD (passeport_installation, certificat-pionnier,
-       certificat-garantie, email-final, portail_pionnier)
-    5. Push GitHub Pages (chemins alignés convention prod)
+    4. Render templates PROD (passeport, certificat-pionnier, certificat-garantie,
+       portail, email, + ambassadeur si fondateur=true)
+    5. Push GitHub Pages
     6. Append rows in 01_Pionniers + 02_Installations + 06_Documents
     7. Mock email
     """
     sheets = get_sheets_service()
     gh = get_github_service()
+
+    # 0. Idempotence via report_id (col W de 02_Installations)
+    if payload.report_id:
+        try:
+            existing = sheets.find_row_by("installations", "report_id", payload.report_id)
+        except Exception as e:
+            logger.warning(f"Idempotence check failed (non-bloquant) : {e}")
+            existing = None
+        if existing:
+            pages_base = _github_pages_base()
+            inst_id = existing.get("install_id", "")
+            pio_id = existing.get("pio_id", "")
+            logger.info(f"Idempotent replay détecté pour report_id={payload.report_id} -> {inst_id}/{pio_id}")
+            return {
+                "pio_id": pio_id,
+                "install_id": inst_id,
+                "url_portail": f"{pages_base}/pionniers/{pio_id}/index.html",
+                "url_passeport": f"{pages_base}/passeports/{inst_id}/index.html",
+                "url_certificat": f"{pages_base}/certificats/pionnier/{pio_id}.html",
+                "url_garantie": f"{pages_base}/certificats/garantie/{inst_id}.html",
+                "idempotent_replay": True,
+                "report_id": payload.report_id,
+            }
 
     # 1. IDs
     _, pio_id = increment_counter("pionnier")
@@ -252,6 +302,9 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
     _, doc_cert_pio = increment_counter("document")
     _, doc_cert_gar = increment_counter("document")
     _, doc_portail = increment_counter("document")
+    doc_ambassadeur = ""
+    if payload.fondateur:
+        _, doc_ambassadeur = increment_counter("document")
 
     date_inst = payload.date_installation or _today_iso()
     produit_info = get_product(payload.produit)
@@ -261,30 +314,33 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
     nom_complet = f"{payload.prenom} {payload.nom}".strip()
     pays_affiche = payload.pays or payload.territoire
 
-    # 2. URLs GitHub Pages (alignées convention prod) — utilisées pour le HTML et la réponse API
+    # 2. URLs GitHub Pages (alignées convention prod)
     pages_base = _github_pages_base()
     url_passeport = f"{pages_base}/passeports/{install_id}/index.html"
     url_certificat = f"{pages_base}/certificats/pionnier/{pio_id}.html"
     url_garantie = f"{pages_base}/certificats/garantie/{install_id}.html"
     url_portail = f"{pages_base}/pionniers/{pio_id}/index.html"
-    url_famille = pages_base + "/"  # Q4 = homepage GitHub Pages
+    url_ambassadeur = f"{pages_base}/ambassadeurs/{pio_id}.html" if payload.fondateur else ""
+    url_famille = pages_base + "/"
 
     # URL historique relative à stocker en Sheet (convention héritée Make)
     passeport_url_sheet = f"/install/{install_id}"
 
     # 2.bis Téléchargement / extraction de la photo d'emplacement
-    if pdf_bytes is None and payload.pdf_url:
+    pdf_source_url = payload.rapport_pdf_url or payload.pdf_url
+    if pdf_bytes is None and pdf_source_url:
         try:
             async with httpx.AsyncClient(timeout=30.0, follow_redirects=True) as client:
-                resp = await client.get(payload.pdf_url)
+                resp = await client.get(pdf_source_url)
                 resp.raise_for_status()
                 pdf_bytes = resp.content
         except Exception as e:
-            logger.warning(f"PDF download failed ({payload.pdf_url}): {e}")
+            logger.warning(f"PDF download failed ({pdf_source_url}): {e}")
             pdf_bytes = None
 
-    photo_emplacement_url = ""
-    if pdf_bytes:
+    # Photo emplacement : payload > extraction PDF > fallback historique
+    photo_emplacement_url = payload.photo_emplacement_url or ""
+    if not photo_emplacement_url and pdf_bytes:
         extracted = extract_location_photo(pdf_bytes)
         if extracted:
             img_bytes, ext = extracted
@@ -299,12 +355,15 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
                 logger.error(f"GitHub push photo failed: {e}")
                 sheets.log_event("github_push_photo", install_id, pio_id, "ERROR", str(e), "")
 
-    # Fallback clients historiques (pas de PDF) — photo générique
     if not photo_emplacement_url:
         photo_emplacement_url = HISTORIC_FALLBACK_PHOTO
 
-    # Photo générateur (statique Cloudinary selon modèle ; jamais extraite du PDF)
-    photo_generateur_url = produit_info.get("photo_generateur_url", "") or HISTORIC_FALLBACK_PHOTO
+    # Photo générateur : payload > catalog Cloudinary > fallback historique
+    photo_generateur_url = (
+        payload.photo_generateur_url
+        or produit_info.get("photo_generateur_url", "")
+        or HISTORIC_FALLBACK_PHOTO
+    )
 
     # 3. Render templates PROD
     # 3a. Passeport (snake_case, 27 variables ; Q2 = display:none pour blocs sans donnée)
@@ -372,6 +431,7 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "PRODUIT": produit_info["label"],
         "PRODUIT_IMG_ID": produit_info.get("image_cloudinary_id", ""),
         "SERIAL": payload.numero_serie,
+        "URL_GARANTIE": url_garantie,  # QR pointe vers cette URL
     }
     html_cert_gar = render_template("certificat-garantie.html", ctx_cert_gar)
 
@@ -408,6 +468,21 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
     }
     email_html = render_template("email-final.html", ctx_email)
 
+    # 3f. Page Ambassadeur (uniquement si fondateur=true)
+    html_ambassadeur = ""
+    if payload.fondateur:
+        ctx_ambassadeur = {
+            "annee": annee,
+            "nom": payload.nom,
+            "prenom": payload.prenom,
+            "email": payload.email,
+            "pio_id": pio_id,
+            "territoire": payload.territoire,
+            "redirect_url": url_portail,
+            "webhook_ambassadeur_url": os.environ.get("AMBASSADEUR_WEBHOOK_URL", ""),
+        }
+        html_ambassadeur = render_template("ambassadeur.html", ctx_ambassadeur)
+
     # 4. Push GitHub Pages (chemins prod-aligned)
     pushed = {}
     try:
@@ -423,6 +498,10 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         pushed["portail"] = gh.push_file(
             f"docs/pionniers/{pio_id}/index.html", html_portail,
             f"Add portail {pio_id}")
+        if payload.fondateur and html_ambassadeur:
+            pushed["ambassadeur"] = gh.push_file(
+                f"docs/ambassadeurs/{pio_id}.html", html_ambassadeur,
+                f"Add ambassadeur {pio_id} (fondateur)")
     except Exception as e:
         logger.error(f"GitHub push failed: {e}")
         sheets.log_event("github_push", install_id, pio_id, "ERROR", str(e), "")
@@ -441,8 +520,8 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
             "",                           # H  client_type (V1 vide)
             now_iso,                      # I  date_entree
             "Pionnier",                   # J  statut
-            "",                           # K  fondateur (règle V1 non définie)
-            "",                           # L  ambassadeur (V1)
+            "true" if payload.fondateur else "false",  # K  fondateur
+            "true" if payload.fondateur else "false",  # L  ambassadeur (immédiat si fondateur)
             "",                           # M  communaute_statut
             "",                           # N  droit_image
             "",                           # O  temoignage_autorise
@@ -458,7 +537,7 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         logger.error(f"Sheet append pionniers failed: {e}")
         sheets.log_event("sheet_pionnier", install_id, pio_id, "ERROR", str(e), "")
 
-    # 6. Append in 02_Installations — 22 colonnes alignées Sheet réel (U,V = photos)
+    # 6. Append in 02_Installations — 23 colonnes (W = report_id pour idempotence)
     try:
         sheets.append_row("installations", [
             install_id,                                       # A  install_id
@@ -468,7 +547,7 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
             date_inst,                                        # E  date_installation
             "",                                               # F  date_sortie
             payload.territoire,                               # G  territoire_installation
-            "",                                               # H  installateur (V1)
+            payload.technicien or "",                         # H  installateur
             "active",                                         # I  installation_status (Q3=b)
             "true",                                           # J  pionnier_created (Q3=b)
             nom_complet,                                      # K  nom_client
@@ -483,6 +562,7 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
             "true",                                           # T  installation_active (Q3=b)
             photo_generateur_url,                             # U  photo_generateur_url
             photo_emplacement_url,                            # V  photo_emplacement_url
+            payload.report_id or "",                          # W  report_id (idempotence)
         ])
     except Exception as e:
         logger.error(f"Sheet append installations failed: {e}")
@@ -496,6 +576,8 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
             (doc_cert_gar, install_id, "CERTIFICAT_GARANTIE", url_garantie),
             (doc_portail, "", "PORTAIL", url_portail),
         ]
+        if payload.fondateur and doc_ambassadeur:
+            docs_to_log.append((doc_ambassadeur, "", "AMBASSADEUR", url_ambassadeur))
         for d_id, d_inst, d_type, d_url in docs_to_log:
             sheets.append_row("documents", [
                 d_id,         # A  doc_id
@@ -522,14 +604,20 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
     )
 
     sheets.log_event("livraison", install_id, pio_id, "OK",
-                     f"Livraison processed ns={payload.numero_serie}", "")
+                     f"Livraison processed ns={payload.numero_serie} report_id={payload.report_id or ''}", "")
 
-    return {
+    response = {
         "pio_id": pio_id, "install_id": install_id,
         "url_portail": url_portail, "url_passeport": url_passeport,
         "url_certificat": url_certificat, "url_garantie": url_garantie,
+        "photo_generateur_url": photo_generateur_url,
+        "photo_emplacement_url": photo_emplacement_url,
         "github": pushed,
+        "report_id": payload.report_id or "",
     }
+    if payload.fondateur:
+        response["url_ambassadeur"] = url_ambassadeur
+    return response
 
 
 @api_router.post("/webhook/livraison")
@@ -557,16 +645,21 @@ async def webhook_livraison_upload(
     pays: str = Form(""),
     date_installation: Optional[str] = Form(None),
     localisation: str = Form(""),
+    technicien: str = Form(""),
+    fondateur: bool = Form(False),
+    report_id: Optional[str] = Form(None),
+    type: str = Form("LIVRAISON"),
     pdf: Optional[UploadFile] = File(None),
 ):
     """Webhook LIVRAISON en multipart/form-data, accepte un PDF directement
-    en pièce jointe (technicien / formulaire interne)."""
+    en pièce jointe (technicien / formulaire interne / SAV-Pionniers direct)."""
     pdf_bytes = await pdf.read() if pdf is not None else None
     payload = LivraisonInput(
+        type=type, report_id=report_id,
         nom=nom, prenom=prenom, email=email, telephone=telephone,
         territoire=territoire, pays=pays, produit=produit,
         numero_serie=numero_serie, date_installation=date_installation,
-        localisation=localisation,
+        localisation=localisation, technicien=technicien, fondateur=fondateur,
     )
     try:
         return await _process_livraison(payload, pdf_bytes=pdf_bytes)
