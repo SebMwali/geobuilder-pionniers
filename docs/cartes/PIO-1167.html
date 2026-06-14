@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Badge Pionnier — Sebastien FUMAZ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  html,body { background:#0D0D0D; font-family:'Montserrat',-apple-system,Segoe UI,Roboto,sans-serif; color:#fff; }
+  body { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px 12px; }
+
+  .container { width:100%; max-width:560px; }
+
+  .badge-wrap {
+    position:relative;
+    width:100%;
+    aspect-ratio: 1 / 1.25;
+    background:
+      radial-gradient(ellipse 120% 30% at 50% 110%, rgba(58,143,232,0.35) 0%, rgba(58,143,232,0.08) 30%, transparent 60%),
+      radial-gradient(ellipse 70% 12% at 50% 100%, rgba(120,180,255,0.55) 0%, transparent 70%),
+      #000;
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(58,143,232,.12) inset;
+    display:flex; flex-direction:column;
+    padding:7% 6% 5%;
+    text-align:center;
+  }
+
+  /* Logo Geobuilder text */
+  .gb-logo {
+    font-family:'Montserrat',sans-serif;
+    font-weight:700;
+    font-size:clamp(20px, 4.2vw, 28px);
+    letter-spacing:0.08em;
+    color:#e7e7e7;
+    background:linear-gradient(180deg,#fff 20%,#7a7a7a 80%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:0 0 1px rgba(255,255,255,0.2);
+  }
+  .gb-tagline {
+    font-size:clamp(8px, 1.6vw, 10px);
+    letter-spacing:0.30em;
+    color:#9aa4b2;
+    margin-top:4px;
+    text-transform:uppercase;
+  }
+  .gb-tagline .accent { color:#3A8FE8; }
+
+  .divider {
+    width:60%;
+    margin:18px auto 14px;
+    height:1px;
+    background:linear-gradient(90deg, transparent, rgba(58,143,232,0.75), transparent);
+    box-shadow:0 0 6px rgba(58,143,232,0.55);
+  }
+
+  .pionnier-title {
+    font-family:'Montserrat',sans-serif;
+    font-weight:400;
+    font-size:clamp(28px, 6.4vw, 48px);
+    letter-spacing:0.18em;
+    color:#fff;
+    background:linear-gradient(180deg,#fff 20%,#7a7a7a 80%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    margin-top:8px;
+  }
+  .pionnier-sub {
+    font-size:clamp(11px, 2.0vw, 13px);
+    letter-spacing:0.32em;
+    color:#cfd6e0;
+    margin-top:6px;
+    text-transform:uppercase;
+  }
+
+  .nom-client {
+    font-family:'Montserrat',sans-serif;
+    font-weight:600;
+    letter-spacing:0.18em;
+    font-size:clamp(18px, 4.0vw, 28px);
+    color:#ffffff;
+    text-transform:uppercase;
+    margin-top:10px;
+    line-height:1.15;
+  }
+
+  .pin {
+    margin:12px auto 0;
+    width:22px; height:22px;
+    color:#3A8FE8;
+  }
+  .pin svg { width:100%; height:100%; display:block; filter:drop-shadow(0 0 4px rgba(58,143,232,0.55)); }
+
+  .territoire {
+    font-family:'Montserrat',sans-serif;
+    font-weight:500;
+    letter-spacing:0.30em;
+    font-size:clamp(11px, 2.0vw, 14px);
+    color:#ffffff;
+    text-transform:uppercase;
+    margin-top:6px;
+  }
+
+  .depuis-label {
+    font-size:clamp(10px, 1.8vw, 12px);
+    letter-spacing:0.40em;
+    color:#9aa4b2;
+    margin-top:14px;
+    text-transform:uppercase;
+  }
+  .annee {
+    font-family:'Montserrat',sans-serif;
+    font-weight:500;
+    letter-spacing:0.30em;
+    font-size:clamp(13px, 2.4vw, 17px);
+    color:#ffffff;
+    margin-top:4px;
+  }
+
+  .qr-zone {
+    margin:auto auto 0;
+    width:24%;
+    aspect-ratio:1/1;
+    background:#fff;
+    border-radius:8px;
+    padding:5px;
+    box-shadow:0 0 0 2px rgba(58,143,232,0.85), 0 0 20px rgba(58,143,232,0.55);
+  }
+  .qr-zone img { width:100%; height:100%; display:block; image-rendering:pixelated; }
+
+  /* CTA + meta */
+  .cta {
+    display:block;
+    margin:24px auto 0;
+    background:#3A8FE8;
+    color:#0D0D0D;
+    font-family:'Montserrat',sans-serif;
+    font-weight:600;
+    text-align:center;
+    text-decoration:none;
+    padding:14px 22px;
+    border-radius:10px;
+    letter-spacing:0.06em;
+    font-size:14px;
+    text-transform:uppercase;
+    transition:transform .15s ease;
+  }
+  .cta:hover { transform:translateY(-1px); }
+  .meta {
+    text-align:center;
+    margin-top:14px;
+    color:#6b7280;
+    font-size:11px;
+    letter-spacing:0.20em;
+    text-transform:uppercase;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="badge-wrap">
+    <div class="gb-logo">GEOBUILDER</div>
+    <div class="gb-tagline">Reprenons le pouvoir sur <span class="accent">l'eau</span></div>
+
+    <div class="pionnier-title">PIONNIER</div>
+    <div class="pionnier-sub">de l'eau de l'air</div>
+
+    <div class="divider"></div>
+
+    <div class="nom-client">Sebastien FUMAZ</div>
+
+    <div class="divider"></div>
+
+    <div class="pin">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg>
+    </div>
+    <div class="territoire">MAYOTTE</div>
+
+    <div class="divider"></div>
+
+    <div class="depuis-label">Depuis</div>
+    <div class="annee">2026</div>
+
+    <div class="qr-zone">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=0&data=https%3A%2F%2Fsebmwali.github.io%2Fgeobuilder-pionniers%2Fpionniers%2FPIO-1167%2Findex.html" alt="QR code Espace Pionnier">
+    </div>
+  </div>
+
+  <a class="cta" href="https://sebmwali.github.io/geobuilder-pionniers/pionniers/PIO-1167/index.html" target="_blank" rel="noopener">Accéder à mon Espace Pionnier</a>
+  <div class="meta">PIO-1167</div>
+</div>
+
+</body>
+</html>
