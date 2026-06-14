@@ -68,11 +68,23 @@ async def send_email_mock(
         return {"status": "mocked", "to": to, "subject": subject}
 
     sender = _get_sender()
+    # Fallback text (plain text) — force Resend à envoyer en multipart/alternative.
+    # Sans `text`, certains clients mail (Gmail mobile notamment) peuvent afficher
+    # le HTML brut. On dérive un texte minimal lisible depuis le HTML.
+    import re as _re
+    plain_text = _re.sub(r"<[^>]+>", " ", html_body)
+    plain_text = _re.sub(r"\s+", " ", plain_text).strip()
+    if len(plain_text) > 2000:
+        plain_text = plain_text[:2000] + "..."
+    if not plain_text:
+        plain_text = subject
+
     params = {
         "from": sender,
         "to": [to],
         "subject": subject,
         "html": html_body,
+        "text": plain_text,
     }
 
     try:

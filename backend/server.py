@@ -576,6 +576,9 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "URL_ESPACE": url_portail,
         "URL_FAMILLE": url_famille,
         "URL_GARANTIE": url_garantie,
+        "URL_PASSEPORT": url_passeport,
+        # Q2 — masquer les blocs sans donnée utile en V1
+        "DISPLAY_CARTE": "none",  # carte Pionnier non générée en V1
     }
     email_html = render_template("email-final.html", ctx_email)
 
