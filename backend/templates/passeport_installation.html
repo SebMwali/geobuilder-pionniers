@@ -468,7 +468,7 @@
               <div class="dt">MANUEL<br>UTILISATEUR</div>
               <div class="dc">CONSULTER</div>
             </a>
-            <a class="doc-card" href="{{url_certificat}}" target="_blank" rel="noopener">
+            <a class="doc-card" href="{{url_garantie}}" target="_blank" rel="noopener">
               <div class="di">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
               </div>
@@ -514,17 +514,17 @@
           <div class="card-title">VÉRIFICATION</div>
           <div class="qr-wrap">
             <div class="qr">
-              <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=0&data={{passeport_url}}" alt="QR code de vérification" />
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=0&data={{url_garantie}}" alt="QR code de vérification de garantie" />
             </div>
             <div class="qr-txt">Scannez ce QR code pour vérifier l'authenticité et l'état de garantie de votre installation.</div>
           </div>
-          <div class="verif-btn">
+          <a href="{{url_garantie}}" class="verif-btn" style="text-decoration:none;color:inherit;cursor:pointer;">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
             <div class="vb-txt">
-              <span>GARANTIE VÉRIFIÉE</span>
+              <span>VOIR LE CERTIFICAT DE GARANTIE</span>
               <span class="sub">Ce passeport est authentique</span>
             </div>
-          </div>
+          </a>
         </section>
 
         <!-- BLOC : STATUT COMMUNAUTÉ (conditionnel) -->
