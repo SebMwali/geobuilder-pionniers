@@ -239,13 +239,16 @@ async def _process_livraison(payload: LivraisonInput) -> dict:
     nom_complet = f"{payload.prenom} {payload.nom}".strip()
     pays_affiche = payload.pays or payload.territoire
 
-    # 2. URLs GitHub Pages (alignées convention prod)
+    # 2. URLs GitHub Pages (alignées convention prod) — utilisées pour le HTML et la réponse API
     pages_base = _github_pages_base()
     url_passeport = f"{pages_base}/passeports/{install_id}/index.html"
     url_certificat = f"{pages_base}/certificats/pionnier/{pio_id}.html"
     url_garantie = f"{pages_base}/certificats/garantie/{install_id}.html"
     url_portail = f"{pages_base}/pionniers/{pio_id}/index.html"
     url_famille = pages_base + "/"  # Q4 = homepage GitHub Pages
+
+    # URL historique relative à stocker en Sheet (convention héritée Make)
+    passeport_url_sheet = f"/install/{install_id}"
 
     # 3. Render templates PROD
     # 3a. Passeport (snake_case, 27 variables ; Q2 = display:none pour blocs sans donnée)
@@ -361,41 +364,91 @@ async def _process_livraison(payload: LivraisonInput) -> dict:
             f"Add portail {pio_id}")
     except Exception as e:
         logger.error(f"GitHub push failed: {e}")
-        sheets.log_event("ERROR", "github_push", str(e), f"pio={pio_id} inst={install_id}")
+        sheets.log_event("github_push", install_id, pio_id, "ERROR", str(e), "")
         raise HTTPException(502, f"GitHub push failed: {e}")
 
-    # 5. Append in 01_Pionniers (ordre colonnes INCHANGÉ — validation P3.6)
+    # 5. Append in 01_Pionniers — 22 colonnes alignées Sheet réel
     try:
         sheets.append_row("pionniers", [
-            pio_id, payload.nom, payload.prenom, payload.email, payload.telephone,
-            payload.territoire, payload.pays, now_iso, "Pionnier", "Pionnier", url_portail,
+            pio_id,                       # A  pio_id
+            payload.nom,                  # B  nom
+            payload.prenom,               # C  prenom
+            payload.email,                # D  email
+            payload.telephone,            # E  telephone
+            payload.pays,                 # F  pays
+            payload.territoire,           # G  territoire
+            "",                           # H  client_type (V1 vide)
+            now_iso,                      # I  date_entree
+            "Pionnier",                   # J  statut
+            "",                           # K  fondateur (règle V1 non définie)
+            "",                           # L  ambassadeur (V1)
+            "",                           # M  communaute_statut
+            "",                           # N  droit_image
+            "",                           # O  temoignage_autorise
+            "",                           # P  visite_possible
+            "backend_livraison",          # Q  source_creation
+            "livraison_complete",         # R  workflow_status (Q4=b)
+            "true",                       # S  welcome_email_sent
+            url_certificat,               # T  certificat_url
+            "",                           # U  carte_url (V1)
+            "",                           # V  qr_code_url (V1)
         ])
     except Exception as e:
         logger.error(f"Sheet append pionniers failed: {e}")
-        sheets.log_event("ERROR", "sheet_pionnier", str(e), f"pio={pio_id}")
+        sheets.log_event("sheet_pionnier", install_id, pio_id, "ERROR", str(e), "")
 
-    # 6. Append in 02_Installations
+    # 6. Append in 02_Installations — 20 colonnes alignées Sheet réel
     try:
         sheets.append_row("installations", [
-            install_id, pio_id, payload.numero_serie, produit_info["label"],
-            date_inst, payload.localisation or payload.territoire,
-            date_garantie_fin, url_passeport,
+            install_id,                                       # A  install_id
+            pio_id,                                           # B  pio_id
+            produit_info["label"],                            # C  produit
+            payload.numero_serie,                             # D  numero_serie
+            date_inst,                                        # E  date_installation
+            "",                                               # F  date_sortie
+            payload.territoire,                               # G  territoire_installation
+            "",                                               # H  installateur (V1)
+            "active",                                         # I  installation_status (Q3=b)
+            "true",                                           # J  pionnier_created (Q3=b)
+            nom_complet,                                      # K  nom_client
+            "",                                               # L  gamme (V1)
+            "",                                               # M  contrat_maintenance_type
+            date_garantie_fin,                                # N  date_garantie_fin
+            payload.localisation or payload.territoire,       # O  localisation_precise
+            "",                                               # P  statut_eau
+            "",                                               # Q  derniere_maintenance
+            "",                                               # R  prochain_entretien
+            passeport_url_sheet,                              # S  passeport_url (Q1=a, URL relative)
+            "true",                                           # T  installation_active (Q3=b)
         ])
     except Exception as e:
         logger.error(f"Sheet append installations failed: {e}")
-        sheets.log_event("ERROR", "sheet_install", str(e), f"inst={install_id}")
+        sheets.log_event("sheet_install", install_id, pio_id, "ERROR", str(e), "")
 
-    # 7. Append documents
+    # 7. Append in 06_Documents — 10 colonnes
     try:
-        for doc_id, dtype, url in [
-            (doc_passeport, "PASSEPORT", url_passeport),
-            (doc_cert_pio, "CERTIFICAT_PIONNIER", url_certificat),
-            (doc_cert_gar, "CERTIFICAT_GARANTIE", url_garantie),
-            (doc_portail, "PORTAIL", url_portail),
-        ]:
-            sheets.append_row("documents", [doc_id, pio_id, dtype, url, now_iso])
+        docs_to_log = [
+            (doc_passeport, install_id, "PASSEPORT", url_passeport),
+            (doc_cert_pio, "", "CERTIFICAT_PIONNIER", url_certificat),
+            (doc_cert_gar, install_id, "CERTIFICAT_GARANTIE", url_garantie),
+            (doc_portail, "", "PORTAIL", url_portail),
+        ]
+        for d_id, d_inst, d_type, d_url in docs_to_log:
+            sheets.append_row("documents", [
+                d_id,         # A  doc_id
+                d_inst,       # B  install_id (vide pour cert pionnier et portail)
+                pio_id,       # C  pio_id
+                d_type,       # D  type_doc
+                now_iso,      # E  date_generation
+                d_url,        # F  url_doc
+                "generated",  # G  statut_envoi
+                "",           # H  date_envoi
+                "",           # I  canal_envoi
+                "",           # J  html_content (vide pour ne pas polluer Sheets)
+            ])
     except Exception as e:
         logger.error(f"Sheet append documents failed: {e}")
+        sheets.log_event("sheet_documents", install_id, pio_id, "ERROR", str(e), "")
 
     # 8. Mock email
     await send_email_mock(
@@ -405,8 +458,8 @@ async def _process_livraison(payload: LivraisonInput) -> dict:
         metadata={"pio_id": pio_id, "install_id": install_id},
     )
 
-    sheets.log_event("INFO", "livraison", "Livraison processed",
-                     f"pio={pio_id} inst={install_id} ns={payload.numero_serie}")
+    sheets.log_event("livraison", install_id, pio_id, "OK",
+                     f"Livraison processed ns={payload.numero_serie}", "")
 
     return {
         "pio_id": pio_id, "install_id": install_id,
@@ -498,8 +551,8 @@ async def _process_maintenance(payload: MaintenanceInput) -> dict:
     except Exception as e:
         logger.error(f"GitHub push (maintenance) failed: {e}")
 
-    sheets.log_event("INFO", "maintenance", "Maintenance added",
-                     f"maint={maint_id} inst={install_id} ns={payload.numero_serie}")
+    sheets.log_event("maintenance", install_id, pio_id, "OK",
+                     f"Maintenance added maint={maint_id} ns={payload.numero_serie}", "")
 
     return {
         "maint_id": maint_id, "install_id": install_id, "pio_id": pio_id,

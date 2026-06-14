@@ -165,7 +165,6 @@ class TestPipelineLivraison:
     def test_appends_6_rows_to_sheets(self, run_pipeline, fake_sheets):
         """1 PIO + 1 INST + 4 DOC = 6 lignes append."""
         run_pipeline()
-        # Filter out log_event calls
         append_calls = [c for c in fake_sheets.append_row.call_args_list]
         assert len(append_calls) == 6
         tabs = [c.args[0] for c in append_calls]
@@ -176,43 +175,61 @@ class TestPipelineLivraison:
         pio_call = fake_sheets.append_row.call_args_list[0]
         assert pio_call.args[0] == "pionniers"
         row = pio_call.args[1]
+        assert len(row) == 22  # 22 colonnes du Sheet réel
         assert row[0] == "PIO-1154"
         assert row[1] == "Diallo"
         assert row[2] == "Aïsha"
         assert row[3] == "aisha.diallo@example.com"
-        assert row[5] == "MAYOTTE"  # territoire
-        assert row[6] == "Mayotte"  # pays
-        assert row[10] == "https://sebmwali.github.io/geobuilder-pionniers/pionniers/PIO-1154/index.html"
+        assert row[5] == "Mayotte"      # F = pays
+        assert row[6] == "MAYOTTE"      # G = territoire
+        assert row[9] == "Pionnier"     # J = statut
+        assert row[16] == "backend_livraison"   # Q = source_creation
+        assert row[17] == "livraison_complete"  # R = workflow_status
+        assert row[18] == "true"        # S = welcome_email_sent
+        assert row[19].startswith("https://sebmwali.github.io")  # T = certificat_url
 
     def test_installations_row_content(self, run_pipeline, fake_sheets):
         run_pipeline()
         inst_call = fake_sheets.append_row.call_args_list[1]
         assert inst_call.args[0] == "installations"
         row = inst_call.args[1]
+        assert len(row) == 20  # 20 colonnes du Sheet réel
         assert row[0] == "INST-2157"
         assert row[1] == "PIO-1154"
-        assert row[2] == "P3-TEST-NS-0001"
-        assert row[3] == "G20 Moja"
-        assert row[4] == "2026-02-15"
+        assert row[2] == "G20 Moja"          # C = produit
+        assert row[3] == "P3-TEST-NS-0001"   # D = numero_serie
+        assert row[4] == "2026-02-15"        # E = date_installation
+        assert row[8] == "active"            # I = installation_status
+        assert row[9] == "true"              # J = pionnier_created
+        assert row[18] == "/install/INST-2157"  # S = passeport_url (relative)
+        assert row[19] == "true"             # T = installation_active
 
     def test_documents_4_rows_with_correct_types(self, run_pipeline, fake_sheets):
         run_pipeline()
         doc_calls = fake_sheets.append_row.call_args_list[2:6]
-        types = [c.args[1][2] for c in doc_calls]
+        # 10 colonnes par doc
+        for c in doc_calls:
+            assert len(c.args[1]) == 10
+        types = [c.args[1][3] for c in doc_calls]  # D = type_doc
         assert types == ["PASSEPORT", "CERTIFICAT_PIONNIER", "CERTIFICAT_GARANTIE", "PORTAIL"]
-        # IDs séquentiels DOC-1 à DOC-4 (compteur démarre à 0)
         doc_ids = [c.args[1][0] for c in doc_calls]
         assert doc_ids == ["DOC-1", "DOC-2", "DOC-3", "DOC-4"]
+        # install_id présent pour PASSEPORT et GARANTIE, vide pour CERT_PIO et PORTAIL
+        inst_ids = [c.args[1][1] for c in doc_calls]
+        assert inst_ids == ["INST-2157", "", "INST-2157", ""]
+        # statut_envoi = "generated"
+        statuts = [c.args[1][6] for c in doc_calls]
+        assert statuts == ["generated"] * 4
 
     def test_logs_info_event(self, run_pipeline, fake_sheets):
         run_pipeline()
-        # log_event est appelé après le pipeline
         assert fake_sheets.log_event.call_count >= 1
         last_call = fake_sheets.log_event.call_args_list[-1]
-        assert last_call.args[0] == "INFO"
-        assert last_call.args[1] == "livraison"
-        assert "PIO-1154" in last_call.args[3]
-        assert "INST-2157" in last_call.args[3]
+        # Nouvelle signature : (action, install_id, pio_id, result, message, erreur_detail)
+        assert last_call.args[0] == "livraison"
+        assert last_call.args[1] == "INST-2157"
+        assert last_call.args[2] == "PIO-1154"
+        assert last_call.args[3] == "OK"
 
     def test_sends_one_email_mock(self, run_pipeline):
         _, email_mock = run_pipeline()
@@ -232,12 +249,11 @@ class TestPipelineLivraison:
         assert meta == {"pio_id": "PIO-1154", "install_id": "INST-2157"}
 
     def test_no_sheets_column_order_change(self, run_pipeline, fake_sheets):
-        """Garantit que P3 N'A PAS modifié l'ordre des colonnes Sheets vs P0."""
+        """Largeurs colonnes alignées sur le Sheet réel (P3.5 bis)."""
         run_pipeline()
         pio_row = fake_sheets.append_row.call_args_list[0].args[1]
-        # 11 colonnes (ordre P0 strictement préservé)
-        assert len(pio_row) == 11
+        assert len(pio_row) == 22
         inst_row = fake_sheets.append_row.call_args_list[1].args[1]
-        assert len(inst_row) == 8
+        assert len(inst_row) == 20
         doc_row = fake_sheets.append_row.call_args_list[2].args[1]
-        assert len(doc_row) == 5
+        assert len(doc_row) == 10

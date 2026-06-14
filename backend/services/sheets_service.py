@@ -16,15 +16,15 @@ SCOPES = [
     "https://www.googleapis.com/auth/drive",
 ]
 
-# Mapping nom d'onglet -> nom dans le Sheet
+# Mapping nom d'onglet -> nom dans le Sheet (aligné sur le Sheet réel "La Famille des Pionniers")
 TABS = {
     "pionniers": "01_Pionniers",
     "installations": "02_Installations",
-    "documents": "03_Documents",
+    "medias": "03_Medias",
     "parametres": "04_Parametres",
     "maintenances": "05_Maintenances",
-    "ambassadeurs": "06_Ambassadeurs",
-    "ressources": "07_Ressources",
+    "documents": "06_Documents",
+    "ressources": "07_Produits",
     "logs": "08_Automations_Log",
 }
 
@@ -110,12 +110,16 @@ class SheetsService:
         col_idx = headers.index(column_name) + 1
         ws.update_cell(row_idx, col_idx, value)
 
-    def log_event(self, level: str, source: str, message: str, payload: str = ""):
-        """Écrit un événement dans 08_Automations_Log."""
+    def log_event(self, action: str, install_id: str = "", pio_id: str = "",
+                  result: str = "OK", message: str = "", erreur_detail: str = ""):
+        """Écrit un événement dans 08_Automations_Log.
+
+        Colonnes Sheet réelles : timestamp, action, install_id, pio_id, result, message, erreur_detail
+        """
         from datetime import datetime, timezone
         try:
             ts = datetime.now(timezone.utc).isoformat()
-            self.append_row("logs", [ts, level, source, message, payload])
+            self.append_row("logs", [ts, action, install_id, pio_id, result, message, erreur_detail])
         except Exception as e:
             logger.warning(f"Could not log to sheet: {e}")
 
