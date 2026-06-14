@@ -47,45 +47,58 @@ logger = logging.getLogger(__name__)
 # MODELS
 # =========================================================================
 class LivraisonInput(BaseModel):
-    """Payload canonique PIONNIERS-DATA.
+    """Payload accepté par /api/webhook/livraison.
 
-    Source de vérité pour le webhook LIVRAISON (SAV → Pionniers aujourd'hui,
-    Odoo → Pionniers demain). Aucun champ n'est dérivé du numéro de série :
-    toutes les valeurs métier sont fournies explicitement par l'amont.
+    Supporte 2 formats :
+    - PIONNIERS-DATA canonique (champs en français : nom, prenom, email, …)
+    - SAV-natif (champs alias : ns, client, email_client, date, rapport_pdf_url)
+
+    Les champs requis (`produit`, `territoire`, etc.) peuvent être absents du
+    webhook : ils seront alors complétés par parsing du PDF (`rapport_pdf_url`)
+    et/ou par les defaults Mayotte.
     """
-    # Identifiants & contexte
+    # === Identifiants & contexte ===
     type: Optional[str] = "LIVRAISON"
-    report_id: Optional[str] = None  # idempotence côté Pionniers
+    report_id: Optional[str] = None  # idempotence
 
-    # Client
-    nom: str
-    prenom: str
-    email: EmailStr
+    # === Client — format canonique ===
+    nom: Optional[str] = None
+    prenom: Optional[str] = None
+    email: Optional[EmailStr] = None
+    telephone: Optional[str] = ""
 
-    # Matériel
-    numero_serie: str
-    produit: str            # G30, G20, OCEAN500, …
-    territoire: str         # MAYOTTE, REUNION, …
+    # === Client — alias SAV-natif ===
+    client: Optional[str] = None        # "Sébastien FUMAZ" → split en nom + prenom
+    email_client: Optional[EmailStr] = None  # alias de email
+
+    # === Matériel — format canonique ===
+    numero_serie: Optional[str] = None
+    produit: Optional[str] = None
+    territoire: Optional[str] = None
     pays: Optional[str] = ""
 
-    # Lieu et date
+    # === Matériel — alias SAV-natif ===
+    ns: Optional[str] = None            # alias de numero_serie
+
+    # === Lieu / date — format canonique ===
     localisation: Optional[str] = ""
     date_installation: Optional[str] = None  # YYYY-MM-DD
 
-    # Intervention
-    technicien: Optional[str] = ""
-    fondateur: Optional[bool] = False  # ancien client → génère ambassadeur.html
+    # === Lieu / date — alias SAV-natif ===
+    date: Optional[str] = None          # DD/MM/YYYY → date_installation
+    prochain_entretien: Optional[str] = None  # info SAV, non utilisée V1
 
-    # Photos (généralement vides ; remplies par extraction PDF côté Pionniers)
+    # === Intervention ===
+    technicien: Optional[str] = ""
+    fondateur: Optional[bool] = False
+
+    # === Photos (override) ===
     photo_generateur_url: Optional[str] = ""
     photo_emplacement_url: Optional[str] = ""
 
-    # PDF source (optionnel ; supporte les 2 modes — JSON+URL ou multipart)
+    # === PDF source ===
     rapport_pdf_url: Optional[str] = None
-
-    # Champs auxiliaires utilisés en interne / admin (rétro-compat)
-    telephone: Optional[str] = ""
-    pdf_url: Optional[str] = None  # alias de rapport_pdf_url
+    pdf_url: Optional[str] = None       # alias historique
 
 
 class SavInput(BaseModel):
@@ -174,6 +187,108 @@ def _compute_garantie_fin(date_installation: str, mois: int) -> str:
     return fin.strftime("%Y-%m-%d")
 
 
+# Defaults V1 — focus Mayotte uniquement. Quand on s'ouvrira à d'autres
+# territoires, on devra soit (a) recevoir le champ via webhook/PIONNIERS-DATA,
+# soit (b) détecter via le code postal du PDF.
+DEFAULT_TERRITOIRE = "MAYOTTE"
+DEFAULT_PAYS = "FRANCE"
+
+
+async def _normalize_livraison_payload(payload: LivraisonInput) -> LivraisonInput:
+    """Fusionne le payload SAV-natif avec les données extraites du PDF.
+
+    Étapes :
+    1. Alias SAV → canonique (`ns→numero_serie`, `client→nom+prenom`, `date→date_installation`, etc.)
+    2. Téléchargement du PDF si `rapport_pdf_url` fourni
+    3. Extraction des champs labellisés du PDF (`Modèle:`, `Adresse:`, etc.) pour combler ce qui manque
+    4. Defaults Mayotte/FRANCE si toujours rien
+
+    Le PDF (bytes) est attaché à l'instance via attribut `_pdf_bytes` pour
+    éviter un 2e téléchargement plus loin dans le pipeline.
+    """
+    from services.pdf_extractor import extract_fields, split_client_name, parse_date_fr
+
+    # 1. Aliasing SAV-natif → format canonique
+    if payload.ns and not payload.numero_serie:
+        payload.numero_serie = payload.ns
+    if payload.email_client and not payload.email:
+        payload.email = payload.email_client
+    if payload.client and not (payload.nom and payload.prenom):
+        prenom, nom = split_client_name(payload.client)
+        payload.nom = payload.nom or nom
+        payload.prenom = payload.prenom or prenom
+    if payload.date and not payload.date_installation:
+        converted = parse_date_fr(payload.date)
+        if converted:
+            payload.date_installation = converted
+    if payload.rapport_pdf_url and not payload.pdf_url:
+        payload.pdf_url = payload.rapport_pdf_url
+
+    # 2. Téléchargement du PDF (une seule fois — réutilisé plus loin dans le pipeline)
+    pdf_bytes = getattr(payload, "_pdf_bytes", None)
+    pdf_source_url = payload.rapport_pdf_url or payload.pdf_url
+    if pdf_bytes is None and pdf_source_url:
+        try:
+            async with httpx.AsyncClient(timeout=30.0, follow_redirects=True) as client:
+                resp = await client.get(pdf_source_url)
+                resp.raise_for_status()
+                pdf_bytes = resp.content
+        except Exception as e:
+            logger.warning(f"PDF download failed ({pdf_source_url}): {e}")
+            pdf_bytes = None
+
+    # 3. Parsing du PDF pour les champs manquants
+    if pdf_bytes:
+        try:
+            pdf_fields = extract_fields(pdf_bytes)
+        except Exception as e:
+            logger.warning(f"PDF field extraction failed: {e}")
+            pdf_fields = {}
+
+        if not payload.produit and pdf_fields.get("produit"):
+            payload.produit = pdf_fields["produit"]
+        if not payload.numero_serie and pdf_fields.get("numero_serie"):
+            payload.numero_serie = pdf_fields["numero_serie"]
+        if not payload.localisation and pdf_fields.get("adresse"):
+            payload.localisation = pdf_fields["adresse"]
+        if not payload.date_installation and pdf_fields.get("date"):
+            payload.date_installation = parse_date_fr(pdf_fields["date"])
+        if not payload.technicien and pdf_fields.get("technicien"):
+            payload.technicien = pdf_fields["technicien"]
+        if not (payload.nom and payload.prenom) and pdf_fields.get("client"):
+            prenom, nom = split_client_name(pdf_fields["client"])
+            payload.nom = payload.nom or nom
+            payload.prenom = payload.prenom or prenom
+
+    # 4. Defaults Mayotte (V1 — focus Mayotte uniquement)
+    if not payload.territoire:
+        payload.territoire = DEFAULT_TERRITOIRE
+    if not payload.pays:
+        payload.pays = DEFAULT_PAYS
+
+    # Stocke le PDF bytes pour réutilisation dans le pipeline (évite 2 download)
+    setattr(payload, "_pdf_bytes", pdf_bytes)
+    return payload
+
+
+def _validate_livraison_payload(payload: LivraisonInput) -> None:
+    """Vérifie qu'après normalisation, les champs critiques sont présents.
+    Lève HTTPException(422) avec un message explicite en cas de manque."""
+    missing = []
+    if not payload.nom:
+        missing.append("nom (ou client)")
+    if not payload.prenom:
+        missing.append("prenom (ou client)")
+    if not payload.email:
+        missing.append("email (ou email_client)")
+    if not payload.numero_serie:
+        missing.append("numero_serie (ou ns, ou PDF avec champ 'N° Série')")
+    if not payload.produit:
+        missing.append("produit (ou PDF avec champ 'Modèle')")
+    if missing:
+        raise HTTPException(422, f"Champs manquants après normalisation: {', '.join(missing)}")
+
+
 # =========================================================================
 # ROUTES — HEALTH & ADMIN
 # =========================================================================
@@ -258,17 +373,24 @@ async def counters(_: dict = Depends(require_admin)):
 # =========================================================================
 async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes] = None) -> dict:
     """
-    Pipeline LIVRAISON — bloc PIONNIERS-DATA canonique.
+    Pipeline LIVRAISON.
 
+    0. Normalisation (alias SAV → canonique, parsing PDF, defaults Mayotte)
     1. Idempotence : si report_id déjà présent dans 02_Installations, renvoyer les IDs existants
     2. Allocate PIO-XXXX, INST-XXXX, 4× DOC-XXXX (5× si fondateur)
-    3. Extraire la photo d'emplacement depuis le PDF (si fourni) et la pousser sur GitHub
-    4. Render templates PROD (passeport, certificat-pionnier, certificat-garantie,
-       portail, email, + ambassadeur si fondateur=true)
+    3. Extraire la photo d'emplacement depuis le PDF et la pousser sur GitHub
+    4. Render templates PROD (passeport, certificats, portail, email, ambassadeur)
     5. Push GitHub Pages
     6. Append rows in 01_Pionniers + 02_Installations + 06_Documents
     7. Mock email
     """
+    # 0. Normalisation (mutates payload in place)
+    if pdf_bytes is not None:
+        setattr(payload, "_pdf_bytes", pdf_bytes)
+    payload = await _normalize_livraison_payload(payload)
+    _validate_livraison_payload(payload)
+    pdf_bytes = getattr(payload, "_pdf_bytes", None)
+
     sheets = get_sheets_service()
     gh = get_github_service()
 
@@ -326,19 +448,7 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
     # URL historique relative à stocker en Sheet (convention héritée Make)
     passeport_url_sheet = f"/install/{install_id}"
 
-    # 2.bis Téléchargement / extraction de la photo d'emplacement
-    pdf_source_url = payload.rapport_pdf_url or payload.pdf_url
-    if pdf_bytes is None and pdf_source_url:
-        try:
-            async with httpx.AsyncClient(timeout=30.0, follow_redirects=True) as client:
-                resp = await client.get(pdf_source_url)
-                resp.raise_for_status()
-                pdf_bytes = resp.content
-        except Exception as e:
-            logger.warning(f"PDF download failed ({pdf_source_url}): {e}")
-            pdf_bytes = None
-
-    # Photo emplacement : payload > extraction PDF > fallback historique
+    # 2.bis Extraction de la photo d'emplacement depuis le PDF déjà téléchargé en normalisation
     photo_emplacement_url = payload.photo_emplacement_url or ""
     if not photo_emplacement_url and pdf_bytes:
         extracted = extract_location_photo(pdf_bytes)

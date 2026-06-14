@@ -90,6 +90,18 @@ I date_entree · J statut · **K fondateur** · **L ambassadeur** · M-V (divers
 - Pipeline SAV minimal `/api/sav/rapport`
 - 61 tests pytest
 
+### Phase V3 — Fusion webhook SAV-natif + parsing PDF (Plan C)
+- ✅ `LivraisonInput` accepte le payload **SAV natif** (`ns`, `client`, `email_client`, `date` DD/MM/YYYY, `rapport_pdf_url`, `report_id`, `prochain_entretien`) ET le format canonique PIONNIERS-DATA
+- ✅ Normalisation automatique : `ns→numero_serie`, split nom/prénom depuis `client`, conversion date FR→ISO
+- ✅ Parser PDF labellisé (`extract_fields` dans `pdf_extractor.py`) : `Modèle:`, `N° Série:`, `Adresse:`, `Date:`, `Client:`, `Technicien(s):`, `Type:`
+- ✅ Fusion automatique : webhook > PDF > defaults Mayotte/France (focus V1)
+- ✅ Validation explicite : 422 avec message clair si champ critique manque après normalisation
+- ✅ **PLUS BESOIN DE MAKE NI D'EMAIL ENTRANT** — SAV poste directement à Pionniers
+- ✅ E2E live validé avec le payload SAV exact (`PIO-1161/INST-2164`) — toutes les données extraites du PDF (G30, MAYOTTE, Mamoudzou, G30-MYT-TEST-001)
+- ✅ 9 nouveaux tests pytest (aliasing, parsing PDF, validation)
+
+**Total tests : 80/80 ✅**
+
 ### Phase V2 — Architecture sans Make
 - ✅ Refonte `LivraisonInput` au schéma PIONNIERS-DATA canonique
 - ✅ Idempotence via `report_id` (col W, check pré-traitement)
