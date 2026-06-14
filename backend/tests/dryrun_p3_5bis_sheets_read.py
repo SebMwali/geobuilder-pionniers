@@ -53,7 +53,6 @@ EXPECTED = {
 
 REQUIRED_COUNTERS = ["Pionnier ID", "Installation ID", "Maintenance ID", "Document ID"]
 URL_KEYWORDS = ("url", "lien", "link")
-SAMPLE_LIMIT = 3  # Nombre d'URLs d'exemple à afficher par colonne
 
 
 def _normalize(s: str) -> str:
@@ -89,7 +88,7 @@ def main() -> int:
         return 3
 
     print("=" * 78)
-    print(f"P3.5 bis — Audit lecture seule")
+    print("P3.5 bis — Audit lecture seule")
     print(f"Sheet     : {ss.title!r}")
     print(f"Sheet ID  : {ss.id}")
     print("=" * 78)
@@ -208,33 +207,40 @@ def main() -> int:
             if col_libelle_idx is None or col_valeur_idx is None:
                 global_status = "NOK"
             else:
-                print()
-                print(f"  {'Compteur attendu':22}  {'Cellule libellé':18}  {'Cellule valeur':18}  Valeur")
-                print(f"  {'─' * 22}  {'─' * 18}  {'─' * 18}  ──────")
+                # Format VERTICAL explicite (un bloc par compteur)
                 for c in REQUIRED_COUNTERS:
                     found_row = None
                     for r_idx, row in enumerate(all_rows[1:], start=2):
                         if col_libelle_idx < len(row) and row[col_libelle_idx].strip() == c:
                             found_row = r_idx
                             break
+                    print()
                     if found_row is None:
-                        print(f"  {c:22}  {'—':18}  {'—':18}  ❌ MANQUANT")
+                        print(f"  {c}")
+                        print("    Cellule libellé : —")
+                        print("    Cellule valeur  : —")
+                        print("    Valeur actuelle : ❌ MANQUANT")
                         global_status = "NOK"
                     else:
                         val = all_rows[found_row - 1][col_valeur_idx] if col_valeur_idx < len(all_rows[found_row - 1]) else ""
                         lib_cell = f"{_col_letter(col_libelle_idx)}{found_row}"
                         val_cell = f"{_col_letter(col_valeur_idx)}{found_row}"
-                        print(f"  {c:22}  {lib_cell:18}  {val_cell:18}  = {val!r}")
+                        print(f"  {c}")
+                        print(f"    Cellule libellé : {lib_cell}")
+                        print(f"    Cellule valeur  : {val_cell}")
+                        print(f"    Valeur actuelle : {val!r}")
     except Exception as e:
         print(f"  ❌ Erreur : {e}")
         global_status = "NOK"
 
     # ======================================================================
-    # (4) COLONNES URL réellement utilisées dans 01/02/03 + échantillons
+    # (4) COLONNES URL réellement utilisées dans 01/02/03
+    #     → DERNIÈRE LIGNE NON VIDE (convention historique la plus récente)
     # ======================================================================
     print()
     print("━" * 78)
-    print("4) COLONNES URL réellement présentes (01_Pionniers / 02_Installations / 03_Documents)")
+    print("4) COLONNES URL — convention historique la plus récente")
+    print("   (01_Pionniers / 02_Installations / 03_Documents)")
     print("━" * 78)
     for tab_key in ["pionniers", "installations", "documents"]:
         tab_name = TABS[tab_key]
@@ -259,20 +265,26 @@ def main() -> int:
             print(f"    ❌ erreur lecture : {e}")
             continue
         rows = data[1:]  # skip header
+
         for idx, hname in url_cols:
             col_letter = _col_letter(idx)
-            samples = []
-            for row in rows:
-                if idx < len(row) and row[idx].strip():
-                    samples.append(row[idx].strip())
-                if len(samples) >= SAMPLE_LIMIT:
-                    break
+            # Dernière ligne où la cellule de cette colonne est non vide
+            last_row_num = None
+            last_value = None
+            for offset in range(len(rows) - 1, -1, -1):
+                row = rows[offset]
+                if idx < len(row):
+                    v = row[idx].strip()
+                    if v:
+                        last_row_num = offset + 2  # +2 car header=1 et offset 0-based
+                        last_value = v
+                        break
             print(f"    Colonne {col_letter} ({hname!r}) :")
-            if not samples:
-                print(f"      (aucune valeur)")
+            if last_row_num is None:
+                print("      (colonne vide)")
             else:
-                for s in samples:
-                    print(f"      • {s}")
+                print(f"      Dernière ligne non vide : {col_letter}{last_row_num}")
+                print(f"      Valeur                  : {last_value}")
 
     # ======================================================================
     # CONCLUSION
