@@ -27,6 +27,24 @@ Si `fondateur=true` : push supplémentaire `docs/ambassadeurs/{PIO_ID}.html`.
 
 ## What's been implemented
 
+### Session du 15/02/2026 (suite — itération 4 : Espace Pionnier amélioré)
+- ✅ **Espace Pionnier** : ajout 2 mini-cartes Ambassadeur + Super Ambassadeur (greyed/locked si non acquises)
+- ✅ **WhatsApp** : module compact (au lieu du gros bloc centré)
+- ✅ **Texte Super Ambassadeur** : "Vous êtes très actif, montrez votre Geobuilder et inspirez d'autres Pionniers."
+- ✅ **Footer tagline** : "Ensemble, construisons le monde de demain"
+- ✅ **Désignation produit** : juste "G30" (label depuis catalog, sans suffixe "HOME — SÉRIE LIMITÉE")
+- ✅ **Voile header** : éclairci (de 85-95% à 18-55%)
+- ✅ **URL Instagram** : `https://www.instagram.com/geobuilderoceanindien/` intégrée
+- ✅ Catalog G30 : URL Cloudinary `G-30_myykrz.png`
+- ✅ Tests pytest 80/80
+
+### À traiter demain (session 16/02)
+- 🟡 **Logo header espace pionnier** : remplacer par `Couverture_FB_n9rsza.png` (bannière FB Geobuilder horizontale)
+- 🟡 **Voile + image hero** : le voile est encore trop foncé, et l'image montre la famille (email-header.jpeg) au lieu du paysage Comores envoyé par user. Il doit me renvoyer l'image paysage.
+- 🟡 **Image installation G30** : possiblement cache Cloudinary à purger (le user voit encore le mauvais visuel)
+- 🟡 **Option 1 vs Option 2 catalogue produits** : attente décision user — gérer les désignations dans Google Sheets (07_Catalog) ou dans Python (catalog.py) ?
+- 🟡 **Ajouter autres produits** (G60, OCEAN500, TITAN1000...) avec leurs vraies désignations selon décision
+
 ### Session du 15/02/2026 (suite — itération 3 : Espace Pionnier + Badge final)
 - ✅ **Refonte complète `portail_pionnier.html`** selon charte Geobuilder V1 :
   - Layout : Header logo + Hero (Bonjour + PIO badge + Membre depuis) + MON INSTALLATION (image produit + métadonnées + garantie)
