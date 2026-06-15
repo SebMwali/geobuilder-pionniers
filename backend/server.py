@@ -581,15 +581,6 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         or HISTORIC_FALLBACK_PHOTO
     )
 
-    # Affichage du bloc EMPLACEMENT : caché si on n'a pas de vraie photo
-    # (i.e. l'emplacement n'est qu'un fallback identique à la photo générateur catalog)
-    has_real_emplacement = (
-        bool(photo_emplacement_url)
-        and photo_emplacement_url != HISTORIC_FALLBACK_PHOTO
-        and photo_emplacement_url != photo_generateur_url
-    )
-    display_emplacement = "block" if has_real_emplacement else "none"
-
     # 3. Render templates PROD
     # 3a. Passeport (snake_case, 27 variables ; Q2 = display:none pour blocs sans donnée)
     histo_html = (
@@ -633,7 +624,6 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "badge_ambassadeur_url": url_badge_ambassadeur,
         "photo_generateur_url": photo_generateur_url,
         "photo_emplacement_url": photo_emplacement_url,
-        "display_emplacement": display_emplacement,
         **_compute_prochaine_intervention(date_inst),
         "prochain_rdv_url": "",
     }
@@ -1185,14 +1175,6 @@ def _regenerate_passeport(install_row: dict, sheets, gh) -> str:
     photo_gen = install_row.get("photo_generateur_url") or produit_info.get("photo_generateur_url") or HISTORIC_FALLBACK_PHOTO
     photo_emp = install_row.get("photo_emplacement_url") or HISTORIC_FALLBACK_PHOTO
 
-    # Bloc EMPLACEMENT : caché si la photo n'est qu'un fallback (catalog/HISTORIC)
-    _has_real_emp = (
-        bool(photo_emp)
-        and photo_emp != HISTORIC_FALLBACK_PHOTO
-        and photo_emp != photo_gen
-    )
-    display_emplacement = "block" if _has_real_emp else "none"
-
     pages_base = _github_pages_base()
     url_passeport = f"{pages_base}/passeports/{install_id}/index.html"
     url_certificat = f"{pages_base}/certificats/pionnier/{pio_id}.html"
@@ -1228,7 +1210,6 @@ def _regenerate_passeport(install_row: dict, sheets, gh) -> str:
         "badge_ambassadeur_url": "",
         "photo_generateur_url": photo_gen,
         "photo_emplacement_url": photo_emp,
-        "display_emplacement": display_emplacement,
         **_compute_prochaine_intervention(date_inst),
         "prochain_rdv_url": "",
         # Bonus contexte (nom client en cas de placeholder futur)
