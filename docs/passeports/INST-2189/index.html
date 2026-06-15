@@ -426,7 +426,7 @@
                 <div class="info-text">
                   <div class="k">GARANTIE</div>
                   <div class="v garantie-active">Active</div>
-                  <div class="hint">Expire le 2028-06-04</div>
+                  <div class="hint">Expire le 15 juin 2028</div>
                 </div>
               </div>
             </div>
@@ -468,7 +468,7 @@
               <div class="dt">MANUEL<br>UTILISATEUR</div>
               <div class="dc">CONSULTER</div>
             </a>
-            <a class="doc-card" href="https://sebmwali.github.io/geobuilder-pionniers/ambassadeur.html" target="_blank" rel="noopener">
+            <a class="doc-card" href="https://sebmwali.github.io/geobuilder-pionniers/ambassadeurs/PIO-1186.html" target="_blank" rel="noopener">
               <div class="di">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
               </div>
@@ -498,13 +498,13 @@
         <section class="card">
           <div class="card-title">EMPLACEMENT</div>
           <div class="emp-photo">
-            <img src="https://sebmwali.github.io/geobuilder-pionniers/photos/INST-2189/emplacement.jpg" alt="Emplacement rue de la Paix, 97600 Mamoudzou" />
+            <img src="https://sebmwali.github.io/geobuilder-pionniers/photos/INST-2189/emplacement.jpg" alt="Emplacement Mayotte" />
           </div>
           <div class="emp-loc">
             <svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
             <div class="l">
-              rue de la Paix, 97600 Mamoudzou
-              <span class="country">MAYOTTE</span>
+              Mayotte
+              <span class="country">Mayotte</span>
             </div>
           </div>
         </section>
@@ -530,13 +530,53 @@
         <!-- BLOC : STATUT COMMUNAUTÉ (conditionnel) -->
         <section class="card" style="display: block">
           <div class="card-title">STATUT COMMUNAUTÉ</div>
-          <div class="badges">
-            <div class="badge-item" style="display: block">
-              <img src="" alt="Badge Pionnier Geobuilder" />
-            </div>
-            <div class="badge-item" style="display: none">
-              <img src="" alt="Badge Ambassadeur Geobuilder" />
-            </div>
+          <div class="badges" style="display:flex; gap:20px; flex-wrap:wrap; justify-content:center; align-items:flex-start;">
+
+            <!-- Badge Pionnier -->
+            <a href="https://sebmwali.github.io/geobuilder-pionniers/cartes/PIO-1186.html" target="_blank" rel="noopener" class="badge-item" style="display: block; text-decoration:none; color:inherit;">
+              <div style="width:130px; position:relative;">
+                <svg viewBox="0 0 100 110" style="width:100%; filter:drop-shadow(0 8px 16px rgba(0,0,0,0.5));">
+                  <defs>
+                    <linearGradient id="hexPionPasseport" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#e8eef7"/>
+                      <stop offset="50%" stop-color="#5a7090"/>
+                      <stop offset="100%" stop-color="#1a2230"/>
+                    </linearGradient>
+                  </defs>
+                  <polygon points="50,4 92,28 92,82 50,106 8,82 8,28" fill="url(#hexPionPasseport)" stroke="#5BA6FF" stroke-width="1.5"/>
+                  <polygon points="50,11 86,32 86,78 50,99 14,78 14,32" fill="#0d1626" opacity="0.7"/>
+                  <polygon points="50,38 54,50 66,50 56,58 60,70 50,63 40,70 44,58 34,50 46,50" fill="#dde4ef"/>
+                  <rect x="0" y="82" width="100" height="14" fill="#3A8FE8"/>
+                  <text x="50" y="92" font-family="Montserrat" font-size="9" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="1">PIONNIER</text>
+                </svg>
+                <div style="text-align:center; margin-top:8px; font-size:11px; letter-spacing:0.12em; color:#27d685; font-weight:600;">✓ ACQUIS</div>
+              </div>
+            </a>
+
+            <!-- Badge Ambassadeur -->
+            <a href="https://sebmwali.github.io/geobuilder-pionniers/badge-ambassadeur.html" target="_blank" rel="noopener" class="badge-item" style="display: block; text-decoration:none; color:inherit;">
+              <div style="width:130px; position:relative;">
+                <svg viewBox="0 0 100 110" style="width:100%; filter:drop-shadow(0 8px 16px rgba(0,0,0,0.5));">
+                  <defs>
+                    <linearGradient id="hexAmbPasseport" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#5BA9FF"/>
+                      <stop offset="50%" stop-color="#3A8FE8"/>
+                      <stop offset="100%" stop-color="#1a5ec4"/>
+                    </linearGradient>
+                  </defs>
+                  <polygon points="50,4 92,28 92,82 50,106 8,82 8,28" fill="url(#hexAmbPasseport)" stroke="#5BA6FF" stroke-width="1.5"/>
+                  <polygon points="50,11 86,32 86,78 50,99 14,78 14,32" fill="#0d1626" opacity="0.55"/>
+                  <circle cx="42" cy="46" r="6" fill="#fff"/>
+                  <circle cx="58" cy="48" r="5" fill="#fff" opacity="0.85"/>
+                  <path d="M28 68 c0-8 6-12 14-12 s14 4 14 12" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M54 68 c0-6 4-9 10-9 s10 3 10 9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
+                  <rect x="0" y="82" width="100" height="14" fill="#1a5ec4"/>
+                  <text x="50" y="92" font-family="Montserrat" font-size="8" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="0.5">AMBASSADEUR</text>
+                </svg>
+                <div style="text-align:center; margin-top:8px; font-size:11px; letter-spacing:0.12em; color:#27d685; font-weight:600;">✓ ACQUIS</div>
+              </div>
+            </a>
+
           </div>
         </section>
 
