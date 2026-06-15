@@ -616,12 +616,15 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "url_certificat": url_certificat,
         "url_ambassadeur_cta": url_ambassadeur_landing,
         "url_telecharger_tout": "",
-        # Statut communauté — affiche les badges Fondateur + Ambassadeur (iframes)
-        "display_pionnier": "block" if payload.fondateur else "none",
-        "display_ambassadeur": "block" if payload.fondateur else "none",
+        # Statut communauté — 3x1 grid : Ambassadeur / Super Ambassadeur / Fondateur
+        # Visible si le bloc contient au moins 1 badge acquis
         "display_statut_communaute": "block" if payload.fondateur else "none",
-        "badge_fondateur_url": url_badge_fondateur,
-        "badge_ambassadeur_url": url_badge_ambassadeur,
+        "display_badge_ambassadeur": "none",          # acquis à la signature ambassadeur (pas encore à la livraison)
+        "display_badge_super_ambassadeur": "none",     # acquis via /api/admin/promote-super
+        "display_badge_fondateur": "block" if payload.fondateur else "none",
+        "url_badge_ambassadeur": f"{pages_base}/badges/ambassadeur/{pio_id}.html",
+        "url_badge_super_ambassadeur": f"{pages_base}/badges/super-ambassadeur/{pio_id}.html",
+        "url_badge_fondateur": url_badge_fondateur,
         "photo_generateur_url": photo_generateur_url,
         "photo_emplacement_url": photo_emplacement_url,
         **_compute_prochaine_intervention(date_inst),
@@ -1413,6 +1416,19 @@ def _regenerate_passeport(install_row: dict, sheets, gh) -> str:
     photo_gen = install_row.get("photo_generateur_url") or produit_info.get("photo_generateur_url") or HISTORIC_FALLBACK_PHOTO
     photo_emp = install_row.get("photo_emplacement_url") or HISTORIC_FALLBACK_PHOTO
 
+    # Lecture du pionnier pour déterminer les badges acquis (3x1 grid statut communauté)
+    pio_row = sheets.find_row_by("pionniers", "pio_id", pio_id) or {}
+    def _truthy(v):
+        return str(v or "").strip().upper() in ("TRUE", "OUI", "1", "YES", "VRAI")
+    is_fondateur = _truthy(pio_row.get("fondateur"))
+    is_ambassadeur = _truthy(pio_row.get("ambassadeur"))
+    statut_comm = (pio_row.get("communaute_statut") or "").strip().lower()
+    is_super = "super" in statut_comm
+    display_badge_ambassadeur = "block" if is_ambassadeur else "none"
+    display_badge_super_ambassadeur = "block" if is_super else "none"
+    display_badge_fondateur = "block" if is_fondateur else "none"
+    display_statut_communaute = "block" if (is_fondateur or is_ambassadeur or is_super) else "none"
+
     pages_base = _github_pages_base()
     url_passeport = f"{pages_base}/passeports/{install_id}/index.html"
     url_certificat = f"{pages_base}/certificats/pionnier/{pio_id}.html"
@@ -1441,11 +1457,14 @@ def _regenerate_passeport(install_row: dict, sheets, gh) -> str:
         "url_certificat": url_certificat,
         "url_ambassadeur_cta": f"{pages_base}/ambassadeur.html",
         "url_telecharger_tout": "",
-        "display_pionnier": "block",
-        "display_ambassadeur": "none",
-        "display_statut_communaute": "block",
-        "badge_pionnier_url": "",
-        "badge_ambassadeur_url": "",
+        # Statut communauté — 3x1 grid (visible quand acquis)
+        "display_statut_communaute": display_statut_communaute,
+        "display_badge_ambassadeur": display_badge_ambassadeur,
+        "display_badge_super_ambassadeur": display_badge_super_ambassadeur,
+        "display_badge_fondateur": display_badge_fondateur,
+        "url_badge_ambassadeur": f"{pages_base}/badges/ambassadeur/{pio_id}.html",
+        "url_badge_super_ambassadeur": f"{pages_base}/badges/super-ambassadeur/{pio_id}.html",
+        "url_badge_fondateur": f"{pages_base}/badges/fondateur/{pio_id}.html",
         "photo_generateur_url": photo_gen,
         "photo_emplacement_url": photo_emp,
         **_compute_prochaine_intervention(date_inst),
