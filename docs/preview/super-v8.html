@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Badge Super Ambassadeur — Sébastien Fumaz</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{
+    background:#000; min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cinzel','Trajan Pro',Georgia,serif;
+  }
+  .badge{
+    position:relative;
+    width: min(95vw, 760px);
+    aspect-ratio: 1086 / 1448;
+    background-image: url("https://sebmwali.github.io/geobuilder-pionniers/assets/badge-super-ambassadeur-bg.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    container-type: inline-size;
+    font-family:'Cinzel',serif;
+  }
+  .ovl{
+    position:absolute;
+    color:#3A8FE8;
+    text-shadow: 0 0 14px rgba(58,143,232,.55), 0 1px 2px rgba(0,0,0,.7);
+    text-transform:uppercase;
+    font-weight:700;
+  }
+  /* Territoire — centré (même hauteur que le pin) */
+  .ovl-territoire{
+    top: 60.4%;
+    left: 0; width: 100%;
+    text-align:center;
+    font-size: 3cqw;
+    letter-spacing: .18em;
+  }
+  /* Année — sous "PIONNIER DE L'EAU DE L'AIR" */
+  .ovl-annee{
+    top: 72.5%;
+    left: 0; width: 100%;
+    text-align:center;
+    font-size: 10cqw;
+    letter-spacing: .14em;
+  }
+  /* Nom — petit, centré entre la barre bleue et la goutte */
+  .ovl-nom{
+    top: 84%;
+    left: 0; width: 100%;
+    text-align:center;
+    font-size: 1.9cqw;
+    letter-spacing: .14em;
+  }
+  /* PIO ID — bas droite, discret */
+  .ovl-pio{
+    right: 9%; bottom: 5%;
+    font-size: 1.7cqw;
+    letter-spacing: .22em;
+    font-weight:600;
+  }
+</style>
+</head>
+<body>
+  <div class="badge">
+    <div class="ovl ovl-territoire">Mayotte</div>
+    <div class="ovl ovl-annee">2026</div>
+    <div class="ovl ovl-nom">Sébastien Fumaz</div>
+    <div class="ovl ovl-pio">PIO-1196</div>
+  </div>
+</body>
+</html>
