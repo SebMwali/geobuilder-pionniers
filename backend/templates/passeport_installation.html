@@ -30,9 +30,9 @@
     --text:       #F2F5FA;
     --text-dim:   #98A6BD;
     --text-mute:  #5C6A82;
-    --accent:     #1AB8FF;
+    --accent:     #3A8FE8;
     --accent-2:   #5BA9FF;
-    --accent-dim: rgba(26, 184, 255,.18);
+    --accent-dim: rgba(58, 143, 232,.18);
     --ok:         #4ADE80;
     --ok-dim:     rgba(74,222,128,.12);
     --bad:        #EF4444;
@@ -54,8 +54,8 @@
   body::before{
     content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
     background:
-      radial-gradient(900px 500px at 18% 0%, rgba(26, 184, 255,.12), transparent 60%),
-      radial-gradient(800px 500px at 85% 18%, rgba(26, 184, 255,.07), transparent 60%),
+      radial-gradient(900px 500px at 18% 0%, rgba(58, 143, 232,.12), transparent 60%),
+      radial-gradient(800px 500px at 85% 18%, rgba(58, 143, 232,.07), transparent 60%),
       linear-gradient(180deg, #060A14 0%, #05080F 100%);
   }
 
@@ -68,7 +68,7 @@
     padding:8px 12px 36px;
   }
   .brand{display:flex;align-items:center;gap:18px}
-  .brand .logo{height:180px;width:auto;max-width:520px;flex-shrink:0;object-fit:contain;filter:drop-shadow(0 0 40px rgba(26, 184, 255,.45))}
+  .brand .logo{height:180px;width:auto;max-width:520px;flex-shrink:0;object-fit:contain;filter:drop-shadow(0 0 40px rgba(58, 143, 232,.45))}
   .brand .b-txt{display:none}
   .brand .b-txt .b1{font-size:30px;font-weight:800;letter-spacing:.06em;line-height:1}
   .brand .b-txt .b2{font-size:11px;letter-spacing:.32em;color:var(--text-dim);margin-top:6px;font-weight:500}
@@ -124,7 +124,7 @@
   .info-icon{
     width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;
     background:var(--accent-dim);color:var(--accent);
-    border:1px solid rgba(26, 184, 255,.35);
+    border:1px solid rgba(58, 143, 232,.35);
   }
   .info-icon svg{width:20px;height:20px}
   .info-text .k{font-size:10px;letter-spacing:.24em;color:var(--text-dim);text-transform:uppercase;font-weight:600}
@@ -134,7 +134,7 @@
   .info-text .hint{font-size:12px;color:var(--text-mute);margin-top:3px;font-weight:400}
 
   .gen-img{
-    aspect-ratio:1/1;background:radial-gradient(circle at 50% 60%, rgba(26, 184, 255,.25) 0%, transparent 60%);
+    aspect-ratio:1/1;background:radial-gradient(circle at 50% 60%, rgba(58, 143, 232,.25) 0%, transparent 60%);
     display:flex;align-items:center;justify-content:center;
     border-radius:var(--radius-sm);
   }
@@ -157,7 +157,7 @@
   .histo-row:last-child{border-bottom:none}
   .histo-icon{
     width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;
-    background:var(--accent-dim);color:var(--accent);border:1px solid rgba(26, 184, 255,.3);
+    background:var(--accent-dim);color:var(--accent);border:1px solid rgba(58, 143, 232,.3);
   }
   .histo-icon svg{width:18px;height:18px}
   .histo-date{font-size:13px;color:var(--text);font-weight:500;line-height:1.4}
@@ -169,10 +169,10 @@
     display:inline-flex;align-items:center;gap:6px;
     padding:6px 10px;border:1px solid var(--line-2);border-radius:8px;
     font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--accent);
-    background:rgba(26, 184, 255,.06);
+    background:rgba(58, 143, 232,.06);
     transition:border-color .2s,background .2s;
   }
-  .histo-pdf a:hover{border-color:var(--accent);background:rgba(26, 184, 255,.14)}
+  .histo-pdf a:hover{border-color:var(--accent);background:rgba(58, 143, 232,.14)}
   .histo-pdf svg{width:13px;height:13px}
 
   .voir-tout{
@@ -195,7 +195,7 @@
   .doc-card:hover{border-color:var(--accent);transform:translateY(-2px)}
   .doc-card .di{
     width:54px;height:54px;margin:0 auto 14px;
-    border-radius:12px;background:rgba(26, 184, 255,.08);border:1px solid var(--line-2);
+    border-radius:12px;background:rgba(58, 143, 232,.08);border:1px solid var(--line-2);
     display:flex;align-items:center;justify-content:center;color:var(--accent);
   }
   .doc-card .di svg{width:26px;height:26px}
@@ -241,7 +241,7 @@
     display:flex;align-items:center;gap:10px;justify-content:center;
     padding:12px;border:1px solid var(--accent);border-radius:10px;
     color:var(--accent);font-size:11px;letter-spacing:.24em;font-weight:700;text-transform:uppercase;
-    background:rgba(26, 184, 255,.06);
+    background:rgba(58, 143, 232,.06);
   }
   .verif-btn .vb-txt{display:flex;flex-direction:column;align-items:center;gap:2px}
   .verif-btn .vb-txt .sub{font-size:9px;letter-spacing:.18em;color:var(--text-dim);font-weight:500;text-transform:none}
@@ -256,9 +256,9 @@
   .next-int{text-align:center}
   .next-icon{
     width:72px;height:72px;margin:6px auto 14px;border-radius:50%;
-    background:rgba(26, 184, 255,.1);border:1px solid var(--line-2);
+    background:rgba(58, 143, 232,.1);border:1px solid var(--line-2);
     display:flex;align-items:center;justify-content:center;color:var(--accent);
-    box-shadow:0 0 0 8px rgba(26, 184, 255,.04);
+    box-shadow:0 0 0 8px rgba(58, 143, 232,.04);
   }
   .next-icon svg{width:32px;height:32px}
   .next-type{font-size:12px;letter-spacing:.22em;color:var(--text);font-weight:700;text-transform:uppercase}
@@ -268,10 +268,10 @@
     margin-top:18px;display:flex;align-items:center;gap:10px;justify-content:center;
     padding:13px;border:1px solid var(--line-2);border-radius:10px;
     color:var(--accent);font-size:11px;letter-spacing:.22em;font-weight:700;text-transform:uppercase;
-    background:rgba(26, 184, 255,.04);
+    background:rgba(58, 143, 232,.04);
     transition:border-color .2s,background .2s;
   }
-  .next-btn:hover, .assist-btn:hover{border-color:var(--accent);background:rgba(26, 184, 255,.14)}
+  .next-btn:hover, .assist-btn:hover{border-color:var(--accent);background:rgba(58, 143, 232,.14)}
   .next-btn svg, .assist-btn svg{width:14px;height:14px}
 
   /* Assistance */
@@ -281,7 +281,7 @@
   .assist-row .ai{
     width:30px;height:30px;border-radius:8px;flex-shrink:0;
     display:flex;align-items:center;justify-content:center;color:var(--accent);
-    border:1px solid var(--line-2);background:rgba(26, 184, 255,.06);
+    border:1px solid var(--line-2);background:rgba(58, 143, 232,.06);
   }
   .assist-row .ai svg{width:14px;height:14px}
 

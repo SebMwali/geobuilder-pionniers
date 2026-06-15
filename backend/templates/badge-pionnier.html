@@ -19,7 +19,7 @@
     aspect-ratio: 1024 / 1536;
     border-radius:18px;
     overflow:hidden;
-    box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(26, 184, 255,.12);
+    box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(58, 143, 232,.12);
   }
   .badge-bg {
     position:absolute; inset:0;
@@ -31,10 +31,10 @@
   }
   .overlay { position:absolute; inset:0; pointer-events:none; }
 
-  /* Nom client — centré exactement entre les deux LED bars (40.8% / 62.1%) */
+  /* Nom client — centré exactement entre les deux LED bars (40.8% et 52.1%) */
   .nom-client {
     position:absolute;
-    top:51.5%;
+    top:46.5%;
     left:0; right:0;
     transform:translateY(-50%);
     text-align:center;
@@ -59,7 +59,7 @@
     font-weight:500;
     letter-spacing:0.30em;
     font-size:clamp(11px, 2.0vw, 14px);
-    color:#1AB8FF;
+    color:#3A8FE8;
     text-transform:uppercase;
     text-shadow:0 2px 8px rgba(0,0,0,0.7);
   }
@@ -74,7 +74,7 @@
     font-weight:500;
     letter-spacing:0.30em;
     font-size:clamp(13px, 2.4vw, 17px);
-    color:#1AB8FF;
+    color:#3A8FE8;
     text-shadow:0 2px 8px rgba(0,0,0,0.7);
   }
 
@@ -104,15 +104,15 @@
     border-radius:4px;
     padding:4px;
     pointer-events:auto;
-    box-shadow:0 0 0 2px rgba(26, 184, 255,0.7), 0 0 24px rgba(26, 184, 255,0.55);
+    box-shadow:0 0 0 2px rgba(58, 143, 232,0.7), 0 0 24px rgba(58, 143, 232,0.55);
     animation:qrPulse 2.4s ease-in-out infinite;
   }
   @keyframes qrPulse {
     0%, 100% {
-      box-shadow:0 0 0 2px rgba(26, 184, 255,0.7), 0 0 20px rgba(26, 184, 255,0.45);
+      box-shadow:0 0 0 2px rgba(58, 143, 232,0.7), 0 0 20px rgba(58, 143, 232,0.45);
     }
     50% {
-      box-shadow:0 0 0 3px rgba(26, 184, 255,1), 0 0 36px rgba(26, 184, 255,0.85);
+      box-shadow:0 0 0 3px rgba(58, 143, 232,1), 0 0 36px rgba(58, 143, 232,0.85);
     }
   }
   /* Tilt 3D subtil au hover du badge entier (masqué à l'impression) */
@@ -123,9 +123,9 @@
   .print-btn{
     display:block;
     margin:28px auto 0;
-    background:rgba(26, 184, 255,0.1);
-    border:1px solid rgba(26, 184, 255,0.25);
-    color:#1AB8FF;
+    background:rgba(58, 143, 232,0.1);
+    border:1px solid rgba(58, 143, 232,0.25);
+    color:#3A8FE8;
     font-family:'Montserrat',sans-serif;
     font-size:12px;
     font-weight:700;
@@ -136,7 +136,7 @@
     cursor:pointer;
     transition:background .15s ease;
   }
-  .print-btn:hover{ background:rgba(26, 184, 255,0.2); }
+  .print-btn:hover{ background:rgba(58, 143, 232,0.2); }
 
   /* Mode impression — on cache le bouton et le tilt, on imprime juste le badge */
   @media print {
@@ -167,7 +167,7 @@
   .cta {
     display:block;
     margin:24px auto 0;
-    background:#1AB8FF;
+    background:#3A8FE8;
     color:#0D0D0D;
     font-family:'Montserrat',sans-serif;
     font-weight:600;
