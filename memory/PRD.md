@@ -27,7 +27,18 @@ Si `fondateur=true` : push supplémentaire `docs/ambassadeurs/{PIO_ID}.html`.
 
 ## What's been implemented
 
-### Session du 15/02/2026 (suite — itération 4 : Espace Pionnier amélioré)
+### Session du 15/02/2026 (suite — itération 5 : Espace Pionnier finalisation visuelle)
+- ✅ **Hero landscape** : nouvelle image aérienne tropicale `DJI_0516.jpg` poussée sur `docs/assets/portail-hero-landscape.jpg` (océan Indien — île, lagon turquoise, plages)
+- ✅ **Voile hero** : dégradé diagonal 55%→30%→65% pour lisibilité texte + text-shadow renforcé
+- ✅ **Titres hero** : `Bonjour Sébastien` en blanc, accent `--blue-bright` sur le prénom, pill `PIO-ID` avec backdrop-blur
+- ✅ **Logo header & footer** : remplacé par Cloudinary `Couverture_FB_n9rsza.png` (140×62 / 130×54)
+- ✅ **Restructuration "Vos Documents Officiels"** : passage de 4 à **6 cartes** en grille 3×2 — intègre désormais Carte Ambassadeur + Carte Super Ambassadeur
+- ✅ **Section "Communauté"** : réduite — ne contient plus que le bloc WhatsApp (centré verticalement, agrandi, ombre verte)
+- ✅ **Cards lock/grey** : Carte Ambassadeur + Super Ambassadeur grisées (filter:grayscale, opacity:0.45, pointer-events:none) tant que non acquises
+- ✅ **Cleanup CSS** : suppression complète des classes `.mini-card*` devenues inutiles
+- ✅ Tests pytest 80/80 ✓
+
+### Session du 15/02/2026 (itération 4 : Espace Pionnier amélioré)
 - ✅ **Espace Pionnier** : ajout 2 mini-cartes Ambassadeur + Super Ambassadeur (greyed/locked si non acquises)
 - ✅ **WhatsApp** : module compact (au lieu du gros bloc centré)
 - ✅ **Texte Super Ambassadeur** : "Vous êtes très actif, montrez votre Geobuilder et inspirez d'autres Pionniers."
