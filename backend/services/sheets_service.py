@@ -62,6 +62,7 @@ TABS = {
     "maintenances": "05_Maintenances",
     "documents": "06_Documents",
     "ressources": "07_Produits",
+    "catalog": "07_Catalog",
     "logs": "08_Automations_Log",
 }
 

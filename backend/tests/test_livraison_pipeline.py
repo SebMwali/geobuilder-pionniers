@@ -75,7 +75,7 @@ def sample_payload():
         telephone="+262 692 00 00 00",
         territoire="MAYOTTE",
         pays="Mayotte",
-        produit="G20 MOJA",
+        produit="G30",
         numero_serie="P3-TEST-NS-0001",
         date_installation="2026-02-15",
         localisation="Mamoudzou, Mayotte",
@@ -135,7 +135,7 @@ class TestPipelineLivraison:
         assert "INST-2157" in pass_html
         assert "PIO-1154" in pass_html
         assert "P3-TEST-NS-0001" in pass_html
-        assert "G20 Moja" in pass_html
+        assert "G30" in pass_html
         assert "{{" not in pass_html, "Variables non remplacées dans passeport"
 
         # Certificat Pionnier
@@ -151,8 +151,8 @@ class TestPipelineLivraison:
         assert "PIO-1154" in cg_html
         assert "P3-TEST-NS-0001" in cg_html
         assert "Aïsha Diallo" in cg_html
-        assert "G20 Moja" in cg_html
-        assert "g20_moja" in cg_html  # PRODUIT_IMG_ID
+        assert "G30" in cg_html
+        assert "g30" in cg_html  # PRODUIT_IMG_ID
         assert "{{" not in cg_html
 
         # Portail
@@ -205,14 +205,14 @@ class TestPipelineLivraison:
         assert len(row) == 23  # 23 colonnes (U+V = photos, W = report_id)
         assert row[0] == "INST-2157"
         assert row[1] == "PIO-1154"
-        assert row[2] == "G20 Moja"          # C = produit
+        assert row[2] == "G30"          # C = produit
         assert row[3] == "P3-TEST-NS-0001"   # D = numero_serie
         assert row[4] == "2026-02-15"        # E = date_installation
         assert row[8] == "active"            # I = installation_status
         assert row[9] == "true"              # J = pionnier_created
         assert row[18] == "/install/INST-2157"  # S = passeport_url (relative)
         assert row[19] == "true"             # T = installation_active
-        # U = photo_generateur_url (peut être vide pour G20 ou cloudinary)
+        # U = photo_generateur_url (peut être vide ou cloudinary G30)
         assert isinstance(row[20], str)
         # V = photo_emplacement_url (fallback historique si pas de PDF)
         assert row[21].startswith("https://")

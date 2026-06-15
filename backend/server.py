@@ -106,8 +106,13 @@ class SavInput(BaseModel):
 
     Minimaliste : crée une ligne dans 05_Maintenances + régénère le passeport.
     Aucune photo, aucun ticket, aucun ERP.
+
+    Identification de l'installation :
+    - `install_id` (recommandé si connu côté SAV) OU
+    - `numero_serie` seul (Pionniers résout numero_serie → install_id → pio_id)
     """
-    install_id: str
+    install_id: Optional[str] = None
+    numero_serie: Optional[str] = None
     date_intervention: Optional[str] = None  # YYYY-MM-DD, défaut = aujourd'hui
     type_intervention: str
     technicien: Optional[str] = ""
@@ -117,6 +122,8 @@ class SavInput(BaseModel):
     prochain_rdv: Optional[str] = ""
     source: Optional[str] = "backend_sav"
     rapport_url: Optional[str] = ""
+    # Idempotence — stocké uniquement dans 08_Automations_Log (pas dans 05_Maintenances)
+    report_id: Optional[str] = None
 
 
 class MaintenanceInput(BaseModel):  # noqa: D401 — DEPRECATED, remplacé par SavInput
@@ -1510,20 +1517,76 @@ def _regenerate_passeport(install_row: dict, sheets, gh) -> str:
 
 async def _process_sav(payload: SavInput) -> dict:
     """Pipeline SAV minimal :
-    1. Vérifier que l'installation existe (lecture 02_Installations).
-    2. Allouer MAINT-XXXX.
-    3. Append une ligne dans 05_Maintenances (12 colonnes A-L).
-    4. Régénérer le passeport + push GitHub.
-    Aucune photo, aucun ticket, aucun ERP.
+    1. Résoudre install_id depuis numero_serie si non fourni.
+    2. Idempotence : si report_id déjà loggé dans 08_Automations_Log -> replay.
+    3. Vérifier que l'installation existe.
+    4. Allouer MAINT-XXXX.
+    5. Append une ligne dans 05_Maintenances (12 colonnes A-L).
+    6. Régénérer le passeport + push GitHub.
+    7. Log dans 08_Automations_Log avec report_id (idempotence persistante).
     """
     sheets = get_sheets_service()
     gh = get_github_service()
 
-    install = sheets.find_row_by("installations", "install_id", payload.install_id)
-    if not install:
-        raise HTTPException(404, f"No installation found for install_id={payload.install_id}")
+    # 1. Résolution numero_serie → install_id (si install_id absent)
+    if not payload.install_id:
+        if not payload.numero_serie:
+            raise HTTPException(422, "install_id OU numero_serie requis")
+        install = sheets.find_row_by("installations", "numero_serie", payload.numero_serie)
+        if not install:
+            raise HTTPException(
+                404,
+                f"Numéro de série '{payload.numero_serie}' non enregistré chez Pionniers. "
+                "Vérifier la livraison."
+            )
+        payload.install_id = install.get("install_id") or ""
+        logger.info(f"[SAV] Résolution {payload.numero_serie} -> {payload.install_id}")
+    else:
+        install = sheets.find_row_by("installations", "install_id", payload.install_id)
+        if not install:
+            raise HTTPException(404, f"No installation found for install_id={payload.install_id}")
 
     pio_id = (install.get("pio_id") or "").strip()
+
+    # 2. Idempotence via 08_Automations_Log (lookup sur report_id)
+    if payload.report_id:
+        try:
+            logs = sheets.read_all("logs")
+            for log_row in logs:
+                # Tolérant aux variantes de header (Sheet a "action " avec espace)
+                action_val = (
+                    log_row.get("action")
+                    or log_row.get("action ")
+                    or log_row.get(" action")
+                    or ""
+                ).strip()
+                if action_val != "sav":
+                    continue
+                msg = str(log_row.get("message") or "")
+                if f"report_id={payload.report_id}" in msg:
+                    # Replay détecté — extraire maint_id du message
+                    import re
+                    m = re.search(r"maint=(MAINT-\d+)", msg)
+                    existing_maint = m.group(1) if m else "?"
+                    logger.info(
+                        f"[SAV] Idempotent replay report_id={payload.report_id} -> {existing_maint}"
+                    )
+                    return {
+                        "maintenance_id": existing_maint,
+                        "install_id": payload.install_id,
+                        "pio_id": pio_id,
+                        "url_passeport": f"{_github_pages_base()}/passeports/{payload.install_id}/index.html",
+                        "idempotent_replay": True,
+                        "report_id": payload.report_id,
+                    }
+        except Exception as e:
+            logger.warning(f"[SAV] Idempotence lookup failed (continue): {e}")
+            raise HTTPException(
+                503,
+                f"Google Sheets API quota exceeded - retry later (report_id={payload.report_id})",
+                headers={"Retry-After": "30"},
+            )
+
     _, maint_id = increment_counter("maintenance")
     date_m = payload.date_intervention or _today_iso()
 
@@ -1556,14 +1619,18 @@ async def _process_sav(payload: SavInput) -> dict:
         sheets.log_event("regen_passeport", payload.install_id, pio_id, "ERROR", str(e), "")
         raise HTTPException(502, f"Passeport regeneration failed: {e}")
 
-    sheets.log_event("sav", payload.install_id, pio_id, "OK",
-                     f"SAV ajouté maint={maint_id} type={payload.type_intervention}", "")
+    # 5. Log avec report_id (idempotence persistante dans 08_Automations_Log)
+    log_msg = f"SAV ajouté maint={maint_id} type={payload.type_intervention}"
+    if payload.report_id:
+        log_msg += f" report_id={payload.report_id}"
+    sheets.log_event("sav", payload.install_id, pio_id, "OK", log_msg, "")
 
     return {
         "maintenance_id": maint_id,
         "install_id": payload.install_id,
         "pio_id": pio_id,
         "url_passeport": url_passeport,
+        "report_id": payload.report_id,
     }
 
 
@@ -1595,6 +1662,13 @@ async def list_installations(_: dict = Depends(require_admin)):
         return get_sheets_service().read_all("installations")
     except Exception as e:
         raise HTTPException(500, str(e))
+
+
+@api_router.post("/admin/reload-catalog")
+async def admin_reload_catalog(_: dict = Depends(require_admin)):
+    """Force le rechargement du catalogue produits depuis 07_Catalog."""
+    from services.catalog import reload_catalog
+    return reload_catalog()
 
 
 @api_router.get("/admin/maintenances")
