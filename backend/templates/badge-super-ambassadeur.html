@@ -5,313 +5,71 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Badge Super Ambassadeur — {{NOM_COMPLET}}</title>
 <style>
-  /* =================================================================
-     BADGE SUPER AMBASSADEUR GEOBUILDER  —  Or / Chrome
-     Format : 1024 x 1024
-     ================================================================= */
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{
-    background:#000; color:#fff;
-    font-family:'Cinzel','Trajan Pro',Georgia,serif;
+    background:#000; min-height:100vh;
     display:flex; align-items:center; justify-content:center;
-    min-height:100vh;
+    font-family:'Cinzel','Trajan Pro',Georgia,serif;
   }
-  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&display=swap');
-
   .badge{
-    width:1024px; height:1024px; position:relative;
-    background:
-      radial-gradient(ellipse at center, #1a1a1a 0%, #0a0a0a 70%, #000 100%),
-      repeating-linear-gradient(90deg,
-        rgba(255,255,255,.012) 0px,
-        rgba(255,255,255,.012) 1px,
-        transparent 1px,
-        transparent 3px);
-    background-blend-mode: overlay;
-    overflow:hidden;
-  }
-
-  /* ---- BORDURE MÉTAL OR + GLOW CYAN ---- */
-  .frame-outer{
-    position:absolute; inset:32px;
-    border-radius:48px;
-    background:
-      linear-gradient(135deg,
-        #f6d977 0%, #ffe6a3 12%, #b8841e 30%, #f8e08c 48%,
-        #8a5e1a 65%, #f5d875 80%, #c19438 100%);
-    padding:6px;
-    box-shadow:
-      0 0 50px rgba(58,143,232,.65),
-      0 0 120px rgba(58,143,232,.35),
-      inset 0 0 30px rgba(58,143,232,.5);
-  }
-  .frame-inner{
-    width:100%; height:100%;
-    border-radius:42px;
-    background:
-      radial-gradient(ellipse at center, #1c1c1c 0%, #0a0a0a 70%, #000 100%);
     position:relative;
-    box-shadow:
-      inset 0 0 60px rgba(0,0,0,.95),
-      inset 0 0 10px rgba(58,143,232,.4);
-    overflow:hidden;
+    width: min(95vw, 760px);
+    aspect-ratio: 1086 / 1448;
+    background-image: url("https://sebmwali.github.io/geobuilder-pionniers/assets/badge-super-ambassadeur-bg.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    container-type: inline-size;
   }
-  .frame-inner::before{
-    content:''; position:absolute; inset:8px;
-    border-radius:36px;
-    box-shadow: inset 0 0 40px rgba(58,143,232,.25);
-    pointer-events:none;
-  }
-
-  .content{
-    position:absolute; inset:90px 70px;
-    display:flex; flex-direction:column; align-items:center;
-    justify-content:flex-start;
-  }
-
-  /* Logo goutte d'eau Geobuilder (chrome argent) */
-  .logo{ width:200px; height:200px; margin-top:20px; filter:drop-shadow(0 0 30px rgba(58,143,232,.55)); }
-
-  /* Titre SUPER AMBASSADEUR (or) */
-  .title{
-    font-family:'Cinzel',serif; font-weight:900;
-    font-size:66px; letter-spacing:.04em;
-    text-transform:uppercase;
-    margin-top:24px;
-    background:linear-gradient(180deg,
-      #fff3c4 0%, #ffd966 20%, #b8841e 45%, #fde68a 60%, #8a5e1a 80%, #ffd966 100%);
-    -webkit-background-clip:text; background-clip:text;
-    -webkit-text-fill-color:transparent;
-    filter:drop-shadow(0 2px 0 rgba(0,0,0,.7)) drop-shadow(0 4px 12px rgba(58,143,232,.4));
-    line-height:1;
-    text-align:center;
-  }
-
-  .glow-line{
-    width:75%; height:2px;
-    background:linear-gradient(90deg,
-      transparent, rgba(58,143,232,.6) 30%, rgba(58,143,232,1) 50%,
-      rgba(58,143,232,.6) 70%, transparent);
-    margin:22px 0;
-    box-shadow:0 0 12px rgba(58,143,232,.9);
-  }
-
-  .geo{
-    font-family:'Cinzel',serif; font-weight:600;
-    font-size:38px; letter-spacing:.45em;
-    background:linear-gradient(180deg, #ffffff 0%, #c8c8c8 50%, #808080 100%);
-    -webkit-background-clip:text; background-clip:text;
-    -webkit-text-fill-color:transparent;
-    filter:drop-shadow(0 1px 0 rgba(0,0,0,.6));
-    padding-left:.45em;
-  }
-
-  .info{
-    margin-top:32px;
-    display:flex; flex-direction:column; align-items:center; gap:8px;
-  }
-  .loc-row{
-    display:flex; align-items:center; gap:14px;
-    font-family:'Cinzel',serif; font-weight:600;
-    font-size:22px; letter-spacing:.22em;
+  .ovl{position:absolute; text-align:center;
+       font-family:'Cinzel',serif; text-transform:uppercase;
+       width:100%; left:0;}
+  /* Territoire — à côté du pictogramme localisation */
+  .ovl-territoire{
+    top: 60.8%;
+    font-size: 2.1cqw;
+    letter-spacing:.22em; font-weight:600;
     color:#e8d68a;
-    text-transform:uppercase;
+    text-shadow: 0 1px 3px rgba(0,0,0,.7);
   }
-  .loc-pin{ width:32px; height:32px; flex-shrink:0; filter:drop-shadow(0 0 8px rgba(58,143,232,.7));}
-  .tagline{
-    font-family:'Cinzel',serif; font-weight:500;
-    font-size:17px; letter-spacing:.25em;
+  /* Année — sous "Pionnier de l'eau de l'air" */
+  .ovl-annee{
+    top: 70.8%;
+    font-size: 2.2cqw;
+    letter-spacing:.25em; font-weight:700;
     color:#d4b766;
-    text-transform:uppercase;
-    margin-top:6px;
+    text-shadow: 0 1px 3px rgba(0,0,0,.7);
   }
-  .annee{
-    font-family:'Cinzel',serif; font-weight:700;
-    font-size:28px; letter-spacing:.18em;
-    background:linear-gradient(180deg, #fde68a 0%, #d4a017 50%, #8a5e1a 100%);
-    -webkit-background-clip:text; background-clip:text;
-    -webkit-text-fill-color:transparent;
-    margin-top:14px;
-  }
-
-  .nom{
-    font-family:'Cinzel',serif; font-weight:700;
-    font-size:34px; letter-spacing:.08em;
-    text-align:center;
-    text-transform:uppercase;
+  /* Nom du client — au cœur de la couronne de lauriers */
+  .ovl-nom{
+    top: 81.5%;
+    font-size: 2.6cqw;
+    letter-spacing:.10em; font-weight:700;
     color:#fde68a;
-    text-shadow: 0 1px 0 rgba(0,0,0,.6), 0 0 18px rgba(58,143,232,.5);
-    margin-top:34px;
+    text-shadow: 0 2px 6px rgba(0,0,0,.85), 0 0 12px rgba(58,143,232,.35);
   }
-
-  .laurels-wrap{
-    position:absolute; left:50%; bottom:120px;
-    transform:translateX(-50%);
-    width:780px; height:280px;
-    display:flex; align-items:flex-end; justify-content:center;
-    pointer-events:none;
-  }
-  .laurels{ width:100%; height:100%; }
-
-  .pio-id{
-    position:absolute; right:80px; bottom:60px;
+  /* PIO ID — bas droite */
+  .ovl-pio{
+    position:absolute;
+    right: 7%; bottom: 4.2%;
     font-family:'Cinzel',serif; font-weight:600;
-    font-size:18px; letter-spacing:.25em;
-    color:rgba(253,230,138,.7);
-    background:rgba(0,0,0,.4);
-    padding:6px 14px;
-    border:1px solid rgba(212,160,23,.35);
-    border-radius:8px;
-    backdrop-filter:blur(4px);
-  }
-
-  .bottom-line{
-    position:absolute; left:50%; bottom:215px;
-    transform:translateX(-50%);
-    width:55%; height:2px;
-    background:linear-gradient(90deg,
-      transparent, rgba(58,143,232,.7) 30%, rgba(58,143,232,1) 50%,
-      rgba(58,143,232,.7) 70%, transparent);
-    box-shadow:0 0 10px rgba(58,143,232,.8);
+    font-size: 1.55cqw;
+    letter-spacing:.22em;
+    color: rgba(253,230,138,.85);
+    background: rgba(0,0,0,.45);
+    padding: .35em .8em;
+    border: 1px solid rgba(212,160,23,.4);
+    border-radius: 6px;
+    backdrop-filter: blur(3px);
+    width:auto; text-align:right;
   }
 </style>
 </head>
 <body>
-
-<div class="badge">
-  <div class="frame-outer">
-    <div class="frame-inner">
-
-      <div class="content">
-
-        <!-- LOGO GOUTTE D'EAU GEOBUILDER (chrome argent comme dans la référence) -->
-        <svg class="logo" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="dropChromeS" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#f5f5f5"/>
-              <stop offset="30%" stop-color="#c0c0c0"/>
-              <stop offset="55%" stop-color="#404040"/>
-              <stop offset="75%" stop-color="#909090"/>
-              <stop offset="100%" stop-color="#1a1a1a"/>
-            </linearGradient>
-            <radialGradient id="globeChromeS" cx="50%" cy="40%" r="60%">
-              <stop offset="0%" stop-color="#888"/>
-              <stop offset="60%" stop-color="#1a1a1a"/>
-              <stop offset="100%" stop-color="#000"/>
-            </radialGradient>
-          </defs>
-          <path d="M100 10 C 100 10, 35 90, 35 145 A 65 65 0 1 0 165 145 C 165 90, 100 10, 100 10 Z"
-                fill="none" stroke="#3A8FE8" stroke-width="2.5" opacity=".7"/>
-          <path d="M100 14 C 100 14, 38 92, 38 145 A 62 62 0 1 0 162 145 C 162 92, 100 14, 100 14 Z"
-                fill="url(#dropChromeS)" stroke="#fff" stroke-width=".8"/>
-          <circle cx="100" cy="145" r="42" fill="url(#globeChromeS)" stroke="#666" stroke-width=".5"/>
-          <g stroke="#e8e8e8" stroke-width="1.2" fill="none" opacity=".85">
-            <path d="M62 130 Q 100 122 138 130"/>
-            <path d="M58 145 Q 100 138 142 145"/>
-            <path d="M62 160 Q 100 168 138 160"/>
-            <path d="M70 173 Q 100 180 130 173"/>
-          </g>
-          <ellipse cx="80" cy="60" rx="14" ry="22" fill="#fff" opacity=".45"/>
-        </svg>
-
-        <!-- TITRE -->
-        <div class="title">Super Ambassadeur</div>
-
-        <div class="glow-line"></div>
-
-        <div class="geo">GEOBUILDER</div>
-
-        <div class="info">
-          <div class="loc-row">
-            <svg class="loc-pin" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2 C 7.6 2 4 5.6 4 10 c 0 5.5 8 12 8 12 s 8-6.5 8-12 c 0-4.4-3.6-8-8-8 z" fill="#3A8FE8" stroke="#5BA8FF" stroke-width=".5"/>
-              <circle cx="12" cy="10" r="3" fill="#0a1424"/>
-            </svg>
-            <span>{{TERRITOIRE}}</span>
-          </div>
-          <div class="tagline">Pionnier de l'eau de l'air</div>
-          <div class="annee">{{ANNEE}}</div>
-        </div>
-
-        <!-- NOM CLIENT -->
-        <div class="nom">{{NOM_COMPLET}}</div>
-
-      </div>
-
-      <div class="bottom-line"></div>
-
-      <!-- COURONNE DE LAURIERS OR + GOUTTE D'EAU -->
-      <div class="laurels-wrap">
-        <svg class="laurels" viewBox="0 0 780 280" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="leafGold" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#fde68a"/>
-              <stop offset="40%" stop-color="#d4a017"/>
-              <stop offset="100%" stop-color="#6b4509"/>
-            </linearGradient>
-            <linearGradient id="dropSilver" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#f5f5f5"/>
-              <stop offset="50%" stop-color="#a0a0a0"/>
-              <stop offset="100%" stop-color="#606060"/>
-            </linearGradient>
-          </defs>
-
-          <!-- LAURIER GAUCHE -->
-          <g transform="translate(0,40)">
-            <path d="M 60 200 Q 130 110 290 95" stroke="url(#leafGold)" stroke-width="3" fill="none"/>
-            <g fill="url(#leafGold)" stroke="#5a3d09" stroke-width=".5">
-              <ellipse cx="78" cy="195" rx="16" ry="6" transform="rotate(-30 78 195)"/>
-              <ellipse cx="100" cy="175" rx="18" ry="6.5" transform="rotate(-25 100 175)"/>
-              <ellipse cx="122" cy="156" rx="19" ry="7" transform="rotate(-22 122 156)"/>
-              <ellipse cx="148" cy="140" rx="20" ry="7" transform="rotate(-18 148 140)"/>
-              <ellipse cx="178" cy="126" rx="20" ry="7" transform="rotate(-14 178 126)"/>
-              <ellipse cx="210" cy="116" rx="20" ry="7" transform="rotate(-10 210 116)"/>
-              <ellipse cx="243" cy="108" rx="19" ry="6.5" transform="rotate(-6 243 108)"/>
-              <ellipse cx="270" cy="100" rx="17" ry="6" transform="rotate(-3 270 100)"/>
-              <ellipse cx="92" cy="208" rx="15" ry="5.5" transform="rotate(20 92 208)"/>
-              <ellipse cx="118" cy="192" rx="16" ry="6" transform="rotate(15 118 192)"/>
-              <ellipse cx="148" cy="174" rx="17" ry="6" transform="rotate(12 148 174)"/>
-              <ellipse cx="180" cy="158" rx="18" ry="6" transform="rotate(8 180 158)"/>
-              <ellipse cx="215" cy="146" rx="18" ry="6" transform="rotate(5 215 146)"/>
-              <ellipse cx="250" cy="135" rx="17" ry="6" transform="rotate(2 250 135)"/>
-            </g>
-          </g>
-
-          <!-- LAURIER DROIT -->
-          <g transform="translate(780,40) scale(-1,1)">
-            <path d="M 60 200 Q 130 110 290 95" stroke="url(#leafGold)" stroke-width="3" fill="none"/>
-            <g fill="url(#leafGold)" stroke="#5a3d09" stroke-width=".5">
-              <ellipse cx="78" cy="195" rx="16" ry="6" transform="rotate(-30 78 195)"/>
-              <ellipse cx="100" cy="175" rx="18" ry="6.5" transform="rotate(-25 100 175)"/>
-              <ellipse cx="122" cy="156" rx="19" ry="7" transform="rotate(-22 122 156)"/>
-              <ellipse cx="148" cy="140" rx="20" ry="7" transform="rotate(-18 148 140)"/>
-              <ellipse cx="178" cy="126" rx="20" ry="7" transform="rotate(-14 178 126)"/>
-              <ellipse cx="210" cy="116" rx="20" ry="7" transform="rotate(-10 210 116)"/>
-              <ellipse cx="243" cy="108" rx="19" ry="6.5" transform="rotate(-6 243 108)"/>
-              <ellipse cx="270" cy="100" rx="17" ry="6" transform="rotate(-3 270 100)"/>
-              <ellipse cx="92" cy="208" rx="15" ry="5.5" transform="rotate(20 92 208)"/>
-              <ellipse cx="118" cy="192" rx="16" ry="6" transform="rotate(15 118 192)"/>
-              <ellipse cx="148" cy="174" rx="17" ry="6" transform="rotate(12 148 174)"/>
-              <ellipse cx="180" cy="158" rx="18" ry="6" transform="rotate(8 180 158)"/>
-              <ellipse cx="215" cy="146" rx="18" ry="6" transform="rotate(5 215 146)"/>
-              <ellipse cx="250" cy="135" rx="17" ry="6" transform="rotate(2 250 135)"/>
-            </g>
-          </g>
-
-          <!-- GOUTTE D'EAU CENTRALE (chrome argent) -->
-          <g transform="translate(390,225)">
-            <path d="M0 -45 C 0 -45, -22 -10, -22 10 A 22 22 0 1 0 22 10 C 22 -10, 0 -45, 0 -45 Z"
-                  fill="url(#dropSilver)" stroke="#fff" stroke-width=".8"
-                  filter="drop-shadow(0 0 6px rgba(58,143,232,.6))"/>
-          </g>
-        </svg>
-      </div>
-
-      <div class="pio-id">{{PIO_ID}}</div>
-
-    </div>
+  <div class="badge">
+    <div class="ovl ovl-territoire">{{TERRITOIRE}}</div>
+    <div class="ovl ovl-annee">{{ANNEE}}</div>
+    <div class="ovl ovl-nom">{{NOM_COMPLET}}</div>
+    <div class="ovl-pio">{{PIO_ID}}</div>
   </div>
-</div>
-
 </body>
 </html>
