@@ -16,7 +16,7 @@
   .badge-wrap {
     position:relative;
     width:100%;
-    aspect-ratio: 1024 / 1536;   /* aligné sur l'image fournie */
+    aspect-ratio: 1024 / 1536;
     border-radius:18px;
     overflow:hidden;
     box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(58,143,232,.12);
@@ -34,7 +34,7 @@
   /* Nom client — entre les deux barres bleues, sous "DE L'EAU DE L'AIR" */
   .nom-client {
     position:absolute;
-    top:40.5%;
+    top:41%;
     left:0; right:0;
     text-align:center;
     font-family:'Montserrat',sans-serif;
@@ -58,15 +58,29 @@
     font-weight:500;
     letter-spacing:0.30em;
     font-size:clamp(11px, 2.0vw, 14px);
-    color:#ffffff;
+    color:#3A8FE8;
     text-transform:uppercase;
     text-shadow:0 2px 8px rgba(0,0,0,0.7);
   }
 
-  /* Année — sous "DEPUIS" */
+  /* Année — sous "DEPUIS" — en bleu électrique */
   .annee {
     position:absolute;
-    top:69.5%;
+    top:64%;
+    left:0; right:0;
+    text-align:center;
+    font-family:'Montserrat',sans-serif;
+    font-weight:500;
+    letter-spacing:0.30em;
+    font-size:clamp(13px, 2.4vw, 17px);
+    color:#3A8FE8;
+    text-shadow:0 2px 8px rgba(0,0,0,0.7);
+  }
+
+  /* PIO ID — en dessous de l'année */
+  .pio-id {
+    position:absolute;
+    top:70%;
     left:0; right:0;
     text-align:center;
     font-family:'Montserrat',sans-serif;
@@ -77,21 +91,36 @@
     text-shadow:0 2px 8px rgba(0,0,0,0.7);
   }
 
-  /* QR code — centré dans le carré bleu en bas (zone Earth) */
+  /* QR code — centré dans le carré bleu en bas (Earth horizon) */
   .qr-zone {
     position:absolute;
     left:50%;
-    top:85%;
+    top:87%;
     transform:translate(-50%, -50%);
-    width:22%;
+    width:26%;
     aspect-ratio:1/1;
     background:#fff;
-    border-radius:4px;
-    padding:4px;
-    display:flex; align-items:center; justify-content:center;
+    border-radius:6px;
+    padding:5px;
     pointer-events:auto;
   }
-  .qr-zone img { width:100%; height:100%; display:block; image-rendering:pixelated; }
+  .qr-inner { position:relative; width:100%; height:100%; }
+  .qr-inner img.qr-png { width:100%; height:100%; display:block; image-rendering:pixelated; }
+
+  /* Logo droplet centré dans le QR (avec ecc=H pour lisibilité) */
+  .qr-logo {
+    position:absolute;
+    top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    width:30%;
+    aspect-ratio:1/1;
+    background:#0D0D0D;
+    border:2px solid #fff;
+    border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+    padding:4px;
+  }
+  .qr-logo svg { width:100%; height:100%; display:block; }
 
   .cta {
     display:block;
@@ -107,16 +136,6 @@
     letter-spacing:0.06em;
     font-size:14px;
     text-transform:uppercase;
-    transition:transform .15s ease;
-  }
-  .cta:hover { transform:translateY(-1px); }
-  .meta {
-    text-align:center;
-    margin-top:14px;
-    color:#6b7280;
-    font-size:11px;
-    letter-spacing:0.20em;
-    text-transform:uppercase;
   }
 </style>
 </head>
@@ -129,14 +148,30 @@
       <div class="nom-client">{{NOM_COMPLET}}</div>
       <div class="territoire">{{TERRITOIRE}}</div>
       <div class="annee">{{ANNEE}}</div>
+      <div class="pio-id">{{PIO_ID}}</div>
       <div class="qr-zone">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=400x400&margin=0&data={{QR_URL_ENCODED}}" alt="QR code Espace Pionnier">
+        <div class="qr-inner">
+          <img class="qr-png" src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&margin=0&ecc=H&data={{QR_URL_ENCODED}}" alt="QR code Espace Pionnier">
+          <div class="qr-logo">
+            <!-- Geobuilder droplet (chrome silver gradient) -->
+            <svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="dropGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+                  <stop offset="0%" stop-color="#e8e8e8"/>
+                  <stop offset="45%" stop-color="#b0b0b0"/>
+                  <stop offset="100%" stop-color="#6a6a6a"/>
+                </linearGradient>
+              </defs>
+              <path fill="url(#dropGrad)" d="M12 1C8 8 3 13 3 19a9 9 0 0 0 18 0c0-6-5-11-9-18z"/>
+              <path fill="#fff" opacity="0.35" d="M9 8c-1 2-3 5-3 8 0 1 .3 2 .7 2.8C7 16 9 12 11 9c.5-.7 .2-1.5-.4-1.5-.6 0-1.2 .2-1.6 .5z"/>
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
   <a class="cta" href="{{URL_ESPACE}}" target="_blank" rel="noopener">Accéder à mon Espace Pionnier</a>
-  <div class="meta">{{PIO_ID}}</div>
 </div>
 
 </body>

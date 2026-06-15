@@ -571,16 +571,14 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
 
     # 3e. Email final (UPPER_SNAKE)
     # Logique CTA "Famille / Devenez Ambassadeur" :
-    # - Si le Pionnier est déjà fondateur/ambassadeur => sa page perso
-    # - Sinon => page d'invitation Ambassadeur universelle
     if payload.fondateur:
         cta_url = url_ambassadeur
         cta_title = "Mon Espace Ambassadeur"
-        cta_desc = "Votre page personnelle de fondateur"
+        cta_desc = "Les Pionniers ouvrent la voie."
     else:
         cta_url = url_ambassadeur_landing
         cta_title = "Devenez Ambassadeur"
-        cta_desc = "Rejoignez le cercle des Pionniers Ambassadeurs"
+        cta_desc = "Les Pionniers ouvrent la voie."
 
     ctx_email = {
         "ANNEE": annee,
