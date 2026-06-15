@@ -95,8 +95,8 @@ class TestPionniersDataSchema:
         result = run_pipeline(_base_payload())
         assert "photo_generateur_url" in result
         assert "photo_emplacement_url" in result
-        # G30 → Cloudinary statique
-        assert "cloudinary" in result["photo_generateur_url"]
+        # G30 → image statique GitHub Pages
+        assert "produit-g30.png" in result["photo_generateur_url"]
 
     def test_response_includes_report_id(self, run_pipeline):
         result = run_pipeline(_base_payload(report_id="abc-123"))
