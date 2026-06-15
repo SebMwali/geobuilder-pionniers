@@ -95,15 +95,14 @@
   .qr-zone {
     position:absolute;
     left:50%;
-    top:87%;
+    top:85%;
     transform:translate(-50%, -50%);
-    width:22%;
+    width:24%;
     aspect-ratio:1/1;
     background:#fff;
     border-radius:4px;
     padding:4px;
     pointer-events:auto;
-    /* Halo bleu pulsant pour signaler "scannable" */
     box-shadow:0 0 0 2px rgba(58,143,232,0.7), 0 0 24px rgba(58,143,232,0.55);
     animation:qrPulse 2.4s ease-in-out infinite;
   }
@@ -115,12 +114,36 @@
       box-shadow:0 0 0 3px rgba(58,143,232,1), 0 0 36px rgba(58,143,232,0.85);
     }
   }
-  /* Effet de tilt 3D subtil au hover du badge entier */
-  .badge-wrap {
-    transition:transform .4s cubic-bezier(.2,.8,.2,1);
+  /* Tilt 3D subtil au hover du badge entier (masqué à l'impression) */
+  .badge-wrap { transition:transform .4s cubic-bezier(.2,.8,.2,1); }
+  .badge-wrap:hover { transform:perspective(1200px) rotateY(-2deg) rotateX(2deg) translateY(-4px); }
+
+  /* Bouton Imprimer (style identique au certificat Pionnier) */
+  .print-btn{
+    display:block;
+    margin:28px auto 0;
+    background:rgba(58,143,232,0.1);
+    border:1px solid rgba(58,143,232,0.25);
+    color:#3A8FE8;
+    font-family:'Montserrat',sans-serif;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    padding:14px 32px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:background .15s ease;
   }
-  .badge-wrap:hover {
-    transform:perspective(1200px) rotateY(-2deg) rotateX(2deg) translateY(-4px);
+  .print-btn:hover{ background:rgba(58,143,232,0.2); }
+
+  /* Mode impression — on cache le bouton et le tilt, on imprime juste le badge */
+  @media print {
+    @page { size:A4 portrait; margin:0; }
+    body { background:#000; padding:0; }
+    .print-btn { display:none !important; }
+    .badge-wrap { box-shadow:none; transform:none !important; }
+    .qr-zone { animation:none !important; }
   }
   .qr-inner { position:relative; width:100%; height:100%; }
   .qr-inner img.qr-png { width:100%; height:100%; display:block; image-rendering:pixelated; }
@@ -189,7 +212,7 @@
     </div>
   </div>
 
-  <a class="cta" href="{{URL_ESPACE}}" target="_blank" rel="noopener">Accéder à mon Espace Pionnier</a>
+  <button class="print-btn" onclick="window.print()">Imprimer / Sauvegarder en PDF</button>
 </div>
 
 </body>
