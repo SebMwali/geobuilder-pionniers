@@ -4,9 +4,13 @@ Remplace les modules Make défaillants (lecture compteurs + écriture lignes).
 """
 import os
 import json
+import time
+import random
 import logging
+import functools
 from typing import List, Dict, Any, Optional
 import gspread
+from gspread.exceptions import APIError
 from google.oauth2.service_account import Credentials
 
 logger = logging.getLogger(__name__)
@@ -15,6 +19,39 @@ SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive",
 ]
+
+
+def _retry_on_quota(max_attempts: int = 5, base_delay: float = 1.5):
+    """Décorateur : retry exponentiel sur 429 (quota Google Sheets API).
+    
+    Indispensable pour les webhooks arrivés en parallèle qui saturent
+    la limite 60 reads/min/user de l'API Sheets v4.
+    """
+    def deco(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            last_exc = None
+            for attempt in range(1, max_attempts + 1):
+                try:
+                    return func(*args, **kwargs)
+                except APIError as e:
+                    code = getattr(e, "code", None) or str(e)
+                    msg = str(e)
+                    is_quota = "429" in msg or "Quota exceeded" in msg or code == 429
+                    if not is_quota or attempt == max_attempts:
+                        raise
+                    last_exc = e
+                    # Backoff exponentiel + jitter
+                    delay = base_delay * (2 ** (attempt - 1)) + random.uniform(0, 0.8)
+                    logger.warning(
+                        f"[sheets_retry] Quota 429 sur {func.__name__} (try {attempt}/{max_attempts}) "
+                        f"-> sleep {delay:.1f}s"
+                    )
+                    time.sleep(delay)
+            raise last_exc  # type: ignore
+        return wrapper
+    return deco
+
 
 # Mapping nom d'onglet -> nom dans le Sheet (aligné sur le Sheet réel "La Famille des Pionniers")
 TABS = {
@@ -70,8 +107,9 @@ class SheetsService:
     def read_all(self, tab_key: str) -> List[Dict[str, Any]]:
         """Lit toutes les lignes d'un onglet sous forme de liste de dicts."""
         ws = self.get_worksheet(tab_key)
-        return ws.get_all_records()
+        return _retry_on_quota()(ws.get_all_records)()
 
+    @_retry_on_quota()
     def append_row(self, tab_key: str, row: List[Any]):
         """Ajoute une ligne à la fin d'un onglet (USER_ENTERED pour interpréter formules/dates)."""
         ws = self.get_worksheet(tab_key)
@@ -86,6 +124,7 @@ class SheetsService:
                 return rec
         return None
 
+    @_retry_on_quota()
     def find_row_index_by(self, tab_key: str, column_name: str, value: str) -> Optional[int]:
         """Retourne l'index 1-based de la ligne dans la feuille (header = 1)."""
         ws = self.get_worksheet(tab_key)
@@ -102,6 +141,7 @@ class SheetsService:
                 return i
         return None
 
+    @_retry_on_quota()
     def update_cell(self, tab_key: str, row_idx: int, column_name: str, value: Any):
         ws = self.get_worksheet(tab_key)
         headers = ws.row_values(1)
