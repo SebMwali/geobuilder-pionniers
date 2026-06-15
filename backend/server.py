@@ -1007,7 +1007,8 @@ class AmbassadeurSignature(BaseModel):
     pio_id: str
     nom: Optional[str] = ""
     prenom: Optional[str] = ""
-    email: Optional[EmailStr] = None
+    # str (et non EmailStr) pour accepter "" envoyé par le formulaire JS si l'email n'est pas pré-rempli.
+    email: Optional[str] = ""
     ambassadeur: Optional[str] = "OUI"
     droit_image: str
     temoignage_autorise: str
