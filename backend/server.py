@@ -395,12 +395,21 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
     gh = get_github_service()
 
     # 0. Idempotence via report_id (col W de 02_Installations)
+    # IMPORTANT : bloquant en cas d'échec lecture Sheet pour éviter les doublons.
+    # Avec le retry interne dans sheets_service, on a 5 essais. Si tous échouent,
+    # on rejette avec HTTP 503 (le SAV retry naturellement plus tard sans doublon).
     if payload.report_id:
         try:
             existing = sheets.find_row_by("installations", "report_id", payload.report_id)
         except Exception as e:
-            logger.warning(f"Idempotence check failed (non-bloquant) : {e}")
-            existing = None
+            logger.error(
+                f"Idempotence check failed after retries for report_id={payload.report_id}: {e}"
+            )
+            raise HTTPException(
+                status_code=503,
+                detail=f"Google Sheets API quota exceeded - retry later (report_id={payload.report_id})",
+                headers={"Retry-After": "30"},
+            )
         if existing:
             pages_base = _github_pages_base()
             inst_id = existing.get("install_id", "")
