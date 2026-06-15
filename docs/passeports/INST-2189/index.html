@@ -527,56 +527,54 @@
           </a>
         </section>
 
-        <!-- BLOC : STATUT COMMUNAUTÉ (conditionnel) -->
+        <!-- BLOC : STATUT COMMUNAUTÉ (utilise badge-fondateur.html + badge-ambassadeur.html existants) -->
         <section class="card" style="display: block">
           <div class="card-title">STATUT COMMUNAUTÉ</div>
-          <div class="badges" style="display:flex; gap:20px; flex-wrap:wrap; justify-content:center; align-items:flex-start;">
-
-            <!-- Badge Pionnier -->
-            <a href="https://sebmwali.github.io/geobuilder-pionniers/cartes/PIO-1186.html" target="_blank" rel="noopener" class="badge-item" style="display: block; text-decoration:none; color:inherit;">
-              <div style="width:130px; position:relative;">
-                <svg viewBox="0 0 100 110" style="width:100%; filter:drop-shadow(0 8px 16px rgba(0,0,0,0.5));">
-                  <defs>
-                    <linearGradient id="hexPionPasseport" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#e8eef7"/>
-                      <stop offset="50%" stop-color="#5a7090"/>
-                      <stop offset="100%" stop-color="#1a2230"/>
-                    </linearGradient>
-                  </defs>
-                  <polygon points="50,4 92,28 92,82 50,106 8,82 8,28" fill="url(#hexPionPasseport)" stroke="#5BA6FF" stroke-width="1.5"/>
-                  <polygon points="50,11 86,32 86,78 50,99 14,78 14,32" fill="#0d1626" opacity="0.7"/>
-                  <polygon points="50,38 54,50 66,50 56,58 60,70 50,63 40,70 44,58 34,50 46,50" fill="#dde4ef"/>
-                  <rect x="0" y="82" width="100" height="14" fill="#3A8FE8"/>
-                  <text x="50" y="92" font-family="Montserrat" font-size="9" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="1">PIONNIER</text>
-                </svg>
-                <div style="text-align:center; margin-top:8px; font-size:11px; letter-spacing:0.12em; color:#27d685; font-weight:600;">✓ ACQUIS</div>
-              </div>
+          <style>
+            .gb-badges { display:flex; gap:24px; flex-wrap:wrap; justify-content:center; padding:6px 0 4px; }
+            .gb-badge-frame {
+              position:relative;
+              width:280px;
+              aspect-ratio: 1 / 1.05;
+              border-radius:14px;
+              overflow:hidden;
+              text-decoration:none;
+              transition:transform .25s ease, box-shadow .25s ease;
+              box-shadow:0 12px 28px rgba(0,0,0,0.45), 0 0 0 1px rgba(212,175,55,0.35);
+              background:#000;
+            }
+            .gb-badge-frame:hover { transform:translateY(-4px); box-shadow:0 20px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,175,55,0.8); }
+            .gb-badge-frame iframe {
+              position:absolute; inset:0;
+              width:100%; height:100%;
+              border:0; pointer-events:none;
+              transform-origin: top left;
+            }
+            .gb-badge-frame .overlay {
+              position:absolute; inset:0;
+              z-index:2;
+              background:linear-gradient(180deg, transparent 70%, rgba(0,0,0,0.05) 100%);
+            }
+            .gb-badge-frame .acquired {
+              position:absolute; bottom:8px; left:0; right:0;
+              text-align:center;
+              font-size:10px; letter-spacing:0.18em; color:#27d685;
+              font-weight:700;
+              z-index:3;
+              text-shadow:0 1px 4px rgba(0,0,0,0.9);
+            }
+          </style>
+          <div class="gb-badges">
+            <a href="https://sebmwali.github.io/geobuilder-pionniers/badges/fondateur/PIO-1186.html" target="_blank" rel="noopener" class="gb-badge-frame" style="display: block;" title="Voir le badge Fondateur en grand">
+              <iframe src="https://sebmwali.github.io/geobuilder-pionniers/badges/fondateur/PIO-1186.html" loading="lazy" scrolling="no" sandbox="allow-same-origin"></iframe>
+              <div class="overlay"></div>
+              <div class="acquired">✓ FONDATEUR ACQUIS</div>
             </a>
-
-            <!-- Badge Ambassadeur -->
-            <a href="https://sebmwali.github.io/geobuilder-pionniers/badge-ambassadeur.html" target="_blank" rel="noopener" class="badge-item" style="display: block; text-decoration:none; color:inherit;">
-              <div style="width:130px; position:relative;">
-                <svg viewBox="0 0 100 110" style="width:100%; filter:drop-shadow(0 8px 16px rgba(0,0,0,0.5));">
-                  <defs>
-                    <linearGradient id="hexAmbPasseport" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stop-color="#5BA9FF"/>
-                      <stop offset="50%" stop-color="#3A8FE8"/>
-                      <stop offset="100%" stop-color="#1a5ec4"/>
-                    </linearGradient>
-                  </defs>
-                  <polygon points="50,4 92,28 92,82 50,106 8,82 8,28" fill="url(#hexAmbPasseport)" stroke="#5BA6FF" stroke-width="1.5"/>
-                  <polygon points="50,11 86,32 86,78 50,99 14,78 14,32" fill="#0d1626" opacity="0.55"/>
-                  <circle cx="42" cy="46" r="6" fill="#fff"/>
-                  <circle cx="58" cy="48" r="5" fill="#fff" opacity="0.85"/>
-                  <path d="M28 68 c0-8 6-12 14-12 s14 4 14 12" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
-                  <path d="M54 68 c0-6 4-9 10-9 s10 3 10 9" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity="0.8"/>
-                  <rect x="0" y="82" width="100" height="14" fill="#1a5ec4"/>
-                  <text x="50" y="92" font-family="Montserrat" font-size="8" font-weight="700" fill="#fff" text-anchor="middle" letter-spacing="0.5">AMBASSADEUR</text>
-                </svg>
-                <div style="text-align:center; margin-top:8px; font-size:11px; letter-spacing:0.12em; color:#27d685; font-weight:600;">✓ ACQUIS</div>
-              </div>
+            <a href="https://sebmwali.github.io/geobuilder-pionniers/badges/ambassadeur/PIO-1186.html" target="_blank" rel="noopener" class="gb-badge-frame" style="display: block;" title="Voir le badge Ambassadeur en grand">
+              <iframe src="https://sebmwali.github.io/geobuilder-pionniers/badges/ambassadeur/PIO-1186.html" loading="lazy" scrolling="no" sandbox="allow-same-origin"></iframe>
+              <div class="overlay"></div>
+              <div class="acquired">✓ AMBASSADEUR ACQUIS</div>
             </a>
-
           </div>
         </section>
 
