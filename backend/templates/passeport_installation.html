@@ -531,52 +531,34 @@
         <section class="card" style="display: {{display_statut_communaute}}">
           <div class="card-title">STATUT COMMUNAUTÉ</div>
           <style>
-            .gb-badges { display:flex; gap:24px; flex-wrap:wrap; justify-content:center; padding:6px 0 4px; }
+            .gb-badges { display:flex; gap:18px; flex-wrap:wrap; justify-content:center; padding:6px 0 4px; }
             .gb-badge-frame {
               position:relative;
-              width:280px;
-              height:374px;          /* 280 * (1059/794) ≈ 374, matches badge native ratio */
-              border-radius:14px;
+              width:140px;
+              height:187px;          /* 140 * (1059/794) ≈ 187 — ratio natif respecté */
+              border-radius:9px;
               overflow:hidden;
               text-decoration:none;
               transition:transform .25s ease, box-shadow .25s ease;
-              box-shadow:0 12px 28px rgba(0,0,0,0.45), 0 0 0 1px rgba(212,175,55,0.35);
+              box-shadow:0 8px 18px rgba(0,0,0,0.45), 0 0 0 1px rgba(212,175,55,0.35);
               background:#000;
             }
-            .gb-badge-frame:hover { transform:translateY(-4px); box-shadow:0 20px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,175,55,0.8); }
+            .gb-badge-frame:hover { transform:translateY(-3px); box-shadow:0 14px 28px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,175,55,0.8); }
             .gb-badge-frame iframe {
               position:absolute; top:0; left:0;
-              width:794px; height:1059px;       /* taille native du badge HTML */
+              width:794px; height:1059px;
               border:0;
               pointer-events:none;
-              transform: scale(0.3527);          /* 280/794 */
+              transform: scale(0.1763);   /* 140/794 */
               transform-origin: top left;
-            }
-            .gb-badge-frame .overlay {
-              position:absolute; inset:0;
-              z-index:2;
-              background:linear-gradient(180deg, transparent 75%, rgba(0,0,0,0.55) 100%);
-              pointer-events:none;
-            }
-            .gb-badge-frame .acquired {
-              position:absolute; bottom:10px; left:0; right:0;
-              text-align:center;
-              font-size:10px; letter-spacing:0.18em; color:#27d685;
-              font-weight:700;
-              z-index:3;
-              text-shadow:0 1px 4px rgba(0,0,0,0.95);
             }
           </style>
           <div class="gb-badges">
             <a href="{{badge_fondateur_url}}" target="_blank" rel="noopener" class="gb-badge-frame" style="display: {{display_pionnier}};" title="Voir le badge Fondateur en grand">
               <iframe src="{{badge_fondateur_url}}" loading="lazy" scrolling="no" sandbox="allow-same-origin"></iframe>
-              <div class="overlay"></div>
-              <div class="acquired">✓ FONDATEUR ACQUIS</div>
             </a>
             <a href="{{badge_ambassadeur_url}}" target="_blank" rel="noopener" class="gb-badge-frame" style="display: {{display_ambassadeur}};" title="Voir le badge Ambassadeur en grand">
               <iframe src="{{badge_ambassadeur_url}}" loading="lazy" scrolling="no" sandbox="allow-same-origin"></iframe>
-              <div class="overlay"></div>
-              <div class="acquired">✓ AMBASSADEUR ACQUIS</div>
             </a>
           </div>
         </section>
