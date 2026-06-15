@@ -550,22 +550,60 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
     }
     html_cert_gar = render_template("certificat-garantie.html", ctx_cert_gar)
 
-    # 3d. Portail Pionnier (simple, généré dans /docs/pionniers/{PIO}/index.html)
+    # 3d. Portail Pionnier — refonte design Geobuilder V1 (cyan électrique)
+    # Construire mois d'adhésion en français
+    _MOIS_FR = ["", "JANVIER", "FÉVRIER", "MARS", "AVRIL", "MAI", "JUIN", "JUILLET", "AOÛT", "SEPTEMBRE", "OCTOBRE", "NOVEMBRE", "DÉCEMBRE"]
+    try:
+        _d = datetime.fromisoformat(date_inst.replace("Z", "+00:00")) if "T" in date_inst else datetime.strptime(date_inst[:10], "%Y-%m-%d")
+        mois_annee_adhesion = f"{_MOIS_FR[_d.month]} {_d.year}"
+        date_install_fmt = f"{_d.day} {_MOIS_FR[_d.month].lower()} {_d.year}"
+        _dgar = _d.replace(year=_d.year + (produit_info.get("garantie_mois", 24) // 12))
+        date_garantie_fin = f"{_dgar.day} {_MOIS_FR[_dgar.month].lower()} {_dgar.year}"
+    except Exception:
+        mois_annee_adhesion = annee
+        date_install_fmt = date_inst[:10]
+        date_garantie_fin = ""
+
+    # Distinctions — règles V1
+    if payload.fondateur:
+        amb_class, amb_label = "acquis", "Acquis"
+        amb_dot = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
+        sup_class, sup_label = "acquis", "Acquis"
+        sup_dot = amb_dot
+    else:
+        amb_class, amb_label, amb_dot = "encours", "En cours", ""
+        sup_class, sup_label, sup_dot = "non-acquis", "Non acquis", ""
+
+    territoire_complet = f"{pays_affiche}, {payload.pays}" if payload.pays and payload.pays != pays_affiche else pays_affiche
+
     ctx_portail = {
         "PIO_ID": pio_id,
         "PRENOM": payload.prenom,
+        "NOM_COMPLET": nom_complet,
         "ANNEE": annee,
+        "MOIS_ANNEE_ADHESION": mois_annee_adhesion,
+        "PRODUIT_LABEL": f"{produit_info['label'].upper()} — SÉRIE LIMITÉE",
+        "PRODUIT_IMAGE_URL": produit_info.get("photo_generateur_url", ""),
+        "NUMERO_SERIE": payload.numero_serie or f"MJ-{annee}-{install_id.replace('INST-','')}",
+        "TERRITOIRE_COMPLET": territoire_complet,
+        "DATE_INSTALLATION_FORMATEE": date_install_fmt,
+        "DATE_GARANTIE_FIN": date_garantie_fin,
         "URL_CERTIFICAT": url_certificat,
         "URL_GARANTIE": url_garantie,
         "URL_PASSEPORT": url_passeport,
         "URL_CARTE": url_carte,
-        "URL_FAMILLE": url_famille,
-        # Q2 — display:none pour les blocs sans cible utile en V1
-        "DISPLAY_CERTIFICAT": "block",
-        "DISPLAY_GARANTIE": "block",
-        "DISPLAY_PASSEPORT": "block",
-        "DISPLAY_CARTE": "block",
-        "DISPLAY_FAMILLE": "block",
+        "URL_WHATSAPP": os.environ.get("URL_WHATSAPP_GROUPE", "#"),
+        "URL_FACEBOOK": os.environ.get("URL_FACEBOOK", "#"),
+        "URL_INSTAGRAM": os.environ.get("URL_INSTAGRAM", "#"),
+        "URL_YOUTUBE": os.environ.get("URL_YOUTUBE", "#"),
+        "URL_LINKEDIN": os.environ.get("URL_LINKEDIN", "#"),
+        # Statuts dynamiques distinctions
+        "STATUS_AMBASSADEUR_CLASS": amb_class,
+        "STATUS_AMBASSADEUR_LABEL": amb_label,
+        "STATUS_AMBASSADEUR_DOT": amb_dot,
+        "STATUS_SUPER_CLASS": sup_class,
+        "STATUS_SUPER_LABEL": sup_label,
+        "STATUS_SUPER_DOT": sup_dot,
     }
     html_portail = render_template("portail_pionnier.html", ctx_portail)
 
