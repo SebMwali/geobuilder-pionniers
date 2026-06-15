@@ -464,6 +464,10 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
     url_ambassadeur_landing = f"{pages_base}/ambassadeur.html"
     url_famille = pages_base + "/"
 
+    # Badges luxe (badge-fondateur.html + badge-ambassadeur.html templates personnalisés)
+    url_badge_fondateur = f"{pages_base}/badges/fondateur/{pio_id}.html" if payload.fondateur else ""
+    url_badge_ambassadeur = f"{pages_base}/badges/ambassadeur/{pio_id}.html" if payload.fondateur else ""
+
     # URL historique relative à stocker en Sheet (convention héritée Make)
     passeport_url_sheet = f"/install/{install_id}"
 
@@ -508,6 +512,8 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
     ctx_passeport = {
         "install_id": install_id,
         "pio_id": pio_id,
+        "annee": str(datetime.now(timezone.utc).year),
+        "pays": pays_affiche,
         "numero_serie": payload.numero_serie,
         "produit": produit_info["label"],
         "date_installation": date_inst,
@@ -527,12 +533,12 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "url_certificat": url_certificat,
         "url_ambassadeur_cta": url_ambassadeur_landing,
         "url_telecharger_tout": "",
-        # Statut communauté — badges affichés si statut acquis
-        "display_pionnier": "block",
+        # Statut communauté — affiche les badges Fondateur + Ambassadeur (iframes)
+        "display_pionnier": "block" if payload.fondateur else "none",
         "display_ambassadeur": "block" if payload.fondateur else "none",
-        "display_statut_communaute": "block",
-        "badge_pionnier_url": f"{pages_base}/cartes/{pio_id}.html",
-        "badge_ambassadeur_url": f"{pages_base}/badge-ambassadeur.html" if payload.fondateur else "",
+        "display_statut_communaute": "block" if payload.fondateur else "none",
+        "badge_fondateur_url": url_badge_fondateur,
+        "badge_ambassadeur_url": url_badge_ambassadeur,
         "photo_generateur_url": photo_generateur_url,
         "photo_emplacement_url": photo_emplacement_url,
         "prochain_entretien": "",
@@ -581,9 +587,8 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         date_garantie_fin = ""
 
     # Distinctions — règles V1
-    # Carte Ambassadeur : pointe vers le badge statique /badge-ambassadeur.html
-    # Carte Super Ambassadeur : pas encore implémentée → reste verrouillée (locked)
-    url_badge_ambassadeur = f"{pages_base}/badge-ambassadeur.html"
+    # Carte Ambassadeur (Acquis si fondateur) : pointe vers badge personnalisé /badges/ambassadeur/{PIO}.html
+    # Carte Super Ambassadeur : reste verrouillée (statut + template pas encore implémentés)
     if payload.fondateur:
         amb_class, amb_label = "acquis", "Acquis"
         amb_dot = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
@@ -689,6 +694,18 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         }
         html_ambassadeur = render_template("ambassadeur.html", ctx_ambassadeur)
 
+    # 3g. Badges luxe Fondateur + Ambassadeur (templates {{PIO_ID}}/{{ANNEE}}/{{PAYS}})
+    html_badge_fondateur = ""
+    html_badge_amb_perso = ""
+    if payload.fondateur:
+        ctx_badge_luxe = {
+            "PIO_ID": pio_id,
+            "ANNEE": str(datetime.now(timezone.utc).year),
+            "PAYS": pays_affiche,
+        }
+        html_badge_fondateur = render_template("badge-fondateur.html", ctx_badge_luxe)
+        html_badge_amb_perso = render_template("badge-ambassadeur.html", ctx_badge_luxe)
+
     # 4. Push GitHub Pages (chemins prod-aligned)
     pushed = {}
     try:
@@ -711,6 +728,14 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
             pushed["ambassadeur"] = gh.push_file(
                 f"docs/ambassadeurs/{pio_id}.html", html_ambassadeur,
                 f"Add ambassadeur {pio_id} (fondateur)")
+        if payload.fondateur and html_badge_fondateur:
+            pushed["badge_fondateur"] = gh.push_file(
+                f"docs/badges/fondateur/{pio_id}.html", html_badge_fondateur,
+                f"Add badge fondateur luxe {pio_id}")
+        if payload.fondateur and html_badge_amb_perso:
+            pushed["badge_ambassadeur"] = gh.push_file(
+                f"docs/badges/ambassadeur/{pio_id}.html", html_badge_amb_perso,
+                f"Add badge ambassadeur luxe {pio_id}")
     except Exception as e:
         logger.error(f"GitHub push failed: {e}")
         sheets.log_event("github_push", install_id, pio_id, "ERROR", str(e), "")

@@ -27,6 +27,20 @@ Si `fondateur=true` : push supplémentaire `docs/ambassadeurs/{PIO_ID}.html`.
 
 ## What's been implemented
 
+### Session du 15/02/2026 (itération 7 — Badges luxe Fondateur + Ambassadeur dans passeport)
+- ✅ Import des templates **`badge-fondateur.html`** (458 KB) et **`badge-ambassadeur.html`** (537 KB) depuis le repo GitHub dans `/app/backend/templates/`
+- ✅ Variables dynamiques : `{{PIO_ID}}`, `{{ANNEE}}`, `{{PAYS}}` (uniquement pour badge-ambassadeur)
+- ✅ Rendu automatique pour chaque fondateur → push sur `docs/badges/fondateur/{PIO}.html` et `docs/badges/ambassadeur/{PIO}.html`
+- ✅ **Statut Communauté du passeport** = 2 iframes ratio natif 794×1059 scalé à 0.3527 (cards 280×374)
+- ✅ Overlay "✓ FONDATEUR ACQUIS" / "✓ AMBASSADEUR ACQUIS" en vert sous chaque badge
+- ✅ Carte Ambassadeur du portail → pointe désormais vers `/badges/ambassadeur/{PIO}.html` (badge personnalisé)
+- ✅ PIO-1186 patché rétroactivement avec ces 2 nouveaux badges
+
+### Session du 15/02/2026 (itération 6 — Cold start mitigation)
+- ✅ Diagnostic confirmé par support Emergent : preview = scale-to-zero, pas d'always-on toggle
+- ⚠️ Workaround : GitHub Actions cron `.github/workflows/keepalive.yml` à coller manuellement (PAT n'a pas scope `workflow`)
+- 📌 Solution propre suggérée : passer en Emergent Deploy (50 crédits/mois = 24/7)
+
 ### Session du 15/02/2026 (suite — itération 5 : Espace Pionnier finalisation visuelle)
 - ✅ **Hero landscape** : nouvelle image aérienne tropicale `DJI_0516.jpg` poussée sur `docs/assets/portail-hero-landscape.jpg` (océan Indien — île, lagon turquoise, plages)
 - ✅ **Voile hero** : dégradé diagonal 55%→30%→65% pour lisibilité texte + text-shadow renforcé
