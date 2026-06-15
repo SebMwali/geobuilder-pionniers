@@ -177,13 +177,17 @@ def _github_pages_base() -> str:
 
 
 def _compute_garantie_fin(date_installation: str, mois: int) -> str:
-    """Calcule la date de fin de garantie. Format YYYY-MM-DD."""
+    """Calcule la date de fin de garantie en ajoutant des années entières (mois/12).
+    Format YYYY-MM-DD. Robuste aux années bissextiles (29 février -> 28 février)."""
+    dt = _parse_date_iso_or_fr(date_installation)
+    if dt is None:
+        dt = datetime.now(timezone.utc).replace(tzinfo=None)
+    annees = max(1, mois // 12)
     try:
-        dt = datetime.strptime(date_installation, "%Y-%m-%d")
-    except (ValueError, TypeError):
-        dt = datetime.now(timezone.utc)
-    # Approx: ajoute mois * 30 jours (suffit pour la garantie)
-    fin = dt + timedelta(days=mois * 30)
+        fin = dt.replace(year=dt.year + annees)
+    except ValueError:
+        # 29 février -> 28 février
+        fin = dt.replace(month=2, day=28, year=dt.year + annees)
     return fin.strftime("%Y-%m-%d")
 
 
@@ -577,6 +581,15 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         or HISTORIC_FALLBACK_PHOTO
     )
 
+    # Affichage du bloc EMPLACEMENT : caché si on n'a pas de vraie photo
+    # (i.e. l'emplacement n'est qu'un fallback identique à la photo générateur catalog)
+    has_real_emplacement = (
+        bool(photo_emplacement_url)
+        and photo_emplacement_url != HISTORIC_FALLBACK_PHOTO
+        and photo_emplacement_url != photo_generateur_url
+    )
+    display_emplacement = "block" if has_real_emplacement else "none"
+
     # 3. Render templates PROD
     # 3a. Passeport (snake_case, 27 variables ; Q2 = display:none pour blocs sans donnée)
     histo_html = (
@@ -620,6 +633,7 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "badge_ambassadeur_url": url_badge_ambassadeur,
         "photo_generateur_url": photo_generateur_url,
         "photo_emplacement_url": photo_emplacement_url,
+        "display_emplacement": display_emplacement,
         **_compute_prochaine_intervention(date_inst),
         "prochain_rdv_url": "",
     }
@@ -650,18 +664,17 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
     html_cert_gar = render_template("certificat-garantie.html", ctx_cert_gar)
 
     # 3d. Portail Pionnier — refonte design Geobuilder V1 (cyan électrique)
-    # Construire mois d'adhésion en français
-    _MOIS_FR = ["", "JANVIER", "FÉVRIER", "MARS", "AVRIL", "MAI", "JUIN", "JUILLET", "AOÛT", "SEPTEMBRE", "OCTOBRE", "NOVEMBRE", "DÉCEMBRE"]
+    # Construire mois d'adhésion en français (en majuscules pour le portail)
+    _MOIS_FR_UP = ["", "JANVIER", "FÉVRIER", "MARS", "AVRIL", "MAI", "JUIN", "JUILLET", "AOÛT", "SEPTEMBRE", "OCTOBRE", "NOVEMBRE", "DÉCEMBRE"]
     try:
-        _d = datetime.fromisoformat(date_inst.replace("Z", "+00:00")) if "T" in date_inst else datetime.strptime(date_inst[:10], "%Y-%m-%d")
-        mois_annee_adhesion = f"{_MOIS_FR[_d.month]} {_d.year}"
-        date_install_fmt = f"{_d.day} {_MOIS_FR[_d.month].lower()} {_d.year}"
-        _dgar = _d.replace(year=_d.year + (produit_info.get("garantie_mois", 24) // 12))
-        date_garantie_fin = f"{_dgar.day} {_MOIS_FR[_dgar.month].lower()} {_dgar.year}"
+        _d = _parse_date_iso_or_fr(date_inst) or datetime.now(timezone.utc).replace(tzinfo=None)
+        mois_annee_adhesion = f"{_MOIS_FR_UP[_d.month]} {_d.year}"
     except Exception:
         mois_annee_adhesion = annee
-        date_install_fmt = date_inst[:10]
-        date_garantie_fin = ""
+
+    # Dates uniformisées : toujours JJ/MM/AAAA via _fmt_date_fr
+    date_install_fmt = _fmt_date_fr(date_inst)
+    date_garantie_fin_fr = _fmt_date_fr(date_garantie_fin)
 
     # Distinctions — règles V1
     # Carte Ambassadeur (Acquis si fondateur) : pointe vers badge personnalisé /badges/ambassadeur/{PIO}.html
@@ -691,7 +704,7 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "NUMERO_SERIE": payload.numero_serie or f"MJ-{annee}-{install_id.replace('INST-','')}",
         "TERRITOIRE_COMPLET": territoire_complet,
         "DATE_INSTALLATION_FORMATEE": date_install_fmt,
-        "DATE_GARANTIE_FIN": date_garantie_fin,
+        "DATE_GARANTIE_FIN": date_garantie_fin_fr,
         "URL_CERTIFICAT": url_certificat,
         "URL_GARANTIE": url_garantie,
         "URL_PASSEPORT": url_passeport,
@@ -1161,11 +1174,9 @@ def _regenerate_passeport(install_row: dict, sheets, gh) -> str:
     produit_label = install_row.get("produit") or ""
     produit_info = get_product(produit_label)
     date_inst = install_row.get("date_installation") or install_row.get("date installation") or ""
-    date_garantie_fin = (
-        install_row.get("date_garantie_fin")
-        or install_row.get("date garantie fin")
-        or _compute_garantie_fin(date_inst, produit_info["garantie_mois"])
-    )
+    # Recalcul systématique pour garantir le format ISO -> DD/MM/YYYY uniforme
+    # (les valeurs historiques en sheet peuvent être au format long "15 février 2028")
+    date_garantie_fin = _compute_garantie_fin(date_inst, produit_info["garantie_mois"])
     territoire = install_row.get("territoire_installation") or install_row.get("territoire installation") or ""
     pays_affiche = install_row.get("territoire_installation") or install_row.get("pays") or territoire
     nom_complet = install_row.get("nom_client") or ""
@@ -1173,6 +1184,14 @@ def _regenerate_passeport(install_row: dict, sheets, gh) -> str:
     numero_serie = install_row.get("numero_serie") or install_row.get("numéro_serie") or install_row.get("Numéro série") or ""
     photo_gen = install_row.get("photo_generateur_url") or produit_info.get("photo_generateur_url") or HISTORIC_FALLBACK_PHOTO
     photo_emp = install_row.get("photo_emplacement_url") or HISTORIC_FALLBACK_PHOTO
+
+    # Bloc EMPLACEMENT : caché si la photo n'est qu'un fallback (catalog/HISTORIC)
+    _has_real_emp = (
+        bool(photo_emp)
+        and photo_emp != HISTORIC_FALLBACK_PHOTO
+        and photo_emp != photo_gen
+    )
+    display_emplacement = "block" if _has_real_emp else "none"
 
     pages_base = _github_pages_base()
     url_passeport = f"{pages_base}/passeports/{install_id}/index.html"
@@ -1209,6 +1228,7 @@ def _regenerate_passeport(install_row: dict, sheets, gh) -> str:
         "badge_ambassadeur_url": "",
         "photo_generateur_url": photo_gen,
         "photo_emplacement_url": photo_emp,
+        "display_emplacement": display_emplacement,
         **_compute_prochaine_intervention(date_inst),
         "prochain_rdv_url": "",
         # Bonus contexte (nom client en cas de placeholder futur)
