@@ -570,9 +570,13 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         amb_dot = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
         sup_class, sup_label = "acquis", "Acquis"
         sup_dot = amb_dot
+        carte_amb_class, carte_amb_status, url_carte_amb = "acquis", "Acquise", url_ambassadeur or "#"
+        carte_sup_class, carte_sup_status, url_carte_sup = "acquis", "Acquise", url_ambassadeur or "#"
     else:
         amb_class, amb_label, amb_dot = "encours", "En cours", ""
         sup_class, sup_label, sup_dot = "non-acquis", "Non acquis", ""
+        carte_amb_class, carte_amb_status, url_carte_amb = "locked", "Non acquise", "#"
+        carte_sup_class, carte_sup_status, url_carte_sup = "locked", "Non acquise", "#"
 
     territoire_complet = f"{pays_affiche}, {payload.pays}" if payload.pays and payload.pays != pays_affiche else pays_affiche
 
@@ -604,6 +608,13 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "STATUS_SUPER_CLASS": sup_class,
         "STATUS_SUPER_LABEL": sup_label,
         "STATUS_SUPER_DOT": sup_dot,
+        # Mini-cartes Ambassadeur / Super Ambassadeur (verrouillées si non acquises)
+        "CARTE_AMBASSADEUR_CLASS": carte_amb_class,
+        "CARTE_AMBASSADEUR_STATUS": carte_amb_status,
+        "URL_CARTE_AMBASSADEUR": url_carte_amb,
+        "CARTE_SUPER_CLASS": carte_sup_class,
+        "CARTE_SUPER_STATUS": carte_sup_status,
+        "URL_CARTE_SUPER": url_carte_sup,
     }
     html_portail = render_template("portail_pionnier.html", ctx_portail)
 
