@@ -207,6 +207,16 @@ def _parse_date_iso_or_fr(date_str: str):
     return None
 
 
+def _fmt_date_fr(date_str: str) -> str:
+    """Convertit une date ISO/FR en format français DD/MM/YYYY.
+    Si la date n'est pas parsable, retourne la chaîne d'origine telle quelle.
+    """
+    dt = _parse_date_iso_or_fr(date_str)
+    if dt is None:
+        return date_str or ""
+    return dt.strftime("%d/%m/%Y")
+
+
 def _compute_prochaine_intervention(date_installation: str, mois_freq: int = 12) -> dict:
     """Calcule la prochaine intervention (entretien annuel) à partir de la date d'installation.
 
@@ -572,7 +582,7 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
     histo_html = (
         '<div class="histo-row">'
         f'<div class="histo-icon"></div>'
-        f'<div class="histo-date">{date_inst}</div>'
+        f'<div class="histo-date">{_fmt_date_fr(date_inst)}</div>'
         '<div class="histo-type">Installation initiale</div>'
         '<div class="histo-tech">—</div>'
         '<div class="histo-pdf"></div>'
@@ -585,8 +595,8 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "pays": pays_affiche,
         "numero_serie": payload.numero_serie,
         "produit": produit_info["label"],
-        "date_installation": date_inst,
-        "date_garantie_fin": date_garantie_fin,
+        "date_installation": _fmt_date_fr(date_inst),
+        "date_garantie_fin": _fmt_date_fr(date_garantie_fin),
         "territoire_installation": payload.territoire,
         "pays_affiche": pays_affiche,
         "localisation_precise": payload.localisation or payload.territoire,
@@ -626,7 +636,7 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
 
     # 3c. Certificat Garantie (UPPER_SNAKE)
     ctx_cert_gar = {
-        "DATE_INSTALLATION": date_inst,
+        "DATE_INSTALLATION": _fmt_date_fr(date_inst),
         "DOC_ID": doc_cert_gar,
         "INSTALL_ID": install_id,
         "NOM_COMPLET": nom_complet,
@@ -1101,7 +1111,7 @@ def _build_historique_html(install_id: str, install_row: dict, sheets) -> str:
     rows_html = [
         '<div class="histo-row">'
         '<div class="histo-icon"></div>'
-        f'<div class="histo-date">{date_inst}</div>'
+        f'<div class="histo-date">{_fmt_date_fr(date_inst)}</div>'
         '<div class="histo-type">Installation initiale</div>'
         '<div class="histo-tech">—</div>'
         '<div class="histo-pdf"></div>'
@@ -1130,7 +1140,7 @@ def _build_historique_html(install_id: str, install_row: dict, sheets) -> str:
         rows_html.append(
             '<div class="histo-row">'
             '<div class="histo-icon"></div>'
-            f'<div class="histo-date">{date}</div>'
+            f'<div class="histo-date">{_fmt_date_fr(date)}</div>'
             f'<div class="histo-type">{type_inter}'
             + (f'<span class="desc">{observations}</span>' if observations else "")
             + '</div>'
@@ -1175,8 +1185,8 @@ def _regenerate_passeport(install_row: dict, sheets, gh) -> str:
         "pio_id": pio_id,
         "numero_serie": numero_serie,
         "produit": produit_info["label"],
-        "date_installation": date_inst,
-        "date_garantie_fin": date_garantie_fin,
+        "date_installation": _fmt_date_fr(date_inst),
+        "date_garantie_fin": _fmt_date_fr(date_garantie_fin),
         "territoire_installation": territoire,
         "pays_affiche": pays_affiche,
         "localisation_precise": localisation_precise,
