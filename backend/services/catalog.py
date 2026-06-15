@@ -24,7 +24,7 @@ CATALOG = {
         "fiche_technique_url": "https://sebmwali.github.io/geobuilder-pionniers/Geobuilder_Fiche_G30.pdf",
         "manuel_url": "https://sebmwali.github.io/geobuilder-pionniers/G30%20USER%20MANUAL-1.pdf",
         "image_cloudinary_id": "g30",
-        "photo_generateur_url": "https://res.cloudinary.com/dahmkv4ra/image/upload/v1781392846/G-30_myykrz.png",
+        "photo_generateur_url": "https://res.cloudinary.com/dahmkv4ra/image/upload/v1781308463/G30-_fqyqhz.png",
     },
     "SOURCE": {
         "label": "Source",
