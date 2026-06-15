@@ -617,11 +617,13 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "url_ambassadeur_cta": url_ambassadeur_landing,
         "url_telecharger_tout": "",
         # Statut communauté — 3x1 grid : Ambassadeur / Super Ambassadeur / Fondateur
-        # Visible si le bloc contient au moins 1 badge acquis
-        "display_statut_communaute": "block" if payload.fondateur else "none",
-        "display_badge_ambassadeur": "none",          # acquis à la signature ambassadeur (pas encore à la livraison)
+        # Slots toujours visibles ; iframe badge OU overlay "verrou À acquérir" selon statut
+        "display_badge_ambassadeur": "none",          # acquis à la signature ambassadeur
+        "display_locked_ambassadeur": "flex",
         "display_badge_super_ambassadeur": "none",     # acquis via /api/admin/promote-super
+        "display_locked_super_ambassadeur": "flex",
         "display_badge_fondateur": "block" if payload.fondateur else "none",
+        "display_locked_fondateur": "none" if payload.fondateur else "flex",
         "url_badge_ambassadeur": f"{pages_base}/badges/ambassadeur/{pio_id}.html",
         "url_badge_super_ambassadeur": f"{pages_base}/badges/super-ambassadeur/{pio_id}.html",
         "url_badge_fondateur": url_badge_fondateur,
@@ -1049,11 +1051,22 @@ async def admin_promote_super(payload: PromoteSuperInput, _: dict = Depends(requ
     )
     logger.info(f"[PROMOTE_SUPER] {payload.pio_id} -> Super Ambassadeur, badge={badge_url}")
 
+    # 4. Régénération automatique du passeport (option 2C)
+    passeport_url = None
+    try:
+        install_row = sheets.find_row_by("installations", "pio_id", payload.pio_id)
+        if install_row:
+            passeport_url = _regenerate_passeport(install_row, sheets, gh)
+            logger.info(f"Passeport régénéré après promotion Super: {passeport_url}")
+    except Exception as e:
+        logger.error(f"Régénération passeport après promote-super échouée: {e}")
+
     return {
         "status": "ok",
         "pio_id": payload.pio_id,
         "communaute_statut": "Super Ambassadeur",
         "badge_url": badge_url,
+        "passeport_url": passeport_url,
     }
 
 
@@ -1215,6 +1228,16 @@ async def ambassadeur_signature(
             logger.info(f"Badge ambassadeur pushé: {badge_url}")
         except Exception as e:
             logger.error(f"Génération badge ambassadeur échouée: {e}")
+
+        # 5c. Régénération automatique du passeport pour afficher le nouveau badge
+        # (option 2C : passeport reflète immédiatement le statut Ambassadeur acquis)
+        try:
+            install_row = sheets.find_row_by("installations", "pio_id", payload.pio_id)
+            if install_row:
+                new_url = _regenerate_passeport(install_row, sheets, gh)
+                logger.info(f"Passeport régénéré après signature: {new_url}")
+        except Exception as e:
+            logger.error(f"Régénération passeport après signature échouée: {e}")
     except Exception as e:
         logger.error(f"Génération attestation échouée: {e}")
         # On continue : la signature est déjà enregistrée en Sheets, l'attestation
@@ -1427,7 +1450,10 @@ def _regenerate_passeport(install_row: dict, sheets, gh) -> str:
     display_badge_ambassadeur = "block" if is_ambassadeur else "none"
     display_badge_super_ambassadeur = "block" if is_super else "none"
     display_badge_fondateur = "block" if is_fondateur else "none"
-    display_statut_communaute = "block" if (is_fondateur or is_ambassadeur or is_super) else "none"
+    # Overlays "À acquérir" inversés
+    display_locked_ambassadeur = "none" if is_ambassadeur else "flex"
+    display_locked_super_ambassadeur = "none" if is_super else "flex"
+    display_locked_fondateur = "none" if is_fondateur else "flex"
 
     pages_base = _github_pages_base()
     url_passeport = f"{pages_base}/passeports/{install_id}/index.html"
@@ -1457,11 +1483,13 @@ def _regenerate_passeport(install_row: dict, sheets, gh) -> str:
         "url_certificat": url_certificat,
         "url_ambassadeur_cta": f"{pages_base}/ambassadeur.html",
         "url_telecharger_tout": "",
-        # Statut communauté — 3x1 grid (visible quand acquis)
-        "display_statut_communaute": display_statut_communaute,
+        # Statut communauté — 3x1 grid (slots toujours visibles)
         "display_badge_ambassadeur": display_badge_ambassadeur,
+        "display_locked_ambassadeur": display_locked_ambassadeur,
         "display_badge_super_ambassadeur": display_badge_super_ambassadeur,
+        "display_locked_super_ambassadeur": display_locked_super_ambassadeur,
         "display_badge_fondateur": display_badge_fondateur,
+        "display_locked_fondateur": display_locked_fondateur,
         "url_badge_ambassadeur": f"{pages_base}/badges/ambassadeur/{pio_id}.html",
         "url_badge_super_ambassadeur": f"{pages_base}/badges/super-ambassadeur/{pio_id}.html",
         "url_badge_fondateur": f"{pages_base}/badges/fondateur/{pio_id}.html",
