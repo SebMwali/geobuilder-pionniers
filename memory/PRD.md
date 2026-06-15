@@ -27,6 +27,25 @@ Si `fondateur=true` : push supplémentaire `docs/ambassadeurs/{PIO_ID}.html`.
 
 ## What's been implemented
 
+### Session du 15/02/2026 (suite — itération 3 : Espace Pionnier + Badge final)
+- ✅ **Refonte complète `portail_pionnier.html`** selon charte Geobuilder V1 :
+  - Layout : Header logo + Hero (Bonjour + PIO badge + Membre depuis) + MON INSTALLATION (image produit + métadonnées + garantie)
+  - 3 distinctions hexagonales argent/bleu (Pionnier ✓ Acquis / Ambassadeur ⏳ En cours / Super Ambassadeur ❌ Non acquis)
+  - 4 cartes documents (Certificat Pionnier, Garantie, Passeport, Carte) avec icônes SVG chrome
+  - Bloc Communauté WhatsApp (CTA vert)
+  - Besoin d'aide (téléphone, email, web)
+  - Footer thanks + 4 réseaux sociaux (FB, IG placeholder, YouTube, LinkedIn)
+  - Police Montserrat
+  - Fond #05080F, accents #3A8FE8
+  - Calcul automatique : mois adhésion FR, date installation FR, date fin garantie (+24 mois)
+- ✅ **Téléphone/email alignés sur passeport** : `+262 262 66 63 74` / `contact@geobuilder.fr`
+- ✅ **URLs sociales réelles intégrées** : Facebook, YouTube, LinkedIn, WhatsApp (lien groupe Geobuilder)
+- ✅ **Badge Pionnier** : nom centré entre LED1 (40.8%) et LED2 (52.1%) à 46.5% ; bouton "Imprimer / Sauvegarder en PDF" (style certificat) ; QR centré pixel-perfect avec droplet ; animation pulse + tilt 3D
+- ✅ **Bleu Geobuilder #3A8FE8 partout** (révert depuis le cyan vers le vrai bleu charte) avec effet glow électrique sur pictos et LED bars
+- ✅ **Email** : pictos PNG hébergés (Gmail-compatibles) + 2 LED bars signature horizontales + alignement cards uniforme (height 78px) + CTA "Devenez Ambassadeur" / "Les Pionniers ouvrent la voie."
+- ✅ **Passeport** : middle button "Certificat de Garantie" → "Devenez Ambassadeur"
+- ✅ Tests pytest 80/80
+
 ### Session du 15/02/2026 (suite — itération 2)
 - ✅ **Email — Pictogrammes bleu électrique** : SVG 40×40 #3A8FE8 au-dessus de chaque stat (Personne / Globe / Calendrier) selon charte V1
 - ✅ **Email — Bouton "Ma Famille" → "Devenez Ambassadeur"** :
