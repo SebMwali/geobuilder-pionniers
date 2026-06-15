@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Badge Ambassadeur — Sébastien Fumaz</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{
+    background:#000; min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cinzel','Trajan Pro',Georgia,serif;
+  }
+  /* Conteneur conserve le ratio natif de l'image (1086 x 1448) */
+  .badge{
+    position:relative;
+    width: min(95vw, 760px);
+    aspect-ratio: 1086 / 1448;
+    background-image: url("https://sebmwali.github.io/geobuilder-pionniers/assets/badge-ambassadeur-bg.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+  /* Overlays positionnés en % pour rester alignés à l'image quelle que soit la taille */
+  .ovl{position:absolute; text-align:center; color:#e8e8e8;
+       font-family:'Cinzel',serif; text-transform:uppercase;
+       width:100%; left:0;}
+  /* Territoire — à côté du pictogramme localisation */
+  .ovl-territoire{
+    top: 60.8%;
+    font-size: 2.1cqw;
+    letter-spacing:.22em; font-weight:600;
+    color:#e8e8e8;
+    text-shadow: 0 1px 3px rgba(0,0,0,.7);
+  }
+  /* Année — sous "Pionnier de l'eau de l'air" */
+  .ovl-annee{
+    top: 70.8%;
+    font-size: 2.2cqw;
+    letter-spacing:.25em; font-weight:700;
+    color:#c8c8c8;
+    text-shadow: 0 1px 3px rgba(0,0,0,.7);
+  }
+  /* Nom du client — au cœur de la couronne de lauriers */
+  .ovl-nom{
+    top: 81.5%;
+    font-size: 2.6cqw;
+    letter-spacing:.10em; font-weight:700;
+    color:#f0f0f0;
+    text-shadow: 0 2px 6px rgba(0,0,0,.85), 0 0 12px rgba(58,143,232,.35);
+  }
+  /* PIO ID — bas droite */
+  .ovl-pio{
+    position:absolute;
+    right: 7%; bottom: 4.2%;
+    font-family:'Cinzel',serif; font-weight:600;
+    font-size: 1.55cqw;
+    letter-spacing:.22em;
+    color: rgba(232,232,232,.85);
+    background: rgba(0,0,0,.45);
+    padding: .35em .8em;
+    border: 1px solid rgba(180,180,180,.35);
+    border-radius: 6px;
+    backdrop-filter: blur(3px);
+    width:auto; text-align:right;
+  }
+  .badge{ container-type: inline-size; }
+</style>
+</head>
+<body>
+  <div class="badge">
+    <div class="ovl ovl-territoire">Mayotte</div>
+    <div class="ovl ovl-annee">2026</div>
+    <div class="ovl ovl-nom">Sébastien Fumaz</div>
+    <div class="ovl-pio">PIO-1196</div>
+  </div>
+</body>
+</html>
