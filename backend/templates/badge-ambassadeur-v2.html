@@ -29,10 +29,11 @@
     text-transform:uppercase;
     font-weight:700;
   }
-  /* Territoire — à côté du pin de localisation, MÊME LIGNE */
+  /* Territoire — centré (même hauteur que le pin) */
   .ovl-territoire{
     top: 60.4%;
-    left: 56%;          /* juste à droite du pin centré */
+    left: 0; width: 100%;
+    text-align:center;
     font-size: 3cqw;
     letter-spacing: .18em;
   }
@@ -45,13 +46,13 @@
     letter-spacing: .14em;
     font-weight:700;
   }
-  /* Nom du client — dans la couronne de lauriers, au-dessus de la goutte */
+  /* Nom du client — petit, centré entre la barre bleue et la goutte */
   .ovl-nom{
-    top: 85%;
+    top: 84%;
     left: 0; width: 100%;
     text-align:center;
-    font-size: 3cqw;
-    letter-spacing: .10em;
+    font-size: 1.9cqw;
+    letter-spacing: .14em;
     font-weight:700;
   }
   /* PIO ID — bas droite, discret, sans cadre */
