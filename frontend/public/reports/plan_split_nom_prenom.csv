@@ -1,0 +1,151 @@
+﻿pio_id;nom_actuel;prenom_actuel;categorie;prenom_propose;nom_propose;confiance;raison;action
+PIO-1000;MATTOIR;TOYFA;DEJA_SEPARE;TOYFA;MATTOIR;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1001;Coignard;Antoine;DEJA_SEPARE;Antoine;Coignard;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1002;Delaune;Maxime;DEJA_SEPARE;Maxime;Delaune;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1003;Lelu;DIdier;DEJA_SEPARE;DIdier;Lelu;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1004;Toybou;Irfani;DEJA_SEPARE;Irfani;Toybou;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1005;Neveu-Labille;;MONO;;Neveu-Labille;0.9;Token unique;AUCUNE
+PIO-1006;Perrissoud;Emilie;DEJA_SEPARE;Emilie;Perrissoud;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1007;STEPHAN;;MONO;;STEPHAN;0.9;Token unique;AUCUNE
+PIO-1008;Ghita;René;DEJA_SEPARE;René;Ghita;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1009;Zammit;Alan;DEJA_SEPARE;Alan;Zammit;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1010;Deloffre;Nicolas;DEJA_SEPARE;Nicolas;Deloffre;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1011;Baptiste;Jeremy;DEJA_SEPARE;Jeremy;Baptiste;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1012;Hippocampe plongée;;SOCIETE;;Hippocampe plongée;0.95;Mot-clé société: 'HIPPOCAMPE';AUCUNE
+PIO-1013;Venault;;MONO;;Venault;0.9;Token unique;AUCUNE
+PIO-1014;Atelier Mahorais d'architecture;;SOCIETE;;Atelier Mahorais d'architecture;0.95;Mot-clé société: 'ATELIER';AUCUNE
+PIO-1015;Marot;NELLY;DEJA_SEPARE;NELLY;Marot;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1016;Rebours;GAETAN;DEJA_SEPARE;GAETAN;Rebours;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1017;Marceaux;Patricia;DEJA_SEPARE;Patricia;Marceaux;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1018;Association unono wa matso;;SOCIETE;;Association unono wa matso;0.95;Mot-clé société: 'ASSOCIATION';AUCUNE
+PIO-1019;Goachet;SABRINA;DEJA_SEPARE;SABRINA;Goachet;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1020;DJOUWAIRIA OUSSEN;;TOUT_MAJ;OUSSEN;DJOUWAIRIA;0.55;Tous tokens en MAJ - convention mahoraise probable : nom='DJOUWAIRIA', prenoms='OUSSEN';A_REVOIR
+PIO-1021;Descamps;;MONO;;Descamps;0.9;Token unique;AUCUNE
+PIO-1022;LARREGAIN;;MONO;;LARREGAIN;0.9;Token unique;AUCUNE
+PIO-1023;Lefevbre;Olivier;DEJA_SEPARE;Olivier;Lefevbre;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1024;Moriamez;Laurent;DEJA_SEPARE;Laurent;Moriamez;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1025;Boulineau;Celine;DEJA_SEPARE;Celine;Boulineau;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1026;Balosso;Alexandre;DEJA_SEPARE;Alexandre;Balosso;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1027;Guerrini;Eric;DEJA_SEPARE;Eric;Guerrini;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1028;Bel;Stephanie;DEJA_SEPARE;Stephanie;Bel;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1029;Lacombe;Jonathan;DEJA_SEPARE;Jonathan;Lacombe;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1030;ERARD;Fréderic;DEJA_SEPARE;Fréderic;ERARD;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1031;Camion blanc;Blan;DEJA_SEPARE;Blan;Camion blanc;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1032;Moustadirani;Naima;DEJA_SEPARE;Naima;Moustadirani;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1033;Simonet DE LABORIE;Guillaume;DEJA_SEPARE;Guillaume;Simonet DE LABORIE;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1034;Ferrier;;MONO;;Ferrier;0.9;Token unique;AUCUNE
+PIO-1035;Mejia;Sebastien;DEJA_SEPARE;Sebastien;Mejia;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1036;Harouna;Yannick;DEJA_SEPARE;Yannick;Harouna;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1037;Gimenez;Emmanuelle;DEJA_SEPARE;Emmanuelle;Gimenez;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1038;Harouna;Ahamadi;DEJA_SEPARE;Ahamadi;Harouna;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1039;WEISS;;MONO;;WEISS;0.9;Token unique;AUCUNE
+PIO-1040;Ribeiro;;MONO;;Ribeiro;0.9;Token unique;AUCUNE
+PIO-1041;Verlot;;MONO;;Verlot;0.9;Token unique;AUCUNE
+PIO-1042;Clockers Mickael;;PRENOM_NOM;Clockers;Mickael;0.7;Convention française probable : prenom='Clockers', nom='Mickael';ECRIRE
+PIO-1043;Pommier;Sebastien;DEJA_SEPARE;Sebastien;Pommier;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1044;Fabre Fanny;;PRENOM_NOM;Fabre;Fanny;0.7;Convention française probable : prenom='Fabre', nom='Fanny';ECRIRE
+PIO-1045;Arnolin;;MONO;;Arnolin;0.9;Token unique;AUCUNE
+PIO-1046;Delahais;;MONO;;Delahais;0.9;Token unique;AUCUNE
+PIO-1047;Slivak;Marc;DEJA_SEPARE;Marc;Slivak;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1048;AHMED HOUMADI RASTAM;;TOUT_MAJ;HOUMADI RASTAM;AHMED;0.55;Tous tokens en MAJ - convention mahoraise probable : nom='AHMED', prenoms='HOUMADI RASTAM';A_REVOIR
+PIO-1049;ALI HAMIDI;;TOUT_MAJ;HAMIDI;ALI;0.55;Tous tokens en MAJ - convention mahoraise probable : nom='ALI', prenoms='HAMIDI';A_REVOIR
+PIO-1050;GERMAIN HUGO;;TOUT_MAJ;HUGO;GERMAIN;0.55;Tous tokens en MAJ - convention mahoraise probable : nom='GERMAIN', prenoms='HUGO';A_REVOIR
+PIO-1051;STAHL ANTHONY;;TOUT_MAJ;ANTHONY;STAHL;0.55;Tous tokens en MAJ - convention mahoraise probable : nom='STAHL', prenoms='ANTHONY';A_REVOIR
+PIO-1052;SAINDOU M'SOILI Fayadhui;;NOM_COMPOSE_PRENOM;Fayadhui;SAINDOU M'SOILI;0.7;NOM composé + prénom : nom='SAINDOU M'SOILI', prenom='Fayadhui';ECRIRE
+PIO-1053;Grimault;;MONO;;Grimault;0.9;Token unique;AUCUNE
+PIO-1054;Javaudin;;MONO;;Javaudin;0.9;Token unique;AUCUNE
+PIO-1055;Bejaoui;;MONO;;Bejaoui;0.9;Token unique;AUCUNE
+PIO-1056;Nives;;MONO;;Nives;0.9;Token unique;AUCUNE
+PIO-1057;Lartizien;;MONO;;Lartizien;0.9;Token unique;AUCUNE
+PIO-1058;Bourcier;;MONO;;Bourcier;0.9;Token unique;AUCUNE
+PIO-1059;Lucas ou mr Anthony Maltret ,;;MANUAL;;Lucas ou mr Anthony Maltret ,;0;Contient virgule (commentaire ou alias) — 'Lucas ou mr Anthony Maltret ,';A_REVOIR
+PIO-1060;Rachel ARZALIEZ, Sage-Femme;;MANUAL;;Rachel ARZALIEZ, Sage-Femme;0;Contient virgule (commentaire ou alias) — 'Rachel ARZALIEZ, Sage-Femme';A_REVOIR
+PIO-1061;Latil;;MONO;;Latil;0.9;Token unique;AUCUNE
+PIO-1062;Boyer;;MONO;;Boyer;0.9;Token unique;AUCUNE
+PIO-1063;ABDOU Bakar;;PRENOM_NOM;ABDOU;Bakar;0.7;Convention française probable : prenom='ABDOU', nom='Bakar';ECRIRE
+PIO-1064;ABDOU Souffou;;PRENOM_NOM;ABDOU;Souffou;0.7;Convention française probable : prenom='ABDOU', nom='Souffou';ECRIRE
+PIO-1065;ALI HAMISSI Anassati;;NOM_COMPOSE_PRENOM;Anassati;ALI HAMISSI;0.7;NOM composé + prénom : nom='ALI HAMISSI', prenom='Anassati';ECRIRE
+PIO-1066;ALI MARI Sandati;;NOM_COMPOSE_PRENOM;Sandati;ALI MARI;0.7;NOM composé + prénom : nom='ALI MARI', prenom='Sandati';ECRIRE
+PIO-1067;ANSEL;;MONO;;ANSEL;0.9;Token unique;AUCUNE
+PIO-1068;ARNAUD Jean Jacques;;NOM_COMPOSE_PRENOM;Jacques;ARNAUD Jean;0.7;NOM composé + prénom : nom='ARNAUD Jean', prenom='Jacques';ECRIRE
+PIO-1069;ASSANI Abdou Rahamane;;NOM_COMPOSE_PRENOM;Rahamane;ASSANI Abdou;0.7;NOM composé + prénom : nom='ASSANI Abdou', prenom='Rahamane';ECRIRE
+PIO-1070;Agence Française de Développement - AFD;;MANUAL;;Agence Française de Développement - AFD;0.2;Cas complexe à arbitrer : ['Agence', 'Française', 'de', 'Développement', '-', 'AFD'];A_REVOIR
+PIO-1071;BERNARDET Didier;;PRENOM_NOM;BERNARDET;Didier;0.7;Convention française probable : prenom='BERNARDET', nom='Didier';ECRIRE
+PIO-1072;BIGUET Gildas;;PRENOM_NOM;BIGUET;Gildas;0.7;Convention française probable : prenom='BIGUET', nom='Gildas';ECRIRE
+PIO-1073;BOMPOINT Arlette;;PRENOM_NOM;BOMPOINT;Arlette;0.7;Convention française probable : prenom='BOMPOINT', nom='Arlette';ECRIRE
+PIO-1074;BOUTIN Alexis;;PRENOM_NOM;BOUTIN;Alexis;0.7;Convention française probable : prenom='BOUTIN', nom='Alexis';ECRIRE
+PIO-1075;CHEBANI Saidina Ilyassa;;NOM_COMPOSE_PRENOM;Ilyassa;CHEBANI Saidina;0.7;NOM composé + prénom : nom='CHEBANI Saidina', prenom='Ilyassa';ECRIRE
+PIO-1076;CIRAD Antenne de Mayotte;;SOCIETE;;CIRAD Antenne de Mayotte;0.95;Mot-clé société: 'CIRAD';AUCUNE
+PIO-1077;CLEMENT Olivier / THORAL Agnès;;NOM_COMPOSE_PRENOM;Agnès;CLEMENT Olivier / THORAL;0.7;NOM composé + prénom : nom='CLEMENT Olivier / THORAL', prenom='Agnès';ECRIRE
+PIO-1078;CRECHE Les enfants des Margouillats;;SOCIETE;;CRECHE Les enfants des Margouillats;0.95;Mot-clé société: 'CRECHE';AUCUNE
+PIO-1079;Cabinet Infirmier Triquet Triquet François;;SOCIETE;;Cabinet Infirmier Triquet Triquet François;0.95;Mot-clé société: 'CABINET';AUCUNE
+PIO-1080;DI PIRRO Cécilia;;NOM_COMPOSE_PRENOM;Cécilia;DI PIRRO;0.7;NOM composé + prénom : nom='DI PIRRO', prenom='Cécilia';ECRIRE
+PIO-1081;DIVRY STEPHANIE;;TOUT_MAJ;STEPHANIE;DIVRY;0.55;Tous tokens en MAJ - convention mahoraise probable : nom='DIVRY', prenoms='STEPHANIE';A_REVOIR
+PIO-1082;DURAND Christophe;;PRENOM_NOM;DURAND;Christophe;0.7;Convention française probable : prenom='DURAND', nom='Christophe';ECRIRE
+PIO-1083;Edouard Foltzer;;PRENOM_NOM;Edouard;Foltzer;0.7;Convention française probable : prenom='Edouard', nom='Foltzer';ECRIRE
+PIO-1084;Fatoumia;Jary;DEJA_SEPARE;Jary;Fatoumia;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE
+PIO-1085;Fabrice NICOL;;PRENOM_NOM;Fabrice;NICOL;0.7;Convention française probable : prenom='Fabrice', nom='NICOL';ECRIRE
+PIO-1086;Foundi distribution;;SOCIETE;;Foundi distribution;0.95;Mot-clé société: 'DISTRIBUTION';AUCUNE
+PIO-1087;France Alzheimer Mayotte;;MANUAL;;France Alzheimer Mayotte;0.2;Cas complexe à arbitrer : ['France', 'Alzheimer', 'Mayotte'];A_REVOIR
+PIO-1088;Frédéric COMBELLE;;PRENOM_NOM;Frédéric;COMBELLE;0.7;Convention française probable : prenom='Frédéric', nom='COMBELLE';ECRIRE
+PIO-1089;GERAUD Mickael;;PRENOM_NOM;GERAUD;Mickael;0.7;Convention française probable : prenom='GERAUD', nom='Mickael';ECRIRE
+PIO-1090;GUIBBERT William;;PRENOM_NOM;GUIBBERT;William;0.7;Convention française probable : prenom='GUIBBERT', nom='William';ECRIRE
+PIO-1091;HELILAGON;;SOCIETE;;HELILAGON;0.95;Mot-clé société: 'HELILAGON';AUCUNE
+PIO-1092;Hassan Ben Chakrina;;MANUAL;;Hassan Ben Chakrina;0.2;Cas complexe à arbitrer : ['Hassan', 'Ben', 'Chakrina'];A_REVOIR
+PIO-1093;JEAN LUC OLIVIER;;TOUT_MAJ;LUC OLIVIER;JEAN;0.55;Tous tokens en MAJ - convention mahoraise probable : nom='JEAN', prenoms='LUC OLIVIER';A_REVOIR
+PIO-1094;JOSEPH;;MONO;;JOSEPH;0.9;Token unique;AUCUNE
+PIO-1095;JOULIN François;;PRENOM_NOM;JOULIN;François;0.7;Convention française probable : prenom='JOULIN', nom='François';ECRIRE
+PIO-1096;LEMARCHAND Aurore;;PRENOM_NOM;LEMARCHAND;Aurore;0.7;Convention française probable : prenom='LEMARCHAND', nom='Aurore';ECRIRE
+PIO-1097;LOPEZ Alfonso;;PRENOM_NOM;LOPEZ;Alfonso;0.7;Convention française probable : prenom='LOPEZ', nom='Alfonso';ECRIRE
+PIO-1098;MARI Mambadi;;PRENOM_NOM;MARI;Mambadi;0.7;Convention française probable : prenom='MARI', nom='Mambadi';ECRIRE
+PIO-1099;MARI Soihibou;;PRENOM_NOM;MARI;Soihibou;0.7;Convention française probable : prenom='MARI', nom='Soihibou';ECRIRE
+PIO-1100;MARI Toulaybi;;PRENOM_NOM;MARI;Toulaybi;0.7;Convention française probable : prenom='MARI', nom='Toulaybi';ECRIRE
+PIO-1101;MOHAMADI Elhad;;PRENOM_NOM;MOHAMADI;Elhad;0.7;Convention française probable : prenom='MOHAMADI', nom='Elhad';ECRIRE
+PIO-1102;MOISAN Guewen;;PRENOM_NOM;MOISAN;Guewen;0.7;Convention française probable : prenom='MOISAN', nom='Guewen';ECRIRE
+PIO-1103;MOREL Laurent;;PRENOM_NOM;MOREL;Laurent;0.7;Convention française probable : prenom='MOREL', nom='Laurent';ECRIRE
+PIO-1104;MOUSSA Inchati;;PRENOM_NOM;MOUSSA;Inchati;0.7;Convention française probable : prenom='MOUSSA', nom='Inchati';ECRIRE
+PIO-1105;MROIVILI Echati Moussa;;NOM_COMPOSE_PRENOM;Moussa;MROIVILI Echati;0.7;NOM composé + prénom : nom='MROIVILI Echati', prenom='Moussa';ECRIRE
+PIO-1106;Mayotte Clotures et Jardins Fraisse;;MANUAL;;Mayotte Clotures et Jardins Fraisse;0.2;Cas complexe à arbitrer : ['Mayotte', 'Clotures', 'et', 'Jardins', 'Fraisse'];A_REVOIR
+PIO-1107;Mme ABASSI;;TITRE_MONO;;ABASSI;0.8;Titre + 1 token = nom seul ('Mme' retiré);ECRIRE
+PIO-1108;Mme ABDULLAH Laure;;TITRE_NOM_PRENOM;Laure;ABDULLAH;0.85;Titre + NOM majuscule + prénom : 'Mme' retiré, NOM='ABDULLAH', prenom='Laure';ECRIRE
+PIO-1109;Mme BANAG MOUTLEN Elisabeth;;TITRE_NOM_PRENOM;MOUTLEN Elisabeth;BANAG;0.85;Titre + NOM majuscule + prénom : 'Mme' retiré, NOM='BANAG', prenom='MOUTLEN Elisabeth';ECRIRE
+PIO-1111;Mme BRAHIME Rahamatou;;TITRE_NOM_PRENOM;Rahamatou;BRAHIME;0.85;Titre + NOM majuscule + prénom : 'Mme' retiré, NOM='BRAHIME', prenom='Rahamatou';ECRIRE
+PIO-1112;Mme CAMPIER Nathalie;;TITRE_NOM_PRENOM;Nathalie;CAMPIER;0.85;Titre + NOM majuscule + prénom : 'Mme' retiré, NOM='CAMPIER', prenom='Nathalie';ECRIRE
+PIO-1113;Mme DEL RIO Gundín Laura;;TITRE_NOM_PRENOM;RIO Gundín Laura;DEL;0.85;Titre + NOM majuscule + prénom : 'Mme' retiré, NOM='DEL', prenom='RIO Gundín Laura';ECRIRE
+PIO-1114;Mme GUILLEREZ Peggy;;TITRE_NOM_PRENOM;Peggy;GUILLEREZ;0.85;Titre + NOM majuscule + prénom : 'Mme' retiré, NOM='GUILLEREZ', prenom='Peggy';ECRIRE
+PIO-1115;Mme JARY Fatoumina;;TITRE_NOM_PRENOM;Fatoumina;JARY;0.85;Titre + NOM majuscule + prénom : 'Mme' retiré, NOM='JARY', prenom='Fatoumina';ECRIRE
+PIO-1116;Mme JEANSON Barbara;;TITRE_NOM_PRENOM;Barbara;JEANSON;0.85;Titre + NOM majuscule + prénom : 'Mme' retiré, NOM='JEANSON', prenom='Barbara';ECRIRE
+PIO-1117;Mme LAMOTTE Dominique;;TITRE_NOM_PRENOM;Dominique;LAMOTTE;0.85;Titre + NOM majuscule + prénom : 'Mme' retiré, NOM='LAMOTTE', prenom='Dominique';ECRIRE
+PIO-1118;Mme PRADA Céline;;TITRE_NOM_PRENOM;Céline;PRADA;0.85;Titre + NOM majuscule + prénom : 'Mme' retiré, NOM='PRADA', prenom='Céline';ECRIRE
+PIO-1119;Mr ANDAZA Benoit;;TITRE_NOM_PRENOM;Benoit;ANDAZA;0.85;Titre + NOM majuscule + prénom : 'Mr' retiré, NOM='ANDAZA', prenom='Benoit';ECRIRE
+PIO-1120;Mr BATARD Nicolas;;TITRE_NOM_PRENOM;Nicolas;BATARD;0.85;Titre + NOM majuscule + prénom : 'Mr' retiré, NOM='BATARD', prenom='Nicolas';ECRIRE
+PIO-1122;Mr BERTHET Tony;;TITRE_NOM_PRENOM;Tony;BERTHET;0.85;Titre + NOM majuscule + prénom : 'Mr' retiré, NOM='BERTHET', prenom='Tony';ECRIRE
+PIO-1123;Mr BRICQUET Denis;;TITRE_NOM_PRENOM;Denis;BRICQUET;0.85;Titre + NOM majuscule + prénom : 'Mr' retiré, NOM='BRICQUET', prenom='Denis';ECRIRE
+PIO-1124;Mr CORRADO BERJOTIN Matthieu;;TITRE_NOM_PRENOM;BERJOTIN Matthieu;CORRADO;0.85;Titre + NOM majuscule + prénom : 'Mr' retiré, NOM='CORRADO', prenom='BERJOTIN Matthieu';ECRIRE
+PIO-1125;Mr DE BOLLIVIER Yves;;TITRE_NOM_PRENOM;BOLLIVIER Yves;DE;0.85;Titre + NOM majuscule + prénom : 'Mr' retiré, NOM='DE', prenom='BOLLIVIER Yves';ECRIRE
+PIO-1126;Mr DUPRE WEKESA Guillaume;;TITRE_NOM_PRENOM;WEKESA Guillaume;DUPRE;0.85;Titre + NOM majuscule + prénom : 'Mr' retiré, NOM='DUPRE', prenom='WEKESA Guillaume';ECRIRE
+PIO-1127;Mr GARCIA Guillaume;;TITRE_NOM_PRENOM;Guillaume;GARCIA;0.85;Titre + NOM majuscule + prénom : 'Mr' retiré, NOM='GARCIA', prenom='Guillaume';ECRIRE
+PIO-1128;Mr GARNIER;;TITRE_MONO;;GARNIER;0.8;Titre + 1 token = nom seul ('Mr' retiré);ECRIRE
+PIO-1129;Mr HADRAMI Nassaire;;TITRE_NOM_PRENOM;Nassaire;HADRAMI;0.85;Titre + NOM majuscule + prénom : 'Mr' retiré, NOM='HADRAMI', prenom='Nassaire';ECRIRE
+PIO-1130;Mr LE DU Sylvain;;TITRE_NOM_PRENOM;DU Sylvain;LE;0.85;Titre + NOM majuscule + prénom : 'Mr' retiré, NOM='LE', prenom='DU Sylvain';ECRIRE
+PIO-1131;Mr MOHAMED Ibrahim;;TITRE_NOM_PRENOM;Ibrahim;MOHAMED;0.85;Titre + NOM majuscule + prénom : 'Mr' retiré, NOM='MOHAMED', prenom='Ibrahim';ECRIRE
+PIO-1132;Mr MOUSSA RACHIDI;;TITRE_AMBIGU;;MOUSSA RACHIDI;0.3;Titre + casse ambiguë — '['MOUSSA', 'RACHIDI']';A_REVOIR
+PIO-1133;Mr NOVOU Julien;;TITRE_NOM_PRENOM;Julien;NOVOU;0.85;Titre + NOM majuscule + prénom : 'Mr' retiré, NOM='NOVOU', prenom='Julien';ECRIRE
+PIO-1134;Mr OTHMANI;;TITRE_MONO;;OTHMANI;0.8;Titre + 1 token = nom seul ('Mr' retiré);ECRIRE
+PIO-1135;SARL VETO;;SOCIETE;;SARL VETO;0.95;Mot-clé société: 'SARL';AUCUNE
+PIO-1136;Mr VARLET Benoit;;TITRE_NOM_PRENOM;Benoit;VARLET;0.85;Titre + NOM majuscule + prénom : 'Mr' retiré, NOM='VARLET', prenom='Benoit';ECRIRE
+PIO-1137;Nolwenn LEPOURIEL et Nicolas FRANCOIS;;MANUAL;;Nolwenn LEPOURIEL et Nicolas FRANCOIS;0.2;Cas complexe à arbitrer : ['Nolwenn', 'LEPOURIEL', 'et', 'Nicolas', 'FRANCOIS'];A_REVOIR
+PIO-1138;Office français de la biodiversité;;MANUAL;;Office français de la biodiversité;0.2;Cas complexe à arbitrer : ['Office', 'français', 'de', 'la', 'biodiversité'];A_REVOIR
+PIO-1139;RASTAMI Joelle;;PRENOM_NOM;RASTAMI;Joelle;0.7;Convention française probable : prenom='RASTAMI', nom='Joelle';ECRIRE
+PIO-1140;REIGNAUT Philippe;;PRENOM_NOM;REIGNAUT;Philippe;0.7;Convention française probable : prenom='REIGNAUT', nom='Philippe';ECRIRE
+PIO-1141;ROBERT Laurence;;PRENOM_NOM;ROBERT;Laurence;0.7;Convention française probable : prenom='ROBERT', nom='Laurence';ECRIRE
+PIO-1142;ROCS;;SOCIETE;;ROCS;0.95;Mot-clé société: 'ROCS';AUCUNE
+PIO-1143;SAS MATIS;;SOCIETE;;SAS MATIS;0.95;Mot-clé société: 'MATIS';AUCUNE
+PIO-1144;SOS OXYGENE;;SOCIETE;;SOS OXYGENE;0.95;Mot-clé société: 'OXYGENE';AUCUNE
+PIO-1145;SOULA Naîka;;PRENOM_NOM;SOULA;Naîka;0.7;Convention française probable : prenom='SOULA', nom='Naîka';ECRIRE
+PIO-1146;TOURON Gaëlle;;PRENOM_NOM;TOURON;Gaëlle;0.7;Convention française probable : prenom='TOURON', nom='Gaëlle';ECRIRE
+PIO-1147;VAN GREVENYNGHE Cédric;;NOM_COMPOSE_PRENOM;Cédric;VAN GREVENYNGHE;0.7;NOM composé + prénom : nom='VAN GREVENYNGHE', prenom='Cédric';ECRIRE
+PIO-1148;Jumiaux Ludovic;;PRENOM_NOM;Jumiaux;Ludovic;0.7;Convention française probable : prenom='Jumiaux', nom='Ludovic';ECRIRE
+PIO-1151;Tetrama exploitation;;SOCIETE;;Tetrama exploitation;0.95;Mot-clé société: 'EXPLOITATION';AUCUNE
+PIO-1152;RAFFARD;;MONO;;RAFFARD;0.9;Token unique;AUCUNE
+PIO-1196;MARTIN;Sandrine;DEJA_SEPARE;Sandrine;MARTIN;1.0;nom et prenom déjà remplis, on ne touche pas;AUCUNE

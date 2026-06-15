@@ -1,0 +1,151 @@
+﻿pio_id;nom_actuel;prenom_actuel;categorie;prenom_propose;nom_propose;confiance;raison;action
+PIO-1000;MATTOIR;TOYFA;DEJA_SEPARE;TOYFA;MATTOIR;1.0;Déjà séparé;AUCUNE
+PIO-1001;Coignard;Antoine;DEJA_SEPARE;Antoine;Coignard;1.0;Déjà séparé;AUCUNE
+PIO-1002;Delaune;Maxime;DEJA_SEPARE;Maxime;Delaune;1.0;Déjà séparé;AUCUNE
+PIO-1003;Lelu;DIdier;DEJA_SEPARE;DIdier;Lelu;1.0;Déjà séparé;AUCUNE
+PIO-1004;Toybou;Irfani;DEJA_SEPARE;Irfani;Toybou;1.0;Déjà séparé;AUCUNE
+PIO-1005;Neveu-Labille;;MONO;;Neveu-Labille;0.9;Un seul token;NOM_SEUL
+PIO-1006;Perrissoud;Emilie;DEJA_SEPARE;Emilie;Perrissoud;1.0;Déjà séparé;AUCUNE
+PIO-1007;STEPHAN;;MONO;;STEPHAN;0.9;Un seul token;NOM_SEUL
+PIO-1008;Ghita;René;DEJA_SEPARE;René;Ghita;1.0;Déjà séparé;AUCUNE
+PIO-1009;Zammit;Alan;DEJA_SEPARE;Alan;Zammit;1.0;Déjà séparé;AUCUNE
+PIO-1010;Deloffre;Nicolas;DEJA_SEPARE;Nicolas;Deloffre;1.0;Déjà séparé;AUCUNE
+PIO-1011;Baptiste;Jeremy;DEJA_SEPARE;Jeremy;Baptiste;1.0;Déjà séparé;AUCUNE
+PIO-1012;Hippocampe plongée;;SOCIETE;;Hippocampe plongée;0.95;Mot-clé société: HIPPOCAMPE;NOM_SEUL
+PIO-1013;Venault;;MONO;;Venault;0.9;Un seul token;NOM_SEUL
+PIO-1014;Atelier Mahorais d'architecture;;SOCIETE;;Atelier Mahorais d'architecture;0.95;Mot-clé société: ATELIER;NOM_SEUL
+PIO-1015;Marot;NELLY;DEJA_SEPARE;NELLY;Marot;1.0;Déjà séparé;AUCUNE
+PIO-1016;Rebours;GAETAN;DEJA_SEPARE;GAETAN;Rebours;1.0;Déjà séparé;AUCUNE
+PIO-1017;Marceaux;Patricia;DEJA_SEPARE;Patricia;Marceaux;1.0;Déjà séparé;AUCUNE
+PIO-1018;Association unono wa matso;;SOCIETE;;Association unono wa matso;0.95;Mot-clé société: UNONO;NOM_SEUL
+PIO-1019;Goachet;SABRINA;DEJA_SEPARE;SABRINA;Goachet;1.0;Déjà séparé;AUCUNE
+PIO-1020;DJOUWAIRIA OUSSEN;;TOUT_MAJ_2;OUSSEN;DJOUWAIRIA;0.55;Tous MAJ : convention mahoraise NOM Prenom probable;A_REVOIR
+PIO-1021;Descamps;;MONO;;Descamps;0.9;Un seul token;NOM_SEUL
+PIO-1022;LARREGAIN;;MONO;;LARREGAIN;0.9;Un seul token;NOM_SEUL
+PIO-1023;Lefevbre;Olivier;DEJA_SEPARE;Olivier;Lefevbre;1.0;Déjà séparé;AUCUNE
+PIO-1024;Moriamez;Laurent;DEJA_SEPARE;Laurent;Moriamez;1.0;Déjà séparé;AUCUNE
+PIO-1025;Boulineau;Celine;DEJA_SEPARE;Celine;Boulineau;1.0;Déjà séparé;AUCUNE
+PIO-1026;Balosso;Alexandre;DEJA_SEPARE;Alexandre;Balosso;1.0;Déjà séparé;AUCUNE
+PIO-1027;Guerrini;Eric;DEJA_SEPARE;Eric;Guerrini;1.0;Déjà séparé;AUCUNE
+PIO-1028;Bel;Stephanie;DEJA_SEPARE;Stephanie;Bel;1.0;Déjà séparé;AUCUNE
+PIO-1029;Lacombe;Jonathan;DEJA_SEPARE;Jonathan;Lacombe;1.0;Déjà séparé;AUCUNE
+PIO-1030;ERARD;Fréderic;DEJA_SEPARE;Fréderic;ERARD;1.0;Déjà séparé;AUCUNE
+PIO-1031;Camion blanc;Blan;DEJA_SEPARE;Blan;Camion blanc;1.0;Déjà séparé;AUCUNE
+PIO-1032;Moustadirani;Naima;DEJA_SEPARE;Naima;Moustadirani;1.0;Déjà séparé;AUCUNE
+PIO-1033;Simonet DE LABORIE;Guillaume;DEJA_SEPARE;Guillaume;Simonet DE LABORIE;1.0;Déjà séparé;AUCUNE
+PIO-1034;Ferrier;;MONO;;Ferrier;0.9;Un seul token;NOM_SEUL
+PIO-1035;Mejia;Sebastien;DEJA_SEPARE;Sebastien;Mejia;1.0;Déjà séparé;AUCUNE
+PIO-1036;Harouna;Yannick;DEJA_SEPARE;Yannick;Harouna;1.0;Déjà séparé;AUCUNE
+PIO-1037;Gimenez;Emmanuelle;DEJA_SEPARE;Emmanuelle;Gimenez;1.0;Déjà séparé;AUCUNE
+PIO-1038;Harouna;Ahamadi;DEJA_SEPARE;Ahamadi;Harouna;1.0;Déjà séparé;AUCUNE
+PIO-1039;WEISS;;MONO;;WEISS;0.9;Un seul token;NOM_SEUL
+PIO-1040;Ribeiro;;MONO;;Ribeiro;0.9;Un seul token;NOM_SEUL
+PIO-1041;Verlot;;MONO;;Verlot;0.9;Un seul token;NOM_SEUL
+PIO-1042;Clockers Mickael;;CAMEL_2;Clockers;Mickael;0.7;Convention française Prenom Nom probable;ECRIRE_MOYEN
+PIO-1043;Pommier;Sebastien;DEJA_SEPARE;Sebastien;Pommier;1.0;Déjà séparé;AUCUNE
+PIO-1044;Fabre Fanny;;CAMEL_2;Fabre;Fanny;0.7;Convention française Prenom Nom probable;ECRIRE_MOYEN
+PIO-1045;Arnolin;;MONO;;Arnolin;0.9;Un seul token;NOM_SEUL
+PIO-1046;Delahais;;MONO;;Delahais;0.9;Un seul token;NOM_SEUL
+PIO-1047;Slivak;Marc;DEJA_SEPARE;Marc;Slivak;1.0;Déjà séparé;AUCUNE
+PIO-1048;AHMED HOUMADI RASTAM;;TOUT_MAJ_3;HOUMADI RASTAM;AHMED;0.5;Tous MAJ 3 tokens : conv mahoraise NOM Prenoms probable;A_REVOIR
+PIO-1049;ALI HAMIDI;;TOUT_MAJ_2;HAMIDI;ALI;0.55;Tous MAJ : convention mahoraise NOM Prenom probable;A_REVOIR
+PIO-1050;GERMAIN HUGO;;TOUT_MAJ_2;HUGO;GERMAIN;0.55;Tous MAJ : convention mahoraise NOM Prenom probable;A_REVOIR
+PIO-1051;STAHL ANTHONY;;TOUT_MAJ_2;ANTHONY;STAHL;0.55;Tous MAJ : convention mahoraise NOM Prenom probable;A_REVOIR
+PIO-1052;SAINDOU M'SOILI Fayadhui;;NOM_COMPOSE_PRENOM;Fayadhui;SAINDOU M'SOILI;0.85;NOM composé MAJ + prenom CamelCase;ECRIRE_FORT
+PIO-1053;Grimault;;MONO;;Grimault;0.9;Un seul token;NOM_SEUL
+PIO-1054;Javaudin;;MONO;;Javaudin;0.9;Un seul token;NOM_SEUL
+PIO-1055;Bejaoui;;MONO;;Bejaoui;0.9;Un seul token;NOM_SEUL
+PIO-1056;Nives;;MONO;;Nives;0.9;Un seul token;NOM_SEUL
+PIO-1057;Lartizien;;MONO;;Lartizien;0.9;Un seul token;NOM_SEUL
+PIO-1058;Bourcier;;MONO;;Bourcier;0.9;Un seul token;NOM_SEUL
+PIO-1059;Lucas ou mr Anthony Maltret ,;;MANUAL;;Lucas ou mr Anthony Maltret ,;0;Contient virgule/point-virgule;A_REVOIR
+PIO-1060;Rachel ARZALIEZ, Sage-Femme;;MANUAL;;Rachel ARZALIEZ, Sage-Femme;0;Contient virgule/point-virgule;A_REVOIR
+PIO-1061;Latil;;MONO;;Latil;0.9;Un seul token;NOM_SEUL
+PIO-1062;Boyer;;MONO;;Boyer;0.9;Un seul token;NOM_SEUL
+PIO-1063;ABDOU Bakar;;NOM_MAJ_PRENOM;Bakar;ABDOU;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1064;ABDOU Souffou;;NOM_MAJ_PRENOM;Souffou;ABDOU;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1065;ALI HAMISSI Anassati;;NOM_COMPOSE_PRENOM;Anassati;ALI HAMISSI;0.85;NOM composé MAJ + prenom CamelCase;ECRIRE_FORT
+PIO-1066;ALI MARI Sandati;;NOM_COMPOSE_PRENOM;Sandati;ALI MARI;0.85;NOM composé MAJ + prenom CamelCase;ECRIRE_FORT
+PIO-1067;ANSEL;;MONO;;ANSEL;0.9;Un seul token;NOM_SEUL
+PIO-1068;ARNAUD Jean Jacques;;NOM_MAJ_PRENOMS;Jean Jacques;ARNAUD;0.85;NOM MAJ + prenoms CamelCase;ECRIRE_FORT
+PIO-1069;ASSANI Abdou Rahamane;;NOM_MAJ_PRENOMS;Abdou Rahamane;ASSANI;0.85;NOM MAJ + prenoms CamelCase;ECRIRE_FORT
+PIO-1070;Agence Française de Développement - AFD;;SOCIETE;;Agence Française de Développement - AFD;0.95;Mot-clé société: AGENCE;NOM_SEUL
+PIO-1071;BERNARDET Didier;;NOM_MAJ_PRENOM;Didier;BERNARDET;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1072;BIGUET Gildas;;NOM_MAJ_PRENOM;Gildas;BIGUET;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1073;BOMPOINT Arlette;;NOM_MAJ_PRENOM;Arlette;BOMPOINT;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1074;BOUTIN Alexis;;NOM_MAJ_PRENOM;Alexis;BOUTIN;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1075;CHEBANI Saidina Ilyassa;;NOM_MAJ_PRENOMS;Saidina Ilyassa;CHEBANI;0.85;NOM MAJ + prenoms CamelCase;ECRIRE_FORT
+PIO-1076;CIRAD Antenne de Mayotte;;SOCIETE;;CIRAD Antenne de Mayotte;0.95;Mot-clé société: CIRAD;NOM_SEUL
+PIO-1077;CLEMENT Olivier / THORAL Agnès;;MANUAL;;CLEMENT Olivier / THORAL Agnès;0.3;Casse complexe : ['CLEMENT', 'Olivier', '/', 'THORAL', 'Agnès'];A_REVOIR
+PIO-1078;CRECHE Les enfants des Margouillats;;SOCIETE;;CRECHE Les enfants des Margouillats;0.95;Mot-clé société: CRECHE;NOM_SEUL
+PIO-1079;Cabinet Infirmier Triquet Triquet François;;SOCIETE;;Cabinet Infirmier Triquet Triquet François;0.95;Mot-clé société: INFIRMIER;NOM_SEUL
+PIO-1080;DI PIRRO Cécilia;;NOM_COMPOSE_PRENOM;Cécilia;DI PIRRO;0.85;NOM composé MAJ + prenom CamelCase;ECRIRE_FORT
+PIO-1081;DIVRY STEPHANIE;;TOUT_MAJ_2;STEPHANIE;DIVRY;0.55;Tous MAJ : convention mahoraise NOM Prenom probable;A_REVOIR
+PIO-1082;DURAND Christophe;;NOM_MAJ_PRENOM;Christophe;DURAND;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1083;Edouard Foltzer;;CAMEL_2;Edouard;Foltzer;0.7;Convention française Prenom Nom probable;ECRIRE_MOYEN
+PIO-1084;Fatoumia;Jary;DEJA_SEPARE;Jary;Fatoumia;1.0;Déjà séparé;AUCUNE
+PIO-1085;Fabrice NICOL;;PRENOM_NOM_MAJ;Fabrice;NICOL;0.9;Prenom CamelCase + NOM majuscule;ECRIRE_FORT
+PIO-1086;Foundi distribution;;SOCIETE;;Foundi distribution;0.95;Mot-clé société: FOUNDI;NOM_SEUL
+PIO-1087;France Alzheimer Mayotte;;SOCIETE;;France Alzheimer Mayotte;0.95;Mot-clé société: ALZHEIMER;NOM_SEUL
+PIO-1088;Frédéric COMBELLE;;PRENOM_NOM_MAJ;Frédéric;COMBELLE;0.9;Prenom CamelCase + NOM majuscule;ECRIRE_FORT
+PIO-1089;GERAUD Mickael;;NOM_MAJ_PRENOM;Mickael;GERAUD;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1090;GUIBBERT William;;NOM_MAJ_PRENOM;William;GUIBBERT;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1091;HELILAGON;;SOCIETE;;HELILAGON;0.95;Mot-clé société: HELILAGON;NOM_SEUL
+PIO-1092;Hassan Ben Chakrina;;CAMEL_3;Hassan;Ben Chakrina;0.5;Tous CamelCase 3 tokens : Prenom NOM composé probable;A_REVOIR
+PIO-1093;JEAN LUC OLIVIER;;TOUT_MAJ_3;LUC OLIVIER;JEAN;0.5;Tous MAJ 3 tokens : conv mahoraise NOM Prenoms probable;A_REVOIR
+PIO-1094;JOSEPH;;MONO;;JOSEPH;0.9;Un seul token;NOM_SEUL
+PIO-1095;JOULIN François;;NOM_MAJ_PRENOM;François;JOULIN;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1096;LEMARCHAND Aurore;;NOM_MAJ_PRENOM;Aurore;LEMARCHAND;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1097;LOPEZ Alfonso;;NOM_MAJ_PRENOM;Alfonso;LOPEZ;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1098;MARI Mambadi;;NOM_MAJ_PRENOM;Mambadi;MARI;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1099;MARI Soihibou;;NOM_MAJ_PRENOM;Soihibou;MARI;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1100;MARI Toulaybi;;NOM_MAJ_PRENOM;Toulaybi;MARI;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1101;MOHAMADI Elhad;;NOM_MAJ_PRENOM;Elhad;MOHAMADI;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1102;MOISAN Guewen;;NOM_MAJ_PRENOM;Guewen;MOISAN;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1103;MOREL Laurent;;NOM_MAJ_PRENOM;Laurent;MOREL;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1104;MOUSSA Inchati;;NOM_MAJ_PRENOM;Inchati;MOUSSA;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1105;MROIVILI Echati Moussa;;NOM_MAJ_PRENOMS;Echati Moussa;MROIVILI;0.85;NOM MAJ + prenoms CamelCase;ECRIRE_FORT
+PIO-1106;Mayotte Clotures et Jardins Fraisse;;SOCIETE;;Mayotte Clotures et Jardins Fraisse;0.95;Mot-clé société: JARDINS;NOM_SEUL
+PIO-1107;Mme ABASSI;;TITRE_MONO;;ABASSI;0.85;Titre + 1 token (nom seul);NOM_SEUL
+PIO-1108;Mme ABDULLAH Laure;;TITRE_NOM_PRENOM;Laure;ABDULLAH;0.9;Titre + NOM majuscule + prenom;ECRIRE_FORT
+PIO-1109;Mme BANAG MOUTLEN Elisabeth;;TITRE_NOM_COMPOSE_PRENOM;Elisabeth;BANAG MOUTLEN;0.85;Titre + NOM composé MAJ + prenom;ECRIRE_FORT
+PIO-1111;Mme BRAHIME Rahamatou;;TITRE_NOM_PRENOM;Rahamatou;BRAHIME;0.9;Titre + NOM majuscule + prenom;ECRIRE_FORT
+PIO-1112;Mme CAMPIER Nathalie;;TITRE_NOM_PRENOM;Nathalie;CAMPIER;0.9;Titre + NOM majuscule + prenom;ECRIRE_FORT
+PIO-1113;Mme DEL RIO Gundín Laura;;TITRE_AMBIGU;;DEL RIO Gundín Laura;0.3;Titre + casse complexe;A_REVOIR
+PIO-1114;Mme GUILLEREZ Peggy;;TITRE_NOM_PRENOM;Peggy;GUILLEREZ;0.9;Titre + NOM majuscule + prenom;ECRIRE_FORT
+PIO-1115;Mme JARY Fatoumina;;TITRE_NOM_PRENOM;Fatoumina;JARY;0.9;Titre + NOM majuscule + prenom;ECRIRE_FORT
+PIO-1116;Mme JEANSON Barbara;;TITRE_NOM_PRENOM;Barbara;JEANSON;0.9;Titre + NOM majuscule + prenom;ECRIRE_FORT
+PIO-1117;Mme LAMOTTE Dominique;;TITRE_NOM_PRENOM;Dominique;LAMOTTE;0.9;Titre + NOM majuscule + prenom;ECRIRE_FORT
+PIO-1118;Mme PRADA Céline;;TITRE_NOM_PRENOM;Céline;PRADA;0.9;Titre + NOM majuscule + prenom;ECRIRE_FORT
+PIO-1119;Mr ANDAZA Benoit;;TITRE_NOM_PRENOM;Benoit;ANDAZA;0.9;Titre + NOM majuscule + prenom;ECRIRE_FORT
+PIO-1120;Mr BATARD Nicolas;;TITRE_NOM_PRENOM;Nicolas;BATARD;0.9;Titre + NOM majuscule + prenom;ECRIRE_FORT
+PIO-1122;Mr BERTHET Tony;;TITRE_NOM_PRENOM;Tony;BERTHET;0.9;Titre + NOM majuscule + prenom;ECRIRE_FORT
+PIO-1123;Mr BRICQUET Denis;;TITRE_NOM_PRENOM;Denis;BRICQUET;0.9;Titre + NOM majuscule + prenom;ECRIRE_FORT
+PIO-1124;Mr CORRADO BERJOTIN Matthieu;;TITRE_NOM_COMPOSE_PRENOM;Matthieu;CORRADO BERJOTIN;0.85;Titre + NOM composé MAJ + prenom;ECRIRE_FORT
+PIO-1125;Mr DE BOLLIVIER Yves;;TITRE_NOM_COMPOSE_PRENOM;Yves;DE BOLLIVIER;0.85;Titre + NOM composé MAJ + prenom;ECRIRE_FORT
+PIO-1126;Mr DUPRE WEKESA Guillaume;;TITRE_NOM_COMPOSE_PRENOM;Guillaume;DUPRE WEKESA;0.85;Titre + NOM composé MAJ + prenom;ECRIRE_FORT
+PIO-1127;Mr GARCIA Guillaume;;TITRE_NOM_PRENOM;Guillaume;GARCIA;0.9;Titre + NOM majuscule + prenom;ECRIRE_FORT
+PIO-1128;Mr GARNIER;;TITRE_MONO;;GARNIER;0.85;Titre + 1 token (nom seul);NOM_SEUL
+PIO-1129;Mr HADRAMI Nassaire;;TITRE_NOM_PRENOM;Nassaire;HADRAMI;0.9;Titre + NOM majuscule + prenom;ECRIRE_FORT
+PIO-1130;Mr LE DU Sylvain;;TITRE_NOM_COMPOSE_PRENOM;Sylvain;LE DU;0.85;Titre + NOM composé MAJ + prenom;ECRIRE_FORT
+PIO-1131;Mr MOHAMED Ibrahim;;TITRE_NOM_PRENOM;Ibrahim;MOHAMED;0.9;Titre + NOM majuscule + prenom;ECRIRE_FORT
+PIO-1132;Mr MOUSSA RACHIDI;;TITRE_TOUT_MAJ;;MOUSSA RACHIDI;0.4;Titre + tout MAJ : ambigu (conv. mahoraise?);A_REVOIR
+PIO-1133;Mr NOVOU Julien;;TITRE_NOM_PRENOM;Julien;NOVOU;0.9;Titre + NOM majuscule + prenom;ECRIRE_FORT
+PIO-1134;Mr OTHMANI;;TITRE_MONO;;OTHMANI;0.85;Titre + 1 token (nom seul);NOM_SEUL
+PIO-1135;SARL VETO;;SOCIETE;;SARL VETO;0.95;Mot-clé société: SARL;NOM_SEUL
+PIO-1136;Mr VARLET Benoit;;TITRE_NOM_PRENOM;Benoit;VARLET;0.9;Titre + NOM majuscule + prenom;ECRIRE_FORT
+PIO-1137;Nolwenn LEPOURIEL et Nicolas FRANCOIS;;MANUAL;;Nolwenn LEPOURIEL et Nicolas FRANCOIS;0.3;Casse complexe : ['Nolwenn', 'LEPOURIEL', 'et', 'Nicolas', 'FRANCOIS'];A_REVOIR
+PIO-1138;Office français de la biodiversité;;SOCIETE;;Office français de la biodiversité;0.95;Mot-clé société: OFFICE;NOM_SEUL
+PIO-1139;RASTAMI Joelle;;NOM_MAJ_PRENOM;Joelle;RASTAMI;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1140;REIGNAUT Philippe;;NOM_MAJ_PRENOM;Philippe;REIGNAUT;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1141;ROBERT Laurence;;NOM_MAJ_PRENOM;Laurence;ROBERT;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1142;ROCS;;SOCIETE;;ROCS;0.95;Mot-clé société: ROCS;NOM_SEUL
+PIO-1143;SAS MATIS;;SOCIETE;;SAS MATIS;0.95;Mot-clé société: MATIS;NOM_SEUL
+PIO-1144;SOS OXYGENE;;SOCIETE;;SOS OXYGENE;0.95;Mot-clé société: OXYGENE;NOM_SEUL
+PIO-1145;SOULA Naîka;;NOM_MAJ_PRENOM;Naîka;SOULA;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1146;TOURON Gaëlle;;NOM_MAJ_PRENOM;Gaëlle;TOURON;0.9;NOM majuscule + prenom CamelCase;ECRIRE_FORT
+PIO-1147;VAN GREVENYNGHE Cédric;;NOM_COMPOSE_PRENOM;Cédric;VAN GREVENYNGHE;0.85;NOM composé MAJ + prenom CamelCase;ECRIRE_FORT
+PIO-1148;Jumiaux Ludovic;;CAMEL_2;Jumiaux;Ludovic;0.7;Convention française Prenom Nom probable;ECRIRE_MOYEN
+PIO-1151;Tetrama exploitation;;SOCIETE;;Tetrama exploitation;0.95;Mot-clé société: TETRAMA;NOM_SEUL
+PIO-1152;RAFFARD;;MONO;;RAFFARD;0.9;Un seul token;NOM_SEUL
+PIO-1196;MARTIN;Sandrine;DEJA_SEPARE;Sandrine;MARTIN;1.0;Déjà séparé;AUCUNE
