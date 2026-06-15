@@ -535,7 +535,7 @@
             .gb-badge-frame {
               position:relative;
               width:140px;
-              height:187px;          /* ratio 1:1.334 — identique pour les 2 cards (700:933 = 500:667) */
+              height:187px;          /* ratio 1:1.334 — les 2 cards ont désormais la même taille 700×934 */
               border-radius:9px;
               overflow:hidden;
               text-decoration:none;
@@ -546,29 +546,19 @@
             .gb-badge-frame:hover { transform:translateY(-3px); box-shadow:0 14px 28px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,175,55,0.8); }
             .gb-badge-frame iframe {
               position:absolute;
+              left:-9.4px; top:-12.6px;      /* offset (canvas 794×1059, card 700×933, card_x=47, card_y=63) × scale 0.2 */
               width:794px; height:1059px;
               border:0;
               pointer-events:none;
+              transform: scale(0.2);          /* 140/700 — uniforme pour les 2 badges */
               transform-origin: top left;
-            }
-            /* Fondateur : card .wrap 700×933 dans canvas 794×1059
-               offset (47,63) — scale = 140/700 = 0.2 */
-            .gb-frame-fondateur iframe {
-              left:-9.4px; top:-12.6px;
-              transform: scale(0.2);
-            }
-            /* Ambassadeur : card .wrap 500×667 dans canvas 794×1059
-               offset (147,196) — scale = 140/500 = 0.28 */
-            .gb-frame-ambassadeur iframe {
-              left:-41.16px; top:-54.88px;
-              transform: scale(0.28);
             }
           </style>
           <div class="gb-badges">
-            <a href="{{badge_fondateur_url}}" target="_blank" rel="noopener" class="gb-badge-frame gb-frame-fondateur" style="display: {{display_pionnier}};" title="Voir le badge Fondateur en grand">
+            <a href="{{badge_fondateur_url}}" target="_blank" rel="noopener" class="gb-badge-frame" style="display: {{display_pionnier}};" title="Voir le badge Fondateur en grand">
               <iframe src="{{badge_fondateur_url}}" loading="lazy" scrolling="no" sandbox="allow-same-origin"></iframe>
             </a>
-            <a href="{{badge_ambassadeur_url}}" target="_blank" rel="noopener" class="gb-badge-frame gb-frame-ambassadeur" style="display: {{display_ambassadeur}};" title="Voir le badge Ambassadeur en grand">
+            <a href="{{badge_ambassadeur_url}}" target="_blank" rel="noopener" class="gb-badge-frame" style="display: {{display_ambassadeur}};" title="Voir le badge Ambassadeur en grand">
               <iframe src="{{badge_ambassadeur_url}}" loading="lazy" scrolling="no" sandbox="allow-same-origin"></iframe>
             </a>
           </div>
