@@ -527,39 +527,55 @@
           </a>
         </section>
 
-        <!-- BLOC : STATUT COMMUNAUTÉ (utilise badge-fondateur.html + badge-ambassadeur.html existants) -->
+        <!-- BLOC : STATUT COMMUNAUTÉ — 3x1 grid (Ambassadeur / Super Ambassadeur / Fondateur) -->
         <section class="card" style="display: block">
           <div class="card-title">STATUT COMMUNAUTÉ</div>
           <style>
-            .gb-badges { display:flex; gap:18px; flex-wrap:wrap; justify-content:center; padding:6px 0 4px; }
-            .gb-badge-frame {
-              position:relative;
-              width:140px;
-              height:187px;          /* ratio 1:1.334 — les 2 cards ont désormais la même taille 700×934 */
-              border-radius:9px;
-              overflow:hidden;
-              text-decoration:none;
-              transition:transform .25s ease, box-shadow .25s ease;
-              box-shadow:0 8px 18px rgba(0,0,0,0.45), 0 0 0 1px rgba(212,175,55,0.35);
-              background:#000;
+            .gb-badges {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 18px;
+              padding: 6px 0 4px;
+              max-width: 720px;
+              margin: 0 auto;
             }
-            .gb-badge-frame:hover { transform:translateY(-3px); box-shadow:0 14px 28px rgba(0,0,0,0.6), 0 0 0 1px rgba(212,175,55,0.8); }
+            .gb-badge-frame {
+              position: relative;
+              width: 100%;
+              aspect-ratio: 1086 / 1448;
+              border-radius: 12px;
+              overflow: hidden;
+              text-decoration: none;
+              transition: transform .25s ease, box-shadow .25s ease;
+              box-shadow: 0 8px 18px rgba(0,0,0,0.45), 0 0 0 1px rgba(58,143,232,0.35);
+              background: #000;
+              display: block;
+            }
+            .gb-badge-frame:hover {
+              transform: translateY(-3px);
+              box-shadow: 0 14px 28px rgba(0,0,0,0.6), 0 0 0 1px rgba(58,143,232,0.8);
+            }
             .gb-badge-frame iframe {
-              position:absolute;
-              left:-9.4px; top:-12.6px;      /* offset (canvas 794×1059, card 700×933, card_x=47, card_y=63) × scale 0.2 */
-              width:794px; height:1059px;
-              border:0;
-              pointer-events:none;
-              transform: scale(0.2);          /* 140/700 — uniforme pour les 2 badges */
-              transform-origin: top left;
+              position: absolute;
+              inset: 0;
+              width: 100%;
+              height: 100%;
+              border: 0;
+              pointer-events: none;
+            }
+            @media (max-width: 520px){
+              .gb-badges{ grid-template-columns: repeat(3, 1fr); gap: 10px; }
             }
           </style>
           <div class="gb-badges">
-            <a href="" target="_blank" rel="noopener" class="gb-badge-frame" style="display: block;" title="Voir le badge Fondateur en grand">
-              <iframe src="" loading="lazy" scrolling="no" sandbox="allow-same-origin"></iframe>
+            <a href="https://sebmwali.github.io/geobuilder-pionniers/badges/ambassadeur/PIO-1196.html" target="_blank" rel="noopener" class="gb-badge-frame" style="display: block;" title="Voir le badge Ambassadeur en grand">
+              <iframe src="https://sebmwali.github.io/geobuilder-pionniers/badges/ambassadeur/PIO-1196.html" loading="lazy" scrolling="no" sandbox="allow-same-origin"></iframe>
             </a>
-            <a href="" target="_blank" rel="noopener" class="gb-badge-frame" style="display: none;" title="Voir le badge Ambassadeur en grand">
-              <iframe src="" loading="lazy" scrolling="no" sandbox="allow-same-origin"></iframe>
+            <a href="https://sebmwali.github.io/geobuilder-pionniers/badges/super-ambassadeur/PIO-1196.html" target="_blank" rel="noopener" class="gb-badge-frame" style="display: block;" title="Voir le badge Super Ambassadeur en grand">
+              <iframe src="https://sebmwali.github.io/geobuilder-pionniers/badges/super-ambassadeur/PIO-1196.html" loading="lazy" scrolling="no" sandbox="allow-same-origin"></iframe>
+            </a>
+            <a href="https://sebmwali.github.io/geobuilder-pionniers/badges/fondateur/PIO-1196.html" target="_blank" rel="noopener" class="gb-badge-frame" style="display: none;" title="Voir le badge Fondateur en grand">
+              <iframe src="https://sebmwali.github.io/geobuilder-pionniers/badges/fondateur/PIO-1196.html" loading="lazy" scrolling="no" sandbox="allow-same-origin"></iframe>
             </a>
           </div>
         </section>
