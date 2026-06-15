@@ -420,6 +420,22 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
     # 1. IDs
     _, pio_id = increment_counter("pionnier")
     _, install_id = increment_counter("installation")
+
+    # === RÈGLE FONDATEUR : les 100 premiers PIO_ID sont fondateurs automatiquement ===
+    # Override possible via env FORCE_FONDATEUR_FOR_TEST=true (test mode)
+    try:
+        _pio_num = int(pio_id.replace("PIO-", ""))
+    except ValueError:
+        _pio_num = 99999
+    _auto_fondateur = _pio_num <= 100
+    _test_force = os.environ.get("FORCE_FONDATEUR_FOR_TEST", "").strip().lower() in ("true", "1", "yes")
+    if _auto_fondateur or _test_force:
+        payload.fondateur = True
+        logger.info(
+            f"[FONDATEUR] {pio_id} marqué fondateur=True "
+            f"(auto={_auto_fondateur}, force_test={_test_force})"
+        )
+
     _, doc_passeport = increment_counter("document")
     _, doc_cert_pio = increment_counter("document")
     _, doc_cert_gar = increment_counter("document")
@@ -715,7 +731,7 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
             "Pionnier",                   # J  statut
             "true" if payload.fondateur else "false",  # K  fondateur
             "true" if payload.fondateur else "false",  # L  ambassadeur (immédiat si fondateur)
-            "",                           # M  communaute_statut
+            "Fondateur · Ambassadeur" if payload.fondateur else "",  # M  communaute_statut
             "",                           # N  droit_image
             "",                           # O  temoignage_autorise
             "",                           # P  visite_possible
