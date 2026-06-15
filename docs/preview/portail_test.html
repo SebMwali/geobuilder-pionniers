@@ -62,21 +62,23 @@
     position:relative;
     border-radius:16px;
     background:
-      linear-gradient(180deg, rgba(5,8,15,0.10) 0%, rgba(5,8,15,0.55) 100%),
+      linear-gradient(135deg, rgba(5,8,15,0.55) 0%, rgba(5,8,15,0.30) 50%, rgba(5,8,15,0.65) 100%),
       url('https://sebmwali.github.io/geobuilder-pionniers/assets/portail-hero-landscape.jpg') center/cover no-repeat;
     padding:36px 38px 32px;
     border:1px solid var(--border);
     overflow:hidden;
   }
-  .hero-left h1, .hero-left p, .hero-left .member-since .val { text-shadow:0 2px 8px rgba(0,0,0,0.65); }
+  .hero-left h1, .hero-left p { text-shadow:0 2px 10px rgba(0,0,0,0.75); }
+  .hero-left .member-since .label, .hero-left .member-since .val { text-shadow:0 2px 8px rgba(0,0,0,0.7); }
   .hero h1 {
     font-size:44px; font-weight:700;
     line-height:1.05; letter-spacing:-0.01em;
     margin-bottom:18px;
+    color:#fff;
   }
-  .hero h1 .name { color:var(--blue); }
+  .hero h1 .name { color:var(--blue-bright); }
   .hero p {
-    color:var(--text-dim); font-size:14px; line-height:1.6;
+    color:#e6edf7; font-size:14px; line-height:1.6;
     max-width:480px;
     margin-bottom:32px;
   }
@@ -87,23 +89,24 @@
   .pio-pill {
     display:inline-flex; align-items:center; justify-content:center;
     padding:14px 32px;
-    border:1.5px solid var(--blue);
+    border:1.5px solid var(--blue-bright);
     border-radius:999px;
     font-size:22px; font-weight:700; letter-spacing:0.05em;
-    color:var(--blue);
-    background:transparent;
+    color:var(--blue-bright);
+    background:rgba(5,8,15,0.4);
+    backdrop-filter:blur(4px);
   }
   .member-since {
     text-align:left;
   }
   .member-since .label {
     font-size:10px; letter-spacing:0.22em;
-    color:var(--text-dim); text-transform:uppercase;
+    color:#c5d2e6; text-transform:uppercase;
     margin-bottom:3px;
   }
   .member-since .val {
     font-size:14px; font-weight:600; letter-spacing:0.18em;
-    color:var(--text);
+    color:#fff;
     text-transform:uppercase;
   }
 
