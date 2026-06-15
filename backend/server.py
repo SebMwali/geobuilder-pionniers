@@ -991,6 +991,70 @@ async def admin_create_livraison(payload: LivraisonInput, _: dict = Depends(requ
 
 
 # =========================================================================
+# ROUTE — PROMOTION SUPER AMBASSADEUR (admin manuel)
+# =========================================================================
+class PromoteSuperInput(BaseModel):
+    pio_id: str
+
+
+@api_router.post("/admin/promote-super")
+async def admin_promote_super(payload: PromoteSuperInput, _: dict = Depends(require_admin)):
+    """Promeut un Ambassadeur en Super Ambassadeur (admin manuel).
+
+    Actions :
+    - Met à jour la colonne `communaute_statut` = "Super Ambassadeur" en Sheets
+    - Génère et push le badge HTML `docs/badges/super-ambassadeur/{PIO_ID}.html`
+    - Log dans `08_Automations_Log`
+    """
+    sheets = get_sheets_service()
+    pio_row = sheets.find_row_by("pionniers", "pio_id", payload.pio_id)
+    if not pio_row:
+        raise HTTPException(404, f"PIO {payload.pio_id} introuvable")
+
+    # Vérifie que le pionnier est déjà ambassadeur (logique métier)
+    is_amb = str(pio_row.get("ambassadeur", "")).strip().upper() in ("TRUE", "OUI", "1", "YES")
+    if not is_amb:
+        raise HTTPException(409, f"PIO {payload.pio_id} doit d'abord être Ambassadeur avant promotion Super")
+
+    # 1. Update Sheets
+    row_idx = sheets.find_row_index_by("pionniers", "pio_id", payload.pio_id)
+    sheets.update_cell("pionniers", row_idx, "communaute_statut", "Super Ambassadeur")
+
+    # 2. Génération + push badge HTML
+    nom_complet = pio_row.get("nom_complet") or f"{pio_row.get('prenom','')} {pio_row.get('nom','')}".strip() or payload.pio_id
+    territoire = pio_row.get("pays_complet") or pio_row.get("territoire") or ""
+    annee = str(datetime.now(timezone.utc).year)
+
+    ctx_badge = {
+        "NOM_COMPLET": nom_complet,
+        "TERRITOIRE": territoire or "—",
+        "ANNEE": annee,
+        "PIO_ID": payload.pio_id,
+    }
+    html_badge = render_template("badge-super-ambassadeur.html", ctx_badge)
+    gh = get_github_service()
+    badge_url = gh.push_file(
+        f"docs/badges/super-ambassadeur/{payload.pio_id}.html",
+        html_badge,
+        f"Badge Super Ambassadeur {payload.pio_id}",
+    )
+
+    # 3. Log
+    sheets.log_event(
+        "promotion_super_ambassadeur", "", payload.pio_id, "OK",
+        f"badge_url={badge_url} | promu par admin", ""
+    )
+    logger.info(f"[PROMOTE_SUPER] {payload.pio_id} -> Super Ambassadeur, badge={badge_url}")
+
+    return {
+        "status": "ok",
+        "pio_id": payload.pio_id,
+        "communaute_statut": "Super Ambassadeur",
+        "badge_url": badge_url,
+    }
+
+
+# =========================================================================
 # ROUTES — AMBASSADEUR (signature électronique de consentement)
 # =========================================================================
 class AmbassadeurSignature(BaseModel):
@@ -1130,6 +1194,24 @@ async def ambassadeur_signature(
             f"Attestation ambassadeur {payload.pio_id} ({ref_attestation})",
         )
         logger.info(f"Attestation pushée: {attestation_url}")
+
+        # 5b. Génération + push du BADGE AMBASSADEUR (HTML variable)
+        try:
+            ctx_badge = {
+                "NOM_COMPLET": nom_complet or payload.pio_id,
+                "TERRITOIRE": territoire or "—",
+                "ANNEE": annee_courante,
+                "PIO_ID": payload.pio_id,
+            }
+            html_badge = _render("badge-ambassadeur.html", ctx_badge)
+            badge_url = gh.push_file(
+                f"docs/badges/ambassadeur/{payload.pio_id}.html",
+                html_badge,
+                f"Badge ambassadeur {payload.pio_id}",
+            )
+            logger.info(f"Badge ambassadeur pushé: {badge_url}")
+        except Exception as e:
+            logger.error(f"Génération badge ambassadeur échouée: {e}")
     except Exception as e:
         logger.error(f"Génération attestation échouée: {e}")
         # On continue : la signature est déjà enregistrée en Sheets, l'attestation
