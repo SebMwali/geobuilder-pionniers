@@ -702,7 +702,7 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "ANNEE": annee,
         "MOIS_ANNEE_ADHESION": mois_annee_adhesion,
         "PRODUIT_LABEL": produit_info['label'],
-        "PRODUIT_IMAGE_URL": produit_info.get("photo_generateur_url", ""),
+        "PRODUIT_IMAGE_URL": photo_generateur_url,
         "NUMERO_SERIE": payload.numero_serie or f"MJ-{annee}-{install_id.replace('INST-','')}",
         "TERRITOIRE_COMPLET": territoire_complet,
         "DATE_INSTALLATION_FORMATEE": date_install_fmt,
