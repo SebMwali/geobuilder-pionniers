@@ -9,7 +9,7 @@ Remplace les modules Make défaillants (11 + 16) et orchestre :
 - Email de bienvenue (mock)
 - Portail Pionnier (lien magique)
 """
-from fastapi import FastAPI, APIRouter, HTTPException, Header, Depends, UploadFile, File, Form
+from fastapi import FastAPI, APIRouter, HTTPException, Header, Depends, UploadFile, File, Form, Request
 from fastapi.responses import HTMLResponse
 from dotenv import load_dotenv
 from starlette.middleware.cors import CORSMiddleware
@@ -527,12 +527,12 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "url_certificat": url_certificat,
         "url_ambassadeur_cta": url_ambassadeur_landing,
         "url_telecharger_tout": "",
-        # Blocs masqués V1 (Q2 = display:none) — Ambassadeur/Fondateur/planning hors périmètre
+        # Statut communauté — badges affichés si statut acquis
         "display_pionnier": "block",
-        "display_ambassadeur": "none",
+        "display_ambassadeur": "block" if payload.fondateur else "none",
         "display_statut_communaute": "block",
-        "badge_pionnier_url": "",
-        "badge_ambassadeur_url": "",
+        "badge_pionnier_url": f"{pages_base}/cartes/{pio_id}.html",
+        "badge_ambassadeur_url": f"{pages_base}/badge-ambassadeur.html" if payload.fondateur else "",
         "photo_generateur_url": photo_generateur_url,
         "photo_emplacement_url": photo_emplacement_url,
         "prochain_entretien": "",
@@ -581,13 +581,15 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         date_garantie_fin = ""
 
     # Distinctions — règles V1
+    # Carte Ambassadeur : pointe vers le badge statique /badge-ambassadeur.html
+    # Carte Super Ambassadeur : pas encore implémentée → reste verrouillée (locked)
+    url_badge_ambassadeur = f"{pages_base}/badge-ambassadeur.html"
     if payload.fondateur:
         amb_class, amb_label = "acquis", "Acquis"
         amb_dot = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
-        sup_class, sup_label = "acquis", "Acquis"
-        sup_dot = amb_dot
-        carte_amb_class, carte_amb_status, url_carte_amb = "acquis", "Acquise", url_ambassadeur or "#"
-        carte_sup_class, carte_sup_status, url_carte_sup = "acquis", "Acquise", url_ambassadeur or "#"
+        sup_class, sup_label, sup_dot = "non-acquis", "Non acquis", ""
+        carte_amb_class, carte_amb_status, url_carte_amb = "acquis", "Acquise", url_badge_ambassadeur
+        carte_sup_class, carte_sup_status, url_carte_sup = "locked", "Non acquise", "#"
     else:
         amb_class, amb_label, amb_dot = "encours", "En cours", ""
         sup_class, sup_label, sup_dot = "non-acquis", "Non acquis", ""
@@ -635,15 +637,13 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
     html_portail = render_template("portail_pionnier.html", ctx_portail)
 
     # 3e. Email final (UPPER_SNAKE)
-    # Logique CTA "Famille / Devenez Ambassadeur" :
-    if payload.fondateur:
-        cta_url = url_ambassadeur
-        cta_title = "Mon Espace Ambassadeur"
-        cta_desc = "Les Pionniers ouvrent la voie."
-    else:
-        cta_url = url_ambassadeur_landing
-        cta_title = "Devenez Ambassadeur"
-        cta_desc = "Les Pionniers ouvrent la voie."
+    # Logique CTA "Devenez Ambassadeur" :
+    # - Toujours le même texte "Devenez Ambassadeur" + même phrase de description
+    # - Pour fondateurs : pointe vers la page perso /ambassadeurs/{PIO_ID}.html
+    # - Pour les autres : pointe vers la landing universelle /ambassadeur.html
+    cta_url = url_ambassadeur if payload.fondateur else url_ambassadeur_landing
+    cta_title = "Devenez Ambassadeur"
+    cta_desc = "Les Pionniers ouvrent la voie."
 
     ctx_email = {
         "ANNEE": annee,
@@ -883,6 +883,107 @@ async def webhook_livraison_upload(
 async def admin_create_livraison(payload: LivraisonInput, _: dict = Depends(require_admin)):
     """Création manuelle d'une livraison depuis l'interface admin."""
     return await _process_livraison(payload)
+
+
+# =========================================================================
+# ROUTES — AMBASSADEUR (signature électronique de consentement)
+# =========================================================================
+class AmbassadeurSignature(BaseModel):
+    """Payload de signature électronique Ambassadeur.
+
+    Émis depuis la page `/ambassadeurs/{PIO_ID}.html` quand le client coche
+    les 3 cases d'autorisation et clique "Je rejoins les Ambassadeurs".
+
+    Vaut signature électronique :
+    - droit_image : utilisation photos/vidéos de l'installation
+    - temoignage_autorise : publication témoignage
+    - publication_autorisee : diffusion supports communication
+    """
+    pio_id: str
+    nom: Optional[str] = ""
+    prenom: Optional[str] = ""
+    email: Optional[EmailStr] = None
+    ambassadeur: Optional[str] = "OUI"
+    droit_image: str
+    temoignage_autorise: str
+    publication_autorisee: str
+    date_validation_ambassadeur: Optional[str] = None
+    source: Optional[str] = "ambassadeur.html"
+
+
+@api_router.post("/ambassadeur/signature")
+async def ambassadeur_signature(
+    payload: AmbassadeurSignature,
+    request: Request,
+):
+    """Enregistre la signature électronique Ambassadeur dans `01_Pionniers`.
+
+    Met à jour les colonnes :
+    - L  ambassadeur          = TRUE
+    - M  communaute_statut    = "Ambassadeur" (ou conserve "Fondateur · Ambassadeur")
+    - N  droit_image          = OUI/NON
+    - O  temoignage_autorise  = OUI/NON
+    - P  visite_possible      = "" (V1, non utilisé)
+
+    Stocke aussi un log légal complet dans `08_Automations_Log` (timestamp UTC
+    + IP source pour preuve de signature).
+
+    Renvoie 200 + JSON pour permettre au formulaire JS de basculer en succès.
+    """
+    sheets = get_sheets_service()
+    ts_utc = payload.date_validation_ambassadeur or datetime.now(timezone.utc).isoformat()
+    client_ip = request.client.host if request.client else ""
+    user_agent = request.headers.get("user-agent", "")[:300]
+
+    # 1. Trouve la ligne Pionnier
+    try:
+        idx = sheets.find_row_index_by("pionniers", "pio_id", payload.pio_id)
+    except Exception as e:
+        logger.error(f"Lookup PIO failed: {e}")
+        raise HTTPException(500, "Sheet lookup failed")
+    if not idx:
+        logger.warning(f"PIO non trouvé pour signature ambassadeur: {payload.pio_id}")
+        raise HTTPException(404, f"Pionnier {payload.pio_id} introuvable")
+
+    # 2. Lit l'état existant pour préserver "Fondateur · …"
+    rec = sheets.find_row_by("pionniers", "pio_id", payload.pio_id) or {}
+    is_fondateur = str(rec.get("fondateur", "")).strip().lower() in ("true", "vrai", "1", "oui")
+    new_statut = "Fondateur · Ambassadeur" if is_fondateur else "Ambassadeur"
+
+    # 3. Patche les colonnes
+    try:
+        sheets.update_cell("pionniers", idx, "ambassadeur", "TRUE")
+        sheets.update_cell("pionniers", idx, "communaute_statut", new_statut)
+        sheets.update_cell("pionniers", idx, "droit_image", payload.droit_image)
+        sheets.update_cell("pionniers", idx, "temoignage_autorise", payload.temoignage_autorise)
+    except Exception as e:
+        logger.error(f"Update pionnier failed: {e}")
+        raise HTTPException(500, "Sheet update failed")
+
+    # 4. Log légal (signature électronique — preuve juridique)
+    signature_proof = (
+        f"droit_image={payload.droit_image} | "
+        f"temoignage={payload.temoignage_autorise} | "
+        f"publication={payload.publication_autorisee} | "
+        f"ts_utc={ts_utc} | "
+        f"ip={client_ip} | "
+        f"ua={user_agent}"
+    )
+    sheets.log_event(
+        "ambassadeur_signature", "", payload.pio_id, "OK", signature_proof, ""
+    )
+    logger.info(
+        f"[AMBASSADEUR_SIGNATURE] {payload.pio_id} -> ambassadeur=TRUE, "
+        f"droit_image={payload.droit_image}, ip={client_ip}"
+    )
+
+    return {
+        "status": "ok",
+        "pio_id": payload.pio_id,
+        "ambassadeur": "TRUE",
+        "communaute_statut": new_statut,
+        "signature_timestamp_utc": ts_utc,
+    }
 
 
 # =========================================================================
