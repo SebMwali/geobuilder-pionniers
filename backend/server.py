@@ -187,6 +187,66 @@ def _compute_garantie_fin(date_installation: str, mois: int) -> str:
     return fin.strftime("%Y-%m-%d")
 
 
+# Mois en français pour formatage utilisateur (passeport, badges, etc.)
+_MOIS_FR = [
+    "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+    "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre",
+]
+
+
+def _parse_date_iso_or_fr(date_str: str):
+    """Parse une date en YYYY-MM-DD ou DD/MM/YYYY. Retourne un datetime ou None."""
+    if not date_str:
+        return None
+    s = str(date_str).strip()
+    for fmt in ("%Y-%m-%d", "%d/%m/%Y", "%d-%m-%Y"):
+        try:
+            return datetime.strptime(s, fmt)
+        except ValueError:
+            continue
+    return None
+
+
+def _compute_prochaine_intervention(date_installation: str, mois_freq: int = 12) -> dict:
+    """Calcule la prochaine intervention (entretien annuel) à partir de la date d'installation.
+
+    Retourne un dict avec :
+      - prochain_entretien : "Mois AAAA" en français (ex: "Mars 2027") — sans jour précis
+      - prochain_type      : "Entretien annuel"
+      - prochain_dans      : "Dans X mois" (relatif à aujourd'hui), "Ce mois-ci", ou "" si passé
+    """
+    dt_inst = _parse_date_iso_or_fr(date_installation)
+    if dt_inst is None:
+        return {"prochain_entretien": "", "prochain_type": "", "prochain_dans": ""}
+
+    # Prochaine intervention = date_installation + mois_freq mois
+    # On reste au début du mois (jour = 1) pour ne pas afficher un jour précis,
+    # et on n'affiche de toute façon que "Mois AAAA".
+    year = dt_inst.year + (dt_inst.month - 1 + mois_freq) // 12
+    month = (dt_inst.month - 1 + mois_freq) % 12 + 1
+    dt_next = dt_inst.replace(year=year, month=month, day=1)
+
+    mois_libelle = f"{_MOIS_FR[dt_next.month - 1]} {dt_next.year}"
+
+    # Calcul "Dans X mois" relatif à maintenant
+    now = datetime.now(timezone.utc).replace(tzinfo=None)
+    diff_months = (dt_next.year - now.year) * 12 + (dt_next.month - now.month)
+    if diff_months < 0:
+        prochain_dans = ""
+    elif diff_months == 0:
+        prochain_dans = "Ce mois-ci"
+    elif diff_months == 1:
+        prochain_dans = "Dans 1 mois"
+    else:
+        prochain_dans = f"Dans {diff_months} mois"
+
+    return {
+        "prochain_entretien": mois_libelle,
+        "prochain_type": "Entretien annuel",
+        "prochain_dans": prochain_dans,
+    }
+
+
 # Defaults V1 — focus Mayotte uniquement. Quand on s'ouvrira à d'autres
 # territoires, on devra soit (a) recevoir le champ via webhook/PIONNIERS-DATA,
 # soit (b) détecter via le code postal du PDF.
@@ -550,9 +610,7 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "badge_ambassadeur_url": url_badge_ambassadeur,
         "photo_generateur_url": photo_generateur_url,
         "photo_emplacement_url": photo_emplacement_url,
-        "prochain_entretien": "",
-        "prochain_dans": "",
-        "prochain_type": "",
+        **_compute_prochaine_intervention(date_inst),
         "prochain_rdv_url": "",
     }
     html_passeport = render_template("passeport_installation.html", ctx_passeport)
@@ -1141,9 +1199,7 @@ def _regenerate_passeport(install_row: dict, sheets, gh) -> str:
         "badge_ambassadeur_url": "",
         "photo_generateur_url": photo_gen,
         "photo_emplacement_url": photo_emp,
-        "prochain_entretien": "",
-        "prochain_dans": "",
-        "prochain_type": "",
+        **_compute_prochaine_intervention(date_inst),
         "prochain_rdv_url": "",
         # Bonus contexte (nom client en cas de placeholder futur)
         "nom_complet": nom_complet,

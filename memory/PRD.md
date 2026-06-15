@@ -27,6 +27,16 @@ Si `fondateur=true` : push supplémentaire `docs/ambassadeurs/{PIO_ID}.html`.
 
 ## What's been implemented
 
+### Session du 16/02/2026 (itération 8 — Prochaine intervention mois/année)
+- Ajout de `_compute_prochaine_intervention(date_installation, mois_freq=12)` dans `server.py`.
+- Le passeport affiche désormais dans le bloc "PROCHAINE INTERVENTION" :
+  - **Type** : "Entretien annuel"
+  - **Date** : Mois + année en français uniquement (ex: "Mars 2027") — pas de jour précis
+  - **Quand** : "Dans X mois" / "Ce mois-ci" / "" si déjà passé (relatif à aujourd'hui)
+- Appliqué dans les deux pipelines : LIVRAISON (initial) et SAV (régénération du passeport).
+- 76/76 tests pytest passent.
+
+
 ### Session du 15/02/2026 (itération 7 — Badges luxe Fondateur + Ambassadeur dans passeport)
 - ✅ Import des templates **`badge-fondateur.html`** (458 KB) et **`badge-ambassadeur.html`** (537 KB) depuis le repo GitHub dans `/app/backend/templates/`
 - ✅ Variables dynamiques : `{{PIO_ID}}`, `{{ANNEE}}`, `{{PAYS}}` (uniquement pour badge-ambassadeur)
