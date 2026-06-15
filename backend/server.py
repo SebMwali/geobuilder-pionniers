@@ -1066,21 +1066,173 @@ async def ambassadeur_signature(
         logger.error(f"Update pionnier failed: {e}")
         raise HTTPException(500, "Sheet update failed")
 
-    # 4. Log légal (signature électronique — preuve juridique)
+    # 4. Calcul SHA-256 du payload signé (preuve d'intégrité — eIDAS art. 25.1)
+    import hashlib
+    payload_canonical = (
+        f"pio_id={payload.pio_id}|"
+        f"nom={payload.nom}|prenom={payload.prenom}|email={payload.email}|"
+        f"droit_image={payload.droit_image}|"
+        f"temoignage={payload.temoignage_autorise}|"
+        f"publication={payload.publication_autorisee}|"
+        f"ts_utc={ts_utc}|ip={client_ip}"
+    )
+    hash_sha256 = hashlib.sha256(payload_canonical.encode("utf-8")).hexdigest()
+    ref_attestation = f"AMB-{payload.pio_id}-{ts_utc.replace(':','').replace('-','').replace('.','')[:14]}"
+
+    # 5. Génération attestation HTML + push GitHub Pages
+    attestation_url = ""
+    try:
+        from services.template_service import render_template as _render
+        from services.github_service import get_github_service as _get_gh
+        # Format date FR (Europe/Paris approx via offset +1/+2)
+        try:
+            _dt_utc = datetime.fromisoformat(ts_utc.replace("Z", "+00:00"))
+            ts_fr = _dt_utc.strftime("%d/%m/%Y à %H:%M:%S UTC")
+        except Exception:
+            ts_fr = ts_utc
+
+        # Helpers pour les coches (vert/rouge)
+        def _check(val: str):
+            yes = str(val).strip().upper() in ("OUI", "TRUE", "1", "YES")
+            return ("✓", "") if yes else ("✗", "no")
+        ck_di, cl_di = _check(payload.droit_image)
+        ck_te, cl_te = _check(payload.temoignage_autorise)
+        ck_pu, cl_pu = _check(payload.publication_autorisee)
+
+        nom_complet = f"{payload.prenom} {payload.nom}".strip() or rec.get("nom_complet") or rec.get("nom_client") or ""
+        territoire = rec.get("pays_complet") or rec.get("territoire") or ""
+        annee_courante = str(datetime.now(timezone.utc).year)
+        pages_base = _github_pages_base()
+        url_signature = f"{pages_base}/ambassadeurs/{payload.pio_id}.html"
+
+        ctx_attest = {
+            "REF_ATTESTATION": ref_attestation,
+            "PIO_ID": payload.pio_id,
+            "NOM_COMPLET": nom_complet or "—",
+            "EMAIL": payload.email or "—",
+            "TERRITOIRE": territoire or "—",
+            "CHECK_DROIT_IMAGE": ck_di, "CHECK_DROIT_IMAGE_CLASS": cl_di,
+            "CHECK_TEMOIGNAGE": ck_te, "CHECK_TEMOIGNAGE_CLASS": cl_te,
+            "CHECK_PUBLICATION": ck_pu, "CHECK_PUBLICATION_CLASS": cl_pu,
+            "TIMESTAMP_UTC": ts_utc,
+            "TIMESTAMP_FR": ts_fr,
+            "IP": client_ip or "—",
+            "USER_AGENT": user_agent or "—",
+            "HASH_SHA256": hash_sha256,
+            "URL_SIGNATURE": url_signature,
+            "ANNEE": annee_courante,
+        }
+        html_attest = _render("attestation_ambassadeur.html", ctx_attest)
+        gh = _get_gh()
+        attestation_url = gh.push_file(
+            f"docs/attestations/ambassadeur/{payload.pio_id}.html",
+            html_attest,
+            f"Attestation ambassadeur {payload.pio_id} ({ref_attestation})",
+        )
+        logger.info(f"Attestation pushée: {attestation_url}")
+    except Exception as e:
+        logger.error(f"Génération attestation échouée: {e}")
+        # On continue : la signature est déjà enregistrée en Sheets, l'attestation
+        # peut être régénérée a posteriori si besoin.
+
+    # 6. Envoi emails (notification Geobuilder + confirmation client)
+    notif_to = os.environ.get("GEOBUILDER_NOTIF_EMAIL", "contact@geobuilder.fr")
+    consent_yes = lambda v: "✅ OUI" if str(v).strip().upper() in ("OUI", "TRUE", "1", "YES") else "❌ NON"
+    try:
+        # 6a. Notification Geobuilder
+        notif_html = f"""<!DOCTYPE html><html lang="fr"><body style="font-family:system-ui,-apple-system,sans-serif;background:#f5f5f7;padding:24px;color:#0a1424">
+<div style="max-width:600px;margin:0 auto;background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.08)">
+  <div style="background:#0a1424;color:white;padding:24px 28px;border-bottom:3px solid #3A8FE8">
+    <div style="font-size:11px;letter-spacing:.3em;color:#3A8FE8;margin-bottom:6px">NOTIFICATION GEOBUILDER</div>
+    <h1 style="font-size:18px;margin:0">Nouvelle signature Ambassadeur</h1>
+  </div>
+  <div style="padding:28px">
+    <p style="font-size:14px;color:#555;margin:0 0 18px">Un Pionnier vient de signer son engagement Ambassadeur.</p>
+    <table style="width:100%;font-size:14px;border-collapse:collapse">
+      <tr><td style="color:#888;padding:6px 0">Pionnier</td><td style="padding:6px 0;font-weight:600">{payload.prenom} {payload.nom} ({payload.pio_id})</td></tr>
+      <tr><td style="color:#888;padding:6px 0">Email</td><td style="padding:6px 0">{payload.email or '—'}</td></tr>
+      <tr><td style="color:#888;padding:6px 0">Date signature</td><td style="padding:6px 0">{ts_utc}</td></tr>
+      <tr><td style="color:#888;padding:6px 0">Référence</td><td style="padding:6px 0;font-family:monospace">{ref_attestation}</td></tr>
+    </table>
+    <div style="margin-top:22px;padding:16px;background:#f7faff;border-left:3px solid #3A8FE8;border-radius:4px">
+      <div style="font-size:12px;letter-spacing:.2em;color:#3A8FE8;font-weight:700;margin-bottom:10px">CONSENTEMENTS</div>
+      <div style="font-size:14px;line-height:2">
+        Droit à l'image : <strong>{consent_yes(payload.droit_image)}</strong><br>
+        Témoignage : <strong>{consent_yes(payload.temoignage_autorise)}</strong><br>
+        Diffusion réseaux sociaux : <strong>{consent_yes(payload.publication_autorisee)}</strong>
+      </div>
+    </div>
+    <div style="margin-top:24px;text-align:center">
+      <a href="{attestation_url}" style="display:inline-block;padding:14px 28px;background:#3A8FE8;color:white;text-decoration:none;border-radius:999px;font-weight:700;font-size:13px;letter-spacing:.1em">📄 VOIR L'ATTESTATION</a>
+    </div>
+    <p style="margin-top:22px;font-size:11px;color:#999;line-height:1.6">
+      Preuve technique — IP : {client_ip or '—'} · SHA-256 : <span style="font-family:monospace">{hash_sha256[:32]}…</span><br>
+      Document conservé sur GitHub Pages (immuable via commits).
+    </p>
+  </div>
+</div></body></html>"""
+        await send_email_mock(
+            notif_to,
+            f"[Geobuilder] Nouvelle signature Ambassadeur — {payload.pio_id}",
+            notif_html,
+            metadata={"type": "ambassadeur_notif", "pio_id": payload.pio_id, "ref": ref_attestation},
+        )
+
+        # 6b. Confirmation client
+        if payload.email:
+            client_html = f"""<!DOCTYPE html><html lang="fr"><body style="font-family:system-ui,-apple-system,sans-serif;background:#f5f5f7;padding:24px;color:#0a1424">
+<div style="max-width:600px;margin:0 auto;background:white;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.08)">
+  <div style="background:linear-gradient(135deg,#0a1424,#0d1830);color:white;padding:36px 28px;text-align:center;border-bottom:3px solid #3A8FE8">
+    <div style="font-size:11px;letter-spacing:.3em;color:#3A8FE8;margin-bottom:10px">GEOBUILDER · AMBASSADEURS</div>
+    <h1 style="font-size:22px;margin:0;font-weight:800">Bienvenue parmi les Ambassadeurs 🌊</h1>
+  </div>
+  <div style="padding:32px 28px">
+    <p style="font-size:15px;line-height:1.7;color:#333">Bonjour {payload.prenom or 'cher Pionnier'},</p>
+    <p style="font-size:14px;line-height:1.7;color:#555">Nous vous confirmons la prise en compte de votre engagement Ambassadeur Geobuilder le <strong>{ts_fr if 'ts_fr' in dir() else ts_utc}</strong>.</p>
+    <div style="margin:22px 0;padding:18px;background:#f7faff;border-left:3px solid #3A8FE8;border-radius:4px">
+      <div style="font-size:12px;letter-spacing:.2em;color:#3A8FE8;font-weight:700;margin-bottom:10px">VOS CONSENTEMENTS</div>
+      <div style="font-size:14px;line-height:2">
+        Droit à l'image : <strong>{consent_yes(payload.droit_image)}</strong><br>
+        Témoignage : <strong>{consent_yes(payload.temoignage_autorise)}</strong><br>
+        Diffusion sur supports de communication : <strong>{consent_yes(payload.publication_autorisee)}</strong>
+      </div>
+    </div>
+    <div style="text-align:center;margin:28px 0">
+      <a href="{attestation_url}" style="display:inline-block;padding:14px 28px;background:#3A8FE8;color:white;text-decoration:none;border-radius:999px;font-weight:700;font-size:13px;letter-spacing:.1em">📄 TÉLÉCHARGER MON ATTESTATION</a>
+    </div>
+    <p style="font-size:13px;line-height:1.7;color:#666">Conservez précieusement votre attestation. Elle constitue la preuve de votre engagement et de vos consentements.</p>
+    <p style="font-size:12px;line-height:1.6;color:#999;margin-top:24px;padding-top:18px;border-top:1px solid #eee">
+      Vous pouvez retirer votre autorisation à tout moment par simple demande écrite à <a href="mailto:contact@geobuilder.fr" style="color:#3A8FE8">contact@geobuilder.fr</a>.
+    </p>
+  </div>
+</div></body></html>"""
+            await send_email_mock(
+                payload.email,
+                "Confirmation de votre engagement Ambassadeur — Geobuilder",
+                client_html,
+                metadata={"type": "ambassadeur_client_confirm", "pio_id": payload.pio_id, "ref": ref_attestation},
+            )
+    except Exception as e:
+        logger.error(f"Envoi emails ambassadeur échoué: {e}")
+
+    # 7. Log légal enrichi (signature électronique — preuve juridique)
     signature_proof = (
         f"droit_image={payload.droit_image} | "
         f"temoignage={payload.temoignage_autorise} | "
         f"publication={payload.publication_autorisee} | "
         f"ts_utc={ts_utc} | "
         f"ip={client_ip} | "
-        f"ua={user_agent}"
+        f"ua={user_agent[:120]} | "
+        f"sha256={hash_sha256} | "
+        f"ref={ref_attestation} | "
+        f"attestation_url={attestation_url}"
     )
     sheets.log_event(
         "ambassadeur_signature", "", payload.pio_id, "OK", signature_proof, ""
     )
     logger.info(
         f"[AMBASSADEUR_SIGNATURE] {payload.pio_id} -> ambassadeur=TRUE, "
-        f"droit_image={payload.droit_image}, ip={client_ip}"
+        f"sha256={hash_sha256[:16]}…, attestation={attestation_url}"
     )
 
     return {
@@ -1089,6 +1241,9 @@ async def ambassadeur_signature(
         "ambassadeur": "TRUE",
         "communaute_statut": new_statut,
         "signature_timestamp_utc": ts_utc,
+        "attestation_url": attestation_url,
+        "ref_attestation": ref_attestation,
+        "hash_sha256": hash_sha256,
     }
 
 
