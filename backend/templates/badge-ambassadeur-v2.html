@@ -37,18 +37,20 @@
     font-size: 3.6cqw;
     letter-spacing: .18em;
   }
-  /* Année — centrée entre "PIONNIER DE L'EAU DE L'AIR" et la barre bleue, -20% taille */
+  /* Année — centrée pixel-exact entre bas de "PIONNIER..." (71,3%) et la barre bleue (80,8%) → centre Y = 76% */
   .ovl-annee{
-    top: 75%;
+    top: 76%;
+    transform: translateY(-50%);
     left: 0; width: 100%;
     text-align:center;
     font-size: 8cqw;
     letter-spacing: .14em;
     font-weight:700;
   }
-  /* Nom du client — centré entre la barre bleue et la pointe de la goutte */
+  /* Nom du client — centré pixel-exact entre la barre bleue (80,8%) et la pointe de la goutte (84,25%) → centre Y = 82,5% */
   .ovl-nom{
-    top: 87%;
+    top: 82.5%;
+    transform: translateY(-50%);
     left: 0; width: 100%;
     text-align:center;
     font-size: 1.9cqw;
