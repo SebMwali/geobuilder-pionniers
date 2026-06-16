@@ -102,6 +102,28 @@ def append_in_formatted_zone(svc, tab_key, rows_data, n_cols):
 
 ---
 
+## R8 — Sémantique des recommandations utilisateur
+
+Quand l'utilisateur fournit une **liste de recommandations** ou de **suggestions**
+(ex: "Sandrine conseille ces personnes pour les fondateurs"), c'est **toujours
+un AJOUT à l'existant**, **JAMAIS un remplacement**.
+
+### ❌ Mauvaise interprétation (à ne JAMAIS faire)
+- Synchroniser strictement = effacer ce qui n'est pas dans la liste
+- "Liste cible" = "remplace tout"
+
+### ✅ Bonne interprétation
+- Liste fournie par utilisateur = **delta à ajouter** sur la base existante
+- Toute suppression doit être **explicite** ("supprime X", "exclus Y", "décoche Z")
+- En cas de doute → demander confirmation avant suppression
+
+### Origine de la règle
+- 16/06/2026 — Erreur : décochage de 62 fondateurs préexistants quand Sandrine
+  voulait juste ajouter 23 nouvelles personnes. Rectifié immédiatement.
+
+
+---
+
 ## Historique de la règle
 
 - 16/06/2026 — Règle formalisée à la demande de l'utilisateur après constat que `append_row` empilait les nouvelles fiches en bas de la zone vide (lignes 198+ au lieu de 151+). Réordonnancement effectué et fonction utilitaire à intégrer dans `SheetsService`.
