@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Badge Pionnier — Ahmed HOUMADI RASTAM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  html,body { background:#0D0D0D; font-family:'Montserrat',-apple-system,Segoe UI,Roboto,sans-serif; color:#fff; }
+  body { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px 12px; }
+  .container { width:100%; max-width:560px; }
+
+  .badge-wrap {
+    position:relative;
+    width:100%;
+    aspect-ratio: 1024 / 1536;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(58, 143, 232,.12);
+  }
+  .badge-bg {
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    display:block;
+    user-select:none;
+    -webkit-user-drag:none;
+  }
+  .overlay { position:absolute; inset:0; pointer-events:none; }
+
+  /* Nom client — centré exactement entre les deux LED bars (40.8% et 52.1%) */
+  .nom-client {
+    position:absolute;
+    top:46.5%;
+    left:0; right:0;
+    transform:translateY(-50%);
+    text-align:center;
+    font-family:'Montserrat',sans-serif;
+    font-weight:600;
+    letter-spacing:0.18em;
+    font-size:clamp(16px, 3.6vw, 26px);
+    color:#ffffff;
+    text-transform:uppercase;
+    line-height:1.1;
+    padding:0 10%;
+    text-shadow:0 2px 12px rgba(0,0,0,0.7);
+  }
+
+  /* Territoire — sous le pin bleu */
+  .territoire {
+    position:absolute;
+    top:55.5%;
+    left:0; right:0;
+    text-align:center;
+    font-family:'Montserrat',sans-serif;
+    font-weight:500;
+    letter-spacing:0.30em;
+    font-size:clamp(11px, 2.0vw, 14px);
+    color:#3A8FE8;
+    text-transform:uppercase;
+    text-shadow:0 2px 8px rgba(0,0,0,0.7);
+  }
+
+  /* Année — sous "DEPUIS" — en bleu électrique */
+  .annee {
+    position:absolute;
+    top:64%;
+    left:0; right:0;
+    text-align:center;
+    font-family:'Montserrat',sans-serif;
+    font-weight:500;
+    letter-spacing:0.30em;
+    font-size:clamp(13px, 2.4vw, 17px);
+    color:#3A8FE8;
+    text-shadow:0 2px 8px rgba(0,0,0,0.7);
+  }
+
+  /* PIO ID — en dessous de l'année */
+  .pio-id {
+    position:absolute;
+    top:70%;
+    left:0; right:0;
+    text-align:center;
+    font-family:'Montserrat',sans-serif;
+    font-weight:500;
+    letter-spacing:0.30em;
+    font-size:clamp(13px, 2.4vw, 17px);
+    color:#ffffff;
+    text-shadow:0 2px 8px rgba(0,0,0,0.7);
+  }
+
+  /* QR code — centré exactement dans le carré bleu (analyse pixel par pixel) */
+  .qr-zone {
+    position:absolute;
+    left:49.4%;
+    top:84.5%;
+    transform:translate(-50%, -50%);
+    width:22%;
+    aspect-ratio:1/1;
+    background:#fff;
+    border-radius:4px;
+    padding:4px;
+    pointer-events:auto;
+    box-shadow:0 0 0 2px rgba(58, 143, 232,0.7), 0 0 24px rgba(58, 143, 232,0.55);
+    animation:qrPulse 2.4s ease-in-out infinite;
+  }
+  @keyframes qrPulse {
+    0%, 100% {
+      box-shadow:0 0 0 2px rgba(58, 143, 232,0.7), 0 0 20px rgba(58, 143, 232,0.45);
+    }
+    50% {
+      box-shadow:0 0 0 3px rgba(58, 143, 232,1), 0 0 36px rgba(58, 143, 232,0.85);
+    }
+  }
+  /* Tilt 3D subtil au hover du badge entier (masqué à l'impression) */
+  .badge-wrap { transition:transform .4s cubic-bezier(.2,.8,.2,1); }
+  .badge-wrap:hover { transform:perspective(1200px) rotateY(-2deg) rotateX(2deg) translateY(-4px); }
+
+  /* Bouton Imprimer (style identique au certificat Pionnier) */
+  .print-btn{
+    display:block;
+    margin:28px auto 0;
+    background:rgba(58, 143, 232,0.1);
+    border:1px solid rgba(58, 143, 232,0.25);
+    color:#3A8FE8;
+    font-family:'Montserrat',sans-serif;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    padding:14px 32px;
+    border-radius:8px;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  .print-btn:hover{ background:rgba(58, 143, 232,0.2); }
+
+  /* Mode impression — on cache le bouton et le tilt, on imprime juste le badge */
+  @media print {
+    @page { size:A4 portrait; margin:0; }
+    body { background:#000; padding:0; }
+    .print-btn { display:none !important; }
+    .badge-wrap { box-shadow:none; transform:none !important; }
+    .qr-zone { animation:none !important; }
+  }
+  .qr-inner { position:relative; width:100%; height:100%; }
+  .qr-inner img.qr-png { width:100%; height:100%; display:block; image-rendering:pixelated; }
+
+  /* Logo droplet centré dans le QR (avec ecc=H pour lisibilité) */
+  .qr-logo {
+    position:absolute;
+    top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    width:30%;
+    aspect-ratio:1/1;
+    background:#0D0D0D;
+    border:2px solid #fff;
+    border-radius:6px;
+    display:flex; align-items:center; justify-content:center;
+    padding:4px;
+  }
+  .qr-logo svg { width:100%; height:100%; display:block; }
+
+  .cta {
+    display:block;
+    margin:24px auto 0;
+    background:#3A8FE8;
+    color:#0D0D0D;
+    font-family:'Montserrat',sans-serif;
+    font-weight:600;
+    text-align:center;
+    text-decoration:none;
+    padding:14px 22px;
+    border-radius:10px;
+    letter-spacing:0.06em;
+    font-size:14px;
+    text-transform:uppercase;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="badge-wrap">
+    <img class="badge-bg" src="https://sebmwali.github.io/geobuilder-pionniers/assets/badge-pionnier-bg.png" alt="Badge Pionnier Geobuilder">
+    <div class="overlay">
+      <div class="nom-client">Ahmed HOUMADI RASTAM</div>
+      <div class="territoire">MAYOTTE</div>
+      <div class="annee">2026</div>
+      <div class="pio-id">PIO-1048</div>
+      <div class="qr-zone">
+        <div class="qr-inner">
+          <img class="qr-png" src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&margin=0&ecc=H&data=https%3A%2F%2Fsebmwali.github.io%2Fgeobuilder-pionniers%2Fpionniers%2FPIO-1048%2Findex.html" alt="QR code Espace Pionnier">
+          <div class="qr-logo">
+            <!-- Geobuilder droplet (chrome silver gradient) -->
+            <svg viewBox="0 0 24 32" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="dropGrad" x1="50%" y1="0%" x2="50%" y2="100%">
+                  <stop offset="0%" stop-color="#e8e8e8"/>
+                  <stop offset="45%" stop-color="#b0b0b0"/>
+                  <stop offset="100%" stop-color="#6a6a6a"/>
+                </linearGradient>
+              </defs>
+              <path fill="url(#dropGrad)" d="M12 1C8 8 3 13 3 19a9 9 0 0 0 18 0c0-6-5-11-9-18z"/>
+              <path fill="#fff" opacity="0.35" d="M9 8c-1 2-3 5-3 8 0 1 .3 2 .7 2.8C7 16 9 12 11 9c.5-.7 .2-1.5-.4-1.5-.6 0-1.2 .2-1.6 .5z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button class="print-btn" onclick="window.print()">Imprimer / Sauvegarder en PDF</button>
+</div>
+
+</body>
+</html>
