@@ -183,6 +183,22 @@ def _github_pages_base() -> str:
     return os.environ.get("GITHUB_PAGES_URL", "").rstrip("/")
 
 
+def _get_numero_fondateur(sheets, pio_id: str) -> str:
+    """Récupère le numéro de Fondateur (col `ordre`) depuis 00_Fondateurs pour un pio_id donné.
+    Renvoie une string formatée sur 3 chiffres (ex: '007'). '—' si introuvable."""
+    try:
+        rows = sheets.read_all("00_Fondateurs")
+        for r in rows:
+            if str(r.get("pio_id", "")).strip() == pio_id:
+                ordre = str(r.get("ordre", "")).strip()
+                if ordre.isdigit():
+                    return f"{int(ordre):03d}"
+                return ordre or "—"
+    except Exception as e:
+        logger.warning(f"_get_numero_fondateur: lookup failed for {pio_id}: {e}")
+    return "—"
+
+
 def _compute_garantie_fin(date_installation: str, mois: int) -> str:
     """Calcule la date de fin de garantie en ajoutant des années entières (mois/12).
     Format YYYY-MM-DD. Robuste aux années bissextiles (29 février -> 28 février)."""
@@ -952,17 +968,21 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         }
         html_ambassadeur = render_template("ambassadeur.html", ctx_ambassadeur)
 
-    # 3g. Badges luxe Fondateur + Ambassadeur (templates {{PIO_ID}}/{{ANNEE}}/{{PAYS}})
+    # 3g. Badge luxe Fondateur (template {{PIO_ID}}/{{ANNEE}}/{{NUMERO_FONDATEUR}}/{{TERRITOIRE}})
+    #     Le badge Ambassadeur personnalisé est généré séparément à la signature
+    #     (POST /api/ambassadeur/signature) — Fondateur et Ambassadeur sont 2 statuts distincts.
     html_badge_fondateur = ""
-    html_badge_amb_perso = ""
     if payload.fondateur:
+        # Numéro de Fondateur : ordre (col A) dans 00_Fondateurs, mappé par pio_id
+        numero_fondateur = _get_numero_fondateur(sheets, pio_id)
         ctx_badge_luxe = {
             "PIO_ID": pio_id,
             "ANNEE": str(datetime.now(timezone.utc).year),
             "PAYS": pays_affiche,
+            "NUMERO_FONDATEUR": numero_fondateur,
+            "TERRITOIRE": pays_affiche,
         }
         html_badge_fondateur = render_template("badge-fondateur.html", ctx_badge_luxe)
-        html_badge_amb_perso = render_template("badge-ambassadeur.html", ctx_badge_luxe)
 
     # 4. Push GitHub Pages (chemins prod-aligned)
     pushed = {}
@@ -990,10 +1010,6 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
             pushed["badge_fondateur"] = gh.push_file(
                 f"docs/badges/fondateur/{pio_id}.html", html_badge_fondateur,
                 f"Add badge fondateur luxe {pio_id}")
-        if payload.fondateur and html_badge_amb_perso:
-            pushed["badge_ambassadeur"] = gh.push_file(
-                f"docs/badges/ambassadeur/{pio_id}.html", html_badge_amb_perso,
-                f"Add badge ambassadeur luxe {pio_id}")
     except Exception as e:
         logger.error(f"GitHub push failed: {e}")
         sheets.log_event("github_push", install_id, pio_id, "ERROR", str(e), "")
@@ -1013,8 +1029,8 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
             now_iso,                      # I  date_entree
             "Pionnier",                   # J  statut
             "true" if payload.fondateur else "false",  # K  fondateur
-            "true" if payload.fondateur else "false",  # L  ambassadeur (immédiat si fondateur)
-            "Fondateur · Ambassadeur" if payload.fondateur else "",  # M  communaute_statut
+            "false",                                  # L  ambassadeur (déclaratif uniquement — via /api/ambassadeur/signature)
+            "Fondateur" if payload.fondateur else "",  # M  communaute_statut (mis à jour à la signature ambassadeur)
             "",                           # N  droit_image
             "",                           # O  temoignage_autorise
             "",                           # P  visite_possible
