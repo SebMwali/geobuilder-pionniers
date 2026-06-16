@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Espace Pionnier — Antoine Coignard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#05080F;
+    --bg-card:#0B1320;
+    --bg-card-2:#0d1626;
+    --border:rgba(58,143,232,0.18);
+    --border-strong:rgba(58,143,232,0.45);
+    --text:#e6edf7;
+    --text-dim:#8a9bb5;
+    --blue:#3A8FE8;
+    --blue-bright:#5BA6FF;
+    --green:#27d685;
+    --whatsapp:#25D366;
+  }
+  *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+  html,body { background:var(--bg); font-family:'Montserrat',-apple-system,Segoe UI,Roboto,sans-serif; color:var(--text); -webkit-font-smoothing:antialiased; }
+  body { min-height:100vh; padding:24px 20px 40px; }
+  a { color:inherit; text-decoration:none; }
+  img { display:block; max-width:100%; }
+
+  .page { max-width:1200px; margin:0 auto; }
+
+  /* === HEADER === */
+  .top {
+    display:flex; align-items:center; justify-content:center;
+    padding:8px 6px 28px;
+  }
+  .top .logo-wrap { display:flex; align-items:center; gap:14px; }
+  .top .logo-img {
+    width:280px; height:124px;
+    object-fit:contain;
+    filter:drop-shadow(0 0 6px rgba(58,143,232,0.4));
+  }
+  .top .logo-text { line-height:1.1; }
+  .top .logo-text .brand {
+    font-size:24px; font-weight:700; letter-spacing:0.06em;
+    color:#e6edf7;
+  }
+  .top .logo-text .sub {
+    font-size:11px; font-weight:500; letter-spacing:0.30em;
+    color:var(--blue); margin-top:4px;
+    text-transform:uppercase;
+  }
+
+  /* === HERO === */
+  .hero {
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:22px;
+    margin-bottom:22px;
+  }
+  .hero-left {
+    position:relative;
+    border-radius:16px;
+    background:
+      linear-gradient(135deg, rgba(5,8,15,0.55) 0%, rgba(5,8,15,0.30) 50%, rgba(5,8,15,0.65) 100%),
+      url('https://sebmwali.github.io/geobuilder-pionniers/assets/portail-hero-landscape.jpg') center/cover no-repeat;
+    padding:36px 38px 32px;
+    border:1px solid var(--border);
+    overflow:hidden;
+  }
+  .hero-left h1, .hero-left p { text-shadow:0 2px 10px rgba(0,0,0,0.75); }
+  .hero-left .member-since .label, .hero-left .member-since .val { text-shadow:0 2px 8px rgba(0,0,0,0.7); }
+  .hero h1 {
+    font-size:44px; font-weight:700;
+    line-height:1.05; letter-spacing:-0.01em;
+    margin-bottom:18px;
+    color:#fff;
+  }
+  .hero h1 .name { color:var(--blue-bright); }
+  .hero p {
+    color:#e6edf7; font-size:14px; line-height:1.6;
+    max-width:480px;
+    margin-bottom:32px;
+  }
+  .hero-meta {
+    display:flex; align-items:center; gap:28px;
+    flex-wrap:wrap;
+  }
+  .pio-pill {
+    display:inline-flex; align-items:center; justify-content:center;
+    padding:14px 32px;
+    border:1.5px solid var(--blue-bright);
+    border-radius:999px;
+    font-size:22px; font-weight:700; letter-spacing:0.05em;
+    color:var(--blue-bright);
+    background:rgba(5,8,15,0.4);
+    backdrop-filter:blur(4px);
+  }
+  .member-since {
+    text-align:left;
+  }
+  .member-since .label {
+    font-size:10px; letter-spacing:0.22em;
+    color:#c5d2e6; text-transform:uppercase;
+    margin-bottom:3px;
+  }
+  .member-since .val {
+    font-size:14px; font-weight:600; letter-spacing:0.18em;
+    color:#fff;
+    text-transform:uppercase;
+  }
+
+  .hero-right {
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:24px 28px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px 24px;
+    align-items:center;
+  }
+  .hero-right .title {
+    grid-column:1 / -1;
+    color:var(--blue); font-size:12px; font-weight:600;
+    letter-spacing:0.30em; text-transform:uppercase;
+  }
+  .product-image {
+    width:100%; max-width:280px;
+    aspect-ratio:1/1;
+    object-fit:contain;
+    filter:drop-shadow(0 14px 24px rgba(0,0,0,0.55));
+  }
+  .install-info { font-size:14px; line-height:1.55; }
+  .install-info .product-name {
+    font-size:22px; font-weight:700; letter-spacing:-0.005em;
+    margin-bottom:4px;
+  }
+  .install-info .serial {
+    color:var(--text-dim); font-size:14px;
+    margin-bottom:18px; letter-spacing:0.04em;
+  }
+  /* Bloc NS / Date manquant — invitation à transmettre par email
+     Les 2 blocs (NS + Date de livraison) doivent avoir une taille
+     identique pour assurer l'harmonie visuelle dans la colonne droite. */
+  .ns-missing {
+    margin: 6px 0 10px;
+    padding: 10px 12px;
+    background: rgba(255, 184, 0, 0.10);
+    border: 1px solid rgba(255, 184, 0, 0.35);
+    border-radius: 10px;
+    min-height: 120px;
+    display: flex; flex-direction: column;
+  }
+  .ns-missing .ns-missing-title {
+    font-size: 12px; font-weight: 600;
+    color: #ffb800; margin-bottom: 4px;
+    letter-spacing: 0.02em;
+  }
+  .ns-missing .ns-missing-text {
+    font-size: 11.5px; color: var(--text-dim);
+    line-height: 1.4; margin-bottom: 8px;
+    flex: 1;
+  }
+  .ns-missing .ns-missing-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 7px 12px; border-radius: 8px;
+    background: var(--blue); color: #0d1626;
+    text-decoration: none; font-size: 12px; font-weight: 700;
+    align-self: flex-start;
+    transition: background 0.2s;
+  }
+  .ns-missing .ns-missing-cta:hover { background: #7fbcff; }
+  .install-info .meta-line {
+    display:flex; align-items:center; gap:10px;
+    margin-bottom:9px;
+    color:var(--text); font-size:13.5px;
+  }
+  .install-info .meta-line svg {
+    width:18px; height:18px;
+    color:var(--blue);
+    flex-shrink:0;
+  }
+  .install-info .warranty {
+    color:var(--green); font-weight:600;
+  }
+  .install-info .warranty-dim { color:var(--text-dim); font-weight:500; }
+
+  /* === DISTINCTIONS === */
+  .section {
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:24px 30px;
+    margin-bottom:22px;
+  }
+  .section-title {
+    color:var(--blue);
+    font-size:12px; font-weight:600;
+    letter-spacing:0.30em; text-transform:uppercase;
+    margin-bottom:22px;
+  }
+  .distinctions {
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+  }
+  .dist {
+    display:flex; gap:18px; align-items:flex-start;
+  }
+  .dist .badge-icon {
+    width:108px; height:108px;
+    flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    position:relative;
+  }
+  .dist .badge-icon svg.hex {
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    filter:drop-shadow(0 8px 16px rgba(0,0,0,0.4));
+  }
+  .dist .badge-icon .inner {
+    position:relative; z-index:1;
+    display:flex; align-items:center; justify-content:center;
+    width:48%; height:48%;
+    color:#dde4ef;
+    transform:translateY(-8%);
+  }
+  .dist .badge-icon .inner svg { width:100%; height:100%; }
+  .dist .badge-icon .ribbon {
+    position:absolute;
+    bottom:8%; left:0; right:0;
+    text-align:center;
+    font-size:9px; font-weight:700; letter-spacing:0.10em;
+    color:#fff;
+    background:linear-gradient(180deg, var(--blue) 0%, #1a6dc4 100%);
+    padding:3px 0;
+    z-index:2;
+    box-shadow:0 1px 3px rgba(0,0,0,0.4);
+  }
+  .dist-info { padding-top:10px; }
+  .dist-info .name {
+    font-size:15px; font-weight:700;
+    letter-spacing:0.06em;
+    margin-bottom:8px;
+  }
+  .dist-info .desc {
+    font-size:12.5px; line-height:1.5;
+    color:var(--text-dim);
+    margin-bottom:12px;
+  }
+  .dist-status {
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:12px; font-weight:600;
+  }
+  .dist-status.acquis { color:var(--green); }
+  .dist-status.encours { color:var(--blue); }
+  .dist-status.non-acquis { color:var(--text-dim); }
+  .dist-status .dot {
+    width:14px; height:14px;
+    border-radius:50%;
+    display:inline-flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .dist-status.acquis .dot { color:var(--green); }
+  .dist-status.encours .dot { border:1.5px solid var(--blue); }
+  .dist-status.non-acquis .dot { border:1.5px solid var(--text-dim); }
+
+  /* === DOCUMENTS + COMMUNAUTÉ === */
+  .documents-row {
+    display:grid;
+    grid-template-columns:5fr 1fr;
+    gap:22px;
+    margin-bottom:22px;
+  }
+  .docs-section { padding:24px 28px; }
+  .docs-grid {
+    display:grid;
+    grid-template-columns:repeat(6, 1fr);
+    gap:12px;
+  }
+  .doc-card {
+    background:var(--bg-card-2);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:18px 10px 14px;
+    display:flex; flex-direction:column; align-items:center;
+    text-align:center;
+    transition:border-color .2s, transform .2s, opacity .2s;
+    position:relative;
+  }
+  .doc-card.acquis { opacity:1; }
+  .doc-card.acquis:hover {
+    border-color:var(--border-strong);
+    transform:translateY(-3px);
+  }
+  .doc-card.locked {
+    opacity:0.45;
+    filter:grayscale(0.7);
+    cursor:not-allowed;
+    pointer-events:none;
+  }
+  .doc-card .icon {
+    width:46px; height:46px;
+    margin-bottom:10px;
+  }
+  .doc-card .doc-title {
+    font-size:12px; font-weight:600;
+    margin-bottom:5px;
+    line-height:1.2;
+  }
+  .doc-card .doc-desc {
+    font-size:10.5px; color:var(--text-dim);
+    line-height:1.4;
+    margin-bottom:10px;
+    flex-grow:1;
+  }
+  .doc-card .doc-link {
+    display:inline-flex; align-items:center; gap:4px;
+    padding:6px 12px;
+    border:1px solid var(--blue);
+    border-radius:999px;
+    font-size:10px; font-weight:600;
+    color:var(--blue);
+    letter-spacing:0.03em;
+  }
+  .doc-card .doc-link:hover { background:rgba(58,143,232,0.10); }
+  .doc-card .icon svg { width:100%; height:100%; }
+  .doc-card .icon {
+    display:flex; align-items:center; justify-content:center;
+    filter:drop-shadow(0 4px 10px rgba(58,143,232,0.25));
+  }
+
+  .community-section {
+    padding:20px 22px;
+    display:flex; flex-direction:column;
+    justify-content:center;
+    gap:14px;
+  }
+  .community-section .title {
+    color:var(--blue);
+    font-size:11px; font-weight:600;
+    letter-spacing:0.28em; text-transform:uppercase;
+    margin-bottom:6px;
+  }
+
+  /* WhatsApp compact */
+  .wa-compact {
+    background:var(--whatsapp);
+    border-radius:14px;
+    padding:22px 22px;
+    display:flex; flex-direction:column; align-items:center; gap:12px;
+    color:#fff;
+    text-align:center;
+    transition:transform .15s ease, box-shadow .2s ease;
+    box-shadow:0 6px 20px rgba(37,211,102,0.18);
+  }
+  .wa-compact:hover { transform:translateY(-3px); box-shadow:0 10px 28px rgba(37,211,102,0.28); }
+  .wa-compact svg { width:42px; height:42px; flex-shrink:0; }
+  .wa-compact .wac-body { line-height:1.35; }
+  .wa-compact .wac-title { font-size:15px; font-weight:700; letter-spacing:0.04em; }
+  .wa-compact .wac-sub { font-size:12px; opacity:0.9; margin-top:2px; }
+
+  /* === HELP === */
+  .help-section {
+    padding:24px 30px;
+    margin-bottom:22px;
+  }
+  .help-section .title {
+    color:var(--blue);
+    font-size:12px; font-weight:600;
+    letter-spacing:0.30em; text-transform:uppercase;
+    margin-bottom:20px;
+  }
+  .help-grid {
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:22px;
+  }
+  .help-card {
+    display:flex; align-items:center; gap:18px;
+  }
+  .help-icon {
+    width:52px; height:52px;
+    border-radius:14px;
+    background:rgba(58,143,232,0.10);
+    border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--blue);
+    flex-shrink:0;
+  }
+  .help-icon svg { width:24px; height:24px; }
+  .help-text .label {
+    font-size:11px; letter-spacing:0.22em;
+    color:var(--text-dim); text-transform:uppercase;
+    margin-bottom:4px;
+  }
+  .help-text .val {
+    font-size:14px; font-weight:500; color:var(--text);
+  }
+
+  /* === FOOTER === */
+  footer.bottom {
+    display:grid;
+    grid-template-columns:auto 1fr auto;
+    align-items:center;
+    gap:28px;
+    padding:28px 24px;
+    border-top:1px solid var(--border);
+    margin-top:8px;
+  }
+  footer.bottom .flogo {
+    width:130px; height:54px;
+    object-fit:contain;
+    filter:drop-shadow(0 0 8px rgba(58,143,232,0.3));
+  }
+  footer.bottom .thanks {
+    line-height:1.55;
+  }
+  footer.bottom .thanks .l1 {
+    font-size:16px; font-weight:600; margin-bottom:3px;
+  }
+  footer.bottom .thanks .l2 {
+    font-size:13.5px; color:var(--text-dim);
+  }
+  footer.bottom .thanks .l2 a {
+    color:var(--blue); text-decoration:none;
+  }
+  .socials {
+    display:flex; gap:14px;
+  }
+  .socials a {
+    width:36px; height:36px;
+    border-radius:50%;
+    border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--text-dim);
+    transition:color .2s, border-color .2s;
+  }
+  .socials a:hover { color:var(--blue); border-color:var(--blue); }
+  .socials a svg { width:16px; height:16px; }
+
+  .meta-foot {
+    text-align:center;
+    padding-top:18px;
+    color:var(--text-dim);
+    font-size:11px; letter-spacing:0.30em;
+    text-transform:uppercase;
+  }
+  .meta-foot .sep { margin:0 12px; color:#3a4a66; }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 1100px) {
+    .docs-grid { grid-template-columns:repeat(3, 1fr); }
+    .documents-row { grid-template-columns:2.4fr 1fr; }
+  }
+  @media (max-width: 980px) {
+    .hero, .documents-row, .help-grid, .distinctions { grid-template-columns:1fr; }
+    .docs-grid { grid-template-columns:repeat(3, 1fr); }
+    .hero h1 { font-size:32px; }
+    footer.bottom { grid-template-columns:1fr; text-align:center; }
+    footer.bottom .flogo { margin:0 auto; }
+    .socials { justify-content:center; }
+  }
+  @media (max-width: 540px) {
+    .docs-grid { grid-template-columns:1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="top">
+    <div class="logo-wrap">
+      <img class="logo-img" src="https://res.cloudinary.com/dahmkv4ra/image/upload/v1781392944/Couverture_FB_n9rsza.png" alt="Geobuilder">
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-left">
+      <h1>Bonjour <span class="name">Antoine</span></h1>
+      <p>Bienvenue dans votre espace personnel Pionnier. Retrouvez vos documents officiels, vos distinctions et rejoignez la communauté Geobuilder.</p>
+      <div class="hero-meta">
+        <div class="pio-pill">PIO-1001</div>
+        <div class="member-since">
+          <div class="label">Membre depuis</div>
+          <div class="val">JUIN 2026</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="title">Mon installation</div>
+      <img class="product-image" src="https://res.cloudinary.com/dahmkv4ra/image/upload/v1781392846/G-30_myykrz.png" alt="Mon installation — MAYOTTE, Mayotte">
+      <div class="install-info">
+        <div class="product-name">G30</div>
+        <div class="serial">N° HR88C22KFR0428</div>
+        <div class="meta-line">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          <span>MAYOTTE, Mayotte</span>
+        </div>
+        <div class="ns-missing"><div class="ns-missing-title">Date de livraison non renseignée</div><div class="ns-missing-text">Merci de nous communiquer la date de livraison de votre générateur pour finaliser votre suivi.</div><a class="ns-missing-cta" href="mailto:contact@geobuilder.fr?subject=Transmission%20date%20de%20livraison%20%E2%80%94%20PIO-1001&body=Bonjour%20Geobuilder%2C%0A%0AJe%20vous%20transmets%20la%20date%20de%20livraison%20/%20installation%20de%20mon%20g%C3%A9n%C3%A9rateur%20%3A%0A%0ADate%20de%20livraison%20%3A%20____%20/%20____%20/%20________%0A%0AInformations%20de%20mon%20installation%20%3A%0A%20%20-%20R%C3%A9f%C3%A9rence%20Pionnier%20%3A%20PIO-1001%0A%20%20-%20R%C3%A9f%C3%A9rence%20Installation%20%3A%20INST-2001%0A%20%20-%20Produit%20%3A%20G30%0A%20%20-%20Nom%20%3A%20Antoine%20Coignard%0A%0ABien%20cordialement%2C">Communiquer ma date de livraison →</a></div>
+        <div class="meta-line">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span class="warranty">Garantie active <span class="warranty-dim">jusqu'au 16/06/2028</span></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DISTINCTIONS -->
+  <div class="section">
+    <div class="section-title">— Mes Distinctions —</div>
+    <div class="distinctions">
+      <!-- PIONNIER -->
+      <div class="dist">
+        <div class="badge-icon">
+          <svg class="hex" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="hex1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#e8eef7"/>
+                <stop offset="50%" stop-color="#5a7090"/>
+                <stop offset="100%" stop-color="#1a2230"/>
+              </linearGradient>
+            </defs>
+            <polygon points="50,4 92,28 92,82 50,106 8,82 8,28" fill="url(#hex1)" stroke="#5BA6FF" stroke-width="1.5"/>
+            <polygon points="50,11 86,32 86,78 50,99 14,78 14,32" fill="#0d1626" opacity="0.7"/>
+          </svg>
+          <div class="inner">
+            <svg viewBox="0 0 24 24" fill="#dde4ef"><polygon points="12,2 15,9 22,9 16.5,14 19,21 12,17 5,21 7.5,14 2,9 9,9"/></svg>
+          </div>
+          <div class="ribbon">PIONNIER</div>
+        </div>
+        <div class="dist-info">
+          <div class="name">PIONNIER</div>
+          <div class="desc">Vous faites partie des premiers à avoir choisi Geobuilder.</div>
+          <div class="dist-status acquis">
+            <span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Acquis
+          </div>
+        </div>
+      </div>
+
+      <!-- AMBASSADEUR -->
+      <div class="dist">
+        <div class="badge-icon">
+          <svg class="hex" viewBox="0 0 100 110">
+            <polygon points="50,4 92,28 92,82 50,106 8,82 8,28" fill="url(#hex1)" stroke="#5BA6FF" stroke-width="1.5"/>
+            <polygon points="50,11 86,32 86,78 50,99 14,78 14,32" fill="#0d1626" opacity="0.7"/>
+          </svg>
+          <div class="inner">
+            <svg viewBox="0 0 24 24" fill="#dde4ef"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M14 20c0-2.5 2-4.5 5-4.5"/></svg>
+          </div>
+          <div class="ribbon">AMBASSADEUR</div>
+        </div>
+        <div class="dist-info">
+          <div class="name">AMBASSADEUR</div>
+          <div class="desc">Vous recommandez Geobuilder et partagez votre expérience.</div>
+          <div class="dist-status acquis">
+            <span class="dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+            Acquis
+          </div>
+        </div>
+      </div>
+
+      <!-- SUPER AMBASSADEUR -->
+      <div class="dist">
+        <div class="badge-icon">
+          <svg class="hex" viewBox="0 0 100 110">
+            <polygon points="50,4 92,28 92,82 50,106 8,82 8,28" fill="url(#hex1)" stroke="#5BA6FF" stroke-width="1.5"/>
+            <polygon points="50,11 86,32 86,78 50,99 14,78 14,32" fill="#0d1626" opacity="0.7"/>
+          </svg>
+          <div class="inner">
+            <svg viewBox="0 0 24 24" fill="#3A8FE8"><text x="50%" y="58%" text-anchor="middle" font-size="18" font-weight="700" font-family="Montserrat" fill="#3A8FE8">G</text></svg>
+          </div>
+          <div class="ribbon">SUPER AMBASSADEUR</div>
+        </div>
+        <div class="dist-info">
+          <div class="name">SUPER AMBASSADEUR</div>
+          <div class="desc">Vous êtes très actif, montrez votre Geobuilder et inspirez d'autres Pionniers.</div>
+          <div class="dist-status non-acquis">
+            <span class="dot"></span>
+            Non acquis
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOCUMENTS + COMMUNAUTÉ -->
+  <div class="documents-row">
+    <div class="section docs-section" style="margin-bottom:0;">
+      <div class="section-title">— Vos Documents Officiels —</div>
+      <div class="docs-grid">
+        <a class="doc-card acquis" href="https://sebmwali.github.io/geobuilder-pionniers/certificats/pionnier/PIO-1001.html" target="_blank" rel="noopener">
+          <div class="icon">
+            <svg viewBox="0 0 80 80"><defs><linearGradient id="ic1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8eef7"/><stop offset="100%" stop-color="#5a7090"/></linearGradient></defs>
+              <rect x="14" y="6" width="52" height="68" rx="4" fill="url(#ic1)"/>
+              <path d="M14 60 L40 75 L66 60 L66 6 Q66 4 64 4 L16 4 Q14 4 14 6 Z" fill="#1c2840" opacity="0.3"/>
+              <polygon points="40,22 46,34 60,34 49,42 53,55 40,48 27,55 31,42 20,34 34,34" fill="#3A8FE8"/>
+            </svg>
+          </div>
+          <div class="doc-title">Certificat de Pionnier</div>
+          <div class="doc-desc">Votre certificat officiel nominatif.</div>
+          <span class="doc-link">Voir le document →</span>
+        </a>
+
+        <a class="doc-card acquis" href="https://sebmwali.github.io/geobuilder-pionniers/certificats/garantie/INST-2001.html" target="_blank" rel="noopener">
+          <div class="icon">
+            <svg viewBox="0 0 80 80"><defs><linearGradient id="ic2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e8eef7"/><stop offset="100%" stop-color="#5a7090"/></linearGradient></defs>
+              <path d="M40 6 L66 14 L66 36 Q66 58 40 74 Q14 58 14 36 L14 14 Z" fill="url(#ic2)"/>
+              <polyline points="28,38 36,46 54,28" fill="none" stroke="#3A8FE8" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="doc-title">Certificat de Garantie</div>
+          <div class="doc-desc">Votre garantie produit officielle.</div>
+          <span class="doc-link">Voir le document →</span>
+        </a>
+
+        <a class="doc-card acquis" href="https://sebmwali.github.io/geobuilder-pionniers/passeports/INST-2001/index.html" target="_blank" rel="noopener">
+          <div class="icon">
+            <svg viewBox="0 0 80 80"><defs><linearGradient id="ic3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3A8FE8"/><stop offset="100%" stop-color="#1a5ec4"/></linearGradient></defs>
+              <rect x="14" y="6" width="52" height="68" rx="6" fill="url(#ic3)"/>
+              <text x="40" y="50" text-anchor="middle" font-size="34" font-weight="800" font-family="Montserrat" fill="#fff">G</text>
+            </svg>
+          </div>
+          <div class="doc-title">Passeport d'Installation</div>
+          <div class="doc-desc">Historique complet et suivi de votre installation.</div>
+          <span class="doc-link">Voir le document →</span>
+        </a>
+
+        <a class="doc-card acquis" href="https://sebmwali.github.io/geobuilder-pionniers/cartes/PIO-1001.html" target="_blank" rel="noopener">
+          <div class="icon">
+            <svg viewBox="0 0 80 80"><defs><linearGradient id="ic4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3A8FE8"/><stop offset="100%" stop-color="#1a5ec4"/></linearGradient></defs>
+              <rect x="6" y="18" width="68" height="44" rx="4" fill="url(#ic4)"/>
+              <circle cx="22" cy="36" r="6" fill="#fff"/>
+              <rect x="36" y="32" width="28" height="3" rx="1.5" fill="#fff"/>
+              <rect x="36" y="40" width="20" height="3" rx="1.5" fill="#fff" opacity="0.7"/>
+              <rect x="14" y="46" width="46" height="2" rx="1" fill="#fff" opacity="0.5"/>
+            </svg>
+          </div>
+          <div class="doc-title">Carte Pionnier</div>
+          <div class="doc-desc">Votre carte personnelle Geobuilder.</div>
+          <span class="doc-link">Voir la carte →</span>
+        </a>
+
+        <a class="doc-card acquis" href="#" target="_blank" rel="noopener">
+          <div class="icon">
+            <svg viewBox="0 0 80 80"><defs><linearGradient id="ic5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3A8FE8"/><stop offset="100%" stop-color="#1a5ec4"/></linearGradient></defs>
+              <rect x="6" y="18" width="68" height="44" rx="4" fill="url(#ic5)"/>
+              <circle cx="26" cy="34" r="7" fill="#fff"/>
+              <circle cx="46" cy="36" r="5" fill="#fff" opacity="0.85"/>
+              <path d="M14 56 c0-8 6-12 12-12 s12 4 12 12" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M38 56 c0-6 4-9 8-9 s8 3 8 9" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity="0.85"/>
+            </svg>
+          </div>
+          <div class="doc-title">Carte Ambassadeur</div>
+          <div class="doc-desc">Acquise</div>
+          <span class="doc-link">Voir la carte →</span>
+        </a>
+
+        <a class="doc-card locked" href="#" target="_blank" rel="noopener">
+          <div class="icon">
+            <svg viewBox="0 0 80 80"><defs><linearGradient id="ic6" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3A8FE8"/><stop offset="100%" stop-color="#1a5ec4"/></linearGradient></defs>
+              <rect x="6" y="18" width="68" height="44" rx="4" fill="url(#ic6)"/>
+              <polygon points="40,24 44,34 55,34 46,40 49,51 40,45 31,51 34,40 25,34 36,34" fill="#fff"/>
+              <circle cx="40" cy="37.5" r="2" fill="#3A8FE8"/>
+            </svg>
+          </div>
+          <div class="doc-title">Carte Super Ambassadeur</div>
+          <div class="doc-desc">Non acquise</div>
+          <span class="doc-link">Voir la carte →</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="section community-section" style="margin-bottom:0;">
+      <div class="title">Communauté</div>
+      <a class="wa-compact" href="https://chat.whatsapp.com/KudAhDPyGnRLDiEBF3WL31?s=sh&p=a&mlu=0&amv=1" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4l-2.4-1c-.3-.1-.7 0-.9.2l-1 1.2c-1.6-.8-2.9-2.1-3.7-3.7l1.2-1c.2-.2.3-.6.2-.9l-1-2.4c-.2-.4-.6-.6-1-.5L7 6.7c-.4.1-.7.5-.7.9 0 5.5 4.5 10 10 10 .5 0 .8-.3.9-.7l.5-1.9c.1-.4-.1-.8-.5-1zM12 1.5C6.2 1.5 1.5 6.2 1.5 12c0 2 .6 3.9 1.6 5.4L1.7 22.3l5-1.4c1.5 1 3.4 1.6 5.3 1.6 5.8 0 10.5-4.7 10.5-10.5S17.8 1.5 12 1.5z"/></svg>
+        <div class="wac-body">
+          <div class="wac-title">Communauté WhatsApp</div>
+          <div class="wac-sub">Rejoindre le groupe Pionniers</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- HELP -->
+  <div class="section help-section">
+    <div class="title">— Besoin d'aide ? —</div>
+    <div class="help-grid">
+      <a class="help-card" href="tel:+262262666374">
+        <div class="help-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="help-text">
+          <div class="label">Téléphone</div>
+          <div class="val">+262 262 66 63 74</div>
+        </div>
+      </a>
+      <a class="help-card" href="mailto:contact@geobuilder.fr">
+        <div class="help-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div class="help-text">
+          <div class="label">Email</div>
+          <div class="val">contact@geobuilder.fr</div>
+        </div>
+      </a>
+      <a class="help-card" href="https://www.geobuilder.fr" target="_blank" rel="noopener">
+        <div class="help-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div class="help-text">
+          <div class="label">Site web</div>
+          <div class="val">www.geobuilder.fr</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bottom">
+    <img class="flogo" src="https://res.cloudinary.com/dahmkv4ra/image/upload/v1781392944/Couverture_FB_n9rsza.png" alt="Geobuilder">
+    <div class="thanks">
+      <div class="l1">Merci de faire partie de l'aventure Geobuilder.</div>
+      <div class="l2">Ensemble, construisons le monde de <a href="https://www.geobuilder.fr" target="_blank" rel="noopener">demain</a>.</div>
+    </div>
+    <div class="socials">
+      <a href="https://www.facebook.com/profile.php?id=100086466894702" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.5 9.9V14.9H8v-2.9h2.5v-2.2c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12H16l-.4 2.9h-2.1v7c5.1-.8 9-5.1 9-10z"/></svg></a>
+      <a href="https://www.instagram.com/geobuilderoceanindien/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r="1" fill="currentColor"/></svg></a>
+      <a href="https://www.youtube.com/@geobuilder8089" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2c-.2-.9-.9-1.6-1.8-1.8C18 5 12 5 12 5s-6 0-7.8.4c-.9.2-1.6.9-1.8 1.8C2 9 2 12 2 12s0 3 .4 4.8c.2.9.9 1.6 1.8 1.8C6 19 12 19 12 19s6 0 7.8-.4c.9-.2 1.6-.9 1.8-1.8C22 15 22 12 22 12s0-3-.4-4.8zM10 15V9l5 3-5 3z"/></svg></a>
+      <a href="https://www.linkedin.com/company/104828603" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM8.5 18H6V10h2.5v8zM7.25 8.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM18 18h-2.5v-4.3c0-1-.4-1.7-1.3-1.7-1 0-1.5.7-1.5 1.7V18H10V10h2.5v1.1c.4-.7 1.3-1.3 2.5-1.3 1.8 0 3 1.2 3 3.5V18z"/></svg></a>
+    </div>
+  </footer>
+
+  <div class="meta-foot">
+    PIO-1001 <span class="sep">·</span> 2026 <span class="sep">·</span> Geobuilder
+  </div>
+
+</div>
+
+</body>
+</html>
