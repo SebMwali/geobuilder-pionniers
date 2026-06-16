@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Rejoignez les Ambassadeurs Geobuilder — futur Ambassadeur</title>
+<title>Rejoignez les Ambassadeurs Geobuilder — </title>
 
 <!--
   ============================================================================
@@ -381,7 +381,7 @@
 
     <!-- ====================== SALUTATION ====================== -->
     <div class="greeting">
-      <div class="hello">Bonjour <span>futur Ambassadeur</span>,</div>
+      <div class="hello">Bonjour <span></span>,</div>
       <div class="line">Vous faites partie des <strong>Pionniers</strong> qui construisent déjà le monde de demain.</div>
     </div>
 
@@ -395,7 +395,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
             <span>Pionnier</span>
           </div>
-          <div class="meta">Pionnier · Océan Indien · 2026</div>
+          <div class="meta"> ·  · 2026</div>
         </div>
         <div class="st-arrow" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
@@ -507,7 +507,7 @@
       <!-- Badge Ambassadeur visible -->
       <div class="badge-preview">
         <div class="badge-eyebrow">Votre futur badge</div>
-        <img src="https://customer-assets.emergentagent.com/job_7b25a5ce-3fc1-48d8-aebb-1fc88d456845/artifacts/tgxnldtn_Ambassadeur.png" alt="Badge Ambassadeur Geobuilder" class="badge-img" />
+        <img src="https://sebmwali.github.io/geobuilder-pionniers/badge-ambassadeur.png" alt="Badge Ambassadeur Geobuilder" class="badge-img" />
         <div class="badge-caption">Votre badge <b>Ambassadeur</b> personnalisé sera automatiquement ajouté à votre Passeport d'Installation.</div>
       </div>
     </section>
@@ -553,9 +553,9 @@
         <div class="consent-title">VOS AUTORISATIONS</div>
         <div class="consent-sub">Les trois cases doivent être cochées pour activer le bouton de validation.</div>
 
-        <input type="hidden" name="pio_id" value="Pionnier" />
+        <input type="hidden" name="pio_id" value="" />
         <input type="hidden" name="nom" value="" />
-        <input type="hidden" name="prenom" value="futur Ambassadeur" />
+        <input type="hidden" name="prenom" value="" />
         <input type="hidden" name="email" value="" />
 
         <label class="consent-row" data-row="droit_image">
@@ -660,7 +660,7 @@
     };
 
     try {
-      const res = await fetch("https://pioneer-ecosystem.preview.emergentagent.com/api/ambassadeur/signature", {
+      const res = await fetch("", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -685,7 +685,7 @@
       n -= 1;
       if (n <= 0){
         clearInterval(t);
-        window.location.href = "https://sebmwali.github.io/geobuilder-pionniers/";
+        window.location.href = "";
       } else {
         countdown.textContent = n;
       }
