@@ -183,20 +183,31 @@ def _github_pages_base() -> str:
     return os.environ.get("GITHUB_PAGES_URL", "").rstrip("/")
 
 
+_FONDATEURS_CACHE: Optional[dict] = None
+
+
 def _get_numero_fondateur(sheets, pio_id: str) -> str:
     """Récupère le numéro de Fondateur (col `ordre`) depuis 00_Fondateurs pour un pio_id donné.
-    Renvoie une string formatée sur 3 chiffres (ex: '007'). '—' si introuvable."""
-    try:
-        rows = sheets.read_all("00_Fondateurs")
-        for r in rows:
-            if str(r.get("pio_id", "")).strip() == pio_id:
-                ordre = str(r.get("ordre", "")).strip()
-                if ordre.isdigit():
-                    return f"{int(ordre):03d}"
-                return ordre or "—"
-    except Exception as e:
-        logger.warning(f"_get_numero_fondateur: lookup failed for {pio_id}: {e}")
-    return "—"
+    La colonne de mapping est `pio_id_propose` dans l'onglet 00_Fondateurs.
+    Renvoie une string formatée sur 3 chiffres (ex: '007'). '—' si introuvable.
+
+    Lecture cachée en mémoire (1 appel Sheets / processus) pour éviter le quota.
+    """
+    global _FONDATEURS_CACHE
+    if _FONDATEURS_CACHE is None:
+        try:
+            rows = sheets.read_all("00_Fondateurs")
+            _FONDATEURS_CACHE = {
+                str(r.get("pio_id_propose", "")).strip(): str(r.get("ordre", "")).strip()
+                for r in rows if r.get("pio_id_propose")
+            }
+        except Exception as e:
+            logger.warning(f"_get_numero_fondateur: cache build failed: {e}")
+            _FONDATEURS_CACHE = {}
+    ordre = _FONDATEURS_CACHE.get(pio_id, "")
+    if ordre.isdigit():
+        return f"{int(ordre):03d}"
+    return ordre or "—"
 
 
 def _compute_garantie_fin(date_installation: str, mois: int) -> str:
@@ -1707,6 +1718,194 @@ def _regenerate_passeport(install_row: dict, sheets, gh) -> str:
         f"Update passeport {install_id} (SAV)",
     )
     return url_passeport
+
+
+def _regenerate_all_docs_for_pioneer(pio_row: dict, install_row: dict, sheets, gh) -> dict:
+    """Régénère TOUS les documents HTML d'un pionnier et les push sur GitHub Pages.
+
+    Docs régénérés (ordre) :
+      - passeport          → docs/passeports/{install_id}/index.html
+      - certificat_pio     → docs/certificats/pionnier/{pio_id}.html
+      - certificat_garantie→ docs/certificats/garantie/{install_id}.html
+      - portail            → docs/pionniers/{pio_id}/index.html
+      - badge              → docs/cartes/{pio_id}.html
+      - ambassadeur (page) → docs/ambassadeurs/{pio_id}.html (si fondateur=True)
+      - badge_fondateur    → docs/badges/fondateur/{pio_id}.html (si fondateur=True)
+
+    ⚠️ AUCUN email envoyé. Aucun write sur Google Sheets.
+    """
+    from urllib.parse import quote as _quote
+    pio_id = (pio_row.get("pio_id") or "").strip()
+    install_id = (install_row.get("install_id") or "").strip()
+
+    def _truthy(v):
+        return str(v or "").strip().upper() in ("TRUE", "OUI", "1", "YES", "VRAI")
+    is_fondateur = _truthy(pio_row.get("fondateur"))
+    is_ambassadeur = _truthy(pio_row.get("ambassadeur"))
+
+    nom = (pio_row.get("nom") or "").strip()
+    prenom = (pio_row.get("prenom") or pio_row.get("prénom") or "").strip()
+    email = (pio_row.get("email") or "").strip()
+    nom_complet = f"{prenom} {nom}".strip()
+    pays = (pio_row.get("pays") or "").strip()
+    territoire = (pio_row.get("territoire") or "").strip() or pays
+
+    produit_label = install_row.get("produit") or ""
+    produit_info = get_product(produit_label)
+    date_inst = install_row.get("date_installation") or install_row.get("date installation") or ""
+    date_garantie_fin = _compute_garantie_fin(date_inst, produit_info["garantie_mois"])
+    annee = str(datetime.now(timezone.utc).year)
+    pays_affiche = (install_row.get("territoire_installation") or territoire or pays).strip()
+    localisation_precise = (install_row.get("localisation_precise") or pays_affiche).strip()
+    numero_serie = install_row.get("numero_serie") or install_row.get("numéro_serie") or install_row.get("Numéro série") or ""
+    photo_gen = install_row.get("photo_generateur_url") or produit_info.get("photo_generateur_url") or HISTORIC_FALLBACK_PHOTO
+    photo_emp = install_row.get("photo_emplacement_url") or HISTORIC_FALLBACK_PHOTO
+
+    pages_base = _github_pages_base()
+    url_passeport = f"{pages_base}/passeports/{install_id}/index.html"
+    url_certificat = f"{pages_base}/certificats/pionnier/{pio_id}.html"
+    url_garantie = f"{pages_base}/certificats/garantie/{install_id}.html"
+    url_portail = f"{pages_base}/pionniers/{pio_id}/index.html"
+    url_carte = f"{pages_base}/cartes/{pio_id}.html"
+    url_ambassadeur_landing = f"{pages_base}/ambassadeur.html"
+    url_badge_fondateur = f"{pages_base}/badges/fondateur/{pio_id}.html" if is_fondateur else ""
+    url_badge_ambassadeur = f"{pages_base}/badges/ambassadeur/{pio_id}.html" if is_ambassadeur else ""
+
+    # --- 1. Passeport (réutilise _regenerate_passeport pour fidélité totale)
+    url_passeport = _regenerate_passeport(install_row, sheets, gh)
+
+    # --- 2. Certificat Pionnier
+    ctx_cert_pio = {
+        "ANNEE": annee, "NOM_COMPLET": nom_complet,
+        "PAYS": pays_affiche, "PIO_ID": pio_id,
+    }
+    html_cert_pio = render_template("certificat-pionnier.html", ctx_cert_pio)
+
+    # --- 3. Certificat Garantie
+    # doc_cert_gar idéalement depuis 06_Documents ; sinon fallback déterministe
+    doc_cert_gar = f"DOC-CG-{install_id.replace('INST-','')}"
+    ctx_cert_gar = {
+        "DATE_INSTALLATION": _fmt_date_fr(date_inst),
+        "DOC_ID": doc_cert_gar, "INSTALL_ID": install_id,
+        "NOM_COMPLET": nom_complet, "PAYS": pays_affiche,
+        "PIO_ID": pio_id, "PRODUIT": produit_info["label"],
+        "PRODUIT_IMG_ID": produit_info.get("image_cloudinary_id", ""),
+        "SERIAL": numero_serie, "URL_GARANTIE": url_garantie,
+    }
+    html_cert_gar = render_template("certificat-garantie.html", ctx_cert_gar)
+
+    # --- 4. Portail Pionnier (refonte cyan V1)
+    _MOIS_FR_UP = ["", "JANVIER", "FÉVRIER", "MARS", "AVRIL", "MAI", "JUIN", "JUILLET", "AOÛT", "SEPTEMBRE", "OCTOBRE", "NOVEMBRE", "DÉCEMBRE"]
+    try:
+        _d = _parse_date_iso_or_fr(date_inst) or datetime.now(timezone.utc).replace(tzinfo=None)
+        mois_annee_adhesion = f"{_MOIS_FR_UP[_d.month]} {_d.year}"
+    except Exception:
+        mois_annee_adhesion = annee
+
+    if is_fondateur:
+        amb_class, amb_label = "acquis", "Acquis"
+        amb_dot = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
+        carte_amb_class, carte_amb_status, url_carte_amb = "acquis", "Acquise", (url_badge_ambassadeur or "#")
+    else:
+        amb_class, amb_label, amb_dot = ("acquis" if is_ambassadeur else "encours"), ("Acquis" if is_ambassadeur else "En cours"), ""
+        carte_amb_class = "acquis" if is_ambassadeur else "locked"
+        carte_amb_status = "Acquise" if is_ambassadeur else "Non acquise"
+        url_carte_amb = url_badge_ambassadeur or "#"
+    sup_class, sup_label, sup_dot = "non-acquis", "Non acquis", ""
+    carte_sup_class, carte_sup_status, url_carte_sup = "locked", "Non acquise", "#"
+
+    territoire_complet = f"{pays_affiche}, {pays}" if pays and pays != pays_affiche else pays_affiche
+    ctx_portail = {
+        "PIO_ID": pio_id, "PRENOM": prenom, "NOM_COMPLET": nom_complet,
+        "ANNEE": annee, "MOIS_ANNEE_ADHESION": mois_annee_adhesion,
+        "PRODUIT_LABEL": produit_info['label'], "PRODUIT_IMAGE_URL": photo_gen,
+        "PHOTO_EMPLACEMENT_URL": photo_emp or photo_gen,
+        "NUMERO_SERIE": numero_serie or f"MJ-{annee}-{install_id.replace('INST-','')}",
+        "NUMERO_SERIE_BLOC": _render_ns_bloc_portail(
+            numero_serie or "", pio_id, install_id, produit_info["label"],
+            prenom, nom, date_inst,
+        ),
+        "TERRITOIRE_COMPLET": territoire_complet,
+        "DATE_INSTALLATION_FORMATEE": _fmt_date_fr(date_inst),
+        "DATE_INSTALLATION_BLOC": _render_date_bloc_portail(
+            _fmt_date_fr(date_inst), date_inst,
+            pio_id, install_id, produit_info["label"], prenom, nom,
+        ),
+        "DATE_GARANTIE_FIN": _fmt_date_fr(date_garantie_fin),
+        "URL_CERTIFICAT": url_certificat, "URL_GARANTIE": url_garantie,
+        "URL_PASSEPORT": url_passeport, "URL_CARTE": url_carte,
+        "URL_WHATSAPP": os.environ.get("URL_WHATSAPP_GROUPE", "#"),
+        "URL_FACEBOOK": os.environ.get("URL_FACEBOOK", "#"),
+        "URL_INSTAGRAM": os.environ.get("URL_INSTAGRAM", "#"),
+        "URL_YOUTUBE": os.environ.get("URL_YOUTUBE", "#"),
+        "URL_LINKEDIN": os.environ.get("URL_LINKEDIN", "#"),
+        "STATUS_AMBASSADEUR_CLASS": amb_class,
+        "STATUS_AMBASSADEUR_LABEL": amb_label,
+        "STATUS_AMBASSADEUR_DOT": amb_dot,
+        "STATUS_SUPER_CLASS": sup_class, "STATUS_SUPER_LABEL": sup_label,
+        "STATUS_SUPER_DOT": sup_dot,
+        "CARTE_AMBASSADEUR_CLASS": carte_amb_class,
+        "CARTE_AMBASSADEUR_STATUS": carte_amb_status,
+        "URL_CARTE_AMBASSADEUR": url_carte_amb,
+        "CARTE_SUPER_CLASS": carte_sup_class,
+        "CARTE_SUPER_STATUS": carte_sup_status,
+        "URL_CARTE_SUPER": url_carte_sup,
+    }
+    html_portail = render_template("portail_pionnier.html", ctx_portail)
+
+    # --- 5. Badge Pionnier
+    ctx_badge = {
+        "NOM_COMPLET": nom_complet, "PIO_ID": pio_id,
+        "TERRITOIRE": pays_affiche, "ANNEE": annee,
+        "URL_ESPACE": url_portail,
+        "QR_URL_ENCODED": _quote(url_portail, safe=""),
+    }
+    html_badge = render_template("badge-pionnier.html", ctx_badge)
+
+    # --- 6. Page Ambassadeur (uniquement fondateur)
+    html_ambassadeur = ""
+    if is_fondateur:
+        ctx_amb_page = {
+            "annee": annee, "nom": nom, "prenom": prenom, "email": email,
+            "pio_id": pio_id, "territoire": territoire,
+            "redirect_url": url_portail,
+            "webhook_ambassadeur_url": os.environ.get("AMBASSADEUR_WEBHOOK_URL", ""),
+        }
+        html_ambassadeur = render_template("ambassadeur.html", ctx_amb_page)
+
+    # --- 7. Badge Fondateur luxe (numéroté)
+    html_badge_fondateur = ""
+    if is_fondateur:
+        numero_fondateur = _get_numero_fondateur(sheets, pio_id)
+        ctx_badge_luxe = {
+            "PIO_ID": pio_id, "ANNEE": annee, "PAYS": pays_affiche,
+            "NUMERO_FONDATEUR": numero_fondateur, "TERRITOIRE": pays_affiche,
+        }
+        html_badge_fondateur = render_template("badge-fondateur.html", ctx_badge_luxe)
+
+    # === Push GitHub Pages ===
+    pushed = {"passeport": url_passeport}
+    pushed["certificat_pionnier"] = gh.push_file(
+        f"docs/certificats/pionnier/{pio_id}.html", html_cert_pio,
+        f"Regen certificat pionnier {pio_id}")
+    pushed["certificat_garantie"] = gh.push_file(
+        f"docs/certificats/garantie/{install_id}.html", html_cert_gar,
+        f"Regen certificat garantie {install_id}")
+    pushed["portail"] = gh.push_file(
+        f"docs/pionniers/{pio_id}/index.html", html_portail,
+        f"Regen portail {pio_id}")
+    pushed["badge"] = gh.push_file(
+        f"docs/cartes/{pio_id}.html", html_badge,
+        f"Regen badge pionnier {pio_id}")
+    if is_fondateur and html_ambassadeur:
+        pushed["ambassadeur"] = gh.push_file(
+            f"docs/ambassadeurs/{pio_id}.html", html_ambassadeur,
+            f"Regen ambassadeur {pio_id}")
+    if is_fondateur and html_badge_fondateur:
+        pushed["badge_fondateur"] = gh.push_file(
+            f"docs/badges/fondateur/{pio_id}.html", html_badge_fondateur,
+            f"Regen badge fondateur {pio_id}")
+    return pushed
 
 
 async def _process_sav(payload: SavInput) -> dict:

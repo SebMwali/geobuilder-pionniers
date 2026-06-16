@@ -208,3 +208,22 @@ Si `fondateur=true` : push supplémentaire `docs/ambassadeurs/{PIO_ID}.html`.
 - `/app/backend/templates/passeport_installation.html`
 - `/app/backend/templates/certificat-pionnier.html`
 - `/app/backend/templates/portail_pionnier.html` (à refondre)
+
+
+---
+
+## Session 16/06/2026 — Badge Fondateur numéroté + Génération de masse
+- ✅ **Badge Fondateur (`/app/backend/templates/badge-fondateur.html`)** : ajout `.z-numero-fondateur` (haut-droit, format `001/100`, label "FONDATEUR") + bloc `.statut-fondateur` sous le badge ("🏆 Statut Fondateur • Seulement 100 Fondateurs par territoire • Statut à vie • Numéro unique • Avantages exclusifs • Une place rare dans l'histoire de Geobuilder").
+- ✅ **Helper `_get_numero_fondateur()`** dans `server.py` : lit `ordre` depuis `00_Fondateurs` matché par `pio_id_propose`, formate sur 3 chiffres ("007"). Cache module-level pour éviter quota.
+- ✅ **Découplage Fondateur ≠ Ambassadeur** : `_process_livraison` n'écrit plus `ambassadeur=true` ni `communaute_statut="Fondateur · Ambassadeur"` quand `fondateur=true`. Le statut Ambassadeur est désormais purement déclaratif via `/api/ambassadeur/signature`.
+- ✅ **Badge Ambassadeur** retiré de la livraison (généré uniquement à la signature volontaire).
+- ✅ **Génération de masse — `scripts/regenerate_all_pioneers.py`** : 163/163 pionniers régénérés (7 docs/fondateur, 5 docs/non-fondateur) et poussés sur GitHub Pages. AUCUN email envoyé (consigne respectée). Cache `read_all` en mémoire pour éviter saturation quota Sheets.
+- ✅ **Helper unifié `_regenerate_all_docs_for_pioneer(pio_row, install_row, sheets, gh)`** dans server.py — réutilisable pour SAV/régénérations futures.
+
+## Backlog restant (P0/P1/P2)
+- **P0** : Validation "100 max" *par territoire* (Mayotte, Réunion, Maurice, Madagascar, Comores, Tanzanie) à l'ajout dans `00_Fondateurs`.
+- **P1** : Remplacer URL LinkedIn sur les templates restants (Passeport, Certificat, Ambassadeur, Badge…). Seul `portail_pionnier.html` est fait à ce jour.
+- **P1** : Bascule `AMBASSADEUR_WEBHOOK_URL` en prod après déploiement de l'app.
+- **P2** : Récupération d'accès (formulaire de récupération espace pionnier).
+- **P2** : Multi-générateur (carrousel) dans Espace Pionnier.
+- **P2** : Refactor `server.py` (~2150 lignes) — extraire pipeline livraison et helpers de rendu vers `services/`.
