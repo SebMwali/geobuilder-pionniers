@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Passeport d'Installation — INST-2071</title>
+
+<!--
+  ============================================================================
+  GEOBUILDER · PASSEPORT D'INSTALLATION (V1)
+  Projet : Pionniers — totalement séparé de l'app SAV
+  Livrable : fichier .html autonome
+  Pipeline : Google Sheet Pionniers → Make → ce template → GitHub Pages
+  Placeholders : Mustache 
+  Documentation : voir README.md dans le même dossier
+  ============================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:         #05080F;
+    --bg-card:    #0B1220;
+    --bg-card-2:  #0E1626;
+    --line:       #1A2B45;
+    --line-2:     #25416A;
+    --text:       #F2F5FA;
+    --text-dim:   #98A6BD;
+    --text-mute:  #5C6A82;
+    --accent:     #3A8FE8;
+    --accent-2:   #5BA9FF;
+    --accent-dim: rgba(58, 143, 232,.18);
+    --ok:         #4ADE80;
+    --ok-dim:     rgba(74,222,128,.12);
+    --bad:        #EF4444;
+    --bad-dim:    rgba(239,68,68,.12);
+    --gold:       #C8A65B;
+    --radius:     14px;
+    --radius-sm:  10px;
+    --shadow:     0 20px 60px rgba(0,0,0,.55);
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Montserrat',-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:.01em}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{color:var(--accent-2)}
+  ::selection{background:var(--accent);color:#000}
+  img{display:block;max-width:100%}
+
+  /* Ambient background */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(900px 500px at 18% 0%, rgba(58, 143, 232,.12), transparent 60%),
+      radial-gradient(800px 500px at 85% 18%, rgba(58, 143, 232,.07), transparent 60%),
+      linear-gradient(180deg, #060A14 0%, #05080F 100%);
+  }
+
+  /* ----- Page wrapper ----- */
+  .page{max-width:1280px;margin:0 auto;padding:36px 28px 64px}
+
+  /* ----- Header ----- */
+  header.top{
+    display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:center;
+    padding:8px 12px 36px;
+  }
+  .brand{display:flex;align-items:center;gap:18px}
+  .brand .logo{height:180px;width:auto;max-width:520px;flex-shrink:0;object-fit:contain;filter:drop-shadow(0 0 40px rgba(58, 143, 232,.45))}
+  .brand .b-txt{display:none}
+  .brand .b-txt .b1{font-size:30px;font-weight:800;letter-spacing:.06em;line-height:1}
+  .brand .b-txt .b2{font-size:11px;letter-spacing:.32em;color:var(--text-dim);margin-top:6px;font-weight:500}
+  .brand .b-txt .b2 b{color:var(--accent);font-weight:600}
+
+  .top-right{text-align:right}
+  .top-right h1{margin:0;font-size:32px;font-weight:700;letter-spacing:.08em}
+  .top-right .sub{margin-top:8px;font-size:13px;color:var(--text-dim);letter-spacing:.02em}
+
+  /* ----- Layout 2 columns ----- */
+  .grid{display:grid;grid-template-columns:1.55fr 1fr;gap:22px;align-items:stretch}
+  .left-col, .right-col{display:flex;flex-direction:column;gap:22px;height:100%}
+  /* Le bloc HISTORIQUE (gauche) et VÉRIFICATION+COMMUNAUTÉ (droite) prennent l'espace restant */
+  .left-col > section:nth-child(2){flex-grow:1;display:flex;flex-direction:column}
+  .right-col > section:last-of-type{margin-top:auto}
+
+  /* ----- Cards ----- */
+  .card{
+    background:linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:24px 26px;
+    box-shadow:var(--shadow);
+    position:relative;
+  }
+  .card-title{
+    font-size:11px;letter-spacing:.32em;color:var(--text-dim);text-transform:uppercase;
+    font-weight:600;margin-bottom:18px;
+  }
+
+  /* ----- Top IDs row ----- */
+  .id-row{
+    display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;
+    padding-bottom:20px;margin-bottom:22px;border-bottom:1px solid var(--line);
+  }
+  .id-row > div{padding:0 18px}
+  .id-row > div:first-child{padding-left:0}
+  .id-row > div:last-child{padding-right:0;text-align:right}
+  .id-row > div + div{border-left:1px solid var(--line)}
+  .id-row .k{font-size:10px;letter-spacing:.28em;color:var(--text-dim);text-transform:uppercase;font-weight:600}
+  .id-row .v{font-size:26px;font-weight:700;color:var(--accent);margin-top:8px;letter-spacing:.04em;font-family:'Montserrat'}
+  .id-row .v.statut{display:inline-flex;align-items:center;gap:10px}
+  .id-row .v.statut .dot{width:14px;height:14px;border-radius:50%}
+  .id-row .v.statut.actif{color:var(--ok)}
+  .id-row .v.statut.actif .dot{background:var(--ok);box-shadow:0 0 0 5px var(--ok-dim)}
+  .id-row .v.statut.inactif{color:var(--bad)}
+  .id-row .v.statut.inactif .dot{background:var(--bad);box-shadow:0 0 0 5px var(--bad-dim)}
+
+  /* ----- Informations installation ----- */
+  .infos-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:24px;align-items:center}
+  .info-list{display:flex;flex-direction:column;gap:20px}
+  .info-row{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:flex-start}
+  .info-icon{
+    width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+    background:var(--accent-dim);color:var(--accent);
+    border:1px solid rgba(58, 143, 232,.35);
+  }
+  .info-icon svg{width:20px;height:20px}
+  .info-text .k{font-size:10px;letter-spacing:.24em;color:var(--text-dim);text-transform:uppercase;font-weight:600}
+  .info-text .v{font-size:18px;font-weight:600;color:var(--text);margin-top:4px;letter-spacing:.02em}
+  .info-text .v.garantie-active{color:var(--ok)}
+  .info-text .v.garantie-expiree{color:var(--bad)}
+  /* Bloc NS manquant — invitation à transmettre par email */
+  .ns-missing-pass{margin-top:6px;padding:10px 12px;background:rgba(255,184,0,0.08);border:1px solid rgba(255,184,0,0.30);border-radius:8px;min-height:110px;display:flex;flex-direction:column}
+  .ns-missing-pass .ns-missing-title{font-size:11px;font-weight:700;color:#c98800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
+  .ns-missing-pass .ns-missing-text{font-size:11.5px;color:var(--text-dim);line-height:1.4;margin-bottom:8px;flex:1}
+  .ns-missing-pass .ns-missing-cta{display:inline-block;padding:7px 12px;border-radius:6px;background:#0a1424;color:#fff;text-decoration:none;font-size:12px;font-weight:600;align-self:flex-start}
+  .ns-missing-pass .ns-missing-cta:hover{background:#1a2438}
+  .info-text .hint{font-size:12px;color:var(--text-mute);margin-top:3px;font-weight:400}
+
+  .gen-img{
+    aspect-ratio:1/1;background:radial-gradient(circle at 50% 60%, rgba(58, 143, 232,.25) 0%, transparent 60%);
+    display:flex;align-items:center;justify-content:center;
+    border-radius:var(--radius-sm);
+  }
+  .gen-img img{max-width:88%;max-height:88%;object-fit:contain;filter:drop-shadow(0 30px 50px rgba(0,0,0,.7))}
+
+  /* ----- Historique table ----- */
+  .histo-head, .histo-row{
+    display:grid;
+    grid-template-columns:40px 110px 1fr 110px 70px;
+    gap:14px;align-items:center;
+    padding:18px 0;
+  }
+  .histo-head{
+    border-bottom:1px solid var(--line);
+    font-size:10px;letter-spacing:.24em;color:var(--text-dim);text-transform:uppercase;font-weight:600;
+    padding-top:0;padding-bottom:14px;margin-bottom:6px;
+  }
+  .histo-head > div:first-child{}
+  .histo-row{border-bottom:1px solid rgba(26,43,69,.5);flex-grow:1}
+  .histo-row:last-child{border-bottom:none}
+  .histo-icon{
+    width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;
+    background:var(--accent-dim);color:var(--accent);border:1px solid rgba(58, 143, 232,.3);
+  }
+  .histo-icon svg{width:18px;height:18px}
+  .histo-date{font-size:13px;color:var(--text);font-weight:500;line-height:1.4}
+  .histo-date .time{display:block;font-size:11px;color:var(--text-mute);margin-top:2px;font-weight:400}
+  .histo-type{font-size:13px;color:var(--text);font-weight:600;line-height:1.4;letter-spacing:.05em}
+  .histo-type .desc{display:block;font-size:11px;color:var(--text-mute);font-weight:400;margin-top:2px;letter-spacing:0;text-transform:none}
+  .histo-tech{font-size:13px;color:var(--text);font-weight:500}
+  .histo-pdf a{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:6px 10px;border:1px solid var(--line-2);border-radius:8px;
+    font-size:11px;font-weight:600;letter-spacing:.1em;color:var(--accent);
+    background:rgba(58, 143, 232,.06);
+    transition:border-color .2s,background .2s;
+  }
+  .histo-pdf a:hover{border-color:var(--accent);background:rgba(58, 143, 232,.14)}
+  .histo-pdf svg{width:13px;height:13px}
+
+  .voir-tout{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    margin-top:18px;padding:14px;font-size:11px;letter-spacing:.24em;font-weight:600;
+    color:var(--accent);text-transform:uppercase;
+    border-top:1px solid var(--line);
+  }
+  .voir-tout svg{width:12px;height:12px}
+
+  /* ----- Documents ----- */
+  .docs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .doc-card{
+    border:1px solid var(--line);border-radius:var(--radius-sm);
+    padding:22px 16px 18px;text-align:center;
+    transition:border-color .25s,transform .25s;
+    background:rgba(11,18,32,.4);
+    text-decoration:none;
+  }
+  .doc-card:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .doc-card .di{
+    width:54px;height:54px;margin:0 auto 14px;
+    border-radius:12px;background:rgba(58, 143, 232,.08);border:1px solid var(--line-2);
+    display:flex;align-items:center;justify-content:center;color:var(--accent);
+  }
+  .doc-card .di svg{width:26px;height:26px}
+  .doc-card .dt{font-size:11px;letter-spacing:.18em;color:var(--text);font-weight:700;text-transform:uppercase;line-height:1.4;min-height:32px;display:flex;align-items:center;justify-content:center}
+  .doc-card .dc{
+    margin-top:14px;padding:8px 0;border-top:1px solid var(--line);
+    font-size:10px;letter-spacing:.24em;color:var(--accent);font-weight:600;
+  }
+  .docs-all{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    margin-top:18px;padding:14px;font-size:11px;letter-spacing:.24em;font-weight:600;
+    color:var(--accent);text-transform:uppercase;
+    border-top:1px solid var(--line);
+  }
+  .docs-all svg{width:12px;height:12px}
+
+  /* ----- Right column ----- */
+  .right-col .card{margin:0;flex-shrink:0}
+
+  /* Emplacement */
+  .emp-photo{
+    aspect-ratio:16/10;border-radius:var(--radius-sm);overflow:hidden;
+    background:#0a0f1a;border:1px solid var(--line);
+  }
+  .emp-photo img{width:100%;height:100%;object-fit:cover}
+  .emp-loc{
+    margin-top:14px;display:flex;align-items:center;gap:10px;justify-content:center;
+  }
+  .emp-loc .pin{width:18px;height:18px;color:var(--accent)}
+  .emp-loc .l{font-size:13px;letter-spacing:.18em;font-weight:600;text-align:center}
+  .emp-loc .l .country{display:block;font-size:10px;letter-spacing:.28em;color:var(--text-dim);margin-top:4px;font-weight:500}
+
+  /* Vérification */
+  .qr-wrap{
+    display:flex;align-items:center;gap:18px;margin-bottom:16px;
+  }
+  .qr{
+    width:90px;height:90px;background:#fff;border-radius:8px;padding:6px;flex-shrink:0;
+  }
+  .qr img{width:100%;height:100%;display:block}
+  .qr-txt{font-size:12px;color:var(--text-dim);line-height:1.5}
+  .verif-btn{
+    display:flex;align-items:center;gap:10px;justify-content:center;
+    padding:12px;border:1px solid var(--accent);border-radius:10px;
+    color:var(--accent);font-size:11px;letter-spacing:.24em;font-weight:700;text-transform:uppercase;
+    background:rgba(58, 143, 232,.06);
+  }
+  .verif-btn .vb-txt{display:flex;flex-direction:column;align-items:center;gap:2px}
+  .verif-btn .vb-txt .sub{font-size:9px;letter-spacing:.18em;color:var(--text-dim);font-weight:500;text-transform:none}
+  .verif-btn svg{width:18px;height:18px;flex-shrink:0}
+
+  /* Statut Communauté */
+  .badges{display:flex;gap:16px;justify-content:center;align-items:center}
+  .badges .badge-item{flex:1;max-width:160px}
+  .badges .badge-item img{width:100%;height:auto;border-radius:8px;display:block}
+
+  /* Prochaine intervention */
+  .next-int{text-align:center}
+  .next-icon{
+    width:72px;height:72px;margin:6px auto 14px;border-radius:50%;
+    background:rgba(58, 143, 232,.1);border:1px solid var(--line-2);
+    display:flex;align-items:center;justify-content:center;color:var(--accent);
+    box-shadow:0 0 0 8px rgba(58, 143, 232,.04);
+  }
+  .next-icon svg{width:32px;height:32px}
+  .next-type{font-size:12px;letter-spacing:.22em;color:var(--text);font-weight:700;text-transform:uppercase}
+  .next-date{font-size:24px;color:var(--accent);font-weight:700;margin-top:8px;letter-spacing:.05em}
+  .next-when{font-size:12px;color:var(--text-dim);margin-top:6px}
+  .next-btn, .assist-btn{
+    margin-top:18px;display:flex;align-items:center;gap:10px;justify-content:center;
+    padding:13px;border:1px solid var(--line-2);border-radius:10px;
+    color:var(--accent);font-size:11px;letter-spacing:.22em;font-weight:700;text-transform:uppercase;
+    background:rgba(58, 143, 232,.04);
+    transition:border-color .2s,background .2s;
+  }
+  .next-btn:hover, .assist-btn:hover{border-color:var(--accent);background:rgba(58, 143, 232,.14)}
+  .next-btn svg, .assist-btn svg{width:14px;height:14px}
+
+  /* Assistance */
+  .assist-lead{font-size:13px;color:var(--text-dim);line-height:1.5;margin-bottom:14px}
+  .assist-list{display:flex;flex-direction:column;gap:12px}
+  .assist-row{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--text)}
+  .assist-row .ai{
+    width:30px;height:30px;border-radius:8px;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;color:var(--accent);
+    border:1px solid var(--line-2);background:rgba(58, 143, 232,.06);
+  }
+  .assist-row .ai svg{width:14px;height:14px}
+
+  /* ----- Footer ----- */
+  footer.bottom{
+    margin-top:48px;padding:24px 12px 0;
+    text-align:center;font-size:11px;letter-spacing:.5em;
+    color:var(--text-mute);font-weight:500;text-transform:uppercase;
+  }
+  footer.bottom b{color:var(--text-dim);font-weight:600}
+
+  /* ----- Responsive ----- */
+  @media (max-width:1024px){
+    .grid{grid-template-columns:1fr}
+    .infos-grid{grid-template-columns:1fr}
+    .gen-img{max-width:300px;margin:0 auto}
+    .docs-grid{grid-template-columns:1fr}
+    header.top{grid-template-columns:1fr;text-align:left}
+    .top-right{text-align:left}
+  }
+  @media (max-width:680px){
+    .page{padding:20px 14px 40px}
+    .card{padding:20px 18px}
+    .id-row{grid-template-columns:1fr;gap:14px}
+    .id-row > div{padding:14px 0;border-left:none!important;border-bottom:1px solid var(--line);text-align:left!important}
+    .id-row > div:last-child{border-bottom:none;text-align:left!important}
+    .id-row .v{font-size:22px}
+    .histo-head, .histo-row{grid-template-columns:36px 1fr 70px;gap:10px}
+    .histo-head > div:nth-child(2), .histo-head > div:nth-child(4),
+    .histo-row > .histo-date{display:none}
+    .histo-tech{font-size:11px}
+    .badges{flex-direction:column}
+    .qr-wrap{flex-direction:column;align-items:center;text-align:center}
+  }
+
+  /* ----- Print A4 ----- */
+  @media print{
+    @page{size:A4;margin:10mm}
+    body::before{display:none}
+    html,body{background:#fff;color:#0a0e1a}
+    .card{box-shadow:none;background:#fff;border-color:#dbe2ee}
+    .card-title,.id-row .k,.info-text .k,.histo-head,.histo-type .desc,.histo-date .time,.next-when,.assist-lead,footer.bottom{color:#5d6e8b!important}
+    .id-row .v,.info-text .v,.histo-pdf a,.docs-all,.voir-tout,.next-date,.next-btn,.assist-btn,.verif-btn,.brand .b-txt .b2 b,.info-icon,.histo-icon,.doc-card .di,.next-icon,.assist-row .ai{color:#1f5fb4!important}
+    .grid{grid-template-columns:1.55fr 1fr}
+    .info-icon,.histo-icon,.doc-card .di,.next-icon,.assist-row .ai{background:#eef4fd;border-color:#bcd3ef}
+  }
+</style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- ====================== HEADER ====================== -->
+    <header class="top">
+      <div class="brand">
+        <img class="logo" src="https://customer-assets.emergentagent.com/job_7b25a5ce-3fc1-48d8-aebb-1fc88d456845/artifacts/n5rx1kml_Logo-Geobuilder.png" alt="Geobuilder" />
+        <div class="b-txt">
+          <div class="b1">GEOBUILDER<sup style="font-size:13px;vertical-align:super">®</sup></div>
+          <div class="b2">REPRENONS LE POUVOIR SUR <b>L'EAU.</b></div>
+        </div>
+      </div>
+      <div class="top-right">
+        <h1>PASSEPORT D'INSTALLATION</h1>
+        <div class="sub">Document dynamique mis à jour en temps réel</div>
+      </div>
+    </header>
+
+    <!-- ====================== LAYOUT ====================== -->
+    <div class="grid">
+
+      <!-- ============== COLONNE GAUCHE ============== -->
+      <div class="left-col">
+
+        <!-- BLOC : INFORMATIONS INSTALLATION -->
+        <section class="card">
+          <div class="id-row">
+            <div>
+              <div class="k">INSTALL-ID</div>
+              <div class="v">INST-2071</div>
+            </div>
+            <div>
+              <div class="k">PIONNIER</div>
+              <div class="v">PIO-1073</div>
+            </div>
+            <div>
+              <div class="k">STATUT</div>
+              <div class="v statut active">
+                <span class="dot"></span>
+                <span>Pionnier</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-title">INFORMATIONS INSTALLATION</div>
+
+          <div class="infos-grid">
+            <div class="info-list">
+              <div class="info-row">
+                <div class="info-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5C12 2.5 5 10 5 15a7 7 0 0 0 14 0c0-5-7-12.5-7-12.5z"/></svg>
+                </div>
+                <div class="info-text">
+                  <div class="k">PRODUIT</div>
+                  <div class="v">G30</div>
+                </div>
+              </div>
+
+              <div class="info-row">
+                <div class="info-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5v14M7 5v14M10 5v14M14 5v14M17 5v14M20 5v14"/></svg>
+                </div>
+                <div class="info-text">
+                  <div class="k">NUMÉRO DE SÉRIE</div>
+                  <div class="v">HR88C23JFR0700</div>
+                </div>
+              </div>
+
+              <div class="info-row">
+                <div class="info-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                </div>
+                <div class="info-text">
+                  <div class="k">DATE D'INSTALLATION</div>
+                  <div class="v">24/01/2024</div>
+                </div>
+              </div>
+
+              <div class="info-row">
+                <div class="info-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <div class="info-text">
+                  <div class="k">TERRITOIRE</div>
+                  <div class="v"></div>
+                </div>
+              </div>
+
+              <div class="info-row">
+                <div class="info-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                </div>
+                <div class="info-text">
+                  <div class="k">GARANTIE</div>
+                  <div class="v garantie-active">Active</div>
+                  <div class="hint">Expire le 24/01/2026</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="gen-img">
+              <img src="https://res.cloudinary.com/dahmkv4ra/image/upload/v1781308463/G30-_fqyqhz.png" alt="Générateur G30" />
+            </div>
+          </div>
+        </section>
+
+        <!-- BLOC : HISTORIQUE -->
+        <section class="card">
+          <div class="card-title">HISTORIQUE DES INTERVENTIONS</div>
+
+          <div class="histo-head">
+            <div></div>
+            <div>DATE</div>
+            <div>TYPE D'INTERVENTION</div>
+            <div>TECHNICIEN</div>
+            <div>RAPPORT</div>
+          </div>
+
+          <div class="histo-row"><div class="histo-icon"></div><div class="histo-date">24/01/2024</div><div class="histo-type">Installation initiale</div><div class="histo-tech">—</div><div class="histo-pdf"></div></div>
+
+          <a class="voir-tout" href="#">
+            VOIR TOUT L'HISTORIQUE
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </a>
+        </section>
+
+        <!-- BLOC : DOCUMENTS -->
+        <section class="card">
+          <div class="card-title">DOCUMENTS</div>
+          <div class="docs-grid">
+            <a class="doc-card" href="https://sebmwali.github.io/geobuilder-pionniers/G30%20USER%20MANUAL-1.pdf" target="_blank" rel="noopener">
+              <div class="di">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+              </div>
+              <div class="dt">MANUEL<br>UTILISATEUR</div>
+              <div class="dc">CONSULTER</div>
+            </a>
+            <a class="doc-card" href="https://sebmwali.github.io/geobuilder-pionniers/ambassadeur.html" target="_blank" rel="noopener">
+              <div class="di">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <div class="dt">DEVENEZ<br>AMBASSADEUR</div>
+              <div class="dc">REJOINDRE</div>
+            </a>
+            <a class="doc-card" href="https://sebmwali.github.io/geobuilder-pionniers/Geobuilder_Fiche_G30.pdf" target="_blank" rel="noopener">
+              <div class="di">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+              </div>
+              <div class="dt">FICHE<br>TECHNIQUE</div>
+              <div class="dc">CONSULTER</div>
+            </a>
+          </div>
+          <a class="docs-all" href="" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            TÉLÉCHARGER TOUS LES DOCUMENTS
+          </a>
+        </section>
+
+      </div>
+
+      <!-- ============== COLONNE DROITE ============== -->
+      <div class="right-col">
+
+        <!-- BLOC : EMPLACEMENT -->
+        <section class="card">
+          <div class="card-title">EMPLACEMENT</div>
+          <div class="emp-photo">
+            <img src="https://res.cloudinary.com/dahmkv4ra/image/upload/v1781392846/G-30_myykrz.png" alt="Emplacement " />
+          </div>
+          <div class="emp-loc">
+            <svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div class="l">
+              
+              <span class="country"></span>
+            </div>
+          </div>
+        </section>
+
+        <!-- BLOC : VÉRIFICATION -->
+        <section class="card">
+          <div class="card-title">VÉRIFICATION</div>
+          <div class="qr-wrap">
+            <div class="qr">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&margin=0&data=https://sebmwali.github.io/geobuilder-pionniers/certificats/garantie/INST-2071.html" alt="QR code de vérification de garantie" />
+            </div>
+            <div class="qr-txt">Scannez ce QR code pour vérifier l'authenticité et l'état de garantie de votre installation.</div>
+          </div>
+          <a href="https://sebmwali.github.io/geobuilder-pionniers/certificats/garantie/INST-2071.html" class="verif-btn" style="text-decoration:none;color:inherit;cursor:pointer;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+            <div class="vb-txt">
+              <span>VOIR LE CERTIFICAT DE GARANTIE</span>
+              <span class="sub">Ce passeport est authentique</span>
+            </div>
+          </a>
+        </section>
+
+        <!-- BLOC : STATUT COMMUNAUTÉ — 3x1 grid (Ambassadeur / Super Ambassadeur / Fondateur) -->
+        <section class="card">
+          <div class="card-title">STATUT COMMUNAUTÉ</div>
+          <style>
+            .gb-badges {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              gap: 18px;
+              padding: 6px 0 4px;
+              max-width: 720px;
+              margin: 0 auto;
+            }
+            .gb-badge-slot {
+              position: relative;
+              width: 100%;
+              aspect-ratio: 1086 / 1448;
+              border-radius: 12px;
+              overflow: hidden;
+              background: #000;
+              box-shadow: 0 8px 18px rgba(0,0,0,0.45), 0 0 0 1px rgba(58,143,232,0.25);
+            }
+            .gb-badge-frame {
+              position: absolute; inset: 0;
+              text-decoration: none;
+              display: block;
+              transition: transform .25s ease, box-shadow .25s ease;
+            }
+            .gb-badge-frame:hover {
+              transform: translateY(-3px);
+              filter: brightness(1.08);
+            }
+            .gb-badge-frame iframe {
+              position: absolute; inset: 0;
+              width: 100%; height: 100%;
+              border: 0;
+              pointer-events: none;
+            }
+            .gb-badge-locked {
+              position: absolute; inset: 0;
+              display: flex; flex-direction: column;
+              align-items: center; justify-content: center;
+              text-align: center;
+              padding: 12px;
+              background:
+                linear-gradient(180deg, rgba(58,143,232,.06) 0%, rgba(0,0,0,.85) 100%),
+                radial-gradient(ellipse at center, rgba(58,143,232,.1) 0%, rgba(0,0,0,1) 70%);
+              color: rgba(200,210,230,.65);
+              font-family: 'Cinzel', 'Trajan Pro', Georgia, serif;
+              border: 1px dashed rgba(58,143,232,.25);
+              border-radius: 12px;
+            }
+            .gb-badge-locked .lock-icon {
+              width: 36px; height: 36px;
+              opacity: .55;
+              margin-bottom: 14px;
+              stroke: rgba(58,143,232,.7);
+              fill: none; stroke-width: 1.8;
+            }
+            .gb-badge-locked .lock-label {
+              font-size: 11px;
+              letter-spacing: .22em;
+              text-transform: uppercase;
+              font-weight: 700;
+              color: rgba(58,143,232,.85);
+              margin-bottom: 6px;
+            }
+            .gb-badge-locked .lock-status {
+              font-size: 10px;
+              letter-spacing: .18em;
+              text-transform: uppercase;
+              color: rgba(160,170,190,.45);
+            }
+            @media (max-width: 520px){
+              .gb-badges{ gap: 10px; }
+              .gb-badge-locked .lock-label{ font-size: 9px; }
+              .gb-badge-locked .lock-icon{ width: 24px; height: 24px; margin-bottom: 8px; }
+            }
+          </style>
+          <div class="gb-badges">
+
+            <!-- Slot 1 : AMBASSADEUR -->
+            <div class="gb-badge-slot">
+              <a href="https://sebmwali.github.io/geobuilder-pionniers/badges/ambassadeur/PIO-1073.html" target="_blank" rel="noopener" class="gb-badge-frame" style="display: none;" title="Voir le badge Ambassadeur en grand">
+                <iframe src="https://sebmwali.github.io/geobuilder-pionniers/badges/ambassadeur/PIO-1073.html" scrolling="no" sandbox="allow-same-origin"></iframe>
+              </a>
+              <div class="gb-badge-locked" style="display: flex;">
+                <svg class="lock-icon" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+                <div class="lock-label">Ambassadeur</div>
+                <div class="lock-status">À acquérir</div>
+              </div>
+            </div>
+
+            <!-- Slot 2 : SUPER AMBASSADEUR -->
+            <div class="gb-badge-slot">
+              <a href="https://sebmwali.github.io/geobuilder-pionniers/badges/super-ambassadeur/PIO-1073.html" target="_blank" rel="noopener" class="gb-badge-frame" style="display: none;" title="Voir le badge Super Ambassadeur en grand">
+                <iframe src="https://sebmwali.github.io/geobuilder-pionniers/badges/super-ambassadeur/PIO-1073.html" scrolling="no" sandbox="allow-same-origin"></iframe>
+              </a>
+              <div class="gb-badge-locked" style="display: flex;">
+                <svg class="lock-icon" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+                <div class="lock-label">Super Ambassadeur</div>
+                <div class="lock-status">À acquérir</div>
+              </div>
+            </div>
+
+            <!-- Slot 3 : FONDATEUR -->
+            <div class="gb-badge-slot">
+              <a href="https://sebmwali.github.io/geobuilder-pionniers/badges/fondateur/PIO-1073.html" target="_blank" rel="noopener" class="gb-badge-frame" style="display: block;" title="Voir le badge Fondateur en grand">
+                <iframe src="https://sebmwali.github.io/geobuilder-pionniers/badges/fondateur/PIO-1073.html" scrolling="no" sandbox="allow-same-origin"></iframe>
+              </a>
+              <div class="gb-badge-locked" style="display: none;">
+                <svg class="lock-icon" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+                <div class="lock-label">Fondateur</div>
+                <div class="lock-status">Réservé aux 1<sup>ers</sup></div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- BLOC : PROCHAINE INTERVENTION -->
+        <section class="card">
+          <div class="card-title">PROCHAINE INTERVENTION</div>
+          <div class="next-int">
+            <div class="next-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            </div>
+            <div class="next-type">Entretien annuel</div>
+            <div class="next-date">Janvier 2025</div>
+            <div class="next-when"></div>
+            <a class="next-btn" href="mailto:contact@geobuilder.fr?subject=Prise%20de%20rendez-vous%20-%20INST-2071">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              PRENDRE RENDEZ-VOUS
+            </a>
+          </div>
+        </section>
+
+        <!-- BLOC : ASSISTANCE -->
+        <section class="card">
+          <div class="card-title">ASSISTANCE &amp; SUPPORT</div>
+          <div class="assist-lead">Notre équipe est à votre disposition pour toute assistance.</div>
+          <div class="assist-list">
+            <div class="assist-row">
+              <div class="ai">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+              </div>
+              <a href="tel:+262262666374">+262&nbsp;262&nbsp;66&nbsp;63&nbsp;74</a>
+            </div>
+            <div class="assist-row">
+              <div class="ai">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+              </div>
+              <a href="mailto:contact@geobuilder.fr">contact@geobuilder.fr</a>
+            </div>
+            <div class="assist-row">
+              <div class="ai">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              </div>
+              <a href="https://www.geobuilder.fr" target="_blank" rel="noopener">www.geobuilder.fr</a>
+            </div>
+          </div>
+          <a class="assist-btn" href="mailto:contact@geobuilder.fr?subject=Demande%20d'assistance%20-%20INST-2071">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-7h3zM3 19a2 2 0 0 0 2 2h1v-7H3z"/></svg>
+            DEMANDER UNE ASSISTANCE
+          </a>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- ====================== FOOTER ====================== -->
+    <footer class="bottom">
+      <b>GEOBUILDER®</b> &nbsp;·&nbsp; L'EAU. &nbsp;·&nbsp; PURE. &nbsp;·&nbsp; INFINIE
+    </footer>
+
+  </div>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"7f7b0fd8732c4326aae4b9d58d5c514a","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
