@@ -1,0 +1,283 @@
+[
+  {
+    "pio_id": "PIO-1012",
+    "nom_complet": "Hippocampe plongée",
+    "email": "direction@hippocampe976.fr",
+    "client_type_actuel": "Entreprise",
+    "categorie_suspectee": "Entreprise",
+    "flags": [
+      "client_type=Entreprise",
+      "mot-clé structure"
+    ],
+    "confiance": 1.0
+  },
+  {
+    "pio_id": "PIO-1014",
+    "nom_complet": "Atelier Mahorais d'architecture",
+    "email": "ama1@ama.yt; ama3@ama.yt",
+    "client_type_actuel": "Entreprise",
+    "categorie_suspectee": "Entreprise",
+    "flags": [
+      "client_type=Entreprise",
+      "mot-clé structure"
+    ],
+    "confiance": 1.0
+  },
+  {
+    "pio_id": "PIO-1017",
+    "nom_complet": "Patricia Marceaux",
+    "email": "Julien.Ricou@ac-mayotte.fr; AMBDILLAH.ALLOUI@ac-mayotte.fr; gest.clg.chiconi@ac-mayotte.fr",
+    "client_type_actuel": "Administration",
+    "categorie_suspectee": "Administration",
+    "flags": [
+      "client_type=Administration"
+    ],
+    "confiance": 1.0
+  },
+  {
+    "pio_id": "PIO-1018",
+    "nom_complet": "Association unono wa matso",
+    "email": "administration@unono.yt; melodia.avahouin@unono.yt; richard.lopez@unono.yt",
+    "client_type_actuel": "Administration",
+    "categorie_suspectee": "Administration",
+    "flags": [
+      "client_type=Administration",
+      "mot-clé structure"
+    ],
+    "confiance": 1.0
+  },
+  {
+    "pio_id": "PIO-1086",
+    "nom_complet": "Foundi distribution",
+    "email": "foundi.distribution@yahoo.fr",
+    "client_type_actuel": "Entreprise",
+    "categorie_suspectee": "Entreprise",
+    "flags": [
+      "client_type=Entreprise",
+      "mot-clé structure"
+    ],
+    "confiance": 1.0
+  },
+  {
+    "pio_id": "PIO-1076",
+    "nom_complet": "CIRAD Antenne de Mayotte",
+    "email": "rachidati.ridjali@cirad.fr",
+    "client_type_actuel": "Particulier",
+    "categorie_suspectee": "Entreprise/Asso/Admin",
+    "flags": [
+      "mot-clé structure"
+    ],
+    "confiance": 0.9
+  },
+  {
+    "pio_id": "PIO-1078",
+    "nom_complet": "CRECHE Les enfants des Margouillats",
+    "email": "lesenfantsdesmargouillats@hotmail.fr",
+    "client_type_actuel": "Particulier",
+    "categorie_suspectee": "Entreprise/Asso/Admin",
+    "flags": [
+      "mot-clé structure"
+    ],
+    "confiance": 0.9
+  },
+  {
+    "pio_id": "PIO-1079",
+    "nom_complet": "Cabinet Infirmier Triquet Triquet François",
+    "email": "francois.triquet53@gmail.com",
+    "client_type_actuel": "Particulier",
+    "categorie_suspectee": "Entreprise/Asso/Admin",
+    "flags": [
+      "mot-clé structure",
+      "prof libérale (INFIRMIER)"
+    ],
+    "confiance": 0.9
+  },
+  {
+    "pio_id": "PIO-1087",
+    "nom_complet": "France Alzheimer Mayotte",
+    "email": "alzheimer.mayotte976@gmail.com",
+    "client_type_actuel": "Particulier",
+    "categorie_suspectee": "Entreprise/Asso/Admin",
+    "flags": [
+      "mot-clé structure"
+    ],
+    "confiance": 0.9
+  },
+  {
+    "pio_id": "PIO-1091",
+    "nom_complet": "HELILAGON",
+    "email": "camille.guerineau@helilagon.com",
+    "client_type_actuel": "Particulier",
+    "categorie_suspectee": "Entreprise/Asso/Admin",
+    "flags": [
+      "mot-clé structure"
+    ],
+    "confiance": 0.9
+  },
+  {
+    "pio_id": "PIO-1106",
+    "nom_complet": "Mayotte Clotures et Jardins Fraisse",
+    "email": "nicolasfraisse@wanadoo.fr",
+    "client_type_actuel": "Particulier",
+    "categorie_suspectee": "Entreprise/Asso/Admin",
+    "flags": [
+      "mot-clé structure"
+    ],
+    "confiance": 0.9
+  },
+  {
+    "pio_id": "PIO-1135",
+    "nom_complet": "SARL VETO",
+    "email": "selarl.veto@wanadoo.fr",
+    "client_type_actuel": "Particulier",
+    "categorie_suspectee": "Entreprise/Asso/Admin",
+    "flags": [
+      "mot-clé structure"
+    ],
+    "confiance": 0.9
+  },
+  {
+    "pio_id": "PIO-1142",
+    "nom_complet": "ROCS",
+    "email": "grigaud@rocs.fr",
+    "client_type_actuel": "Particulier",
+    "categorie_suspectee": "Entreprise/Asso/Admin",
+    "flags": [
+      "mot-clé structure",
+      "acronyme MAJ sans prenom"
+    ],
+    "confiance": 0.9
+  },
+  {
+    "pio_id": "PIO-1143",
+    "nom_complet": "SAS MATIS",
+    "email": "secretariat@matis.yt",
+    "client_type_actuel": "Particulier",
+    "categorie_suspectee": "Entreprise/Asso/Admin",
+    "flags": [
+      "mot-clé structure"
+    ],
+    "confiance": 0.9
+  },
+  {
+    "pio_id": "PIO-1144",
+    "nom_complet": "SOS OXYGENE",
+    "email": "k.subra@sosoxygene.com",
+    "client_type_actuel": "Particulier",
+    "categorie_suspectee": "Entreprise/Asso/Admin",
+    "flags": [
+      "mot-clé structure"
+    ],
+    "confiance": 0.9
+  },
+  {
+    "pio_id": "PIO-1146",
+    "nom_complet": "Gaëlle TOURON",
+    "email": "gaboritgaelle@hotmail.com",
+    "client_type_actuel": "Particulier",
+    "categorie_suspectee": "Entreprise/Asso/Admin",
+    "flags": [
+      "mot-clé structure"
+    ],
+    "confiance": 0.9
+  },
+  {
+    "pio_id": "PIO-1151",
+    "nom_complet": "Tetrama exploitation",
+    "email": "malik.kalfane@groupetetrama.fr; comptabilite@groupetetrama.fr; shaeen.caillet@groupetetrama.fr",
+    "client_type_actuel": "Particulier",
+    "categorie_suspectee": "Entreprise/Asso/Admin",
+    "flags": [
+      "mot-clé structure"
+    ],
+    "confiance": 0.9
+  },
+  {
+    "pio_id": "PIO-1007",
+    "nom_complet": "STEPHAN",
+    "email": "",
+    "client_type_actuel": "Particulier",
+    "categorie_suspectee": "Acronyme structure ?",
+    "flags": [
+      "acronyme MAJ sans prenom"
+    ],
+    "confiance": 0.6
+  },
+  {
+    "pio_id": "PIO-1039",
+    "nom_complet": "WEISS",
+    "email": "sebastienw54@hotmail.com",
+    "client_type_actuel": "Particulier",
+    "categorie_suspectee": "Acronyme structure ?",
+    "flags": [
+      "acronyme MAJ sans prenom"
+    ],
+    "confiance": 0.6
+  },
+  {
+    "pio_id": "PIO-1067",
+    "nom_complet": "ANSEL",
+    "email": "tavaillon@gmail.com",
+    "client_type_actuel": "Particulier",
+    "categorie_suspectee": "Acronyme structure ?",
+    "flags": [
+      "acronyme MAJ sans prenom"
+    ],
+    "confiance": 0.6
+  },
+  {
+    "pio_id": "PIO-1094",
+    "nom_complet": "JOSEPH",
+    "email": "m.jonathanj@hotmail.fr",
+    "client_type_actuel": "Particulier",
+    "categorie_suspectee": "Acronyme structure ?",
+    "flags": [
+      "acronyme MAJ sans prenom"
+    ],
+    "confiance": 0.6
+  },
+  {
+    "pio_id": "PIO-1107",
+    "nom_complet": "ABASSI",
+    "email": "nadjabassi@hotmail.fr",
+    "client_type_actuel": "Particulier",
+    "categorie_suspectee": "Acronyme structure ?",
+    "flags": [
+      "acronyme MAJ sans prenom"
+    ],
+    "confiance": 0.6
+  },
+  {
+    "pio_id": "PIO-1128",
+    "nom_complet": "GARNIER",
+    "email": "docmayotte@yahoo.fr",
+    "client_type_actuel": "Particulier",
+    "categorie_suspectee": "Acronyme structure ?",
+    "flags": [
+      "acronyme MAJ sans prenom"
+    ],
+    "confiance": 0.6
+  },
+  {
+    "pio_id": "PIO-1134",
+    "nom_complet": "OTHMANI",
+    "email": "ramziothmani@gmail.com",
+    "client_type_actuel": "Particulier",
+    "categorie_suspectee": "Acronyme structure ?",
+    "flags": [
+      "acronyme MAJ sans prenom"
+    ],
+    "confiance": 0.6
+  },
+  {
+    "pio_id": "PIO-1152",
+    "nom_complet": "RAFFARD",
+    "email": "maxraf87@gmail.com",
+    "client_type_actuel": "Particulier",
+    "categorie_suspectee": "Acronyme structure ?",
+    "flags": [
+      "acronyme MAJ sans prenom"
+    ],
+    "confiance": 0.6
+  }
+]
