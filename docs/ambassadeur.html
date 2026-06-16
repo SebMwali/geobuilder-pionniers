@@ -660,7 +660,7 @@
     };
 
     try {
-      const res = await fetch("", {
+      const res = await fetch("https://pioneer-ecosystem.preview.emergentagent.com/api/ambassadeur/signature", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
@@ -685,7 +685,7 @@
       n -= 1;
       if (n <= 0){
         clearInterval(t);
-        window.location.href = "";
+        window.location.href = "https://sebmwali.github.io/geobuilder-pionniers/";
       } else {
         countdown.textContent = n;
       }
