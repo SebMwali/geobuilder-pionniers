@@ -353,8 +353,17 @@ def _render_date_bloc_passeport(date_str_fr: str, date_raw: str, pio_id: str, in
 def _render_date_bloc_portail(date_str_fr: str, date_raw: str, pio_id: str, install_id: str,
                                produit: str, prenom: str = "", nom: str = "") -> str:
     """Bloc HTML inséré dans le portail — date d'installation texte OU invitation mailto."""
+    cal_svg = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" '
+               'stroke-linecap="round" stroke-linejoin="round">'
+               '<rect x="3" y="4" width="18" height="18" rx="2"/>'
+               '<line x1="3" y1="10" x2="21" y2="10"/>'
+               '<line x1="8" y1="2" x2="8" y2="6"/>'
+               '<line x1="16" y1="2" x2="16" y2="6"/></svg>')
     if not _is_date_missing(date_raw):
-        return f'<span>Installée le {date_str_fr}</span>'
+        return (
+            f'<div class="meta-line">{cal_svg}'
+            f'<span>Installée le {date_str_fr}</span></div>'
+        )
     mailto = _build_mailto_date(pio_id, install_id, produit, prenom, nom)
     return (
         '<div class="ns-missing">'
@@ -850,6 +859,7 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "MOIS_ANNEE_ADHESION": mois_annee_adhesion,
         "PRODUIT_LABEL": produit_info['label'],
         "PRODUIT_IMAGE_URL": photo_generateur_url,
+        "PHOTO_EMPLACEMENT_URL": photo_emplacement_url or photo_generateur_url,
         "NUMERO_SERIE": payload.numero_serie or f"MJ-{annee}-{install_id.replace('INST-','')}",
         "NUMERO_SERIE_BLOC": _render_ns_bloc_portail(
             payload.numero_serie or "", pio_id, install_id, produit_info["label"],

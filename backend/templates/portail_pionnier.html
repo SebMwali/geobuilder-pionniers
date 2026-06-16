@@ -140,28 +140,34 @@
     color:var(--text-dim); font-size:14px;
     margin-bottom:18px; letter-spacing:0.04em;
   }
-  /* Bloc NS manquant — invitation à transmettre par email */
+  /* Bloc NS / Date manquant — invitation à transmettre par email
+     Les 2 blocs (NS + Date de livraison) doivent avoir une taille
+     identique pour assurer l'harmonie visuelle dans la colonne droite. */
   .ns-missing {
-    margin: 8px 0 18px;
-    padding: 12px 14px;
+    margin: 6px 0 10px;
+    padding: 10px 12px;
     background: rgba(255, 184, 0, 0.10);
     border: 1px solid rgba(255, 184, 0, 0.35);
     border-radius: 10px;
+    min-height: 120px;
+    display: flex; flex-direction: column;
   }
   .ns-missing .ns-missing-title {
-    font-size: 13px; font-weight: 600;
+    font-size: 12px; font-weight: 600;
     color: #ffb800; margin-bottom: 4px;
     letter-spacing: 0.02em;
   }
   .ns-missing .ns-missing-text {
-    font-size: 12.5px; color: var(--text-dim);
-    line-height: 1.45; margin-bottom: 10px;
+    font-size: 11.5px; color: var(--text-dim);
+    line-height: 1.4; margin-bottom: 8px;
+    flex: 1;
   }
   .ns-missing .ns-missing-cta {
     display: inline-flex; align-items: center; gap: 8px;
-    padding: 8px 14px; border-radius: 8px;
+    padding: 7px 12px; border-radius: 8px;
     background: var(--blue); color: #0d1626;
-    text-decoration: none; font-size: 13px; font-weight: 700;
+    text-decoration: none; font-size: 12px; font-weight: 700;
+    align-self: flex-start;
     transition: background 0.2s;
   }
   .ns-missing .ns-missing-cta:hover { background: #7fbcff; }
@@ -488,7 +494,7 @@
 
     <div class="hero-right">
       <div class="title">Mon installation</div>
-      <img class="product-image" src="{{PRODUIT_IMAGE_URL}}" alt="{{PRODUIT_LABEL}}">
+      <img class="product-image" src="{{PHOTO_EMPLACEMENT_URL}}" alt="Mon installation — {{TERRITOIRE_COMPLET}}">
       <div class="install-info">
         <div class="product-name">{{PRODUIT_LABEL}}</div>
         {{NUMERO_SERIE_BLOC}}
@@ -496,10 +502,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
           <span>{{TERRITOIRE_COMPLET}}</span>
         </div>
-        <div class="meta-line">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
-          {{DATE_INSTALLATION_BLOC}}
-        </div>
+        {{DATE_INSTALLATION_BLOC}}
         <div class="meta-line">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           <span class="warranty">Garantie active <span class="warranty-dim">jusqu'au {{DATE_GARANTIE_FIN}}</span></span>
