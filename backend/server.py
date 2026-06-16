@@ -272,7 +272,7 @@ def _render_ns_bloc_portail(numero_serie: str, pio_id: str, install_id: str, pro
         '<div class="ns-missing">'
         '<div class="ns-missing-title">N° de série non renseigné</div>'
         '<div class="ns-missing-text">Merci de nous transmettre le numéro de série inscrit sur l\'étiquette '
-        'arrière de votre générateur pour finaliser votre suivi.</div>'
+        'située sur le côté de votre générateur pour finaliser votre suivi.</div>'
         f'<a class="ns-missing-cta" href="{mailto}">Transmettre mon N° de série →</a>'
         '</div>'
     )
@@ -289,8 +289,79 @@ def _render_ns_bloc_passeport(numero_serie: str, pio_id: str, install_id: str, p
         '<div class="ns-missing-pass">'
         '<div class="ns-missing-title">Non renseigné</div>'
         '<div class="ns-missing-text">Merci de transmettre le N° de série figurant sur l\'étiquette '
-        'arrière de votre générateur.</div>'
+        'située sur le côté de votre générateur.</div>'
         f'<a class="ns-missing-cta" href="{mailto}">Transmettre mon N° de série</a>'
+        '</div>'
+    )
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Bloc DATE D'INSTALLATION manquante — même approche que le NS manquant
+# ─────────────────────────────────────────────────────────────────────────────
+# Sentinelle envoyée par le webhook quand la date n'est pas connue.
+DATE_MISSING_SENTINELS = ("NON RENSEIGNÉE", "NON RENSEIGNEE", "N/A", "-", "")
+
+
+def _is_date_missing(date_str: str) -> bool:
+    """True si la date d'installation est absente / sentinelle."""
+    return (date_str or "").strip().upper() in DATE_MISSING_SENTINELS
+
+
+def _build_mailto_date(pio_id: str, install_id: str, produit: str,
+                       prenom: str = "", nom: str = "") -> str:
+    """Construit un lien mailto: pré-rempli pour transmettre la date de livraison."""
+    from urllib.parse import quote as _q
+    nom_complet = f"{prenom} {nom}".strip()
+    subject = f"Transmission date de livraison — {pio_id}"
+    body_lines = [
+        "Bonjour Geobuilder,",
+        "",
+        "Je vous transmets la date de livraison / installation de mon générateur :",
+        "",
+        "Date de livraison : ____ / ____ / ________",
+        "",
+        "Informations de mon installation :",
+        f"  - Référence Pionnier : {pio_id}",
+    ]
+    if install_id:
+        body_lines.append(f"  - Référence Installation : {install_id}")
+    if produit:
+        body_lines.append(f"  - Produit : {produit}")
+    if nom_complet:
+        body_lines.append(f"  - Nom : {nom_complet}")
+    body_lines.extend(["", "Bien cordialement,"])
+    body = "\n".join(body_lines)
+    return f"mailto:{NS_CONTACT_EMAIL}?subject={_q(subject)}&body={_q(body)}"
+
+
+def _render_date_bloc_passeport(date_str_fr: str, date_raw: str, pio_id: str, install_id: str,
+                                 produit: str, prenom: str = "", nom: str = "") -> str:
+    """Bloc HTML inséré dans le passeport — date d'installation texte OU invitation mailto."""
+    if not _is_date_missing(date_raw):
+        return f'<div class="v">{date_str_fr}</div>'
+    mailto = _build_mailto_date(pio_id, install_id, produit, prenom, nom)
+    return (
+        '<div class="ns-missing-pass">'
+        '<div class="ns-missing-title">Non renseignée</div>'
+        '<div class="ns-missing-text">Merci de nous communiquer la date de livraison de votre '
+        'générateur pour finaliser votre suivi.</div>'
+        f'<a class="ns-missing-cta" href="{mailto}">Communiquer ma date de livraison</a>'
+        '</div>'
+    )
+
+
+def _render_date_bloc_portail(date_str_fr: str, date_raw: str, pio_id: str, install_id: str,
+                               produit: str, prenom: str = "", nom: str = "") -> str:
+    """Bloc HTML inséré dans le portail — date d'installation texte OU invitation mailto."""
+    if not _is_date_missing(date_raw):
+        return f'<span>Installée le {date_str_fr}</span>'
+    mailto = _build_mailto_date(pio_id, install_id, produit, prenom, nom)
+    return (
+        '<div class="ns-missing">'
+        '<div class="ns-missing-title">Date de livraison non renseignée</div>'
+        '<div class="ns-missing-text">Merci de nous communiquer la date de livraison de votre '
+        'générateur pour finaliser votre suivi.</div>'
+        f'<a class="ns-missing-cta" href="{mailto}">Communiquer ma date de livraison →</a>'
         '</div>'
     )
 
@@ -678,6 +749,11 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         ),
         "produit": produit_info["label"],
         "date_installation": _fmt_date_fr(date_inst),
+        "date_installation_bloc": _render_date_bloc_passeport(
+            _fmt_date_fr(date_inst), payload.date_installation or "",
+            pio_id, install_id, produit_info["label"],
+            payload.prenom or "", payload.nom or "",
+        ),
         "date_garantie_fin": _fmt_date_fr(date_garantie_fin),
         "territoire_installation": payload.territoire,
         "pays_affiche": pays_affiche,
@@ -781,6 +857,11 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         ),
         "TERRITOIRE_COMPLET": territoire_complet,
         "DATE_INSTALLATION_FORMATEE": date_install_fmt,
+        "DATE_INSTALLATION_BLOC": _render_date_bloc_portail(
+            date_install_fmt, payload.date_installation or "",
+            pio_id, install_id, produit_info["label"],
+            payload.prenom or "", payload.nom or "",
+        ),
         "DATE_GARANTIE_FIN": date_garantie_fin_fr,
         "URL_CERTIFICAT": url_certificat,
         "URL_GARANTIE": url_garantie,
@@ -1555,6 +1636,12 @@ def _regenerate_passeport(install_row: dict, sheets, gh) -> str:
         ),
         "produit": produit_info["label"],
         "date_installation": _fmt_date_fr(date_inst),
+        "date_installation_bloc": _render_date_bloc_passeport(
+            _fmt_date_fr(date_inst), date_inst,
+            pio_id, install_id, produit_info["label"],
+            (pio_row.get("prenom") or pio_row.get("prénom") or ""),
+            (pio_row.get("nom") or ""),
+        ),
         "date_garantie_fin": _fmt_date_fr(date_garantie_fin),
         "territoire_installation": territoire,
         "pays_affiche": pays_affiche,
