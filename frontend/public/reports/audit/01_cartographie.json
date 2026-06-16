@@ -1,0 +1,828 @@
+{
+  "00_Fondateurs": {
+    "rows_total": 138,
+    "rows_used": 138,
+    "columns": [
+      {
+        "name": "ordre",
+        "filled": 0,
+        "pct": 0.0
+      },
+      {
+        "name": "",
+        "filled": 138,
+        "pct": 100.0
+      },
+      {
+        "name": "prenom",
+        "filled": 33,
+        "pct": 23.9
+      },
+      {
+        "name": "raison_sociale",
+        "filled": 0,
+        "pct": 0.0
+      },
+      {
+        "name": "ville",
+        "filled": 0,
+        "pct": 0.0
+      },
+      {
+        "name": "territoire",
+        "filled": 0,
+        "pct": 0.0
+      },
+      {
+        "name": "email",
+        "filled": 0,
+        "pct": 0.0
+      },
+      {
+        "name": "telephone",
+        "filled": 0,
+        "pct": 0.0
+      },
+      {
+        "name": "date_installation_estimee",
+        "filled": 0,
+        "pct": 0.0
+      },
+      {
+        "name": "commentaire",
+        "filled": 0,
+        "pct": 0.0
+      },
+      {
+        "name": "pio_id_propose",
+        "filled": 0,
+        "pct": 0.0
+      },
+      {
+        "name": "match_status",
+        "filled": 0,
+        "pct": 0.0
+      }
+    ],
+    "headers": [
+      "ordre",
+      "",
+      "prenom",
+      "raison_sociale",
+      "ville",
+      "territoire",
+      "email",
+      "telephone",
+      "date_installation_estimee",
+      "commentaire",
+      "pio_id_propose",
+      "match_status"
+    ]
+  },
+  "01_Pionniers": {
+    "rows_total": 197,
+    "rows_used": 197,
+    "columns": [
+      {
+        "name": "pio_id",
+        "filled": 150,
+        "pct": 76.1
+      },
+      {
+        "name": "NS",
+        "filled": 88,
+        "pct": 44.7
+      },
+      {
+        "name": "nom",
+        "filled": 150,
+        "pct": 76.1
+      },
+      {
+        "name": "prenom",
+        "filled": 107,
+        "pct": 54.3
+      },
+      {
+        "name": "email",
+        "filled": 147,
+        "pct": 74.6
+      },
+      {
+        "name": "telephone",
+        "filled": 145,
+        "pct": 73.6
+      },
+      {
+        "name": "pays",
+        "filled": 128,
+        "pct": 65.0
+      },
+      {
+        "name": "territoire",
+        "filled": 1,
+        "pct": 0.5
+      },
+      {
+        "name": "client_type",
+        "filled": 196,
+        "pct": 99.5
+      },
+      {
+        "name": "date_entree",
+        "filled": 1,
+        "pct": 0.5
+      },
+      {
+        "name": "statut",
+        "filled": 197,
+        "pct": 100.0
+      },
+      {
+        "name": "fondateur",
+        "filled": 197,
+        "pct": 100.0
+      },
+      {
+        "name": "ambassadeur",
+        "filled": 197,
+        "pct": 100.0
+      },
+      {
+        "name": "communaute_statut",
+        "filled": 1,
+        "pct": 0.5
+      },
+      {
+        "name": "droit_image",
+        "filled": 197,
+        "pct": 100.0
+      },
+      {
+        "name": "temoignage_autorise",
+        "filled": 197,
+        "pct": 100.0
+      },
+      {
+        "name": "visite_possible",
+        "filled": 196,
+        "pct": 99.5
+      },
+      {
+        "name": "source_creation",
+        "filled": 196,
+        "pct": 99.5
+      },
+      {
+        "name": "workflow_status",
+        "filled": 1,
+        "pct": 0.5
+      },
+      {
+        "name": "welcome_email_sent",
+        "filled": 197,
+        "pct": 100.0
+      },
+      {
+        "name": "certificat_url",
+        "filled": 1,
+        "pct": 0.5
+      },
+      {
+        "name": "carte_url",
+        "filled": 1,
+        "pct": 0.5
+      },
+      {
+        "name": "qr_code_url",
+        "filled": 0,
+        "pct": 0.0
+      }
+    ],
+    "headers": [
+      "pio_id",
+      "NS",
+      "nom",
+      "prenom",
+      "email",
+      "telephone",
+      "pays",
+      "territoire",
+      "client_type",
+      "date_entree",
+      "statut",
+      "fondateur",
+      "ambassadeur",
+      "communaute_statut",
+      "droit_image",
+      "temoignage_autorise",
+      "visite_possible",
+      "source_creation",
+      "workflow_status",
+      "welcome_email_sent",
+      "certificat_url",
+      "carte_url",
+      "qr_code_url"
+    ]
+  },
+  "05_Maintenances": {
+    "rows_total": 126,
+    "rows_used": 126,
+    "columns": [
+      {
+        "name": "maintenance_id",
+        "filled": 126,
+        "pct": 100.0
+      },
+      {
+        "name": "install_id",
+        "filled": 126,
+        "pct": 100.0
+      },
+      {
+        "name": "pio_id",
+        "filled": 126,
+        "pct": 100.0
+      },
+      {
+        "name": "date_intervention",
+        "filled": 30,
+        "pct": 23.8
+      },
+      {
+        "name": "type_intervention",
+        "filled": 126,
+        "pct": 100.0
+      },
+      {
+        "name": "technicien",
+        "filled": 31,
+        "pct": 24.6
+      },
+      {
+        "name": "statut",
+        "filled": 30,
+        "pct": 23.8
+      },
+      {
+        "name": "rapport_url",
+        "filled": 0,
+        "pct": 0.0
+      },
+      {
+        "name": "observations",
+        "filled": 29,
+        "pct": 23.0
+      },
+      {
+        "name": "pieces_changees",
+        "filled": 1,
+        "pct": 0.8
+      },
+      {
+        "name": "prochain_rdv",
+        "filled": 1,
+        "pct": 0.8
+      },
+      {
+        "name": "source",
+        "filled": 126,
+        "pct": 100.0
+      }
+    ],
+    "headers": [
+      "maintenance_id",
+      "install_id",
+      "pio_id",
+      "date_intervention",
+      "type_intervention",
+      "technicien",
+      "statut",
+      "rapport_url",
+      "observations",
+      "pieces_changees",
+      "prochain_rdv",
+      "source"
+    ]
+  },
+  "06_Documents": {
+    "rows_total": 5,
+    "rows_used": 5,
+    "columns": [
+      {
+        "name": "doc_id",
+        "filled": 5,
+        "pct": 100.0
+      },
+      {
+        "name": "install_id",
+        "filled": 2,
+        "pct": 40.0
+      },
+      {
+        "name": "pio_id",
+        "filled": 4,
+        "pct": 80.0
+      },
+      {
+        "name": "type_doc",
+        "filled": 4,
+        "pct": 80.0
+      },
+      {
+        "name": "date_generation",
+        "filled": 4,
+        "pct": 80.0
+      },
+      {
+        "name": "url_doc",
+        "filled": 4,
+        "pct": 80.0
+      },
+      {
+        "name": "statut_envoi",
+        "filled": 4,
+        "pct": 80.0
+      },
+      {
+        "name": "date_envoi",
+        "filled": 0,
+        "pct": 0.0
+      },
+      {
+        "name": "canal_envoi",
+        "filled": 0,
+        "pct": 0.0
+      },
+      {
+        "name": "html_content",
+        "filled": 1,
+        "pct": 20.0
+      }
+    ],
+    "headers": [
+      "doc_id",
+      "install_id",
+      "pio_id",
+      "type_doc",
+      "date_generation",
+      "url_doc",
+      "statut_envoi",
+      "date_envoi",
+      "canal_envoi",
+      "html_content"
+    ]
+  },
+  "07_Produits": {
+    "rows_total": 7,
+    "rows_used": 7,
+    "columns": [
+      {
+        "name": "produit_id",
+        "filled": 7,
+        "pct": 100.0
+      },
+      {
+        "name": "nom",
+        "filled": 7,
+        "pct": 100.0
+      },
+      {
+        "name": "gamme",
+        "filled": 7,
+        "pct": 100.0
+      },
+      {
+        "name": "capacite_L",
+        "filled": 6,
+        "pct": 85.7
+      },
+      {
+        "name": "prix_public_ttc",
+        "filled": 2,
+        "pct": 28.6
+      },
+      {
+        "name": "statut_commercial",
+        "filled": 7,
+        "pct": 100.0
+      },
+      {
+        "name": "date_lancement",
+        "filled": 2,
+        "pct": 28.6
+      },
+      {
+        "name": "description_courte",
+        "filled": 7,
+        "pct": 100.0
+      },
+      {
+        "name": "reference_haolin",
+        "filled": 1,
+        "pct": 14.3
+      }
+    ],
+    "headers": [
+      "produit_id",
+      "nom",
+      "gamme",
+      "capacite_L",
+      "prix_public_ttc",
+      "statut_commercial",
+      "date_lancement",
+      "description_courte",
+      "reference_haolin"
+    ]
+  },
+  "02_Installations": {
+    "rows_total": 261,
+    "rows_used": 261,
+    "columns": [
+      {
+        "name": "install_id",
+        "filled": 156,
+        "pct": 59.8
+      },
+      {
+        "name": "pio_id",
+        "filled": 155,
+        "pct": 59.4
+      },
+      {
+        "name": "produit",
+        "filled": 156,
+        "pct": 59.8
+      },
+      {
+        "name": "numero_serie",
+        "filled": 81,
+        "pct": 31.0
+      },
+      {
+        "name": "date_installation",
+        "filled": 60,
+        "pct": 23.0
+      },
+      {
+        "name": "date_sortie",
+        "filled": 0,
+        "pct": 0.0
+      },
+      {
+        "name": "territoire_installation",
+        "filled": 3,
+        "pct": 1.1
+      },
+      {
+        "name": "installateur",
+        "filled": 0,
+        "pct": 0.0
+      },
+      {
+        "name": "installation_status",
+        "filled": 156,
+        "pct": 59.8
+      },
+      {
+        "name": "pionnier_created",
+        "filled": 261,
+        "pct": 100.0
+      },
+      {
+        "name": "nom_client",
+        "filled": 156,
+        "pct": 59.8
+      },
+      {
+        "name": "gamme",
+        "filled": 156,
+        "pct": 59.8
+      },
+      {
+        "name": "contrat_maintenance_type",
+        "filled": 156,
+        "pct": 59.8
+      },
+      {
+        "name": "date_garantie_fin",
+        "filled": 0,
+        "pct": 0.0
+      },
+      {
+        "name": "localisation_precise",
+        "filled": 25,
+        "pct": 9.6
+      },
+      {
+        "name": "statut_eau",
+        "filled": 156,
+        "pct": 59.8
+      },
+      {
+        "name": "derniere_maintenance",
+        "filled": 23,
+        "pct": 8.8
+      },
+      {
+        "name": "prochain_entretien",
+        "filled": 0,
+        "pct": 0.0
+      },
+      {
+        "name": "passeport_url",
+        "filled": 156,
+        "pct": 59.8
+      },
+      {
+        "name": "installation_active",
+        "filled": 156,
+        "pct": 59.8
+      },
+      {
+        "name": "photo_generateur_url",
+        "filled": 0,
+        "pct": 0.0
+      },
+      {
+        "name": "photo_emplacement_url",
+        "filled": 0,
+        "pct": 0.0
+      },
+      {
+        "name": "report_id",
+        "filled": 0,
+        "pct": 0.0
+      }
+    ],
+    "headers": [
+      "install_id",
+      "pio_id",
+      "produit",
+      "numero_serie",
+      "date_installation",
+      "date_sortie",
+      "territoire_installation",
+      "installateur",
+      "installation_status",
+      "pionnier_created",
+      "nom_client",
+      "gamme",
+      "contrat_maintenance_type",
+      "date_garantie_fin",
+      "localisation_precise",
+      "statut_eau",
+      "derniere_maintenance",
+      "prochain_entretien",
+      "passeport_url",
+      "installation_active",
+      "photo_generateur_url",
+      "photo_emplacement_url",
+      "report_id"
+    ]
+  },
+  "03_Medias": {
+    "rows_total": 0,
+    "rows_used": 0,
+    "columns": [
+      {
+        "name": "media_id",
+        "filled": 0,
+        "pct": 0
+      },
+      {
+        "name": "pio_id",
+        "filled": 0,
+        "pct": 0
+      },
+      {
+        "name": "type_media",
+        "filled": 0,
+        "pct": 0
+      },
+      {
+        "name": "url_drive",
+        "filled": 0,
+        "pct": 0
+      },
+      {
+        "name": "statut_validation",
+        "filled": 0,
+        "pct": 0
+      }
+    ],
+    "headers": [
+      "media_id",
+      "pio_id",
+      "type_media",
+      "url_drive",
+      "statut_validation"
+    ]
+  },
+  "04_Parametres": {
+    "rows_total": 15,
+    "rows_used": 15,
+    "columns": [
+      {
+        "name": "Produits",
+        "filled": 12,
+        "pct": 80.0
+      },
+      {
+        "name": "Client Types",
+        "filled": 10,
+        "pct": 66.7
+      },
+      {
+        "name": "Statuts Pionnier",
+        "filled": 10,
+        "pct": 66.7
+      },
+      {
+        "name": "Statuts Installation",
+        "filled": 10,
+        "pct": 66.7
+      },
+      {
+        "name": "Statuts Media",
+        "filled": 11,
+        "pct": 73.3
+      },
+      {
+        "name": "Compteurs",
+        "filled": 14,
+        "pct": 93.3
+      },
+      {
+        "name": "Valeur Actuelle",
+        "filled": 6,
+        "pct": 40.0
+      }
+    ],
+    "headers": [
+      "Produits",
+      "Client Types",
+      "Statuts Pionnier",
+      "Statuts Installation",
+      "Statuts Media",
+      "Compteurs",
+      "Valeur Actuelle"
+    ]
+  },
+  "Import": {
+    "rows_total": 118,
+    "rows_used": 118,
+    "columns": [
+      {
+        "name": "Avatar 128",
+        "filled": 113,
+        "pct": 95.8
+      },
+      {
+        "name": "Nom complet",
+        "filled": 113,
+        "pct": 95.8
+      },
+      {
+        "name": "E-mail",
+        "filled": 113,
+        "pct": 95.8
+      },
+      {
+        "name": "Téléphone",
+        "filled": 112,
+        "pct": 94.9
+      },
+      {
+        "name": "Activités",
+        "filled": 11,
+        "pct": 9.3
+      },
+      {
+        "name": "Pays",
+        "filled": 71,
+        "pct": 60.2
+      },
+      {
+        "name": "Stats",
+        "filled": 113,
+        "pct": 95.8
+      }
+    ],
+    "headers": [
+      "Avatar 128",
+      "Nom complet",
+      "E-mail",
+      "Téléphone",
+      "Activités",
+      "Pays",
+      "Stats"
+    ]
+  },
+  "08_Automations_Log": {
+    "rows_total": 7,
+    "rows_used": 7,
+    "columns": [
+      {
+        "name": "timestamp",
+        "filled": 7,
+        "pct": 100.0
+      },
+      {
+        "name": "action ",
+        "filled": 7,
+        "pct": 100.0
+      },
+      {
+        "name": "install_id",
+        "filled": 4,
+        "pct": 57.1
+      },
+      {
+        "name": " pio_id",
+        "filled": 7,
+        "pct": 100.0
+      },
+      {
+        "name": " result ",
+        "filled": 7,
+        "pct": 100.0
+      },
+      {
+        "name": "message",
+        "filled": 7,
+        "pct": 100.0
+      },
+      {
+        "name": " erreur_detail",
+        "filled": 0,
+        "pct": 0.0
+      }
+    ],
+    "headers": [
+      "timestamp",
+      "action ",
+      "install_id",
+      " pio_id",
+      " result ",
+      "message",
+      " erreur_detail"
+    ]
+  },
+  "07_Catalog": {
+    "rows_total": 9,
+    "rows_used": 9,
+    "columns": [
+      {
+        "name": "produit_id",
+        "filled": 9,
+        "pct": 100.0
+      },
+      {
+        "name": "label",
+        "filled": 9,
+        "pct": 100.0
+      },
+      {
+        "name": "garantie_mois",
+        "filled": 9,
+        "pct": 100.0
+      },
+      {
+        "name": "image_cloudinary_id",
+        "filled": 9,
+        "pct": 100.0
+      },
+      {
+        "name": "fiche_technique_url",
+        "filled": 1,
+        "pct": 11.1
+      },
+      {
+        "name": "manuel_url",
+        "filled": 1,
+        "pct": 11.1
+      },
+      {
+        "name": "photo_generateur_url",
+        "filled": 9,
+        "pct": 100.0
+      },
+      {
+        "name": "actif",
+        "filled": 9,
+        "pct": 100.0
+      }
+    ],
+    "headers": [
+      "produit_id",
+      "label",
+      "garantie_mois",
+      "image_cloudinary_id",
+      "fiche_technique_url",
+      "manuel_url",
+      "photo_generateur_url",
+      "actif"
+    ]
+  }
+}

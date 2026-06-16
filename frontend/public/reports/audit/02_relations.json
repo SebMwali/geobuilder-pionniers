@@ -1,0 +1,534 @@
+{
+  "orphelins": {
+    "pionniers_sans_install": [
+      "PIO-1038",
+      "PIO-1196"
+    ],
+    "installations_pio_inexistant": [
+      "INST-2109",
+      "INST-2120",
+      "INST-2148",
+      "INST-2149",
+      "INST-2152"
+    ],
+    "installations_sans_pio": [
+      "INST-2152"
+    ],
+    "NS_dans_pionniers_absents_installations": [
+      "HR88C22KFR0405",
+      "HR88C23EFR018",
+      "HR88C23GFR0288",
+      "HR88C23GFR0350",
+      "HR88C23JFR0706",
+      "HR88C23JFR0744",
+      "HR88C23JFR0763",
+      "HR88C23JFR0819",
+      "HR88C24AFR0011",
+      "HR88C25DAZ0001",
+      "HR88C25DAZ0011",
+      "HR88C25DAZ0045",
+      "HR88C25DAZ0051",
+      "HR88C25DAZ0071",
+      "HR88C25DAZ0116"
+    ],
+    "maintenances_install_id_inexistant": [
+      "MAINT-3124",
+      "MAINT-3125",
+      "MAINT-3126"
+    ],
+    "maintenances_pio_inexistant": [
+      "MAINT-3124"
+    ],
+    "documents_pio_inexistant": []
+  },
+  "doublons": {
+    "pio_id_dans_01": [],
+    "NS_dans_02": [],
+    "NS_dans_01": [
+      "HR88C23EFR0120",
+      "HR88C23JFR0849",
+      "HR88C23LFR1131"
+    ],
+    "emails_dans_01": []
+  },
+  "incoherences_noms": [
+    {
+      "pio_id": "PIO-1000",
+      "pionnier_sheet": "TOYFA MATTOIR",
+      "install_nom_client": "MATTOIR TOYFA",
+      "install_id": "INST-2000"
+    },
+    {
+      "pio_id": "PIO-1008",
+      "pionnier_sheet": "René Ghita",
+      "install_nom_client": "Ghita René",
+      "install_id": "INST-2008"
+    },
+    {
+      "pio_id": "PIO-1009",
+      "pionnier_sheet": "Alan Zammit",
+      "install_nom_client": "Zammit Alan",
+      "install_id": "INST-2009"
+    },
+    {
+      "pio_id": "PIO-1010",
+      "pionnier_sheet": "Nicolas Deloffre",
+      "install_nom_client": "Deloffre Nicolas",
+      "install_id": "INST-2010"
+    },
+    {
+      "pio_id": "PIO-1011",
+      "pionnier_sheet": "Jeremy Baptiste",
+      "install_nom_client": "Baptiste Jeremy",
+      "install_id": "INST-2011"
+    },
+    {
+      "pio_id": "PIO-1019",
+      "pionnier_sheet": "SABRINA Goachet",
+      "install_nom_client": "Gouachet",
+      "install_id": "INST-2019"
+    },
+    {
+      "pio_id": "PIO-1020",
+      "pionnier_sheet": "Oussen DJOUWAIRIA",
+      "install_nom_client": "DJOUWAIRIA OUSSEN",
+      "install_id": "INST-2020"
+    },
+    {
+      "pio_id": "PIO-1026",
+      "pionnier_sheet": "Alexandre Balosso",
+      "install_nom_client": "Alex Balosso",
+      "install_id": "INST-2026"
+    },
+    {
+      "pio_id": "PIO-1032",
+      "pionnier_sheet": "Naima Moustadirani",
+      "install_nom_client": "Moustadirani Naima",
+      "install_id": "INST-2032"
+    },
+    {
+      "pio_id": "PIO-1035",
+      "pionnier_sheet": "Sebastien Mejia",
+      "install_nom_client": "Sebastien Meja",
+      "install_id": "INST-2035"
+    },
+    {
+      "pio_id": "PIO-1042",
+      "pionnier_sheet": "Mickael CLOCKERS",
+      "install_nom_client": "Clockers Mickael",
+      "install_id": "INST-2041"
+    },
+    {
+      "pio_id": "PIO-1044",
+      "pionnier_sheet": "Fanny FABRE",
+      "install_nom_client": "Fabre Fanny",
+      "install_id": "INST-2043"
+    },
+    {
+      "pio_id": "PIO-1050",
+      "pionnier_sheet": "Hugo GERMAIN",
+      "install_nom_client": "GERMAIN HUGO",
+      "install_id": "INST-2049"
+    },
+    {
+      "pio_id": "PIO-1051",
+      "pionnier_sheet": "Anthony STAHL",
+      "install_nom_client": "STAHL ANTHONY",
+      "install_id": "INST-2050"
+    },
+    {
+      "pio_id": "PIO-1052",
+      "pionnier_sheet": "Fayadhui SAINDOU M'SOILI",
+      "install_nom_client": "SAINDOU M'SOILI Fayadhui",
+      "install_id": "INST-2051"
+    },
+    {
+      "pio_id": "PIO-1063",
+      "pionnier_sheet": "Bakar ABDOU",
+      "install_nom_client": "ABDOU Bakar",
+      "install_id": "INST-2062"
+    },
+    {
+      "pio_id": "PIO-1064",
+      "pionnier_sheet": "Souffou ABDOU",
+      "install_nom_client": "ABDOU Souffou",
+      "install_id": "INST-2063"
+    },
+    {
+      "pio_id": "PIO-1065",
+      "pionnier_sheet": "Anassati ALI HAMISSI",
+      "install_nom_client": "ALI HAMISSI Anassati",
+      "install_id": "INST-2064"
+    },
+    {
+      "pio_id": "PIO-1066",
+      "pionnier_sheet": "Sandati ALI MARI",
+      "install_nom_client": "ALI MARI Sandati",
+      "install_id": "INST-2065"
+    },
+    {
+      "pio_id": "PIO-1068",
+      "pionnier_sheet": "Jean Jacques ARNAUD",
+      "install_nom_client": "ARNAUD Jean Jacques",
+      "install_id": "INST-2067"
+    },
+    {
+      "pio_id": "PIO-1069",
+      "pionnier_sheet": "Abdou Rahamane ASSANI",
+      "install_nom_client": "ASSANI Abdou Rahamane",
+      "install_id": "INST-2068"
+    },
+    {
+      "pio_id": "PIO-1071",
+      "pionnier_sheet": "Didier BERNARDET",
+      "install_nom_client": "BERNARDET Didier",
+      "install_id": "INST-2070"
+    },
+    {
+      "pio_id": "PIO-1072",
+      "pionnier_sheet": "Gildas BIGUET",
+      "install_nom_client": "BIGUET Gildas",
+      "install_id": "INST-2071"
+    },
+    {
+      "pio_id": "PIO-1073",
+      "pionnier_sheet": "Arlette BOMPOINT",
+      "install_nom_client": "BOMPOINT Arlette",
+      "install_id": "INST-2072"
+    },
+    {
+      "pio_id": "PIO-1074",
+      "pionnier_sheet": "Alexis BOUTIN",
+      "install_nom_client": "BOUTIN Alexis",
+      "install_id": "INST-2073"
+    },
+    {
+      "pio_id": "PIO-1075",
+      "pionnier_sheet": "Saidina Ilyassa CHEBANI",
+      "install_nom_client": "CHEBANI Saidina Ilyassa",
+      "install_id": "INST-2074"
+    },
+    {
+      "pio_id": "PIO-1077",
+      "pionnier_sheet": "Olivier CLEMENT",
+      "install_nom_client": "CLEMENT Olivier / THORAL Agnès",
+      "install_id": "INST-2076"
+    },
+    {
+      "pio_id": "PIO-1080",
+      "pionnier_sheet": "Cécilia DI PIRRO",
+      "install_nom_client": "DI PIRRO Cécilia",
+      "install_id": "INST-2079"
+    },
+    {
+      "pio_id": "PIO-1081",
+      "pionnier_sheet": "Stephanie DIVRY",
+      "install_nom_client": "DIVRY STEPHANIE",
+      "install_id": "INST-2080"
+    },
+    {
+      "pio_id": "PIO-1082",
+      "pionnier_sheet": "Christophe DURAND",
+      "install_nom_client": "DURAND Christophe",
+      "install_id": "INST-2081"
+    },
+    {
+      "pio_id": "PIO-1084",
+      "pionnier_sheet": "Jary Fatoumia",
+      "install_nom_client": "Fatoumia  Jary",
+      "install_id": "INST-2083"
+    },
+    {
+      "pio_id": "PIO-1089",
+      "pionnier_sheet": "Mickael GERAUD",
+      "install_nom_client": "GERAUD Mickael",
+      "install_id": "INST-2088"
+    },
+    {
+      "pio_id": "PIO-1090",
+      "pionnier_sheet": "William GUIBBERT",
+      "install_nom_client": "GUIBBERT William",
+      "install_id": "INST-2089"
+    },
+    {
+      "pio_id": "PIO-1095",
+      "pionnier_sheet": "François JOULIN",
+      "install_nom_client": "JOULIN François",
+      "install_id": "INST-2094"
+    },
+    {
+      "pio_id": "PIO-1096",
+      "pionnier_sheet": "Aurore LEMARCHAND",
+      "install_nom_client": "LEMARCHAND Aurore",
+      "install_id": "INST-2095"
+    },
+    {
+      "pio_id": "PIO-1097",
+      "pionnier_sheet": "Alfonso LOPEZ",
+      "install_nom_client": "LOPEZ Alfonso",
+      "install_id": "INST-2096"
+    },
+    {
+      "pio_id": "PIO-1098",
+      "pionnier_sheet": "Mambadi MARI",
+      "install_nom_client": "MARI Mambadi",
+      "install_id": "INST-2097"
+    },
+    {
+      "pio_id": "PIO-1099",
+      "pionnier_sheet": "Soihibou MARI",
+      "install_nom_client": "MARI Soihibou",
+      "install_id": "INST-2098"
+    },
+    {
+      "pio_id": "PIO-1100",
+      "pionnier_sheet": "Toulaybi MARI",
+      "install_nom_client": "MARI Toulaybi",
+      "install_id": "INST-2099"
+    },
+    {
+      "pio_id": "PIO-1101",
+      "pionnier_sheet": "Elhad MOHAMADI",
+      "install_nom_client": "MOHAMADI Elhad",
+      "install_id": "INST-2100"
+    },
+    {
+      "pio_id": "PIO-1102",
+      "pionnier_sheet": "Guewen MOISAN",
+      "install_nom_client": "MOISAN Guewen",
+      "install_id": "INST-2101"
+    },
+    {
+      "pio_id": "PIO-1103",
+      "pionnier_sheet": "Laurent MOREL",
+      "install_nom_client": "MOREL Laurent",
+      "install_id": "INST-2102"
+    },
+    {
+      "pio_id": "PIO-1104",
+      "pionnier_sheet": "Inchati MOUSSA",
+      "install_nom_client": "MOUSSA Inchati",
+      "install_id": "INST-2103"
+    },
+    {
+      "pio_id": "PIO-1105",
+      "pionnier_sheet": "Echati Moussa MROIVILI",
+      "install_nom_client": "MROIVILI Echati Moussa",
+      "install_id": "INST-2104"
+    },
+    {
+      "pio_id": "PIO-1108",
+      "pionnier_sheet": "Laure ABDULLAH",
+      "install_nom_client": "Mme ABDULLAH Laure",
+      "install_id": "INST-2107"
+    },
+    {
+      "pio_id": "PIO-1109",
+      "pionnier_sheet": "Elisabeth BANAG MOUTLEN",
+      "install_nom_client": "Mme BANAG MOUTLEN Elisabeth",
+      "install_id": "INST-2108"
+    },
+    {
+      "pio_id": "PIO-1111",
+      "pionnier_sheet": "Rahamatou BRAHIME",
+      "install_nom_client": "Mme BRAHIME Rahamatou",
+      "install_id": "INST-2110"
+    },
+    {
+      "pio_id": "PIO-1112",
+      "pionnier_sheet": "Nathalie CAMPIER",
+      "install_nom_client": "Mme CAMPIER Nathalie",
+      "install_id": "INST-2111"
+    },
+    {
+      "pio_id": "PIO-1113",
+      "pionnier_sheet": "Laura DEL RIO GUNDÍN",
+      "install_nom_client": "Mme DEL RIO Gundín Laura",
+      "install_id": "INST-2112"
+    },
+    {
+      "pio_id": "PIO-1114",
+      "pionnier_sheet": "Peggy GUILLEREZ",
+      "install_nom_client": "Mme GUILLEREZ Peggy",
+      "install_id": "INST-2113"
+    },
+    {
+      "pio_id": "PIO-1115",
+      "pionnier_sheet": "Fatoumina JARY",
+      "install_nom_client": "Mme JARY Fatoumina",
+      "install_id": "INST-2114"
+    },
+    {
+      "pio_id": "PIO-1116",
+      "pionnier_sheet": "Barbara JEANSON",
+      "install_nom_client": "Mme JEANSON Barbara",
+      "install_id": "INST-2115"
+    },
+    {
+      "pio_id": "PIO-1117",
+      "pionnier_sheet": "Dominique LAMOTTE",
+      "install_nom_client": "Mme LAMOTTE Dominique",
+      "install_id": "INST-2116"
+    },
+    {
+      "pio_id": "PIO-1118",
+      "pionnier_sheet": "Céline PRADA",
+      "install_nom_client": "Mme PRADA Céline",
+      "install_id": "INST-2117"
+    },
+    {
+      "pio_id": "PIO-1119",
+      "pionnier_sheet": "Benoit ANDAZA",
+      "install_nom_client": "Mr ANDAZA Benoit",
+      "install_id": "INST-2118"
+    },
+    {
+      "pio_id": "PIO-1120",
+      "pionnier_sheet": "Nicolas BATARD",
+      "install_nom_client": "Mr BATARD Nicolas",
+      "install_id": "INST-2119"
+    },
+    {
+      "pio_id": "PIO-1122",
+      "pionnier_sheet": "Tony BERTHET",
+      "install_nom_client": "Mr BERTHET Tony",
+      "install_id": "INST-2121"
+    },
+    {
+      "pio_id": "PIO-1123",
+      "pionnier_sheet": "Denis BRICQUET",
+      "install_nom_client": "Mr BRICQUET Denis",
+      "install_id": "INST-2122"
+    },
+    {
+      "pio_id": "PIO-1124",
+      "pionnier_sheet": "Matthieu CORRADO BERJOTIN",
+      "install_nom_client": "Mr CORRADO BERJOTIN Matthieu",
+      "install_id": "INST-2123"
+    },
+    {
+      "pio_id": "PIO-1125",
+      "pionnier_sheet": "Yves DE BOLLIVIER",
+      "install_nom_client": "Mr DE BOLLIVIER Yves",
+      "install_id": "INST-2124"
+    },
+    {
+      "pio_id": "PIO-1126",
+      "pionnier_sheet": "Guillaume DUPRE WEKESA",
+      "install_nom_client": "Mr DUPRE WEKESA Guillaume",
+      "install_id": "INST-2125"
+    },
+    {
+      "pio_id": "PIO-1127",
+      "pionnier_sheet": "Guillaume GARCIA",
+      "install_nom_client": "Mr GARCIA Guillaume",
+      "install_id": "INST-2126"
+    },
+    {
+      "pio_id": "PIO-1129",
+      "pionnier_sheet": "Nassaire HADRAMI",
+      "install_nom_client": "Mr HADRAMI Nassaire",
+      "install_id": "INST-2128"
+    },
+    {
+      "pio_id": "PIO-1130",
+      "pionnier_sheet": "Sylvain LE DU",
+      "install_nom_client": "Mr LE DU Sylvain",
+      "install_id": "INST-2129"
+    },
+    {
+      "pio_id": "PIO-1131",
+      "pionnier_sheet": "Ibrahim MOHAMED",
+      "install_nom_client": "Mr MOHAMED Ibrahim",
+      "install_id": "INST-2130"
+    },
+    {
+      "pio_id": "PIO-1133",
+      "pionnier_sheet": "Julien NOVOU",
+      "install_nom_client": "Mr NOVOU Julien",
+      "install_id": "INST-2132"
+    },
+    {
+      "pio_id": "PIO-1135",
+      "pionnier_sheet": "SARL VETO",
+      "install_nom_client": "SELARL VETO",
+      "install_id": "INST-2134"
+    },
+    {
+      "pio_id": "PIO-1136",
+      "pionnier_sheet": "Benoit VARLET",
+      "install_nom_client": "Mr VARLET Benoit",
+      "install_id": "INST-2135"
+    },
+    {
+      "pio_id": "PIO-1139",
+      "pionnier_sheet": "Joelle RASTAMI",
+      "install_nom_client": "RASTAMI Joelle",
+      "install_id": "INST-2138"
+    },
+    {
+      "pio_id": "PIO-1140",
+      "pionnier_sheet": "Philippe REIGNAUT",
+      "install_nom_client": "REIGNAUT Philippe",
+      "install_id": "INST-2139"
+    },
+    {
+      "pio_id": "PIO-1141",
+      "pionnier_sheet": "Laurence ROBERT",
+      "install_nom_client": "ROBERT Laurence",
+      "install_id": "INST-2140"
+    },
+    {
+      "pio_id": "PIO-1145",
+      "pionnier_sheet": "Naîka SOULA",
+      "install_nom_client": "SOULA Naîka",
+      "install_id": "INST-2144"
+    },
+    {
+      "pio_id": "PIO-1146",
+      "pionnier_sheet": "Gaëlle TOURON",
+      "install_nom_client": "TOURON Gaëlle",
+      "install_id": "INST-2145"
+    },
+    {
+      "pio_id": "PIO-1147",
+      "pionnier_sheet": "Cédric VAN GREVENYNGHE",
+      "install_nom_client": "VAN GREVENYNGHE Cédric",
+      "install_id": "INST-2146"
+    },
+    {
+      "pio_id": "PIO-1148",
+      "pionnier_sheet": "Ludovic JUMIAUX",
+      "install_nom_client": "Jumiaux Ludovic",
+      "install_id": "INST-2147"
+    },
+    {
+      "pio_id": "PIO-1050",
+      "pionnier_sheet": "Hugo GERMAIN",
+      "install_nom_client": "STAHL ANTHONY",
+      "install_id": "INST-2155"
+    }
+  ],
+  "formules_cassees_installations": [
+    {
+      "install_id": "INST-2109",
+      "colonne": "pio_id",
+      "valeur": "#REF!"
+    },
+    {
+      "install_id": "INST-2120",
+      "colonne": "pio_id",
+      "valeur": "#REF!"
+    },
+    {
+      "install_id": "INST-2148",
+      "colonne": "pio_id",
+      "valeur": "#REF!"
+    },
+    {
+      "install_id": "INST-2149",
+      "colonne": "pio_id",
+      "valeur": "#REF!"
+    }
+  ]
+}
