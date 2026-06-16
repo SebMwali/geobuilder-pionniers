@@ -64,6 +64,7 @@ TABS = {
     "ressources": "07_Produits",
     "catalog": "07_Catalog",
     "logs": "08_Automations_Log",
+    "ns_declarations": "10_NS_Declarations",
 }
 
 

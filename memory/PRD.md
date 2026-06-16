@@ -27,6 +27,27 @@ Si `fondateur=true` : push supplémentaire `docs/ambassadeurs/{PIO_ID}.html`.
 
 ## What's been implemented
 
+### Session du 16/06/2026 (itération 9 — LOT 2 : Collecte des numéros de série V1)
+- ✅ Nouvel onglet `10_NS_Declarations` créé automatiquement avec colonnes : `demande_id`, `pio_id`, `numero_serie`, `date_demande`, `statut`, `commentaire`
+- ✅ Compteur `Demande NS ID` ajouté automatiquement dans `04_Parametres` (colonnes F/G)
+- ✅ Statuts (3 uniquement) : `EN_ATTENTE` / `VALIDEE` / `REFUSEE`
+- ✅ **Endpoint pionnier** (accès libre via URL) :
+  - `GET /api/pionnier/{pio_id}/declarer-ns` → formulaire HTML mobile-first
+  - `POST /api/pionnier/{pio_id}/declarer-ns` (form-data) → enregistre + page de remerciement
+  - `POST /api/pionnier/{pio_id}/declarer-ns-json` (variant JSON pour intégration)
+- ✅ **Endpoints admin** (JWT) :
+  - `GET /api/admin/ns-declarations?statut=EN_ATTENTE` → liste
+  - `POST /api/admin/ns-declarations/{demande_id}/validate` → rattache NS à `02_Installations.numero_serie` + régénère passeport
+  - `POST /api/admin/ns-declarations/{demande_id}/reject` (motif optionnel)
+- ✅ **Page admin HTML simple** : `GET /api/admin/ns-ui` — login + 3 onglets (En attente / Validées / Refusées) + boutons Valider/Refuser
+- ✅ Validations basiques côté backend : format NS (regex large), longueur min 4, normalisation upper+trim, anti-doublon (même pio_id + même NS en attente → renvoie la demande existante)
+- ✅ Logs dans `08_Automations_Log` : `ns_declaration_submitted`, `ns_declaration_validated`, `ns_declaration_rejected`
+- ✅ Module `services/ns_declarations.py` — code minimal, idempotent (setup auto au 1er appel)
+- ✅ 9 tests pytest unitaires (`tests/test_ns_declarations.py`) — 85/85 tests passent au total
+- ⚠️ Photo étiquette **retirée en V1** (décision utilisateur : simplicité maximale, ajout possible en V2 si besoin terrain)
+- 🎯 Objectif : récupérer progressivement les NS manquants par enrichissement utilisateur, sans complexification
+
+
 ### Session du 16/02/2026 (itération 8 — Prochaine intervention mois/année)
 - Ajout de `_compute_prochaine_intervention(date_installation, mois_freq=12)` dans `server.py`.
 - Le passeport affiche désormais dans le bloc "PROCHAINE INTERVENTION" :
