@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Rejoignez les Ambassadeurs Geobuilder — Blan</title>
+
+<!--
+  ============================================================================
+  GEOBUILDER · DEVENEZ AMBASSADEUR (V1)
+  Projet : Pionniers — totalement séparé de l'app SAV
+  Livrable : fichier .html autonome
+  Pipeline : Sheet PIO → Make → ce template → GitHub Pages
+  Placeholders Mustache (8) : voir README.md
+  ============================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:        #0D0D0D;
+    --bg-card:   #161616;
+    --bg-card-2: #1A1A1A;
+    --line:      #262626;
+    --line-2:    #333333;
+    --text:      #F5F5F5;
+    --text-dim:  #B8B8B8;
+    --text-mute: #7A7A7A;
+    --accent:    #3A8FE8;
+    --accent-2:  #5BA9FF;
+    --accent-dim:rgba(58, 143, 232,.18);
+    --ok:        #4ADE80;
+    --ok-dim:    rgba(74,222,128,.12);
+    --bad:       #EF4444;
+    --gold:      #C8A65B;
+    --radius:    14px;
+    --shadow:    0 20px 60px rgba(0,0,0,.55);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:'Montserrat',-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased;letter-spacing:.01em}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{color:var(--accent-2)}
+  img{display:block;max-width:100%}
+  ::selection{background:var(--accent);color:#000}
+
+  body::before{
+    content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(900px 600px at 50% -10%, rgba(58, 143, 232,.16), transparent 60%),
+      radial-gradient(800px 500px at 80% 110%, rgba(58, 143, 232,.08), transparent 60%),
+      linear-gradient(180deg, #0E0F14 0%, #0D0D0D 100%);
+  }
+
+  .page{max-width:920px;margin:0 auto;padding:48px 28px 80px}
+
+  /* ----- Header ----- */
+  header.hero{text-align:center;padding:40px 0 32px}
+  .hero .logo{height:140px;width:auto;margin:0 auto 28px;filter:drop-shadow(0 0 32px rgba(58, 143, 232,.35))}
+  .hero .eyebrow{font-size:11px;letter-spacing:.32em;color:var(--accent);text-transform:uppercase;font-weight:700;margin-bottom:18px}
+  .hero h1{font-size:clamp(36px,5.5vw,56px);font-weight:800;line-height:1.05;letter-spacing:-.02em;margin:0 auto 22px;max-width:780px}
+  .hero h1 em{font-style:normal;color:var(--accent)}
+  .hero .sub{font-size:17px;font-weight:500;line-height:1.55;color:var(--text);max-width:620px;margin:0 auto 16px;letter-spacing:.005em}
+  .hero .sub b{color:var(--accent);font-weight:700}
+  .hero .intro{font-size:15px;color:var(--text-dim);max-width:620px;margin:0 auto;line-height:1.65}
+
+  /* ----- Salutation personnalisée ----- */
+  .greeting{
+    margin:48px 0 28px;padding:28px 32px;
+    background:linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+    border:1px solid var(--line);border-radius:var(--radius);
+    text-align:center;box-shadow:var(--shadow);
+  }
+  .greeting .hello{font-size:22px;font-weight:700;letter-spacing:.01em}
+  .greeting .hello span{color:var(--accent)}
+  .greeting .line{margin-top:10px;font-size:14px;color:var(--text-dim);line-height:1.6}
+
+  /* ----- Bloc Statut actuel : Pionnier → Ambassadeur ----- */
+  .status-card{
+    margin:0 0 40px;padding:32px;
+    background:
+      radial-gradient(600px 250px at 100% 0%, rgba(58, 143, 232,.12), transparent 70%),
+      linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+    border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);
+  }
+  .status-card .st-title{font-size:11px;letter-spacing:.32em;color:var(--text-dim);text-transform:uppercase;font-weight:600;text-align:center;margin-bottom:24px}
+  .st-grid{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:center}
+  .st-pill{
+    padding:18px 22px;border-radius:12px;text-align:center;
+    border:1px solid var(--line-2);
+  }
+  .st-pill.current{background:rgba(74,222,128,.06);border-color:rgba(74,222,128,.4)}
+  .st-pill.target{background:rgba(58, 143, 232,.08);border-color:var(--accent);box-shadow:0 0 0 4px rgba(58, 143, 232,.08)}
+  .st-pill .lab{font-size:10px;letter-spacing:.24em;color:var(--text-mute);text-transform:uppercase;font-weight:600}
+  .st-pill .val{margin-top:8px;font-size:20px;font-weight:700;letter-spacing:.01em;display:flex;align-items:center;justify-content:center;gap:8px}
+  .st-pill.current .val{color:var(--ok)}
+  .st-pill.target .val{color:var(--accent)}
+  .st-pill .val svg{width:18px;height:18px}
+  .st-pill .meta{margin-top:10px;font-size:12px;color:var(--text-dim);font-weight:500;letter-spacing:.04em}
+  .st-arrow{
+    width:48px;height:48px;border-radius:50%;
+    background:rgba(58, 143, 232,.12);border:1px solid var(--line-2);
+    display:flex;align-items:center;justify-content:center;color:var(--accent);
+  }
+  .st-arrow svg{width:22px;height:22px}
+
+  /* ----- CTA TOP (scroll vers form) ----- */
+  .cta-top{margin:0 0 56px;text-align:center}
+  .cta-top-btn{
+    display:inline-flex;align-items:center;gap:14px;
+    padding:18px 36px;border-radius:12px;
+    background:var(--accent);color:#000;text-decoration:none;
+    font-family:inherit;font-size:13px;letter-spacing:.24em;font-weight:700;text-transform:uppercase;
+    transition:all .25s;box-shadow:0 8px 32px rgba(58, 143, 232,.35);
+    scroll-behavior:smooth;
+  }
+  .cta-top-btn:hover{background:var(--accent-2);color:#000;transform:translateY(-2px);box-shadow:0 12px 40px rgba(58, 143, 232,.5)}
+  .cta-top-btn > svg:first-child{width:18px;height:18px}
+  .cta-top-btn > svg:last-child{width:14px;height:14px;animation:bounceY 1.8s ease-in-out infinite}
+  .cta-top-hint{margin-top:12px;font-size:12px;color:var(--text-mute);letter-spacing:.06em}
+
+  @keyframes bounceY{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+  html{scroll-behavior:smooth}
+
+  /* ----- Bloc Reconnaissance ----- */
+  .recognition{}
+  .recog-card{
+    display:grid;grid-template-columns:72px 1fr;gap:24px;align-items:flex-start;
+    padding:28px 32px;margin-top:24px;
+    background:
+      radial-gradient(500px 200px at 100% 0%, rgba(200,166,91,.08), transparent 70%),
+      linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+    border:1px solid var(--line);border-left:3px solid var(--gold);
+    border-radius:var(--radius);box-shadow:var(--shadow);
+  }
+  .recog-icon{
+    width:72px;height:72px;border-radius:50%;flex-shrink:0;
+    background:rgba(200,166,91,.1);border:1px solid rgba(200,166,91,.4);
+    display:flex;align-items:center;justify-content:center;color:var(--gold);
+  }
+  .recog-icon svg{width:34px;height:34px}
+  .recog-text p{margin:0 0 12px;font-size:15px;color:var(--text-dim);line-height:1.65}
+  .recog-text p:last-child{margin-bottom:0}
+  .recog-text b{color:var(--text);font-weight:600}
+
+  /* ----- Badge preview ----- */
+  .badge-preview{
+    margin-top:36px;padding:32px 24px;text-align:center;
+    border:1px solid var(--line);border-radius:var(--radius);
+    background:
+      radial-gradient(500px 280px at 50% 50%, rgba(58, 143, 232,.18), transparent 70%),
+      linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+  }
+  .badge-eyebrow{font-size:11px;letter-spacing:.32em;color:var(--accent);text-transform:uppercase;font-weight:700;margin-bottom:18px}
+  .badge-img{width:240px;height:auto;margin:0 auto 18px;display:block;filter:drop-shadow(0 16px 50px rgba(58, 143, 232,.55))}
+  .badge-caption{font-size:13px;color:var(--text-dim);line-height:1.65;max-width:480px;margin:0 auto}
+  .badge-caption b{color:var(--accent);font-weight:600}
+
+  /* ----- Mission (3 raisons concrètes) ----- */
+  .mission-list{display:grid;grid-template-columns:1fr;gap:14px;margin-top:28px}
+  .mission-card{
+    display:grid;grid-template-columns:64px 1fr;gap:22px;align-items:center;
+    padding:24px 28px;border:1px solid var(--line);border-radius:12px;
+    background:linear-gradient(90deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+    transition:border-color .25s,transform .25s;
+  }
+  .mission-card:hover{border-color:var(--accent);transform:translateX(4px)}
+  .mission-num{
+    font-size:34px;font-weight:800;color:var(--accent);letter-spacing:-.02em;line-height:1;
+    text-shadow:0 0 24px rgba(58, 143, 232,.35);
+  }
+  .mission-title{font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px;letter-spacing:.01em}
+  .mission-text{font-size:14px;color:var(--text-dim);line-height:1.55}
+  .mission-text b{color:var(--text);font-weight:600}
+
+  /* ----- Votre contribution (encadré premium) ----- */
+  .contribution{
+    margin:56px 0 0;padding:42px 44px;
+    border:1px solid var(--line);border-radius:18px;position:relative;
+    background:
+      radial-gradient(800px 320px at 0% 0%, rgba(58, 143, 232,.18), transparent 60%),
+      radial-gradient(700px 280px at 100% 100%, rgba(58, 143, 232,.10), transparent 60%),
+      linear-gradient(135deg, #0E1626 0%, #131A2A 100%);
+    box-shadow:var(--shadow), inset 0 1px 0 rgba(255,255,255,.04);
+    overflow:hidden;
+  }
+  .contribution::before{
+    content:"";position:absolute;inset:0;border-radius:18px;padding:1px;
+    background:linear-gradient(135deg, rgba(58, 143, 232,.6) 0%, transparent 40%, transparent 60%, rgba(58, 143, 232,.3) 100%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;
+  }
+  .contribution-quote{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;position:relative;z-index:1}
+  .contribution-mark{width:54px;height:54px;color:var(--accent);opacity:.6;flex-shrink:0}
+  .contribution-quote p{
+    margin:0;font-size:22px;line-height:1.4;font-weight:500;letter-spacing:.005em;color:var(--text);
+  }
+  .contribution-quote p b{color:var(--accent);font-weight:700}
+
+  /* ----- Sections ----- */
+  section.s{margin-top:56px}
+  .s-num{font-size:12px;letter-spacing:.32em;color:var(--accent);font-weight:700;text-transform:uppercase;margin-bottom:14px}
+  .s h2{font-size:30px;font-weight:700;letter-spacing:-.01em;margin:0 0 18px;line-height:1.15}
+  .s p.lead{font-size:16px;color:var(--text-dim);line-height:1.65;margin:0 0 14px}
+  .s p.lead b{color:var(--text);font-weight:600}
+
+  /* ----- Cartes avantages ----- */
+  .advantages{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:28px}
+  .adv{
+    display:grid;grid-template-columns:48px 1fr;gap:18px;align-items:flex-start;
+    padding:22px 24px;border:1px solid var(--line);border-radius:12px;
+    background:var(--bg-card);
+    transition:border-color .25s,transform .25s;
+  }
+  .adv:hover{border-color:var(--accent);transform:translateY(-2px)}
+  .adv-icon{
+    width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+    background:var(--accent-dim);color:var(--accent);border:1px solid rgba(58, 143, 232,.35);flex-shrink:0;
+  }
+  .adv-icon svg{width:22px;height:22px}
+  .adv .at{font-size:15px;font-weight:600;line-height:1.4;letter-spacing:.01em}
+  .adv .full{grid-column:1 / -1}
+
+  /* ----- Engagements ----- */
+  .engage-list{margin-top:20px;display:flex;flex-direction:column;gap:14px}
+  .engage{
+    display:flex;align-items:flex-start;gap:14px;
+    padding:18px 22px;border:1px solid var(--line);border-radius:12px;
+    background:var(--bg-card);
+  }
+  .engage .ck{
+    width:28px;height:28px;border-radius:8px;flex-shrink:0;
+    background:var(--accent-dim);color:var(--accent);
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid rgba(58, 143, 232,.35);
+  }
+  .engage .ck svg{width:14px;height:14px}
+  .engage .txt{font-size:15px;color:var(--text);line-height:1.5;font-weight:500}
+  .engage-note{margin-top:18px;padding:18px 22px;background:rgba(58, 143, 232,.05);border-left:3px solid var(--accent);border-radius:6px;font-size:13px;color:var(--text-dim);line-height:1.65}
+
+  /* ----- Formulaire de consentement ----- */
+  .consent-form{
+    margin-top:28px;padding:32px;
+    background:linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+    border:1px solid var(--line);border-radius:var(--radius);
+    box-shadow:var(--shadow);
+  }
+  .consent-title{font-size:13px;letter-spacing:.28em;color:var(--accent);text-transform:uppercase;font-weight:700;margin-bottom:8px}
+  .consent-sub{font-size:14px;color:var(--text-dim);margin-bottom:24px;line-height:1.55}
+  .consent-row{
+    display:flex;align-items:flex-start;gap:14px;
+    padding:16px 18px;margin-bottom:12px;
+    border:1px solid var(--line);border-radius:10px;
+    background:#101010;
+    cursor:pointer;
+    transition:border-color .2s,background .2s;
+  }
+  .consent-row:hover{border-color:var(--line-2);background:#121212}
+  .consent-row.checked{border-color:var(--accent);background:rgba(58, 143, 232,.04)}
+  .consent-row input{
+    -webkit-appearance:none;appearance:none;
+    width:22px;height:22px;border-radius:6px;
+    border:2px solid var(--line-2);background:#0a0a0a;
+    flex-shrink:0;cursor:pointer;position:relative;
+    transition:all .2s;margin-top:1px;
+  }
+  .consent-row input:checked{background:var(--accent);border-color:var(--accent)}
+  .consent-row input:checked::after{
+    content:"";position:absolute;left:6px;top:2px;
+    width:6px;height:11px;border:solid #fff;border-width:0 2px 2px 0;
+    transform:rotate(45deg);
+  }
+  .consent-row label{font-size:14px;color:var(--text);line-height:1.5;cursor:pointer;flex:1;font-weight:500}
+
+  /* ----- Mention légale ----- */
+  .legal{
+    margin-top:24px;padding:16px 20px;
+    font-size:12px;color:var(--text-mute);line-height:1.6;text-align:center;
+    border-top:1px solid var(--line);
+  }
+
+  /* ----- CTA ----- */
+  .cta-wrap{margin-top:32px;text-align:center}
+  .cta-btn{
+    display:inline-flex;align-items:center;gap:14px;
+    padding:18px 38px;border:none;border-radius:12px;
+    font-family:inherit;font-size:14px;letter-spacing:.24em;font-weight:700;text-transform:uppercase;
+    background:var(--accent);color:#000;
+    cursor:pointer;transition:all .25s;
+    box-shadow:0 8px 32px rgba(58, 143, 232,.4);
+  }
+  .cta-btn:hover:not(:disabled){background:var(--accent-2);transform:translateY(-2px);box-shadow:0 12px 40px rgba(58, 143, 232,.55)}
+  .cta-btn:disabled{background:#2a3548;color:#5c6a82;cursor:not-allowed;box-shadow:none}
+  .cta-btn svg{width:18px;height:18px}
+  .cta-hint{margin-top:14px;font-size:12px;color:var(--text-mute);letter-spacing:.04em}
+  .cta-error{margin-top:14px;color:var(--bad);font-size:13px;display:none;font-weight:500}
+
+  /* ----- Footer ----- */
+  footer.bottom{
+    margin-top:64px;padding-top:32px;
+    border-top:1px solid var(--line);text-align:center;
+  }
+  footer.bottom .flogo{height:60px;margin:0 auto 14px;filter:drop-shadow(0 0 16px rgba(58, 143, 232,.25))}
+  footer.bottom .ftag{font-size:11px;letter-spacing:.42em;color:var(--text-dim);font-weight:600;text-transform:uppercase}
+  footer.bottom .fver{margin-top:18px;font-size:10px;letter-spacing:.16em;color:var(--text-mute);text-transform:uppercase;font-weight:500}
+
+  /* ----- Overlay de succès ----- */
+  .success-overlay{
+    position:fixed;inset:0;z-index:100;display:none;
+    align-items:center;justify-content:center;
+    background:rgba(13,13,13,.95);backdrop-filter:blur(16px);
+    animation:fadeIn .4s ease;
+  }
+  .success-overlay.open{display:flex}
+  .success-card{
+    text-align:center;padding:48px 56px;max-width:480px;
+    border:1px solid var(--line);border-radius:20px;
+    background:linear-gradient(180deg, var(--bg-card) 0%, var(--bg-card-2) 100%);
+    box-shadow:var(--shadow);
+  }
+  .success-icon{
+    width:84px;height:84px;margin:0 auto 24px;border-radius:50%;
+    background:rgba(74,222,128,.12);border:2px solid var(--ok);
+    display:flex;align-items:center;justify-content:center;color:var(--ok);
+    animation:pop .5s cubic-bezier(.34,1.56,.64,1);
+  }
+  .success-icon svg{width:42px;height:42px;stroke-width:3}
+  .success-title{font-size:24px;font-weight:700;letter-spacing:.01em;margin-bottom:12px}
+  .success-text{font-size:15px;color:var(--text-dim);line-height:1.55;margin-bottom:20px}
+  .success-redirect{font-size:12px;color:var(--text-mute);letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+  .success-redirect b{color:var(--accent);font-weight:700}
+
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes pop{0%{transform:scale(0);opacity:0}100%{transform:scale(1);opacity:1}}
+
+  /* ----- Responsive ----- */
+  @media (max-width:720px){
+    .page{padding:28px 16px 60px}
+    .hero .logo{height:100px}
+    .st-grid{grid-template-columns:1fr;gap:14px}
+    .st-arrow{margin:0 auto;transform:rotate(90deg)}
+    .advantages{grid-template-columns:1fr}
+    .consent-form{padding:24px 20px}
+    .cta-btn{padding:16px 28px;font-size:12px;letter-spacing:.18em}
+    .cta-top-btn{padding:16px 24px;font-size:11px;letter-spacing:.18em;gap:10px}
+    .recog-card{grid-template-columns:1fr;text-align:center;padding:24px 22px}
+    .recog-icon{margin:0 auto}
+    .badge-img{width:200px}
+    .mission-card{grid-template-columns:1fr;gap:8px;text-align:center;padding:20px}
+    .mission-num{font-size:28px}
+    .contribution{padding:28px 22px}
+    .contribution-quote{grid-template-columns:1fr;text-align:center;gap:14px}
+    .contribution-mark{margin:0 auto;width:42px;height:42px}
+    .contribution-quote p{font-size:18px;line-height:1.45}
+    .success-card{padding:36px 28px;margin:0 16px}
+  }
+
+  @media print{
+    body::before{display:none}
+    html,body{background:#fff;color:#0a0a0a}
+    .greeting,.status-card,.adv,.engage,.consent-form{background:#fff;border-color:#dbe2ee;box-shadow:none;color:#0a0a0a}
+    .cta-btn{display:none}
+    .success-overlay{display:none!important}
+  }
+</style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- ====================== HEADER ====================== -->
+    <header class="hero">
+      <img class="logo" src="https://customer-assets.emergentagent.com/job_7b25a5ce-3fc1-48d8-aebb-1fc88d456845/artifacts/n5rx1kml_Logo-Geobuilder.png" alt="Geobuilder" />
+      <div class="eyebrow">Programme Ambassadeurs</div>
+      <h1>Rejoignez les <em>Ambassadeurs</em> Geobuilder</h1>
+      <p class="sub">Les <b>Pionniers</b> ouvrent la voie.<br>Les <b>Ambassadeurs</b> la font découvrir aux autres.</p>
+    </header>
+
+    <!-- ====================== SALUTATION ====================== -->
+    <div class="greeting">
+      <div class="hello">Bonjour <span>Blan</span>,</div>
+      <div class="line">Vous faites partie des <strong>Pionniers</strong> qui construisent déjà le monde de demain.</div>
+    </div>
+
+    <!-- ====================== STATUT ACTUEL ====================== -->
+    <div class="status-card">
+      <div class="st-title">Votre évolution</div>
+      <div class="st-grid">
+        <div class="st-pill current">
+          <div class="lab">Statut actuel</div>
+          <div class="val">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            <span>Pionnier</span>
+          </div>
+          <div class="meta">PIO-1031 · MAYOTTE · 2026</div>
+        </div>
+        <div class="st-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+        </div>
+        <div class="st-pill target">
+          <div class="lab">Demande d'évolution</div>
+          <div class="val">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4-6.2-4.6L5.8 21l2.4-7.4L2 9.4h7.6z"/></svg>
+            <span>Ambassadeur</span>
+          </div>
+          <div class="meta">À valider ci-dessous</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====================== CTA TOP (scroll vers formulaire) ====================== -->
+    <div class="cta-top">
+      <a href="#formulaire" class="cta-top-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4-6.2-4.6L5.8 21l2.4-7.4L2 9.4h7.6z"/></svg>
+        <span>Je rejoins les Ambassadeurs</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+      </a>
+      <div class="cta-top-hint">Découvrez les avantages puis validez en bas de page</div>
+    </div>
+
+    <!-- ====================== SECTION 1 — MISSION ====================== -->
+    <section class="s">
+      <div class="s-num">01 — Votre mission</div>
+      <h2>Pourquoi devenir Ambassadeur</h2>
+      <p class="lead">Les Ambassadeurs Geobuilder participent activement à une dynamique collective. Trois raisons simples et concrètes :</p>
+
+      <div class="mission-list">
+        <div class="mission-card">
+          <div class="mission-num">01</div>
+          <div class="mission-body">
+            <div class="mission-title">Faire connaître une alternative concrète</div>
+            <div class="mission-text">Contribuez à faire connaître une <b>alternative concrète</b> pour l'accès à l'eau potable.</div>
+          </div>
+        </div>
+        <div class="mission-card">
+          <div class="mission-num">02</div>
+          <div class="mission-body">
+            <div class="mission-title">Partager votre retour d'expérience</div>
+            <div class="mission-text">Partagez votre retour d'expérience avec d'autres <b>familles, entreprises et collectivités</b>.</div>
+          </div>
+        </div>
+        <div class="mission-card">
+          <div class="mission-num">03</div>
+          <div class="mission-body">
+            <div class="mission-title">Construire les solutions de demain</div>
+            <div class="mission-text">Participez au développement des <b>solutions Geobuilder de demain</b>.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== SECTION 2 — RECONNAISSANCE ====================== -->
+    <section class="s recognition">
+      <div class="s-num">02 — Notre reconnaissance</div>
+      <h2>Pourquoi votre expérience compte</h2>
+      <div class="recog-card">
+        <div class="recog-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/><path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12"/></svg>
+        </div>
+        <div class="recog-text">
+          <p>Les <b>Ambassadeurs Geobuilder</b> sont sélectionnés parmi les Pionniers qui participent activement au développement de solutions plus autonomes et plus durables.</p>
+          <p>Leur expérience contribue à faire connaître des <b>alternatives concrètes</b> pour l'accès à l'eau potable.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== SECTION 3 ====================== -->
+    <section class="s">
+      <div class="s-num">03 — Vos avantages</div>
+      <h2>Ce que vous obtenez en devenant Ambassadeur</h2>
+      <div class="advantages">
+        <div class="adv">
+          <div class="adv-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+          </div>
+          <div class="at">Badge Ambassadeur officiel Geobuilder</div>
+        </div>
+        <div class="adv">
+          <div class="adv-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          </div>
+          <div class="at">Une maintenance annuelle préventive <strong style="color:var(--accent)">offerte</strong></div>
+        </div>
+        <div class="adv">
+          <div class="adv-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          </div>
+          <div class="at">Priorité lors des opérations SAV et maintenance</div>
+        </div>
+        <div class="adv">
+          <div class="adv-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4-6.2-4.6L5.8 21l2.4-7.4L2 9.4h7.6z"/></svg>
+          </div>
+          <div class="at">Accès anticipé aux nouveautés Geobuilder</div>
+        </div>
+        <div class="adv full">
+          <div class="adv-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><circle cx="17" cy="7" r="3"/><path d="M21 21v-2a4 4 0 0 0-3-3.85"/></svg>
+          </div>
+          <div class="at">Avantages et programmes réservés aux Ambassadeurs</div>
+        </div>
+      </div>
+
+      <!-- Badge Ambassadeur visible -->
+      <div class="badge-preview">
+        <div class="badge-eyebrow">Votre futur badge</div>
+        <img src="https://sebmwali.github.io/geobuilder-pionniers/badge-ambassadeur.png" alt="Badge Ambassadeur Geobuilder" class="badge-img" />
+        <div class="badge-caption">Votre badge <b>Ambassadeur</b> personnalisé sera automatiquement ajouté à votre Passeport d'Installation.</div>
+      </div>
+    </section>
+
+    <!-- ====================== VOTRE CONTRIBUTION (encadré premium) ====================== -->
+    <div class="contribution">
+      <div class="contribution-quote">
+        <svg class="contribution-mark" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true"><path d="M9 8c-4 0-7 3-7 7v9h9v-9H6c0-3 1.5-5 3-5V8zm14 0c-4 0-7 3-7 7v9h9v-9h-5c0-3 1.5-5 3-5V8z"/></svg>
+        <p>En partageant votre expérience, vous contribuez à construire le <b>monde de demain</b> : plus autonome, plus résilient et plus durable.</p>
+      </div>
+    </div>
+
+    <!-- ====================== SECTION 4 ====================== -->
+    <section class="s">
+      <div class="s-num">04 — Vos engagements</div>
+      <h2>En devenant Ambassadeur, vous acceptez :</h2>
+      <div class="engage-list">
+        <div class="engage">
+          <div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <div class="txt">Partager quelques photos de votre installation</div>
+        </div>
+        <div class="engage">
+          <div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <div class="txt">Partager votre retour d'expérience sous forme écrite ou vidéo</div>
+        </div>
+        <div class="engage">
+          <div class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+          <div class="txt">Autoriser Geobuilder à diffuser ce contenu sur ses supports de communication</div>
+        </div>
+      </div>
+      <div class="engage-note">
+        Votre témoignage pourra être utilisé sur le <b>site internet Geobuilder</b>, les <b>réseaux sociaux</b>, les <b>newsletters</b> ou les <b>supports de présentation</b> de l'entreprise.
+      </div>
+    </section>
+
+    <!-- ====================== SECTION 5 ====================== -->
+    <section class="s" id="formulaire">
+      <div class="s-num">05 — Formulaire de consentement</div>
+      <h2>Confirmez votre engagement</h2>
+      <p class="lead">Pour devenir Ambassadeur Geobuilder, merci de valider les trois autorisations ci-dessous.</p>
+
+      <form class="consent-form" id="ambassadeurForm" novalidate>
+        <div class="consent-title">VOS AUTORISATIONS</div>
+        <div class="consent-sub">Les trois cases doivent être cochées pour activer le bouton de validation.</div>
+
+        <input type="hidden" name="pio_id" value="PIO-1031" />
+        <input type="hidden" name="nom" value="Camion blanc" />
+        <input type="hidden" name="prenom" value="Blan" />
+        <input type="hidden" name="email" value="d.blanc254@laposte.net" />
+
+        <label class="consent-row" data-row="droit_image">
+          <input type="checkbox" name="droit_image" required />
+          <span>J'autorise l'utilisation de photos et vidéos de mon installation</span>
+        </label>
+
+        <label class="consent-row" data-row="temoignage_autorise">
+          <input type="checkbox" name="temoignage_autorise" required />
+          <span>J'autorise la publication de mon témoignage</span>
+        </label>
+
+        <label class="consent-row" data-row="publication_autorisee">
+          <input type="checkbox" name="publication_autorisee" required />
+          <span>J'autorise Geobuilder à diffuser ce contenu dans ses supports de communication</span>
+        </label>
+
+        <div class="legal">
+          Vous pouvez retirer votre autorisation à tout moment par simple demande écrite adressée à Geobuilder (contact@geobuilder.fr).
+        </div>
+
+        <div class="cta-wrap">
+          <button type="submit" class="cta-btn" id="submitBtn" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4-6.2-4.6L5.8 21l2.4-7.4L2 9.4h7.6z"/></svg>
+          <span>Je rejoins les Ambassadeurs</span>
+          </button>
+          <div class="cta-hint" id="ctaHint">Cochez les 3 cases pour activer le bouton</div>
+          <div class="cta-error" id="ctaError">Une erreur est survenue. Merci de réessayer.</div>
+        </div>
+      </form>
+    </section>
+
+    <!-- ====================== FOOTER ====================== -->
+    <footer class="bottom">
+      <img class="flogo" src="https://sebmwali.github.io/geobuilder-pionniers/assets/geobuilder-logo.png" alt="Geobuilder" />
+      <div class="ftag">Reprenons le pouvoir sur l'eau.</div>
+      <div class="fver">Programme Ambassadeurs Geobuilder · V1</div>
+    </footer>
+  </div>
+
+  <!-- ====================== OVERLAY DE SUCCÈS ====================== -->
+  <div class="success-overlay" id="successOverlay" role="dialog" aria-live="polite">
+    <div class="success-card">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <div class="success-title">Bienvenue parmi les Ambassadeurs Geobuilder</div>
+      <div class="success-text">Votre engagement est enregistré. Merci de votre confiance.</div>
+      <div class="success-redirect">Redirection dans <b id="countdown">3</b> secondes…</div>
+    </div>
+  </div>
+
+<script>
+(function(){
+  'use strict';
+
+  const form = document.getElementById('ambassadeurForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const ctaHint = document.getElementById('ctaHint');
+  const ctaError = document.getElementById('ctaError');
+  const overlay = document.getElementById('successOverlay');
+  const countdown = document.getElementById('countdown');
+
+  const checks = form.querySelectorAll('input[type="checkbox"][required]');
+
+  // --- Activation conditionnelle du bouton ---
+  function refreshButton(){
+    let allChecked = true;
+    checks.forEach(c => {
+      const row = c.closest('.consent-row');
+      if (c.checked){ row.classList.add('checked'); }
+      else { row.classList.remove('checked'); allChecked = false; }
+    });
+    submitBtn.disabled = !allChecked;
+    ctaHint.style.display = allChecked ? 'none' : 'block';
+    ctaError.style.display = 'none';
+  }
+  checks.forEach(c => c.addEventListener('change', refreshButton));
+  refreshButton();
+
+  // --- Soumission ---
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    if (submitBtn.disabled) return;
+
+    submitBtn.disabled = true;
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<span>Envoi en cours…</span>';
+    ctaError.style.display = 'none';
+
+    const payload = {
+      pio_id:                    form.pio_id.value,
+      nom:                       form.nom.value,
+      prenom:                    form.prenom.value,
+      email:                     form.email.value,
+      ambassadeur:               "OUI",
+      droit_image:               form.droit_image.checked ? "OUI" : "NON",
+      temoignage_autorise:       form.temoignage_autorise.checked ? "OUI" : "NON",
+      publication_autorisee:     form.publication_autorisee.checked ? "OUI" : "NON",
+      date_validation_ambassadeur: new Date().toISOString(),
+      source: "ambassadeur.html"
+    };
+
+    try {
+      const res = await fetch("https://pioneer-ecosystem.preview.emergentagent.com/api/ambassadeur/signature", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      showSuccess();
+    } catch(err){
+      console.error(err);
+      submitBtn.innerHTML = originalText;
+      submitBtn.disabled = false;
+      ctaError.textContent = "Une erreur est survenue (" + (err.message || "réseau") + "). Merci de réessayer dans un instant.";
+      ctaError.style.display = 'block';
+    }
+  });
+
+  // --- Succès + redirection ---
+  function showSuccess(){
+    overlay.classList.add('open');
+    let n = 3;
+    countdown.textContent = n;
+    const t = setInterval(() => {
+      n -= 1;
+      if (n <= 0){
+        clearInterval(t);
+        window.location.href = "https://sebmwali.github.io/geobuilder-pionniers/pionniers/PIO-1031/index.html";
+      } else {
+        countdown.textContent = n;
+      }
+    }, 1000);
+  }
+
+})();
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"7f7b0fd8732c4326aae4b9d58d5c514a","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
