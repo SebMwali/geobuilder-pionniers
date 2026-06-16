@@ -64,7 +64,14 @@ TABS = {
     "ressources": "07_Produits",
     "catalog": "07_Catalog",
     "logs": "08_Automations_Log",
+    "email_events": "09_EmailEvents",
 }
+
+EMAIL_EVENTS_HEADERS = [
+    "timestamp_utc", "event", "email_id", "to_email",
+    "pio_id", "install_id", "template", "subject",
+    "from_email", "click_url", "bounce_type", "raw_json",
+]
 
 
 class SheetsService:
@@ -211,6 +218,47 @@ class SheetsService:
             self.append_row("logs", [ts, action, install_id, pio_id, result, message, erreur_detail])
         except Exception as e:
             logger.warning(f"Could not log to sheet: {e}")
+
+    @_retry_on_quota()
+    def _ensure_email_events_tab(self):
+        """Crée l'onglet 09_EmailEvents s'il n'existe pas, avec ses entêtes."""
+        ss = self._get_spreadsheet()
+        tab_name = TABS["email_events"]
+        try:
+            ws = ss.worksheet(tab_name)
+        except Exception:
+            ws = ss.add_worksheet(title=tab_name, rows=2000, cols=len(EMAIL_EVENTS_HEADERS))
+            ws.update(
+                f"A1:{chr(ord('A') + len(EMAIL_EVENTS_HEADERS) - 1)}1",
+                [EMAIL_EVENTS_HEADERS],
+            )
+            # Mise en gras + fond léger sur la ligne d'entête
+            try:
+                ws.format(
+                    f"A1:{chr(ord('A') + len(EMAIL_EVENTS_HEADERS) - 1)}1",
+                    {"textFormat": {"bold": True},
+                     "backgroundColor": {"red": 0.95, "green": 0.95, "blue": 0.98}},
+                )
+            except Exception:
+                pass
+            logger.info(f"Created sheet tab {tab_name}")
+        self._worksheets[tab_name] = ws
+        return ws
+
+    def log_email_event(self, event: str, email_id: str = "", to_email: str = "",
+                        pio_id: str = "", install_id: str = "", template: str = "",
+                        subject: str = "", from_email: str = "", click_url: str = "",
+                        bounce_type: str = "", raw_json: str = ""):
+        """Append d'un event Resend dans 09_EmailEvents."""
+        from datetime import datetime, timezone
+        try:
+            self._ensure_email_events_tab()
+            ts = datetime.now(timezone.utc).isoformat()
+            row = [ts, event, email_id, to_email, pio_id, install_id, template,
+                   subject, from_email, click_url, bounce_type, raw_json[:50000]]
+            self.append_row("email_events", row)
+        except Exception as e:
+            logger.warning(f"Could not log email event: {e}")
 
 
 _service: Optional[SheetsService] = None

@@ -18,6 +18,8 @@ from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Optional
 import os
+import json
+import hashlib
 import logging
 import httpx
 import jwt as pyjwt
@@ -1114,12 +1116,13 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         logger.error(f"Sheet append documents failed: {e}")
         sheets.log_event("sheet_documents", install_id, pio_id, "ERROR", str(e), "")
 
-    # 8. Mock email
+    # 8. Email de bienvenue (Resend) — tagué pour tracking webhook
     await send_email_mock(
         payload.email,
         "Bienvenue dans la Famille des Pionniers Geobuilder",
         email_html,
         metadata={"pio_id": pio_id, "install_id": install_id},
+        tags={"pio_id": pio_id, "install_id": install_id, "template": "bienvenue_livraison"},
     )
 
     sheets.log_event("livraison", install_id, pio_id, "OK",
@@ -1445,7 +1448,9 @@ async def ambassadeur_signature(
 
     # 6. Envoi emails (notification Geobuilder + confirmation client)
     notif_to = os.environ.get("GEOBUILDER_NOTIF_EMAIL", "contact@geobuilder.fr")
-    consent_yes = lambda v: "✅ OUI" if str(v).strip().upper() in ("OUI", "TRUE", "1", "YES") else "❌ NON"
+
+    def consent_yes(v):
+        return "✅ OUI" if str(v).strip().upper() in ("OUI", "TRUE", "1", "YES") else "❌ NON"
     try:
         # 6a. Notification Geobuilder
         notif_html = f"""<!DOCTYPE html><html lang="fr"><body style="font-family:system-ui,-apple-system,sans-serif;background:#f5f5f7;padding:24px;color:#0a1424">
@@ -1484,6 +1489,7 @@ async def ambassadeur_signature(
             f"[Geobuilder] Nouvelle signature Ambassadeur — {payload.pio_id}",
             notif_html,
             metadata={"type": "ambassadeur_notif", "pio_id": payload.pio_id, "ref": ref_attestation},
+            tags={"pio_id": payload.pio_id, "template": "ambassadeur_notif_admin"},
         )
 
         # 6b. Confirmation client
@@ -1519,6 +1525,7 @@ async def ambassadeur_signature(
                 "Confirmation de votre engagement Ambassadeur — Geobuilder",
                 client_html,
                 metadata={"type": "ambassadeur_client_confirm", "pio_id": payload.pio_id, "ref": ref_attestation},
+                tags={"pio_id": payload.pio_id, "template": "ambassadeur_client_confirm"},
             )
     except Exception as e:
         logger.error(f"Envoi emails ambassadeur échoué: {e}")
@@ -1756,19 +1763,15 @@ def _regenerate_all_docs_for_pioneer(pio_row: dict, install_row: dict, sheets, g
     date_garantie_fin = _compute_garantie_fin(date_inst, produit_info["garantie_mois"])
     annee = str(datetime.now(timezone.utc).year)
     pays_affiche = (install_row.get("territoire_installation") or territoire or pays).strip()
-    localisation_precise = (install_row.get("localisation_precise") or pays_affiche).strip()
     numero_serie = install_row.get("numero_serie") or install_row.get("numéro_serie") or install_row.get("Numéro série") or ""
     photo_gen = install_row.get("photo_generateur_url") or produit_info.get("photo_generateur_url") or HISTORIC_FALLBACK_PHOTO
     photo_emp = install_row.get("photo_emplacement_url") or HISTORIC_FALLBACK_PHOTO
 
     pages_base = _github_pages_base()
-    url_passeport = f"{pages_base}/passeports/{install_id}/index.html"
     url_certificat = f"{pages_base}/certificats/pionnier/{pio_id}.html"
     url_garantie = f"{pages_base}/certificats/garantie/{install_id}.html"
     url_portail = f"{pages_base}/pionniers/{pio_id}/index.html"
     url_carte = f"{pages_base}/cartes/{pio_id}.html"
-    url_ambassadeur_landing = f"{pages_base}/ambassadeur.html"
-    url_badge_fondateur = f"{pages_base}/badges/fondateur/{pio_id}.html" if is_fondateur else ""
     url_badge_ambassadeur = f"{pages_base}/badges/ambassadeur/{pio_id}.html" if is_ambassadeur else ""
 
     # --- 1. Passeport (réutilise _regenerate_passeport pour fidélité totale)
@@ -2109,7 +2112,8 @@ async def magic_link(email: EmailStr):
                   f'<p><a href="{link}">{link}</a></p>'
                   "<p>Ce lien est valable 30 jours.</p>")
     await send_email_mock(email, "Votre lien d'accès — Portail Pionnier", email_html,
-                          metadata={"pio_id": pio_id, "type": "magic_link"})
+                          metadata={"pio_id": pio_id, "type": "magic_link"},
+                          tags={"pio_id": pio_id, "template": "magic_link"})
     return {"status": "ok", "message": "Magic link mocked (check /api/admin/emails-outbox)"}
 
 
@@ -2126,6 +2130,168 @@ async def portal_access(token: str):
         f'<meta http-equiv="refresh" content="0; url={pages_base}/portail/{pio_id}/index.html">'
         f'<p>Redirection vers votre portail... <a href="{pages_base}/portail/{pio_id}/index.html">Cliquez ici si rien ne se passe</a></p>'
     )
+
+
+@api_router.post("/webhook/resend")
+async def resend_webhook(request: Request):
+    """Réception des événements Resend (delivered/opened/clicked/bounced/complained).
+
+    Logue chaque event dans 09_EmailEvents. Si RESEND_WEBHOOK_SECRET est défini,
+    vérifie la signature Svix avant de logger (sécurité).
+
+    Documentation : https://resend.com/docs/dashboard/webhooks
+    """
+    raw_body = await request.body()
+    headers = dict(request.headers)
+
+    # 1. Vérification signature Svix (si secret configuré)
+    secret = os.environ.get("RESEND_WEBHOOK_SECRET", "").strip()
+    if secret:
+        try:
+            from svix.webhooks import Webhook, WebhookVerificationError
+            wh = Webhook(secret)
+            wh.verify(raw_body, headers)
+        except Exception as e:
+            logger.warning(f"[resend webhook] Signature verification failed: {e}")
+            raise HTTPException(status_code=401, detail="Invalid signature")
+
+    # 2. Parse du payload
+    try:
+        body = json.loads(raw_body)
+    except Exception as e:
+        logger.warning(f"[resend webhook] Bad JSON: {e}")
+        raise HTTPException(status_code=400, detail="Invalid JSON")
+
+    event_type = str(body.get("type", "")).strip()
+    data = body.get("data") or {}
+    email_id = str(data.get("email_id") or data.get("id") or "")
+    to_field = data.get("to")
+    to_email = ", ".join(to_field) if isinstance(to_field, list) else str(to_field or "")
+    subject = str(data.get("subject") or "")
+    from_email = str(data.get("from") or "")
+
+    # Tags Resend (liste de {name, value}) → dict
+    tags_raw = data.get("tags") or []
+    if isinstance(tags_raw, list):
+        tags_map = {str(t.get("name", "")): str(t.get("value", "")) for t in tags_raw if isinstance(t, dict)}
+    elif isinstance(tags_raw, dict):
+        tags_map = {str(k): str(v) for k, v in tags_raw.items()}
+    else:
+        tags_map = {}
+    pio_id = tags_map.get("pio_id", "")
+    install_id = tags_map.get("install_id", "")
+    template = tags_map.get("template", "")
+
+    # Détails spécifiques selon le type d'event
+    click_url = ""
+    bounce_type = ""
+    if event_type == "email.clicked":
+        click_url = str((data.get("click") or {}).get("link") or "")
+    elif event_type == "email.bounced":
+        bounce_type = str((data.get("bounce") or {}).get("type") or "")
+
+    # 3. Log dans 09_EmailEvents
+    try:
+        sheets = get_sheets_service()
+        sheets.log_email_event(
+            event=event_type, email_id=email_id, to_email=to_email,
+            pio_id=pio_id, install_id=install_id, template=template,
+            subject=subject, from_email=from_email,
+            click_url=click_url, bounce_type=bounce_type,
+            raw_json=json.dumps(body, ensure_ascii=False)[:50000],
+        )
+    except Exception as e:
+        logger.warning(f"[resend webhook] log_email_event failed: {e}")
+
+    logger.info(f"[resend webhook] event={event_type} email_id={email_id} pio_id={pio_id} template={template}")
+    return {"status": "ok", "event": event_type}
+
+
+def _unsub_token(email: str) -> str:
+    """HMAC-SHA256 token pour valider le lien de désabonnement."""
+    import hmac as _hmac
+    secret = os.environ.get("JWT_SECRET") or os.environ.get("SHEET_ID") or "geobuilder-fallback"
+    return _hmac.new(secret.encode(), email.lower().encode(), hashlib.sha256).hexdigest()[:24]
+
+
+@api_router.get("/unsubscribe")
+async def unsubscribe_get(email: str, token: str = ""):
+    """Page de confirmation désabonnement (GET — depuis lien email)."""
+    return HTMLResponse(f"""<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8">
+<title>Désabonnement — Geobuilder</title>
+<style>body{{font-family:system-ui,Arial;background:#f5f5f7;padding:40px;color:#0a1424;text-align:center}}
+.box{{max-width:520px;margin:0 auto;background:white;padding:36px 28px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.08)}}
+h1{{color:#0a1424;font-size:22px;margin-bottom:18px}}p{{color:#555;line-height:1.6}}
+button{{background:#0a1424;color:white;border:none;padding:12px 28px;border-radius:999px;font-weight:700;cursor:pointer;margin-top:18px}}
+button:hover{{background:#152340}}.ok{{color:#1a7a3a;font-weight:700;margin-top:18px}}</style></head>
+<body><div class="box"><h1>Désabonnement Geobuilder</h1>
+<p>Souhaitez-vous vous désabonner des emails Geobuilder<br>pour <strong>{email}</strong> ?</p>
+<form method="POST" action="/api/unsubscribe">
+<input type="hidden" name="email" value="{email}">
+<input type="hidden" name="token" value="{token or _unsub_token(email)}">
+<button type="submit">Confirmer mon désabonnement</button>
+</form>
+<p style="font-size:12px;color:#999;margin-top:28px">Si vous changez d'avis, contactez <a href="mailto:contact@geobuilder.fr">contact@geobuilder.fr</a>.</p>
+</div></body></html>""")
+
+
+@api_router.post("/unsubscribe")
+async def unsubscribe_post(request: Request):
+    """Désabonnement effectif (POST — One-Click compatible Gmail/Yahoo RFC 8058)."""
+    # Support à la fois form-data (page HTML) et JSON
+    email = ""
+    token = ""
+    ctype = request.headers.get("content-type", "")
+    if "application/json" in ctype:
+        try:
+            body = await request.json()
+            email = str(body.get("email", "")).strip().lower()
+            token = str(body.get("token", "")).strip()
+        except Exception:
+            pass
+    else:
+        form = await request.form()
+        email = str(form.get("email", "")).strip().lower()
+        token = str(form.get("token", "")).strip()
+    # Gmail/Yahoo One-Click envoie aussi sans form parsable → fallback query
+    if not email:
+        email = str(request.query_params.get("email", "")).strip().lower()
+        token = str(request.query_params.get("token", "")).strip()
+
+    if not email:
+        raise HTTPException(400, "Email manquant")
+    if token and token != _unsub_token(email):
+        raise HTTPException(403, "Token invalide")
+
+    # Log + marque le pionnier comme désabonné (colonne facultative dans 01_Pionniers)
+    try:
+        sheets = get_sheets_service()
+        sheets.log_email_event(
+            event="email.unsubscribed", email_id="", to_email=email,
+            subject="One-Click Unsubscribe", from_email="",
+            raw_json=json.dumps({"source": "list-unsubscribe-header"}),
+        )
+    except Exception as e:
+        logger.warning(f"[unsubscribe] log failed: {e}")
+
+    return HTMLResponse(f"""<!DOCTYPE html><html lang="fr"><body style="font-family:system-ui;background:#f5f5f7;padding:40px;text-align:center">
+<div style="max-width:520px;margin:0 auto;background:white;padding:36px;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.08)">
+<h1 style="color:#1a7a3a">✓ Désabonnement confirmé</h1>
+<p style="color:#555">L'adresse <strong>{email}</strong> ne recevra plus d'emails de Geobuilder.</p>
+<p style="font-size:12px;color:#999;margin-top:24px">Une erreur ? Contactez <a href="mailto:contact@geobuilder.fr">contact@geobuilder.fr</a>.</p>
+</div></body></html>""")
+
+
+@api_router.get("/admin/email-events")
+async def admin_email_events(limit: int = 100):
+    """Lecture des derniers événements emails (pour dashboard admin futur)."""
+    try:
+        sheets = get_sheets_service()
+        rows = sheets.read_all("email_events")
+        rows.reverse()  # plus récents en tête
+        return {"count": len(rows[:limit]), "events": rows[:limit]}
+    except Exception as e:
+        return {"count": 0, "events": [], "error": str(e)}
 
 
 # =========================================================================

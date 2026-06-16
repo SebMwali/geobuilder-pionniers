@@ -227,3 +227,22 @@ Si `fondateur=true` : push supplémentaire `docs/ambassadeurs/{PIO_ID}.html`.
 - **P2** : Récupération d'accès (formulaire de récupération espace pionnier).
 - **P2** : Multi-générateur (carrousel) dans Espace Pionnier.
 - **P2** : Refactor `server.py` (~2150 lignes) — extraire pipeline livraison et helpers de rendu vers `services/`.
+
+---
+
+## Session 16/06/2026 (suite) — Tracking emails + Anti-spam
+### Implémenté
+- ✅ **Tags Resend** ajoutés sur tous les envois (bienvenue livraison, ambassadeur, magic link) : `pio_id`, `install_id`, `template`
+- ✅ **Headers anti-spam** : `List-Unsubscribe` + `List-Unsubscribe-Post: List-Unsubscribe=One-Click` (RFC 8058, exigence Gmail/Yahoo 2024)
+- ✅ **Endpoint webhook Resend** : `POST /api/webhook/resend` reçoit events (delivered/opened/clicked/bounced/complained) + vérif signature Svix si `RESEND_WEBHOOK_SECRET` défini
+- ✅ **Onglet `09_EmailEvents`** auto-créé dans Google Sheets (timestamp, event, email_id, to_email, pio_id, install_id, template, subject, from_email, click_url, bounce_type, raw_json)
+- ✅ **Endpoints désabonnement** : `GET /api/unsubscribe?email=X` (page HTML) + `POST /api/unsubscribe` (one-click compatible Gmail/Yahoo)
+- ✅ **Endpoint admin** : `GET /api/admin/email-events?limit=N` pour dashboard futur
+
+### Action utilisateur côté Resend
+1. **Dashboard Resend → Webhooks → Add Endpoint** : URL = `https://<backend-url>/api/webhook/resend`, sélectionner les 5 events → copier le signing secret (commence par `whsec_`) dans `RESEND_WEBHOOK_SECRET` du `.env`
+2. **`UNSUBSCRIBE_BASE_URL`** = URL publique du backend (sans `/api`), ex : `https://geobuilder.fr` ou l'URL de preview
+3. **Dashboard Resend → Domains → `geobuilder.fr`** : vérifier que SPF / DKIM / DMARC sont tous ✅ verts
+4. **Test pré-envoi** : envoyer 1 mail à `test-XXX@mail-tester.com` puis consulter `mail-tester.com` → cible score 9-10/10
+5. **Warm-up** : envoyer les 163 mails par batchs progressifs (jour 1 : 20 / jour 2 : 50 / jour 3 : reste)
+

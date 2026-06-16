@@ -45,18 +45,24 @@ async def send_email_mock(
     subject: str,
     html_body: str,
     metadata: Optional[dict] = None,
+    tags: Optional[Dict[str, str]] = None,
 ) -> Dict[str, Any]:
     """Envoi d'email via Resend (réel) avec fallback mock si non configuré ou erreur.
 
     Le nom de la fonction est conservé (`send_email_mock`) pour compatibilité
     descendante avec le reste du code — son comportement est désormais "real-first,
     mock-fallback".
+
+    `tags` : dict {key: value} attaché à l'envoi Resend pour permettre le tracking
+    via webhook (`pio_id`, `install_id`, `template`...). Les valeurs Resend doivent
+    être [a-zA-Z0-9_-] uniquement.
     """
     record = {
         "to": to,
         "subject": subject,
         "html_body": html_body,
         "metadata": metadata or {},
+        "tags": tags or {},
         "created_at": datetime.now(timezone.utc).isoformat(),
     }
 
@@ -79,13 +85,37 @@ async def send_email_mock(
     if not plain_text:
         plain_text = subject
 
-    params = {
+    # Headers anti-spam (List-Unsubscribe — exigence Gmail/Yahoo 2024 RFC 8058)
+    unsub_base = os.environ.get("UNSUBSCRIBE_BASE_URL", "").rstrip("/")
+    headers: Dict[str, str] = {}
+    if unsub_base:
+        unsub_url = f"{unsub_base}/api/unsubscribe?email={to}"
+        headers["List-Unsubscribe"] = f"<{unsub_url}>"
+        headers["List-Unsubscribe-Post"] = "List-Unsubscribe=One-Click"
+
+    # Tags Resend (utilisés par webhook pour identifier le pionnier)
+    # Format Resend : list[{name, value}] ; [a-zA-Z0-9_-] uniquement
+    resend_tags: List[Dict[str, str]] = []
+    if tags:
+        for k, v in tags.items():
+            if v is None:
+                continue
+            safe_name = _re.sub(r"[^a-zA-Z0-9_-]", "_", str(k))[:256]
+            safe_value = _re.sub(r"[^a-zA-Z0-9_-]", "_", str(v))[:256]
+            if safe_value:
+                resend_tags.append({"name": safe_name, "value": safe_value})
+
+    params: Dict[str, Any] = {
         "from": sender,
         "to": [to],
         "subject": subject,
         "html": html_body,
         "text": plain_text,
     }
+    if headers:
+        params["headers"] = headers
+    if resend_tags:
+        params["tags"] = resend_tags
 
     try:
         # Resend SDK est synchrone — on le passe en thread pour ne pas bloquer asyncio
