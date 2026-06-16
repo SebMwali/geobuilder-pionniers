@@ -1,0 +1,442 @@
+{
+  "phase_0a": {
+    "ref_errors": [
+      {
+        "idx_sheet": 111,
+        "install_id": "INST-2109",
+        "col_avec_REF": "pio_id",
+        "val_REF": "#REF!",
+        "nom_client": "Mme BEL Stephanie",
+        "numero_serie": "",
+        "produit": "G30",
+        "date_installation": ""
+      },
+      {
+        "idx_sheet": 122,
+        "install_id": "INST-2120",
+        "col_avec_REF": "pio_id",
+        "val_REF": "#REF!",
+        "nom_client": "Mr BERNARDET",
+        "numero_serie": "",
+        "produit": "G30",
+        "date_installation": ""
+      },
+      {
+        "idx_sheet": 150,
+        "install_id": "INST-2148",
+        "col_avec_REF": "pio_id",
+        "val_REF": "#REF!",
+        "nom_client": "Bompoint",
+        "numero_serie": "",
+        "produit": "G30",
+        "date_installation": ""
+      },
+      {
+        "idx_sheet": 151,
+        "install_id": "INST-2149",
+        "col_avec_REF": "pio_id",
+        "val_REF": "#REF!",
+        "nom_client": "Garnier",
+        "numero_serie": "HR88C23GFR0419",
+        "produit": "G30",
+        "date_installation": "01/11/2023"
+      }
+    ],
+    "ns_duplicates": [
+      {
+        "ns": "HR88C23EFR0120",
+        "pionniers": [
+          {
+            "pio_id": "PIO-1029",
+            "nom": "Lacombe",
+            "prenom": "Jonathan",
+            "email": "jonathan.lacombe.90@gmail.com"
+          },
+          {
+            "pio_id": "PIO-1136",
+            "nom": "VARLET",
+            "prenom": "Benoit",
+            "email": "varlet.benoit@gmail.com"
+          }
+        ]
+      },
+      {
+        "ns": "HR88C23JFR0849",
+        "pionniers": [
+          {
+            "pio_id": "PIO-1104",
+            "nom": "MOUSSA",
+            "prenom": "Inchati",
+            "email": "inchati.ti@gmail.com"
+          },
+          {
+            "pio_id": "PIO-1132",
+            "nom": "RACHIDI",
+            "prenom": "Moussa",
+            "email": "Moussa.rachidi@orange.fr"
+          }
+        ]
+      },
+      {
+        "ns": "HR88C23LFR1131",
+        "pionniers": [
+          {
+            "pio_id": "PIO-1130",
+            "nom": "LE DU",
+            "prenom": "Sylvain",
+            "email": "ledusylvain@hotmail.fr"
+          },
+          {
+            "pio_id": "PIO-1152",
+            "nom": "RAFFARD",
+            "prenom": "",
+            "email": "maxraf87@gmail.com"
+          }
+        ]
+      }
+    ],
+    "en_attente_summary": {
+      "total": 196,
+      "source_creation": {
+        "Import": 195,
+        "": 1
+      },
+      "usage_code_en_attente": "AUCUN",
+      "usage_code_pionnier": "PRÉSENT"
+    },
+    "structures_17": [
+      {
+        "pio_id": "PIO-1012",
+        "nom_complet": "Hippocampe plongée",
+        "client_type_actuel": "Entreprise",
+        "categorie_suspectee": "Entreprise",
+        "confiance": 1.0,
+        "flags": [
+          "client_type=Entreprise",
+          "mot-clé structure"
+        ],
+        "nb_installations": 1,
+        "install_ids": [
+          "INST-2012"
+        ],
+        "numeros_serie": [
+          "HR88C23JFR0266"
+        ],
+        "nb_maintenances": 1,
+        "nb_documents": 0,
+        "documents_urls": []
+      },
+      {
+        "pio_id": "PIO-1014",
+        "nom_complet": "Atelier Mahorais d'architecture",
+        "client_type_actuel": "Entreprise",
+        "categorie_suspectee": "Entreprise",
+        "confiance": 1.0,
+        "flags": [
+          "client_type=Entreprise",
+          "mot-clé structure"
+        ],
+        "nb_installations": 1,
+        "install_ids": [
+          "INST-2014"
+        ],
+        "numeros_serie": [
+          "HR88C23GFR070"
+        ],
+        "nb_maintenances": 5,
+        "nb_documents": 0,
+        "documents_urls": []
+      },
+      {
+        "pio_id": "PIO-1017",
+        "nom_complet": "Patricia Marceaux",
+        "client_type_actuel": "Administration",
+        "categorie_suspectee": "Administration",
+        "confiance": 1.0,
+        "flags": [
+          "client_type=Administration"
+        ],
+        "nb_installations": 1,
+        "install_ids": [
+          "INST-2017"
+        ],
+        "numeros_serie": [],
+        "nb_maintenances": 0,
+        "nb_documents": 0,
+        "documents_urls": []
+      },
+      {
+        "pio_id": "PIO-1018",
+        "nom_complet": "Association unono wa matso",
+        "client_type_actuel": "Administration",
+        "categorie_suspectee": "Administration",
+        "confiance": 1.0,
+        "flags": [
+          "client_type=Administration",
+          "mot-clé structure"
+        ],
+        "nb_installations": 1,
+        "install_ids": [
+          "INST-2018"
+        ],
+        "numeros_serie": [
+          "HR88C23EFR0029"
+        ],
+        "nb_maintenances": 5,
+        "nb_documents": 0,
+        "documents_urls": []
+      },
+      {
+        "pio_id": "PIO-1086",
+        "nom_complet": "Foundi distribution",
+        "client_type_actuel": "Entreprise",
+        "categorie_suspectee": "Entreprise",
+        "confiance": 1.0,
+        "flags": [
+          "client_type=Entreprise",
+          "mot-clé structure"
+        ],
+        "nb_installations": 1,
+        "install_ids": [
+          "INST-2085"
+        ],
+        "numeros_serie": [
+          "HR88C23JFR0704"
+        ],
+        "nb_maintenances": 1,
+        "nb_documents": 0,
+        "documents_urls": []
+      },
+      {
+        "pio_id": "PIO-1076",
+        "nom_complet": "CIRAD Antenne de Mayotte",
+        "client_type_actuel": "Particulier",
+        "categorie_suspectee": "Entreprise/Asso/Admin",
+        "confiance": 0.9,
+        "flags": [
+          "mot-clé structure"
+        ],
+        "nb_installations": 1,
+        "install_ids": [
+          "INST-2075"
+        ],
+        "numeros_serie": [
+          "HR88C25DAZ0026"
+        ],
+        "nb_maintenances": 2,
+        "nb_documents": 0,
+        "documents_urls": []
+      },
+      {
+        "pio_id": "PIO-1078",
+        "nom_complet": "CRECHE Les enfants des Margouillats",
+        "client_type_actuel": "Particulier",
+        "categorie_suspectee": "Entreprise/Asso/Admin",
+        "confiance": 0.9,
+        "flags": [
+          "mot-clé structure"
+        ],
+        "nb_installations": 1,
+        "install_ids": [
+          "INST-2077"
+        ],
+        "numeros_serie": [
+          "HR88C24AFR0089"
+        ],
+        "nb_maintenances": 2,
+        "nb_documents": 0,
+        "documents_urls": []
+      },
+      {
+        "pio_id": "PIO-1079",
+        "nom_complet": "Cabinet Infirmier Triquet Triquet François",
+        "client_type_actuel": "Particulier",
+        "categorie_suspectee": "Entreprise/Asso/Admin",
+        "confiance": 0.9,
+        "flags": [
+          "mot-clé structure",
+          "prof libérale (INFIRMIER)"
+        ],
+        "nb_installations": 1,
+        "install_ids": [
+          "INST-2078"
+        ],
+        "numeros_serie": [
+          "HR88C23GFR0414"
+        ],
+        "nb_maintenances": 3,
+        "nb_documents": 0,
+        "documents_urls": []
+      },
+      {
+        "pio_id": "PIO-1087",
+        "nom_complet": "France Alzheimer Mayotte",
+        "client_type_actuel": "Particulier",
+        "categorie_suspectee": "Entreprise/Asso/Admin",
+        "confiance": 0.9,
+        "flags": [
+          "mot-clé structure"
+        ],
+        "nb_installations": 1,
+        "install_ids": [
+          "INST-2086"
+        ],
+        "numeros_serie": [
+          "HR88C23LFR1077"
+        ],
+        "nb_maintenances": 2,
+        "nb_documents": 0,
+        "documents_urls": []
+      },
+      {
+        "pio_id": "PIO-1091",
+        "nom_complet": "HELILAGON",
+        "client_type_actuel": "Particulier",
+        "categorie_suspectee": "Entreprise/Asso/Admin",
+        "confiance": 0.9,
+        "flags": [
+          "mot-clé structure"
+        ],
+        "nb_installations": 1,
+        "install_ids": [
+          "INST-2090"
+        ],
+        "numeros_serie": [],
+        "nb_maintenances": 3,
+        "nb_documents": 0,
+        "documents_urls": []
+      },
+      {
+        "pio_id": "PIO-1106",
+        "nom_complet": "Mayotte Clotures et Jardins Fraisse",
+        "client_type_actuel": "Particulier",
+        "categorie_suspectee": "Entreprise/Asso/Admin",
+        "confiance": 0.9,
+        "flags": [
+          "mot-clé structure"
+        ],
+        "nb_installations": 1,
+        "install_ids": [
+          "INST-2105"
+        ],
+        "numeros_serie": [
+          "HR88C23EFR003"
+        ],
+        "nb_maintenances": 0,
+        "nb_documents": 0,
+        "documents_urls": []
+      },
+      {
+        "pio_id": "PIO-1135",
+        "nom_complet": "SARL VETO",
+        "client_type_actuel": "Particulier",
+        "categorie_suspectee": "Entreprise/Asso/Admin",
+        "confiance": 0.9,
+        "flags": [
+          "mot-clé structure"
+        ],
+        "nb_installations": 1,
+        "install_ids": [
+          "INST-2134"
+        ],
+        "numeros_serie": [],
+        "nb_maintenances": 0,
+        "nb_documents": 0,
+        "documents_urls": []
+      },
+      {
+        "pio_id": "PIO-1142",
+        "nom_complet": "ROCS",
+        "client_type_actuel": "Particulier",
+        "categorie_suspectee": "Entreprise/Asso/Admin",
+        "confiance": 0.9,
+        "flags": [
+          "mot-clé structure",
+          "acronyme MAJ sans prenom"
+        ],
+        "nb_installations": 1,
+        "install_ids": [
+          "INST-2141"
+        ],
+        "numeros_serie": [],
+        "nb_maintenances": 0,
+        "nb_documents": 0,
+        "documents_urls": []
+      },
+      {
+        "pio_id": "PIO-1143",
+        "nom_complet": "SAS MATIS",
+        "client_type_actuel": "Particulier",
+        "categorie_suspectee": "Entreprise/Asso/Admin",
+        "confiance": 0.9,
+        "flags": [
+          "mot-clé structure"
+        ],
+        "nb_installations": 1,
+        "install_ids": [
+          "INST-2142"
+        ],
+        "numeros_serie": [],
+        "nb_maintenances": 0,
+        "nb_documents": 0,
+        "documents_urls": []
+      },
+      {
+        "pio_id": "PIO-1144",
+        "nom_complet": "SOS OXYGENE",
+        "client_type_actuel": "Particulier",
+        "categorie_suspectee": "Entreprise/Asso/Admin",
+        "confiance": 0.9,
+        "flags": [
+          "mot-clé structure"
+        ],
+        "nb_installations": 1,
+        "install_ids": [
+          "INST-2143"
+        ],
+        "numeros_serie": [],
+        "nb_maintenances": 0,
+        "nb_documents": 0,
+        "documents_urls": []
+      },
+      {
+        "pio_id": "PIO-1146",
+        "nom_complet": "Gaëlle TOURON",
+        "client_type_actuel": "Particulier",
+        "categorie_suspectee": "Entreprise/Asso/Admin",
+        "confiance": 0.9,
+        "flags": [
+          "mot-clé structure"
+        ],
+        "nb_installations": 1,
+        "install_ids": [
+          "INST-2145"
+        ],
+        "numeros_serie": [],
+        "nb_maintenances": 0,
+        "nb_documents": 0,
+        "documents_urls": []
+      },
+      {
+        "pio_id": "PIO-1151",
+        "nom_complet": "Tetrama exploitation",
+        "client_type_actuel": "Particulier",
+        "categorie_suspectee": "Entreprise/Asso/Admin",
+        "confiance": 0.9,
+        "flags": [
+          "mot-clé structure"
+        ],
+        "nb_installations": 1,
+        "install_ids": [
+          "INST-2150"
+        ],
+        "numeros_serie": [
+          "EA60L23JFR1010S"
+        ],
+        "nb_maintenances": 0,
+        "nb_documents": 0,
+        "documents_urls": []
+      }
+    ]
+  }
+}
