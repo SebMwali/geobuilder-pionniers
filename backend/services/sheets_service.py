@@ -122,10 +122,48 @@ class SheetsService:
 
     @_retry_on_quota()
     def append_row(self, tab_key: str, row: List[Any]):
-        """Ajoute une ligne à la fin d'un onglet (USER_ENTERED pour interpréter formules/dates)."""
+        """Ajoute une ligne à la fin d'un onglet (USER_ENTERED pour interpréter formules/dates).
+
+        ⚠️ DÉPRÉCIÉ pour 01_Pionniers et 02_Installations : utilise `append_in_formatted_zone`
+        qui ajoute juste après la dernière ligne pleine en préservant la mise en forme.
+        Voir /app/memory/REGLES_SHEET.md (règle R1).
+        """
         ws = self.get_worksheet(tab_key)
         ws.append_row(row, value_input_option="USER_ENTERED")
         logger.info(f"Appended row to {tab_key}: {row}")
+
+    @_retry_on_quota()
+    def append_in_formatted_zone(self, tab_key: str, rows: List[List[Any]], n_cols: int) -> int:
+        """Ajoute des lignes JUSTE APRÈS la dernière ligne pleine de l'onglet.
+
+        Préserve la mise en forme (dropdowns, couleurs, polices) de la zone destination,
+        contrairement à `append_row` qui empile en bas de la feuille (souvent hors zone formatée).
+
+        Voir /app/memory/REGLES_SHEET.md règle R1.
+
+        Args:
+            tab_key: clé d'onglet (ex: 'pionniers')
+            rows: liste de listes, une ligne = une liste de valeurs
+            n_cols: nombre de colonnes de l'onglet (utilisé pour le range)
+
+        Returns:
+            Index 1-based de la première ligne insérée.
+        """
+        ws = self.get_worksheet(tab_key)
+        all_vals = ws.get_all_values()
+        # Dernière ligne avec col A non vide
+        last_filled = 1  # header
+        for i, r in enumerate(all_vals, start=1):
+            if r and r[0].strip():
+                last_filled = i
+        start = last_filled + 1
+        end = start + len(rows) - 1
+        end_col = chr(ord('A') + n_cols - 1)
+        dest_range = f"A{start}:{end_col}{end}"
+        padded = [(r + [""] * n_cols)[:n_cols] for r in rows]
+        ws.update(dest_range, padded, value_input_option="USER_ENTERED")
+        logger.info(f"Inserted {len(rows)} row(s) into {tab_key} at {dest_range}")
+        return start
 
     def find_row_by(self, tab_key: str, column_name: str, value: str) -> Optional[Dict[str, Any]]:
         """Trouve la première ligne où column_name == value. Renvoie dict ou None."""
