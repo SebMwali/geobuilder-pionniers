@@ -71,6 +71,7 @@ class SheetsService:
     _instance = None
     _client = None
     _spreadsheet = None
+    _worksheets: dict = {}
 
     def __new__(cls):
         if cls._instance is None:
@@ -101,9 +102,18 @@ class SheetsService:
         return self._spreadsheet
 
     def get_worksheet(self, tab_key: str):
-        """Retourne l'objet worksheet pour la clé donnée (ex: 'pionniers')."""
+        """Retourne l'objet worksheet pour la clé donnée (ex: 'pionniers').
+
+        Cache l'objet worksheet pour éviter `fetch_sheet_metadata` à chaque appel
+        (cet appel consomme le quota 'Read requests per minute').
+        """
         tab_name = TABS.get(tab_key, tab_key)
-        return self._get_spreadsheet().worksheet(tab_name)
+        ws = self._worksheets.get(tab_name)
+        if ws is not None:
+            return ws
+        ws = self._get_spreadsheet().worksheet(tab_name)
+        self._worksheets[tab_name] = ws
+        return ws
 
     def read_all(self, tab_key: str) -> List[Dict[str, Any]]:
         """Lit toutes les lignes d'un onglet sous forme de liste de dicts."""
