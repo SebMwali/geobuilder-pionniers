@@ -1,0 +1,149 @@
+{
+  "title": "04_Parametres",
+  "rows": [
+    [
+      "Produits",
+      "Client Types",
+      "Statuts Pionnier",
+      "Statuts Installation",
+      "Statuts Media",
+      "Compteurs",
+      "Valeur Actuelle"
+    ],
+    [
+      "G30",
+      "Particulier",
+      "Actif",
+      "En cours",
+      "Validé",
+      "Pionnier ID",
+      "1196"
+    ],
+    [
+      "G60",
+      "Administration",
+      "En attente",
+      "Terminée",
+      "Refusé",
+      "Installation ID",
+      "2199"
+    ],
+    [
+      "G100",
+      "Collectivité",
+      "Archivé",
+      "Validée",
+      "En attente",
+      "Media ID",
+      "3000"
+    ],
+    [
+      "G250",
+      "Entreprise",
+      "G252",
+      "SAV",
+      "G254",
+      "G255",
+      ""
+    ],
+    [
+      "G500",
+      "",
+      "",
+      "G503",
+      "G504",
+      "G505",
+      ""
+    ],
+    [
+      "G1500",
+      "G1501",
+      "G1502",
+      "",
+      "G1504",
+      "G1505",
+      ""
+    ],
+    [
+      "G20 MOJA",
+      "VITAL",
+      "VITAL",
+      "VITAL",
+      "VITAL",
+      "VITAL",
+      ""
+    ],
+    [
+      "VITAL",
+      "HOME",
+      "HOME",
+      "HOME",
+      "HOME",
+      "HOME",
+      ""
+    ],
+    [
+      "HOME",
+      "SOURCE",
+      "SOURCE",
+      "SOURCE",
+      "SOURCE",
+      "SOURCE",
+      ""
+    ],
+    [
+      "SOURCE",
+      "OCEAN",
+      "OCEAN",
+      "OCEAN",
+      "OCEAN",
+      "OCEAN",
+      ""
+    ],
+    [
+      "OCEAN",
+      "TITAN",
+      "TITAN",
+      "TITAN",
+      "TITAN",
+      "TITAN",
+      ""
+    ],
+    [
+      "TITAN",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "Maintenance ID",
+      "3126"
+    ],
+    [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "Document ID",
+      "4162"
+    ],
+    [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "Produit ID",
+      "1"
+    ]
+  ]
+}

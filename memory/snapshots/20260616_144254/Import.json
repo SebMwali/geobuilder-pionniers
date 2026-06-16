@@ -1,0 +1,1076 @@
+{
+  "title": "Import",
+  "rows": [
+    [
+      "Avatar 128",
+      "Nom complet",
+      "E-mail",
+      "Téléphone",
+      "Activités",
+      "Pays",
+      "Stats"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDg4LCA2NCUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPkE8L3RleHQ+PC9zdmc+",
+      "ABDOU Bakar",
+      "bakar.ab@hotmail.fr",
+      "0639293348",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE4NCwgNjUlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5BPC90ZXh0Pjwvc3ZnPg==",
+      "ABDOU Souffou",
+      "hamidoutaz@yahoo.fr",
+      "0768149776",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI5OCwgNDklLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5BPC90ZXh0Pjwvc3ZnPg==",
+      "ALI HAMISSI Anassati",
+      "hadza@hotmail.fr",
+      "+262 639 07 75 45",
+      "Outbound call (00:00:59) from +262262666374 (Sandrine MARTIN) to +262639077545 (ALI HAMISSI Anassati)",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "",
+      "",
+      "",
+      "",
+      "Outbound call (00:00:48) from +262262666374 (Sandrine MARTIN) to +262639077545 (ALI HAMISSI Anassati)",
+      "",
+      ""
+    ],
+    [
+      "",
+      "",
+      "",
+      "",
+      "Outbound call (00:02:54) from +262262666374 (Sandrine MARTIN) to +262639077545 (ALI HAMISSI Anassati)",
+      "",
+      ""
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI2NSwgNDklLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5BPC90ZXh0Pjwvc3ZnPg==",
+      "ALI MARI Sandati",
+      "sanlove976@hotmail.fr",
+      "+262 639 04 27 68",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-star\", \"value\": 1, \"label\": \"Opportunit\\u00e9s\", \"tagClass\": \"o_tag_color_8\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDMxNSwgNDAlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5BPC90ZXh0Pjwvc3ZnPg==",
+      "ANSEL",
+      "tavaillon@gmail.com",
+      "+33662378924",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDIwOSwgNjAlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5BPC90ZXh0Pjwvc3ZnPg==",
+      "ARNAUD Jean Jacques",
+      "jja250975@gmail.com",
+      "06 90 95 64 99",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 3, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 3, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDMxOCwgNDQlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5BPC90ZXh0Pjwvc3ZnPg==",
+      "ARZALIEZ Rachel",
+      "rachel.arzaliez@gmail.com",
+      "+262639628174",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "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",
+      "ASSANI Abdou Rahamane",
+      "assaniabdourahamane125@gmail.com",
+      "",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE4NSwgNDUlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5BPC90ZXh0Pjwvc3ZnPg==",
+      "Agence Française de Développement - AFD",
+      "afdmamoudzou@afd.fr; razakamanantsoat@afd.fr",
+      "0269 64 35 00",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 4, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 4, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDM0NCwgNDQlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5BPC90ZXh0Pjwvc3ZnPg==",
+      "Alexandre BALOSSO",
+      "balosso.a@hotmail.fr",
+      "0639273239",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDMwOCwgNjclLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5CPC90ZXh0Pjwvc3ZnPg==",
+      "BERNARDET Didier",
+      "didfamilys@gmail.com",
+      "+262 692 50 03 45",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE5OCwgNjIlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5CPC90ZXh0Pjwvc3ZnPg==",
+      "BIGUET Gildas",
+      "gildasbiguet@yahoo.com",
+      "+262 639 69 74 28",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDEyNiwgNjklLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5CPC90ZXh0Pjwvc3ZnPg==",
+      "BOMPOINT Arlette",
+      "arlette.bompoint@outlook.com",
+      "+33 6 39 69 45 42",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDM1NiwgNDAlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5CPC90ZXh0Pjwvc3ZnPg==",
+      "BOUTIN Alexis",
+      "alexisboutinlucien.cpe@gmail.com",
+      "+262 639 99 98 84",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI0NywgNTUlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5CPC90ZXh0Pjwvc3ZnPg==",
+      "Boyer Marion",
+      "marionboyer.hudelle@gmail.com",
+      "0639615693",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE4NCwgNTglLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5DPC90ZXh0Pjwvc3ZnPg==",
+      "CHEBANI Saidina Ilyassa",
+      "sichebani@gmail.com",
+      "+262639070419",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-star\", \"value\": 1, \"label\": \"Opportunit\\u00e9s\", \"tagClass\": \"o_tag_color_8\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI2NywgNTMlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5DPC90ZXh0Pjwvc3ZnPg==",
+      "CIRAD Antenne de Mayotte",
+      "rachidati.ridjali@cirad.fr",
+      "+262 639 69 22 21",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI5OSwgNTElLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5DPC90ZXh0Pjwvc3ZnPg==",
+      "CLEMENT Olivier / THORAL Agnès",
+      "olivier.clement37@gmail.com",
+      "+33 6 37 81 02 90",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 3, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "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",
+      "CLOCKERS Michael",
+      "m.clockers@hotmail.fr",
+      "0692874411",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 4, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDIzMiwgNjUlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5DPC90ZXh0Pjwvc3ZnPg==",
+      "CRECHE Les enfants des Margouillats",
+      "lesenfantsdesmargouillats@hotmail.fr;",
+      "06 22 78 82 12",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "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",
+      "Cabinet Infirmier Triquet, Triquet François",
+      "francois.triquet53@gmail.com",
+      "+262639298789",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE5MywgNTYlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5DPC90ZXh0Pjwvc3ZnPg==",
+      "Coignard",
+      "tonio.coignard@gmail.com",
+      "0693326750",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDg5LCA1NyUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPkQ8L3RleHQ+PC9zdmc+",
+      "DI PIRRO Cécilia",
+      "cecilia.dipirro@yahoo.fr",
+      "0783303709",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDIxMywgNDIlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5EPC90ZXh0Pjwvc3ZnPg==",
+      "DIVRY STEPHANIE",
+      "stephaniedivry@aol.com",
+      "0616915059",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDk3LCA2MCUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPkQ8L3RleHQ+PC9zdmc+",
+      "DURAND Christophe",
+      "zours@live.fr",
+      "0781389016",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI1NiwgNTElLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5FPC90ZXh0Pjwvc3ZnPg==",
+      "Edouard Foltzer",
+      "edouard.foltzer@gmail.com",
+      "+262639696068",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-star\", \"value\": 1, \"label\": \"Opportunit\\u00e9s\", \"tagClass\": \"o_tag_color_8\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE0MCwgNjElLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5GPC90ZXh0Pjwvc3ZnPg==",
+      "FRANCE TRAVAIL – Direction Régionale Mayotte",
+      "fatoumia.jary@francetravail.fr; houbia.combo@francetravail.fr;mohamadi.daroussi@francetravail.fr; angatahi.mela@francetravail.fr",
+      "+2620639217808",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-star\", \"value\": 1, \"label\": \"Opportunit\\u00e9s\", \"tagClass\": \"o_tag_color_8\"}, {\"iconClass\": \"fa-usd\", \"value\": 7, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "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",
+      "FRENEHARD Lucas",
+      "ambre.kaderock@gmail.com",
+      "06 39 07 06 71 / 07 72 72 03 31",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 3, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-star\", \"value\": 1, \"label\": \"Opportunit\\u00e9s\", \"tagClass\": \"o_tag_color_8\"}, {\"iconClass\": \"fa-usd\", \"value\": 3, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI1LCA0OCUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPkY8L3RleHQ+PC9zdmc+",
+      "Fabrice NICOL",
+      "nicol.fabrice@gmail.com",
+      "+33 6 22 86 05 34",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDExMCwgNjYlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5GPC90ZXh0Pjwvc3ZnPg==",
+      "Foundi distribution",
+      "foundi.distribution@yahoo.fr; Secretariatfoundi@gmail.com; Directionfoundi@gmail.com; respcomfoundi@gmail.com",
+      "0639054369 Mr PESSEY / 0639670298 Mr COUTAND",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 4, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE2MiwgNTglLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5GPC90ZXh0Pjwvc3ZnPg==",
+      "France Alzheimer Mayotte",
+      "alzheimer.mayotte976@gmail.com ; zhf976@gmail.com",
+      "+262 639 09 46 76",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDIyNiwgNDglLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5GPC90ZXh0Pjwvc3ZnPg==",
+      "Frédéric COMBELLE",
+      "fcombelle@gmail.com",
+      "+262 639 69 10 36",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDIxNiwgNTAlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5HPC90ZXh0Pjwvc3ZnPg==",
+      "GERAUD Mickael",
+      "mike.geraud@orange.fr",
+      "+33631228022",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI3NCwgNDglLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5HPC90ZXh0Pjwvc3ZnPg==",
+      "GUIBBERT William",
+      "guibbertwilliam@laposte.net",
+      "+262 639 78 13 18",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI3NSwgNjAlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Guillaume, Mr SIMONET DE LABORIE Guillaume",
+      "guillaumesdl834@gmail.com",
+      "+262 639 02 01 66",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE0MywgNTQlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5IPC90ZXh0Pjwvc3ZnPg==",
+      "HELILAGON",
+      "camille.guerineau@helilagon.com",
+      "+33 0658740561",
+      "",
+      "La Réunion",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-star\", \"value\": 1, \"label\": \"Opportunit\\u00e9s\", \"tagClass\": \"o_tag_color_8\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE2NCwgNDglLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5IPC90ZXh0Pjwvc3ZnPg==",
+      "Hassan Ben Chakrina",
+      "chakrina@icloud.com",
+      "+33 6 39 06 65 64",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE2LCA2NyUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPko8L3RleHQ+PC9zdmc+",
+      "JEAN LUC OLIVIER",
+      "jean-luc@artemis-technologies.fr",
+      "+262639690587",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDcxLCA0OCUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPko8L3RleHQ+PC9zdmc+",
+      "JOSEPH",
+      "m.jonathanj@hotmail.fr",
+      "+262 0639 25 65 60",
+      "",
+      "France",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE5NSwgNjIlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5KPC90ZXh0Pjwvc3ZnPg==",
+      "JOULIN François",
+      "francois.joulin@free.fr",
+      "+262 639 25 42 47",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE2MiwgNTIlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5MPC90ZXh0Pjwvc3ZnPg==",
+      "LACOMBE Jonathan et BOUCHARINC Solène",
+      "jonathan.lacombe.90@gmail.com",
+      "06 74 56 05 21 / 06 66 36 11 66",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 3, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE4NCwgNDMlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5MPC90ZXh0Pjwvc3ZnPg==",
+      "LARREGAIN",
+      "vio.ma@wanadoo.fr",
+      "+262639028230",
+      "Outbound call (00:03:09) from +262262666374 (Sandrine MARTIN) to +262639028230 (LARREGAIN)",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE2MiwgNDglLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5MPC90ZXh0Pjwvc3ZnPg==",
+      "LEMARCHAND Aurore",
+      "aurorelemarchand1@yahoo.fr",
+      "+33 6 39 23 29 10",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDMzNiwgNDMlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5MPC90ZXh0Pjwvc3ZnPg==",
+      "LOPEZ Alfonso",
+      "fonso222@hotmail.com",
+      "0671047928",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 3, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 3, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDMzMiwgNjIlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "MARI Mambadi",
+      "mambadimari@gmail.com",
+      "+262 639 69 68 68",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDMxNSwgNTUlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "MARI Soihibou",
+      "soihmari@outlook.com",
+      "+33 6 39 69 23 98",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDczLCA0MCUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPk08L3RleHQ+PC9zdmc+",
+      "MARI Toulaybi",
+      "tchileasjm976@gmail.com",
+      "+262 639 94 49 27",
+      "Outbound call (00:00:10) from +262262666374 (Sandrine MARTIN) to +262639944927 (MARI Toulaybi)",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "",
+      "",
+      "",
+      "",
+      "Outbound call (00:00:14) from +262262666374 (Sandrine MARTIN) to +262639944927 (MARI Toulaybi)",
+      "",
+      ""
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE4MSwgNjUlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "MAROT NELLY",
+      "anais.austral@gmail.com",
+      "+33614025587 / pret ALI HAMIDI 06 39 69 68 47 ",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE0LCA1MyUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPk08L3RleHQ+PC9zdmc+",
+      "MATTOIR Mouhayati",
+      "mouhayati.mattoir@hotmail.fr",
+      "+33698658726",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-star\", \"value\": 1, \"label\": \"Opportunit\\u00e9s\", \"tagClass\": \"o_tag_color_8\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE0OCwgNDAlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "MOHAMADI Elhad",
+      "fadj.said@gmail.com; elhad_4@hotmail.fr",
+      "+262 639 02 11 03",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDU0LCA1NyUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPk08L3RleHQ+PC9zdmc+",
+      "MOISAN Guewen",
+      "guewen.moisan@gmail.com",
+      "+262 639 40 88 74 / 06 39 65 66 71 tel pro",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI3LCA2MSUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPk08L3RleHQ+PC9zdmc+",
+      "MOISAN Guewen",
+      "guewen.moisan@gmail.com",
+      "+262 639 65 66 71",
+      "Outbound call (00:00:05) from +262262666374 (Sandrine MARTIN) to +262639656671 (MOISAN Guewen)",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 3, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI4MCwgNTQlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "MOREL Laurent",
+      "Laurent.morel974@orange.fr",
+      "+33623890331",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDExNCwgNjAlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "MOUSSA Inchati",
+      "inchati.ti@gmail.com",
+      "0639097904",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDMxNSwgNTklLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "MROIVILI Echati Moussa",
+      "e_laouya@yahoo.fr",
+      "+262639668671",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-star\", \"value\": 1, \"label\": \"Opportunit\\u00e9s\", \"tagClass\": \"o_tag_color_8\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "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",
+      "Mayotte Clotures et Jardins , Fraisse",
+      "nicolasfraisse@wanadoo.fr",
+      "0639038709",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDEwMCwgNjElLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mme ABASSI",
+      "nadjabassi@hotmail.fr",
+      "+262639097830 / metro 06 82 47 81 22",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI2NCwgNDUlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mme ABDULLAH Laure",
+      "laure.gout@gmail.com",
+      "0639007959",
+      "",
+      "France",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-star\", \"value\": 1, \"label\": \"Opportunit\\u00e9s\", \"tagClass\": \"o_tag_color_8\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDM1MiwgNDAlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mme ALI HAMIDI Sedji",
+      "sedji.allain@gmail.com",
+      "+262639649216",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 3, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDQ4LCA1NiUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPk08L3RleHQ+PC9zdmc+",
+      "Mme BANAG MOUTLEN Elisabeth",
+      "lysou38@hotmail.com",
+      "+262 692 28 36 61",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 3, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDMxNSwgNDMlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mme BEJAOUI Hayfa",
+      "hayfastrip@gmail.com",
+      "+33685479215",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI3OCwgNjYlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mme BEL Stephanie",
+      "belstephanie77@gmail.com",
+      "639296583",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDMzMCwgNjklLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mme BOULINEAU Céline",
+      "celine.boulineau@yahoo.fr",
+      "+262 639 65 27 21",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDU2LCA0OCUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPk08L3RleHQ+PC9zdmc+",
+      "Mme BOURCIER Valérie",
+      "njapoulo@yahoo.fr",
+      "+33651140907",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-star\", \"value\": 1, \"label\": \"Opportunit\\u00e9s\", \"tagClass\": \"o_tag_color_8\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDEwLCA0OCUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPk08L3RleHQ+PC9zdmc+",
+      "Mme BRAHIME Rahamatou",
+      "Abdallahsoudaissi@gmail.com",
+      "+262 639 01 99 97 (mère) / (fille Nadine ABDALLAH) 0766856774  (fils 0639 01 99 97)",
+      "Outbound call (00:05:16) from +262262666374 (Sandrine MARTIN) to +33766856774 (Abdallah Nadine)",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "",
+      "",
+      "",
+      "",
+      "Outbound call (00:02:04) from +262262666374 (Sandrine MARTIN) to +33766856774 (Abdallah Nadine)",
+      "",
+      ""
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDU5LCA0OSUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPk08L3RleHQ+PC9zdmc+",
+      "Mme CAMPIER Nathalie",
+      "nc972@hotmail.com",
+      "+33698107064",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 3, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 3, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDMzNiwgNjYlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mme DEL RIO Gundín Laura",
+      "del.rio.gundin.laura@gmail.com",
+      "+33695261258",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE5OSwgNzAlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mme GUILLEREZ Peggy",
+      "guillerez.peggy@orange.fr",
+      "+33638273265",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-star\", \"value\": 1, \"label\": \"Opportunit\\u00e9s\", \"tagClass\": \"o_tag_color_8\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDM0NCwgNDclLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mme JARY Fatoumina",
+      "fatoumia.jary2022@gmail.com",
+      "+262 639 21 78 08",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI1LCA1MCUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPk08L3RleHQ+PC9zdmc+",
+      "Mme JEANSON Barbara",
+      "barbarajeanson@gmail.com; ardanidaoud@gmail.com",
+      "+33 7 69 36 64 33",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDEzMSwgNjglLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mme LAMOTTE Dominique",
+      "dominique.lamotte@laposte.net",
+      "+33 6 39 24 20 58",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDEzMCwgNjUlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mme Labille et M. Neveu",
+      "guillaume.neveu@yahoo.fr; coralie_labille@yahoo.com",
+      "0622312018",
+      "Outbound call (00:00:07) from +262262666374 (Sandrine MARTIN) to +33622312018 (Mme Labille et M. Neveu)",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 3, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 3, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "",
+      "",
+      "",
+      "",
+      "Outbound call (00:00:06) from +262262666374 (Sandrine MARTIN) to +33622312018 (Mme Labille et M. Neveu)",
+      "",
+      ""
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE3OSwgNjklLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mme PERRISSOUD Emilie",
+      "emilie.perrissoud@orange.fr",
+      "+262 639 40 31 09",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 3, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 5, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI0MywgNTIlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mme PRADA Céline",
+      "celine.prada@icloud.com",
+      "+33629244589",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-star\", \"value\": 1, \"label\": \"Opportunit\\u00e9s\", \"tagClass\": \"o_tag_color_8\"}, {\"iconClass\": \"fa-usd\", \"value\": 3, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDMwMiwgNTQlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Moriamez Laurent",
+      "laurentmoriamez73@gmail.com",
+      "+262 639 65 10 64",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDcsIDY4JSwgNDUlKScgaGVpZ2h0PScxODAnIHdpZHRoPScxODAnLz48dGV4dCBmaWxsPScjZmZmZmZmJyBmb250LXNpemU9Jzk2JyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyB4PSc5MCcgeT0nMTI1JyBmb250LWZhbWlseT0nc2Fucy1zZXJpZic+TTwvdGV4dD48L3N2Zz4=",
+      "Mr ANDAZA Benoit",
+      "sabasssaidou@hotmail.com; benoit.andaza@ac-mayotte.fr",
+      "0692564823 / 0639193433 ",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI1NiwgNTklLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mr BATARD Nicolas",
+      "cynthiaetnico@free.fr; cynthia.batard@gmail.com",
+      "0642067858",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-star\", \"value\": 1, \"label\": \"Opportunit\\u00e9s\", \"tagClass\": \"o_tag_color_8\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE0NywgNTklLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mr BERNARDET",
+      "didfamilys@gmail.com",
+      "+262692500345",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 3, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 3, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDEwMywgNDglLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mr BERTHET Tony",
+      "tonyberthet@hotmail.com",
+      "06 44 12 82 19",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDIwMywgNDYlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mr BRICQUET Denis",
+      "ameko@hotmail.fr",
+      "+33647703145",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-star\", \"value\": 1, \"label\": \"Opportunit\\u00e9s\", \"tagClass\": \"o_tag_color_8\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDk2LCA2MSUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPk08L3RleHQ+PC9zdmc+",
+      "Mr CORRADO BERJOTIN Matthieu",
+      "matthieu.corrado@gmail.com",
+      "+262 692 30 16 90",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDY1LCA2NCUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPk08L3RleHQ+PC9zdmc+",
+      "Mr DE BOLLIVIER Yves",
+      "yvesblv@gmail.com",
+      "+262 693 88 16 63",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 4, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDIwOCwgNDQlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mr DUPRE WEKESA Guillaume",
+      "guillaumedupre.commandes@gmail.com",
+      "+262 639 25 19 44",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDExMiwgNTklLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mr GARCIA Guillaume",
+      "lirokua@gmail.com",
+      "+262 692 85 75 47",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDIzLCA0NyUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPk08L3RleHQ+PC9zdmc+",
+      "Mr GARNIER",
+      "docmayotte@yahoo.fr",
+      "+262 639094456",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDkzLCA0MiUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPk08L3RleHQ+PC9zdmc+",
+      "Mr GERMAIN Hugo",
+      "hugo.germain@wanadoo.fr",
+      "+262639255837",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 4, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDEwMiwgNDYlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mr GUERRINI Eric",
+      "eric.guerrini@me.com",
+      "0673645631",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI2NCwgNDIlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mr HADRAMI Nassaire",
+      "hadraminassaire@gmail.com",
+      "+262 639 27 78 07",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDcxLCA3MCUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPk08L3RleHQ+PC9zdmc+",
+      "Mr JAVAUDIN",
+      "gerard.javaudin@ac-mayotte.fr",
+      "+262639694355",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDkwLCA1NiUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPk08L3RleHQ+PC9zdmc+",
+      "Mr LE DU Sylvain",
+      "ledusylvain@hotmail.fr",
+      "+262 639 63 12 70",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDMxLCA2MiUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPk08L3RleHQ+PC9zdmc+",
+      "Mr MOHAMED Ibrahim",
+      "72ibrahim@live.fr",
+      "0639639009",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDE2MiwgNDIlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mr MOUSSA RACHIDI",
+      "Moussa.rachidi@orange.fr",
+      "+262 639 02 85 88",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 5, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDM0MiwgNTglLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mr NOVOU Julien",
+      "julien.novou@hotmail.fr",
+      "+262639408469",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-star\", \"value\": 1, \"label\": \"Opportunit\\u00e9s\", \"tagClass\": \"o_tag_color_8\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI2MywgNDYlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mr OTHMANI",
+      "ramziothmani@gmail.com",
+      "06 52 63 06 69",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDIzLCA1OCUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPk08L3RleHQ+PC9zdmc+",
+      "Mr Ribeiro Ivann et Mme BOCHARD Wendy",
+      "ivann.rib@gmail.com; wendy@gmail.com",
+      "+33 6 38 15 79 28",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI3MiwgNDQlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5NPC90ZXh0Pjwvc3ZnPg==",
+      "Mr SAPY",
+      "villatibenlagon@gmail.com",
+      "0639690831",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 3, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 3, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDY0LCA1MCUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPk08L3RleHQ+PC9zdmc+",
+      "Mr VARLET Benoit",
+      "varlet.benoit@gmail.com ; benoit@helilagon.com",
+      "+262 639 61 35 10",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "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",
+      "Mr et Mme DESCAMPS",
+      "laurence-descamps@hotmail.fr",
+      "0618782174 / 06 39 59 24 96",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI1NywgNDMlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5OPC90ZXh0Pjwvc3ZnPg==",
+      "Nolwenn LEPOURIEL et Nicolas FRANCOIS",
+      "nolwennlepouriel@gmail.com; nicolas.francois.nam@gmail.com",
+      "+33 7 66 72 34 94",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 3, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDY5LCA2OCUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPk88L3RleHQ+PC9zdmc+",
+      "Office français de la biodiversité, Office français de la biodiversité-Parc naturel marin de Mayotte",
+      "dailami.ben-ali@ofb.gouv.fr",
+      "+33 06 39 69 12 60 /  06 39 09 91 94",
+      "",
+      "France",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 3, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDIzMywgNDYlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5SPC90ZXh0Pjwvc3ZnPg==",
+      "RASTAMI Joelle",
+      "rastami_joelle@outlook.com",
+      "+262 639 69 10 55",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 3, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDExMCwgNTAlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5SPC90ZXh0Pjwvc3ZnPg==",
+      "REBOURS GAETAN",
+      "rebours.gaetan@gmail.com",
+      "0603829527",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDUyLCA0MiUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPlI8L3RleHQ+PC9zdmc+",
+      "REIGNAUT Philippe",
+      "philippe.reignaut@orange.fr",
+      "+262 639 76 74 77",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDMzNSwgNTglLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5SPC90ZXh0Pjwvc3ZnPg==",
+      "ROBERT Laurence",
+      "mam.max@hotmail.fr",
+      "+262 639 25 74 11",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDM1MywgNDglLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5SPC90ZXh0Pjwvc3ZnPg==",
+      "ROCS",
+      "grigaud@rocs.fr; sageorges@nge.fr",
+      "+262692858052",
+      "",
+      "La Réunion",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 3, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 7, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDIzNywgNDAlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5TPC90ZXh0Pjwvc3ZnPg==",
+      "SAINDOU M'SOILI Fayadhui",
+      "fayadhuimsoili@gmail.com",
+      "0693495576",
+      "",
+      "France",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDMzMCwgNDYlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5TPC90ZXh0Pjwvc3ZnPg==",
+      "SAS MATIS",
+      "secretariat@matis.yt; kevin.wantangkivan@matis.yt",
+      "+262 269 61 16 11",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDM0MCwgNjYlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5TPC90ZXh0Pjwvc3ZnPg==",
+      "SOS OXYGENE",
+      "k.subra@sosoxygene.com",
+      "+262 639 28 51 62",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 2, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDEwMywgNjIlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5TPC90ZXh0Pjwvc3ZnPg==",
+      "SOULA Naîka",
+      "naikasoula@gmail.com",
+      "+262 639 28 65 22",
+      "",
+      "",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDI3LCA2NiUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPlM8L3RleHQ+PC9zdmc+",
+      "STAHL Anthony",
+      "astahl@laposte.net ; a.stahl@mayotte-incendie.com",
+      "0639683514",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 2, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 3, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDMxNSwgNjMlLCA0NSUpJyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcvPjx0ZXh0IGZpbGw9JyNmZmZmZmYnIGZvbnQtc2l6ZT0nOTYnIHRleHQtYW5jaG9yPSdtaWRkbGUnIHg9JzkwJyB5PScxMjUnIGZvbnQtZmFtaWx5PSdzYW5zLXNlcmlmJz5UPC90ZXh0Pjwvc3ZnPg==",
+      "TOURON Gaëlle",
+      "gaboritgaelle@hotmail.com",
+      "+262 639689420",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 3, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-star\", \"value\": 1, \"label\": \"Opportunit\\u00e9s\", \"tagClass\": \"o_tag_color_8\"}, {\"iconClass\": \"fa-usd\", \"value\": 3, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDU0LCA0NSUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPlY8L3RleHQ+PC9zdmc+",
+      "VAN GREVENYNGHE Cédric",
+      "cedricvg@msn.com",
+      "+262639277733",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-star\", \"value\": 1, \"label\": \"Opportunit\\u00e9s\", \"tagClass\": \"o_tag_color_8\"}, {\"iconClass\": \"fa-usd\", \"value\": 1, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ],
+    [
+      "PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0nVVRGLTgnID8+PHN2ZyBoZWlnaHQ9JzE4MCcgd2lkdGg9JzE4MCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJyB4bWxuczp4bGluaz0naHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayc+PHJlY3QgZmlsbD0naHNsKDMyLCA0OCUsIDQ1JSknIGhlaWdodD0nMTgwJyB3aWR0aD0nMTgwJy8+PHRleHQgZmlsbD0nI2ZmZmZmZicgZm9udC1zaXplPSc5NicgdGV4dC1hbmNob3I9J21pZGRsZScgeD0nOTAnIHk9JzEyNScgZm9udC1mYW1pbHk9J3NhbnMtc2VyaWYnPlY8L3RleHQ+PC9zdmc+",
+      "VERLOT Manuel",
+      "manuelverlot@gmail.com",
+      "+262639636333",
+      "",
+      "Mayotte",
+      "[{\"iconClass\": \"fa-pencil-square-o\", \"value\": 1, \"label\": \"Factures / Factures fournisseurs / Mandats\", \"tagClass\": \"o_tag_color_9\"}, {\"iconClass\": \"fa-usd\", \"value\": 3, \"label\": \"Commandes clients\", \"tagClass\": \"o_tag_color_2\"}]"
+    ]
+  ]
+}

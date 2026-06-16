@@ -1,0 +1,77 @@
+{
+  "title": "06_Documents",
+  "rows": [
+    [
+      "doc_id",
+      "install_id",
+      "pio_id",
+      "type_doc",
+      "date_generation",
+      "url_doc",
+      "statut_envoi",
+      "date_envoi",
+      "canal_envoi",
+      "html_content"
+    ],
+    [
+      "Alimenté automatiquement par les workflows",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "HTML généré automatiquement par Make"
+    ],
+    [
+      "DOC-4159",
+      "INST-2199",
+      "PIO-1196",
+      "PASSEPORT",
+      "2026-06-15T09:07:30.933419+00:00",
+      "https://sebmwali.github.io/geobuilder-pionniers/passeports/INST-2199/index.html",
+      "generated",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DOC-4160",
+      "",
+      "PIO-1196",
+      "CERTIFICAT_PIONNIER",
+      "2026-06-15T09:07:30.933419+00:00",
+      "https://sebmwali.github.io/geobuilder-pionniers/certificats/pionnier/PIO-1196.html",
+      "generated",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DOC-4161",
+      "INST-2199",
+      "PIO-1196",
+      "CERTIFICAT_GARANTIE",
+      "2026-06-15T09:07:30.933419+00:00",
+      "https://sebmwali.github.io/geobuilder-pionniers/certificats/garantie/INST-2199.html",
+      "generated",
+      "",
+      "",
+      ""
+    ],
+    [
+      "DOC-4162",
+      "",
+      "PIO-1196",
+      "PORTAIL",
+      "2026-06-15T09:07:30.933419+00:00",
+      "https://sebmwali.github.io/geobuilder-pionniers/pionniers/PIO-1196/index.html",
+      "generated",
+      "",
+      "",
+      ""
+    ]
+  ]
+}

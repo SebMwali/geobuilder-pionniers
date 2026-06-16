@@ -1,0 +1,77 @@
+{
+  "title": "08_Automations_Log",
+  "rows": [
+    [
+      "timestamp",
+      "action ",
+      "install_id",
+      " pio_id",
+      " result ",
+      "message",
+      " erreur_detail"
+    ],
+    [
+      "2026-06-14T14:06:48.900523+00:00",
+      "github_push",
+      "INST-2157",
+      "PIO-1154",
+      "ERROR",
+      "Branch main not found: 404 {\"message\": \"Branch main not found\", \"documentation_url\": \"https://docs.github.com/rest/repos/contents#create-or-update-file-contents\", \"status\": \"404\"}",
+      ""
+    ],
+    [
+      "2026-06-15T09:07:42.536791+00:00",
+      "livraison",
+      "INST-2199",
+      "PIO-1196",
+      "OK",
+      "Livraison processed ns=G30-MYT-2026-042 report_id=sandrine-welcome-test-001",
+      ""
+    ],
+    [
+      "2026-06-15T11:06:47.870432+00:00",
+      "ambassadeur_signature",
+      "",
+      "PIO-1196",
+      "OK",
+      "droit_image=OUI | temoignage=OUI | publication=OUI | ts_utc=2026-06-15T11:00:00.000Z | ip=10.232.133.130 | ua=curl/7.88.1 | sha256=8c6c38626888cc5f053bb5cedeea190bf3d6470795d5fb9062ade638a9329e6f | ref=AMB-PIO-1196-20260615T11000 | attestation_url=https://sebmwali.github.io/geobuilder-pionniers/attestations/ambassadeur/PIO-1196.html",
+      ""
+    ],
+    [
+      "2026-06-15T13:15:41.702409+00:00",
+      "ambassadeur_signature",
+      "",
+      "PIO-1196",
+      "OK",
+      "droit_image=OUI | temoignage=OUI | publication=OUI | ts_utc=2026-06-15T12:00:00.000Z | ip=10.232.133.130 | ua=curl/7.88.1 | sha256=4fdade8a7f25fc07d59226a02e63846b6807664911d0f3aa994b98319e88f3f8 | ref=AMB-PIO-1196-20260615T12000 | attestation_url=https://sebmwali.github.io/geobuilder-pionniers/attestations/ambassadeur/PIO-1196.html",
+      ""
+    ],
+    [
+      "2026-06-15T13:17:10.717849+00:00",
+      "promotion_super_ambassadeur",
+      "",
+      "PIO-1196",
+      "OK",
+      "badge_url=https://sebmwali.github.io/geobuilder-pionniers/badges/super-ambassadeur/PIO-1196.html | promu par admin",
+      ""
+    ],
+    [
+      "2026-06-15T14:22:23.816054+00:00",
+      "sav",
+      "INST-2199",
+      "PIO-1196",
+      "OK",
+      "SAV ajouté maint=MAINT-3125 type=Test résolution auto report_id=idem-test-abc-123",
+      ""
+    ],
+    [
+      "2026-06-15T14:22:28.234010+00:00",
+      "sav",
+      "INST-2199",
+      "PIO-1196",
+      "OK",
+      "SAV ajouté maint=MAINT-3126 type=Test résolution auto report_id=idem-test-abc-123",
+      ""
+    ]
+  ]
+}

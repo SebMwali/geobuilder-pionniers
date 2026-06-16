@@ -1,0 +1,94 @@
+{
+  "title": "07_Produits",
+  "rows": [
+    [
+      "produit_id",
+      "nom",
+      "gamme",
+      "capacite_L",
+      "prix_public_ttc",
+      "statut_commercial",
+      "date_lancement",
+      "description_courte",
+      "reference_haolin"
+    ],
+    [
+      "PROD-001",
+      "G30",
+      "Pro",
+      "30",
+      "",
+      "End of life",
+      "",
+      "Générateur atmosphérique 30L/j - Osoley/Hendrx",
+      ""
+    ],
+    [
+      "PROD-002",
+      "G20 MOJA",
+      "Résidentiel",
+      "20",
+      "1990",
+      "Actif",
+      "",
+      "Geobuilder Série Limitée MOJA - Série limitée Mayotte",
+      "Haolin 20L"
+    ],
+    [
+      "PROD-003",
+      "VITAL",
+      "Résidentiel",
+      "20",
+      "2400",
+      "En développement",
+      "nov. 2026",
+      "Tropical Series - eau pétillante incluse",
+      ""
+    ],
+    [
+      "PROD-004",
+      "HOME",
+      "Résidentiel",
+      "30",
+      "",
+      "En développement",
+      "Q1 2027",
+      "Tropical Series 30L",
+      ""
+    ],
+    [
+      "PROD-005",
+      "SOURCE",
+      "Semi-pro",
+      "",
+      "",
+      "Confidentiel",
+      "",
+      "Modèle confidentiel",
+      ""
+    ],
+    [
+      "PROD-006",
+      "OCEAN 500",
+      "Industriel",
+      "500",
+      "",
+      "Actif",
+      "",
+      "Générateur industriel Ocean 500",
+      ""
+    ],
+    [
+      "PROD-007",
+      "TITAN 1000",
+      "Industriel",
+      "1000",
+      "",
+      "Actif",
+      "",
+      "Générateur industriel Titan 1000",
+      ""
+    ]
+  ],
+  "deleted_at": "2026-06-16T14:42:56.070458"
+}
