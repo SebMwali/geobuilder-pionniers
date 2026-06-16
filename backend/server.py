@@ -810,10 +810,10 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
 
     # 3e. Email final (UPPER_SNAKE)
     # Logique CTA "Devenez Ambassadeur" :
-    # - Toujours le même texte "Devenez Ambassadeur" + même phrase de description
-    # - Pour fondateurs : pointe vers la page perso /ambassadeurs/{PIO_ID}.html
-    # - Pour les autres : pointe vers la landing universelle /ambassadeur.html
-    cta_url = url_ambassadeur if payload.fondateur else url_ambassadeur_landing
+    # - Toujours pointe vers la landing universelle /ambassadeur.html
+    #   (les pages individuelles /ambassadeurs/{PIO_ID}.html ne sont plus
+    #   générées — la landing universelle suffit et évite les 404).
+    cta_url = url_ambassadeur_landing
     cta_title = "Devenez Ambassadeur"
     cta_desc = "Les Pionniers ouvrent la voie."
 
