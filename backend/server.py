@@ -16,7 +16,7 @@ from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
-from typing import Optional
+from typing import Optional, Dict
 import os
 import json
 import hashlib
@@ -546,6 +546,67 @@ def _validate_livraison_payload(payload: LivraisonInput) -> None:
         raise HTTPException(422, f"Champs manquants après normalisation: {', '.join(missing)}")
 
 
+# Limite "100 1ers Fondateurs" par territoire
+FONDATEUR_QUOTA_PER_TERRITOIRE = 100
+
+
+def _norm_territoire(t: Optional[str]) -> str:
+    """Normalise un territoire : trim, casse propre, fallback 'Mayotte'."""
+    s = (t or "").strip()
+    if not s:
+        return "Mayotte"
+    return s[0].upper() + s[1:].lower() if s.isalpha() else s.title()
+
+
+def _count_fondateurs_per_territoire(sheets) -> Dict[str, int]:
+    """Compte les pionniers `fondateur=true` regroupés par territoire (normalisé).
+
+    Source = `01_Pionniers` (le sheet 00_Fondateurs est une liste de référence
+    historique, le vrai compteur en service est dans 01).
+    """
+    rows = sheets.read_all("pionniers")
+    out: Dict[str, int] = {}
+    for r in rows:
+        if not str(r.get("pio_id") or "").strip():
+            continue
+        if str(r.get("fondateur") or "").strip().upper() not in ("TRUE", "OUI", "VRAI", "1", "YES"):
+            continue
+        terr = _norm_territoire(r.get("territoire"))
+        out[terr] = out.get(terr, 0) + 1
+    return out
+
+
+def _enforce_fondateur_quota(payload: LivraisonInput, sheets) -> None:
+    """Bloque l'ajout d'un nouveau Fondateur si le territoire est complet (100/100).
+
+    Idempotence : si l'email du payload est déjà associé à un Fondateur dans
+    `01_Pionniers`, c'est un retry → on laisse passer.
+    Lève HTTPException(409 Conflict) avec un message explicite.
+    """
+    if not payload.fondateur:
+        return
+    terr = _norm_territoire(payload.territoire)
+    counts = _count_fondateurs_per_territoire(sheets)
+    current = counts.get(terr, 0)
+
+    # Retry idempotent : si l'email du payload est déjà un fondateur en base
+    if payload.email:
+        existing = sheets.find_row_by("pionniers", "email", payload.email)
+        if existing and str(existing.get("fondateur") or "").strip().upper() in ("TRUE", "OUI", "VRAI", "1", "YES"):
+            return
+
+    if current >= FONDATEUR_QUOTA_PER_TERRITOIRE:
+        raise HTTPException(
+            status_code=409,
+            detail=(
+                f"Quota Fondateurs atteint pour le territoire '{terr}' "
+                f"({current}/{FONDATEUR_QUOTA_PER_TERRITOIRE}). "
+                f"Les 100 premiers Fondateurs ont été attribués. "
+                f"Marquez `fondateur=false` pour ce pionnier ou choisissez un autre territoire."
+            ),
+        )
+
+
 # =========================================================================
 # ROUTES — HEALTH & ADMIN
 # =========================================================================
@@ -650,6 +711,9 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
 
     sheets = get_sheets_service()
     gh = get_github_service()
+
+    # 0a. Validation quota Fondateurs par territoire (100 1ers max)
+    _enforce_fondateur_quota(payload, sheets)
 
     # 0. Idempotence via report_id (col W de 02_Installations)
     # IMPORTANT : bloquant en cas d'échec lecture Sheet pour éviter les doublons.
@@ -2292,6 +2356,37 @@ async def admin_email_events(limit: int = 100):
         return {"count": len(rows[:limit]), "events": rows[:limit]}
     except Exception as e:
         return {"count": 0, "events": [], "error": str(e)}
+
+
+@api_router.get("/admin/fondateurs/quota")
+async def admin_fondateurs_quota():
+    """Renvoie le compteur Fondateurs par territoire avec le quota restant.
+
+    Source = 01_Pionniers (pionniers actifs avec fondateur=true).
+    """
+    try:
+        sheets = get_sheets_service()
+        counts = _count_fondateurs_per_territoire(sheets)
+        breakdown = []
+        territoires_connus = sorted(set(list(counts.keys()) + [
+            "Mayotte", "Reunion", "Maurice", "Madagascar", "Comores", "Tanzanie",
+        ]))
+        for t in territoires_connus:
+            current = counts.get(t, 0)
+            breakdown.append({
+                "territoire": t,
+                "current": current,
+                "quota": FONDATEUR_QUOTA_PER_TERRITOIRE,
+                "remaining": max(0, FONDATEUR_QUOTA_PER_TERRITOIRE - current),
+                "complete": current >= FONDATEUR_QUOTA_PER_TERRITOIRE,
+            })
+        return {
+            "quota_par_territoire": FONDATEUR_QUOTA_PER_TERRITOIRE,
+            "breakdown": breakdown,
+            "total_fondateurs": sum(counts.values()),
+        }
+    except Exception as e:
+        return {"error": str(e), "breakdown": []}
 
 
 # =========================================================================

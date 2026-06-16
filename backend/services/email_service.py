@@ -46,6 +46,7 @@ async def send_email_mock(
     html_body: str,
     metadata: Optional[dict] = None,
     tags: Optional[Dict[str, str]] = None,
+    cc: Optional[List[str]] = None,
 ) -> Dict[str, Any]:
     """Envoi d'email via Resend (réel) avec fallback mock si non configuré ou erreur.
 
@@ -56,9 +57,13 @@ async def send_email_mock(
     `tags` : dict {key: value} attaché à l'envoi Resend pour permettre le tracking
     via webhook (`pio_id`, `install_id`, `template`...). Les valeurs Resend doivent
     être [a-zA-Z0-9_-] uniquement.
+
+    `cc` : liste d'adresses en copie (utilisé pour les pionniers multi-contacts comme
+    les associations / entreprises).
     """
     record = {
         "to": to,
+        "cc": cc or [],
         "subject": subject,
         "html_body": html_body,
         "metadata": metadata or {},
@@ -112,6 +117,8 @@ async def send_email_mock(
         "html": html_body,
         "text": plain_text,
     }
+    if cc:
+        params["cc"] = cc
     if headers:
         params["headers"] = headers
     if resend_tags:
@@ -141,3 +148,27 @@ async def send_email_mock(
 def get_outbox_snapshot(limit: int = 200) -> List[Dict[str, Any]]:
     """Liste des derniers envois (réels + mockés + erreurs) pour debug."""
     return list(_OUTBOX)[:limit]
+
+
+def parse_email_field(raw: str) -> tuple[str, List[str]]:
+    """Sépare un champ email brut en (TO principal, [CC...]).
+
+    Gère les multi-adresses séparées par ';' ou ','. La 1re adresse valide
+    devient le destinataire principal, les suivantes vont en CC.
+    Retourne ("", []) si aucune adresse valide.
+
+    Exemples :
+      'a@x.fr; b@x.fr'        → ('a@x.fr', ['b@x.fr'])
+      'a@x.fr; b@x.fr, c@x.fr'→ ('a@x.fr', ['b@x.fr', 'c@x.fr'])
+      'a@x.fr'                → ('a@x.fr', [])
+      ''                      → ('', [])
+    """
+    import re as _re
+    EMAIL_RX = _re.compile(r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$")
+    if not raw:
+        return ("", [])
+    parts = [p.strip() for p in _re.split(r"[;,]\s*", str(raw).strip()) if p.strip()]
+    valides = [p for p in parts if EMAIL_RX.match(p)]
+    if not valides:
+        return ("", [])
+    return (valides[0], valides[1:])
