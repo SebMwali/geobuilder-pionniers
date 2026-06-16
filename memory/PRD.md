@@ -25,6 +25,12 @@ Remplacer une automatisation Make.com défaillante par un backend Python/FastAPI
 
 Si `fondateur=true` : push supplémentaire `docs/ambassadeurs/{PIO_ID}.html`.
 
+### Session du 17/02/2026 (suite — nettoyage Fondateurs)
+- ✅ Suppression de PIO-1069 ASSANI Abdou Rahamane dans `00_Fondateurs` (était la 101e entrée, ramenée à 100 fondateurs strict).
+- ⏳ Pending P0 : régénération massive des documents HTML individuels manquants sur GitHub Pages (utilisateur a demandé d'attendre — "Autre approche; on attend").
+- ⏳ Pending : suite à la régénération, déclencher l'envoi des emails de bienvenue pour les nouveaux Pionniers (à valider après documents).
+
+
 ## What's been implemented
 
 ### Session du 16/06/2026 (itération 9 — LOT 2 : Collecte des numéros de série V1)
