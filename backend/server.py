@@ -228,6 +228,73 @@ def _fmt_date_fr(date_str: str) -> str:
     return dt.strftime("%d/%m/%Y")
 
 
+# Adresse email où sont reçues les transmissions de NS par les pionniers
+NS_CONTACT_EMAIL = os.environ.get("NS_CONTACT_EMAIL", "contact@geobuilder.fr")
+
+
+def _build_mailto_ns(pio_id: str, install_id: str, produit: str, prenom: str = "", nom: str = "",
+                     date_installation: str = "") -> str:
+    """Construit un lien mailto: pré-rempli pour transmettre un N° de série."""
+    from urllib.parse import quote as _q
+    nom_complet = f"{prenom} {nom}".strip()
+    subject = f"Transmission N° de série — {pio_id}"
+    body_lines = [
+        "Bonjour Geobuilder,",
+        "",
+        "Je vous transmets le numéro de série de mon générateur :",
+        "",
+        "N° de série : __________________________",
+        "",
+        "Informations de mon installation :",
+        f"  - Référence Pionnier : {pio_id}",
+    ]
+    if install_id:
+        body_lines.append(f"  - Référence Installation : {install_id}")
+    if produit:
+        body_lines.append(f"  - Produit : {produit}")
+    if date_installation:
+        body_lines.append(f"  - Date d'installation : {_fmt_date_fr(date_installation)}")
+    if nom_complet:
+        body_lines.append(f"  - Nom : {nom_complet}")
+    body_lines.extend(["", "Bien cordialement,"])
+    body = "\n".join(body_lines)
+    return f"mailto:{NS_CONTACT_EMAIL}?subject={_q(subject)}&body={_q(body)}"
+
+
+def _render_ns_bloc_portail(numero_serie: str, pio_id: str, install_id: str, produit: str,
+                            prenom: str = "", nom: str = "", date_installation: str = "") -> str:
+    """Bloc HTML inséré dans le portail pionnier — NS texte ou invitation mailto."""
+    ns = (numero_serie or "").strip()
+    if ns and ns.upper() not in ("NON RENSEIGNÉ", "NON RENSEIGNE", "N/A", "-", ""):
+        return f'<div class="serial">N° {ns}</div>'
+    mailto = _build_mailto_ns(pio_id, install_id, produit, prenom, nom, date_installation)
+    return (
+        '<div class="ns-missing">'
+        '<div class="ns-missing-title">N° de série non renseigné</div>'
+        '<div class="ns-missing-text">Merci de nous transmettre le numéro de série inscrit sur l\'étiquette '
+        'arrière de votre générateur pour finaliser votre suivi.</div>'
+        f'<a class="ns-missing-cta" href="{mailto}">Transmettre mon N° de série →</a>'
+        '</div>'
+    )
+
+
+def _render_ns_bloc_passeport(numero_serie: str, pio_id: str, install_id: str, produit: str,
+                              prenom: str = "", nom: str = "", date_installation: str = "") -> str:
+    """Bloc HTML inséré dans le passeport — NS texte ou invitation mailto."""
+    ns = (numero_serie or "").strip()
+    if ns and ns.upper() not in ("NON RENSEIGNÉ", "NON RENSEIGNE", "N/A", "-", ""):
+        return f'<div class="v">{ns}</div>'
+    mailto = _build_mailto_ns(pio_id, install_id, produit, prenom, nom, date_installation)
+    return (
+        '<div class="ns-missing-pass">'
+        '<div class="ns-missing-title">Non renseigné</div>'
+        '<div class="ns-missing-text">Merci de transmettre le N° de série figurant sur l\'étiquette '
+        'arrière de votre générateur.</div>'
+        f'<a class="ns-missing-cta" href="{mailto}">Transmettre mon N° de série</a>'
+        '</div>'
+    )
+
+
 def _compute_prochaine_intervention(date_installation: str, mois_freq: int = 12) -> dict:
     """Calcule la prochaine intervention (entretien annuel) à partir de la date d'installation.
 
@@ -605,6 +672,10 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "annee": str(datetime.now(timezone.utc).year),
         "pays": pays_affiche,
         "numero_serie": payload.numero_serie,
+        "numero_serie_bloc": _render_ns_bloc_passeport(
+            payload.numero_serie or "", pio_id, install_id, produit_info["label"],
+            payload.prenom or "", payload.nom or "", date_inst,
+        ),
         "produit": produit_info["label"],
         "date_installation": _fmt_date_fr(date_inst),
         "date_garantie_fin": _fmt_date_fr(date_garantie_fin),
@@ -704,6 +775,10 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "PRODUIT_LABEL": produit_info['label'],
         "PRODUIT_IMAGE_URL": photo_generateur_url,
         "NUMERO_SERIE": payload.numero_serie or f"MJ-{annee}-{install_id.replace('INST-','')}",
+        "NUMERO_SERIE_BLOC": _render_ns_bloc_portail(
+            payload.numero_serie or "", pio_id, install_id, produit_info["label"],
+            payload.prenom or "", payload.nom or "", date_inst,
+        ),
         "TERRITOIRE_COMPLET": territoire_complet,
         "DATE_INSTALLATION_FORMATEE": date_install_fmt,
         "DATE_GARANTIE_FIN": date_garantie_fin_fr,
@@ -1472,6 +1547,12 @@ def _regenerate_passeport(install_row: dict, sheets, gh) -> str:
         "install_id": install_id,
         "pio_id": pio_id,
         "numero_serie": numero_serie,
+        "numero_serie_bloc": _render_ns_bloc_passeport(
+            numero_serie, pio_id, install_id, produit_info["label"],
+            (pio_row.get("prenom") or pio_row.get("prénom") or ""),
+            (pio_row.get("nom") or ""),
+            date_inst,
+        ),
         "produit": produit_info["label"],
         "date_installation": _fmt_date_fr(date_inst),
         "date_garantie_fin": _fmt_date_fr(date_garantie_fin),
@@ -1733,467 +1814,6 @@ async def portal_access(token: str):
         f'<meta http-equiv="refresh" content="0; url={pages_base}/portail/{pio_id}/index.html">'
         f'<p>Redirection vers votre portail... <a href="{pages_base}/portail/{pio_id}/index.html">Cliquez ici si rien ne se passe</a></p>'
     )
-
-
-# =========================================================================
-# ROUTES — LOT 2 : COLLECTE NS (V1 ultra-simple)
-# =========================================================================
-from services import ns_declarations as ns_svc  # noqa: E402
-
-
-class NsDeclareInput(BaseModel):
-    numero_serie: str
-    commentaire: Optional[str] = ""
-
-
-class NsRejectInput(BaseModel):
-    motif: Optional[str] = ""
-
-
-def _render_pionnier_form_page(pio_id: str, pio_row: dict, install_row: Optional[dict],
-                                message: Optional[str] = None, error: Optional[str] = None) -> str:
-    """Page HTML simple pour saisir un NS."""
-    prenom = (pio_row.get("prenom") or pio_row.get("prénom") or "").strip()
-    nom = (pio_row.get("nom") or "").strip()
-    produit = (install_row or {}).get("produit", "") if install_row else ""
-    date_install = (install_row or {}).get("date_installation", "") if install_row else ""
-    ns_actuel = (install_row or {}).get("numero_serie", "") if install_row else ""
-
-    msg_block = ""
-    if message:
-        msg_block = f'<div class="alert alert-success" data-testid="ns-success-msg">{message}</div>'
-    elif error:
-        msg_block = f'<div class="alert alert-error" data-testid="ns-error-msg">{error}</div>'
-
-    install_block = ""
-    if install_row:
-        ns_line = f"<p>N° de série actuel : <strong>{ns_actuel or '<em>non renseigné</em>'}</strong></p>" if ns_actuel else "<p><em>Aucun numéro de série enregistré pour le moment.</em></p>"
-        install_block = f"""
-        <div class="install-box">
-          <h3>Votre installation</h3>
-          <p>Produit : <strong>{produit or 'non précisé'}</strong></p>
-          <p>Installée le : <strong>{_fmt_date_fr(date_install) or 'non précisée'}</strong></p>
-          {ns_line}
-        </div>"""
-
-    return f"""<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Identifier mon générateur — Geobuilder</title>
-  <style>
-    * {{ box-sizing: border-box; }}
-    body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #0d1626; color: #e8eef7; margin: 0; padding: 20px; min-height: 100vh; }}
-    .container {{ max-width: 520px; margin: 0 auto; }}
-    .header {{ text-align: center; margin-bottom: 32px; padding-top: 20px; }}
-    .header h1 {{ font-size: 26px; margin: 0 0 8px; color: #5BA6FF; }}
-    .header p {{ color: #a5b3c7; margin: 0; font-size: 15px; }}
-    .install-box {{ background: rgba(91, 166, 255, 0.08); border: 1px solid rgba(91, 166, 255, 0.2); border-radius: 12px; padding: 16px; margin-bottom: 24px; }}
-    .install-box h3 {{ margin: 0 0 12px; font-size: 14px; color: #5BA6FF; text-transform: uppercase; letter-spacing: 0.5px; }}
-    .install-box p {{ margin: 4px 0; font-size: 14px; }}
-    .install-box em {{ color: #a5b3c7; }}
-    .card {{ background: #1a2230; border-radius: 16px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.3); }}
-    label {{ display: block; margin-bottom: 8px; font-weight: 600; font-size: 14px; }}
-    input[type="text"], textarea {{ width: 100%; padding: 14px; font-size: 16px; border: 1.5px solid #2a3550; border-radius: 10px; background: #0d1626; color: #e8eef7; font-family: monospace; letter-spacing: 1px; }}
-    input[type="text"]:focus, textarea:focus {{ outline: none; border-color: #5BA6FF; }}
-    textarea {{ font-family: inherit; letter-spacing: normal; min-height: 70px; resize: vertical; }}
-    .hint {{ font-size: 12px; color: #a5b3c7; margin-top: 6px; }}
-    button {{ width: 100%; padding: 16px; font-size: 16px; font-weight: 700; background: #5BA6FF; color: #0d1626; border: 0; border-radius: 10px; cursor: pointer; margin-top: 20px; transition: background 0.2s; }}
-    button:hover {{ background: #7fbcff; }}
-    button:disabled {{ opacity: 0.5; cursor: not-allowed; }}
-    .alert {{ padding: 14px; border-radius: 10px; margin-bottom: 20px; font-size: 14px; }}
-    .alert-success {{ background: rgba(76, 217, 100, 0.15); border: 1px solid rgba(76, 217, 100, 0.4); color: #6fe390; }}
-    .alert-error {{ background: rgba(255, 95, 86, 0.15); border: 1px solid rgba(255, 95, 86, 0.4); color: #ff8c87; }}
-    .footer {{ text-align: center; margin-top: 24px; font-size: 12px; color: #6a7a93; }}
-  </style>
-</head>
-<body>
-  <div class="container">
-    <div class="header">
-      <h1>Identifier mon générateur</h1>
-      <p>Bonjour {prenom} {nom}, aidez-nous à enrichir le suivi de votre équipement.</p>
-    </div>
-
-    {install_block}
-    {msg_block}
-
-    <div class="card">
-      <form method="POST" action="/api/pionnier/{pio_id}/declarer-ns" data-testid="ns-declare-form">
-        <label for="ns">Numéro de série du générateur *</label>
-        <input type="text" id="ns" name="numero_serie" required autocomplete="off"
-               autocapitalize="characters" inputmode="text"
-               placeholder="ex: HR88C23EFR0080"
-               value=""
-               data-testid="ns-input">
-        <div class="hint">Le NS est inscrit sur l'étiquette à l'arrière du générateur.</div>
-
-        <label for="commentaire" style="margin-top: 18px;">Commentaire (optionnel)</label>
-        <textarea id="commentaire" name="commentaire" placeholder="Précision éventuelle…" data-testid="ns-comment-input"></textarea>
-
-        <button type="submit" data-testid="ns-submit-btn">Envoyer ma déclaration</button>
-      </form>
-    </div>
-
-    <div class="footer">
-      <p>Votre déclaration sera vérifiée par Geobuilder sous 48h.</p>
-    </div>
-  </div>
-</body>
-</html>"""
-
-
-def _render_pionnier_thanks_page(pio_id: str, demande_id: str, duplicate: bool) -> str:
-    title = "Merci !" if not duplicate else "Déclaration déjà reçue"
-    msg = (
-        "Votre déclaration a bien été enregistrée. Elle sera vérifiée par notre équipe sous 48h."
-        if not duplicate
-        else "Nous avons déjà reçu cette déclaration. Elle est en cours de vérification."
-    )
-    return f"""<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title} — Geobuilder</title>
-  <style>
-    body {{ font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0d1626; color: #e8eef7; margin: 0; padding: 40px 20px; min-height: 100vh; display: flex; align-items: center; justify-content: center; }}
-    .container {{ max-width: 480px; text-align: center; }}
-    .check {{ font-size: 64px; margin-bottom: 20px; }}
-    h1 {{ color: #5BA6FF; margin: 0 0 16px; }}
-    p {{ color: #e8eef7; font-size: 16px; line-height: 1.5; }}
-    .demande-id {{ background: rgba(91, 166, 255, 0.1); padding: 10px 16px; border-radius: 8px; display: inline-block; margin: 20px 0; font-family: monospace; color: #5BA6FF; }}
-    a {{ color: #5BA6FF; text-decoration: none; }}
-  </style>
-</head>
-<body>
-  <div class="container" data-testid="ns-thanks-page">
-    <div class="check">✓</div>
-    <h1>{title}</h1>
-    <p>{msg}</p>
-    <div class="demande-id" data-testid="ns-demande-id">N° de demande : {demande_id}</div>
-    <p>Vous recevrez un email de confirmation dès qu'elle sera validée.</p>
-  </div>
-</body>
-</html>"""
-
-
-@api_router.get("/pionnier/{pio_id}/declarer-ns", response_class=HTMLResponse)
-async def pionnier_declarer_ns_form(pio_id: str):
-    """Affiche le formulaire de déclaration NS pour un pionnier (accès libre via URL)."""
-    pio_id = pio_id.strip().upper()
-    sheets = get_sheets_service()
-    pio_row = sheets.find_row_by("pionniers", "pio_id", pio_id)
-    if not pio_row:
-        return HTMLResponse(
-            f"<p style='font-family:sans-serif;padding:40px;text-align:center;'>Pionnier <b>{pio_id}</b> introuvable.</p>",
-            status_code=404,
-        )
-    ns_svc.ensure_setup()
-    install_row = ns_svc.find_target_installation(pio_id)
-    return HTMLResponse(_render_pionnier_form_page(pio_id, pio_row, install_row))
-
-
-@api_router.post("/pionnier/{pio_id}/declarer-ns", response_class=HTMLResponse)
-async def pionnier_declarer_ns_submit(
-    pio_id: str,
-    request: Request,
-    numero_serie: str = Form(...),
-    commentaire: str = Form(""),
-):
-    """Soumission du NS depuis le formulaire HTML."""
-    pio_id = pio_id.strip().upper()
-    sheets = get_sheets_service()
-    pio_row = sheets.find_row_by("pionniers", "pio_id", pio_id)
-    if not pio_row:
-        return HTMLResponse(
-            f"<p style='font-family:sans-serif;padding:40px;text-align:center;'>Pionnier <b>{pio_id}</b> introuvable.</p>",
-            status_code=404,
-        )
-
-    ns_norm = ns_svc.normalize_ns(numero_serie)
-    err = ns_svc.validate_ns_format(ns_norm)
-    if err:
-        install_row = ns_svc.find_target_installation(pio_id)
-        return HTMLResponse(_render_pionnier_form_page(pio_id, pio_row, install_row, error=err), status_code=400)
-
-    try:
-        res = ns_svc.create_declaration(pio_id, ns_norm, commentaire)
-    except Exception as e:
-        logger.exception("create_declaration failed")
-        install_row = ns_svc.find_target_installation(pio_id)
-        return HTMLResponse(
-            _render_pionnier_form_page(pio_id, pio_row, install_row, error=f"Erreur technique : {e}"),
-            status_code=500,
-        )
-
-    return HTMLResponse(_render_pionnier_thanks_page(pio_id, res["demande_id"], res.get("duplicate", False)))
-
-
-# JSON variant (pour intégration future / tests)
-@api_router.post("/pionnier/{pio_id}/declarer-ns-json")
-async def pionnier_declarer_ns_json(pio_id: str, payload: NsDeclareInput):
-    pio_id = pio_id.strip().upper()
-    sheets = get_sheets_service()
-    pio_row = sheets.find_row_by("pionniers", "pio_id", pio_id)
-    if not pio_row:
-        raise HTTPException(404, f"Pionnier {pio_id} introuvable")
-    ns_norm = ns_svc.normalize_ns(payload.numero_serie)
-    err = ns_svc.validate_ns_format(ns_norm)
-    if err:
-        raise HTTPException(400, err)
-    res = ns_svc.create_declaration(pio_id, ns_norm, payload.commentaire or "")
-    return res
-
-
-# ----- Admin endpoints -----
-
-@api_router.get("/admin/ns-declarations")
-async def admin_list_ns_declarations(
-    statut: Optional[str] = None,
-    _: dict = Depends(require_admin),
-):
-    return ns_svc.list_declarations(statut=statut)
-
-
-@api_router.post("/admin/ns-declarations/{demande_id}/validate")
-async def admin_validate_ns(demande_id: str, _: dict = Depends(require_admin)):
-    sheets = get_sheets_service()
-    gh = get_github_service()
-
-    def _regen(install_row):
-        url = _regenerate_passeport(install_row, sheets, gh)
-        return url
-
-    try:
-        result = ns_svc.validate_declaration(demande_id, regenerate_passeport_fn=_regen)
-    except ValueError as e:
-        raise HTTPException(400, str(e))
-    return result
-
-
-@api_router.post("/admin/ns-declarations/{demande_id}/reject")
-async def admin_reject_ns(demande_id: str, payload: NsRejectInput, _: dict = Depends(require_admin)):
-    try:
-        return ns_svc.reject_declaration(demande_id, motif=payload.motif or "")
-    except ValueError as e:
-        raise HTTPException(400, str(e))
-
-
-@api_router.get("/admin/ns-ui", response_class=HTMLResponse)
-async def admin_ns_ui():
-    """Page HTML d'administration des déclarations NS.
-
-    Auth gérée côté client : login via /api/admin/login puis token stocké en localStorage.
-    """
-    return HTMLResponse(_render_admin_ns_ui())
-
-
-def _render_admin_ns_ui() -> str:
-    return """<!DOCTYPE html>
-<html lang="fr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Geobuilder — Déclarations NS</title>
-  <style>
-    * { box-sizing: border-box; }
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f4f6fa; color: #1a2230; margin: 0; padding: 24px; }
-    .container { max-width: 1100px; margin: 0 auto; }
-    h1 { color: #1a2230; margin: 0 0 8px; font-size: 24px; }
-    .subtitle { color: #5a6b85; margin: 0 0 24px; font-size: 14px; }
-    .login-card { background: #fff; padding: 32px; border-radius: 14px; max-width: 380px; margin: 80px auto; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
-    .login-card h2 { margin: 0 0 16px; font-size: 18px; }
-    .login-card input { width: 100%; padding: 12px; font-size: 15px; border: 1.5px solid #d9dfe9; border-radius: 8px; margin-bottom: 12px; }
-    .login-card button { width: 100%; padding: 13px; background: #1a2230; color: #fff; border: 0; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; }
-    .tabs { display: flex; gap: 4px; margin-bottom: 16px; border-bottom: 2px solid #e1e6ef; }
-    .tab { padding: 12px 20px; cursor: pointer; font-weight: 600; color: #5a6b85; border-bottom: 2px solid transparent; margin-bottom: -2px; }
-    .tab.active { color: #1a2230; border-bottom-color: #5BA6FF; }
-    .table { width: 100%; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
-    .table-header, .table-row { display: grid; grid-template-columns: 1.2fr 1fr 1.4fr 1.2fr 1.5fr 1.6fr; gap: 16px; padding: 14px 16px; align-items: center; }
-    .table-header { background: #1a2230; color: #fff; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 700; }
-    .table-row { border-top: 1px solid #e1e6ef; font-size: 14px; }
-    .table-row:hover { background: #f8fafd; }
-    .ns-value { font-family: monospace; font-weight: 600; color: #1a2230; letter-spacing: 0.5px; }
-    .pio-id { font-family: monospace; color: #5a6b85; }
-    .badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; }
-    .badge-pending { background: #fff3cd; color: #856404; }
-    .badge-validated { background: #d4edda; color: #155724; }
-    .badge-rejected { background: #f8d7da; color: #721c24; }
-    .actions { display: flex; gap: 6px; }
-    .btn { padding: 7px 14px; font-size: 13px; border: 0; border-radius: 6px; cursor: pointer; font-weight: 600; }
-    .btn-validate { background: #28a745; color: #fff; }
-    .btn-reject { background: #dc3545; color: #fff; }
-    .btn-logout { float: right; padding: 8px 16px; background: #e1e6ef; border: 0; border-radius: 8px; cursor: pointer; font-size: 13px; }
-    .empty { padding: 60px; text-align: center; color: #5a6b85; }
-    .toast { position: fixed; top: 20px; right: 20px; padding: 14px 20px; border-radius: 8px; color: #fff; font-weight: 600; z-index: 9999; }
-    .toast-success { background: #28a745; }
-    .toast-error { background: #dc3545; }
-  </style>
-</head>
-<body>
-  <div class="container" id="app"></div>
-
-  <script>
-    const API = "";  // same-origin
-    let token = localStorage.getItem("geobuilder_admin_token") || "";
-    let currentTab = "EN_ATTENTE";
-
-    function toast(msg, kind) {
-      const t = document.createElement("div");
-      t.className = "toast toast-" + (kind || "success");
-      t.textContent = msg;
-      t.setAttribute("data-testid", "toast-" + (kind || "success"));
-      document.body.appendChild(t);
-      setTimeout(() => t.remove(), 3500);
-    }
-
-    function fmtDate(iso) {
-      if (!iso) return "";
-      try {
-        const d = new Date(iso);
-        return d.toLocaleString("fr-FR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
-      } catch (e) { return iso; }
-    }
-
-    function renderLogin() {
-      document.getElementById("app").innerHTML = `
-        <div class="login-card">
-          <h2>Connexion administrateur</h2>
-          <input type="password" id="pwd" placeholder="Mot de passe" data-testid="admin-password-input" />
-          <button onclick="login()" data-testid="admin-login-btn">Se connecter</button>
-        </div>`;
-    }
-
-    async function login() {
-      const pwd = document.getElementById("pwd").value;
-      try {
-        const r = await fetch(API + "/api/admin/login", {
-          method: "POST",
-          headers: {"Content-Type": "application/json"},
-          body: JSON.stringify({password: pwd}),
-        });
-        if (!r.ok) { toast("Mot de passe invalide", "error"); return; }
-        const data = await r.json();
-        token = data.token;
-        localStorage.setItem("geobuilder_admin_token", token);
-        renderApp();
-      } catch (e) { toast("Erreur réseau", "error"); }
-    }
-
-    function logout() {
-      localStorage.removeItem("geobuilder_admin_token");
-      token = "";
-      renderLogin();
-    }
-
-    async function fetchDeclarations(statut) {
-      const url = statut ? `${API}/api/admin/ns-declarations?statut=${statut}` : `${API}/api/admin/ns-declarations`;
-      const r = await fetch(url, {headers: {"Authorization": "Bearer " + token}});
-      if (r.status === 401 || r.status === 403) { logout(); return []; }
-      if (!r.ok) { toast("Erreur de chargement", "error"); return []; }
-      return await r.json();
-    }
-
-    async function validateDecl(demandeId) {
-      if (!confirm("Valider la demande " + demandeId + " ? Le NS sera rattaché à l'installation et le passeport régénéré.")) return;
-      const r = await fetch(`${API}/api/admin/ns-declarations/${demandeId}/validate`, {
-        method: "POST",
-        headers: {"Authorization": "Bearer " + token},
-      });
-      if (!r.ok) {
-        const e = await r.text();
-        toast("Erreur : " + e, "error");
-        return;
-      }
-      toast("Demande validée", "success");
-      renderTable();
-    }
-
-    async function rejectDecl(demandeId) {
-      const motif = prompt("Motif du refus (optionnel) :", "");
-      if (motif === null) return;
-      const r = await fetch(`${API}/api/admin/ns-declarations/${demandeId}/reject`, {
-        method: "POST",
-        headers: {"Authorization": "Bearer " + token, "Content-Type": "application/json"},
-        body: JSON.stringify({motif: motif}),
-      });
-      if (!r.ok) {
-        const e = await r.text();
-        toast("Erreur : " + e, "error");
-        return;
-      }
-      toast("Demande refusée", "success");
-      renderTable();
-    }
-
-    async function renderTable() {
-      const list = await fetchDeclarations(currentTab);
-      const container = document.getElementById("table-zone");
-      if (!container) return;
-      if (!list.length) {
-        container.innerHTML = `<div class="table"><div class="empty" data-testid="ns-empty">Aucune déclaration dans cette catégorie.</div></div>`;
-        return;
-      }
-      let html = `<div class="table" data-testid="ns-table">
-        <div class="table-header">
-          <div>Demande</div>
-          <div>Pionnier</div>
-          <div>N° série</div>
-          <div>Date</div>
-          <div>Commentaire</div>
-          <div>Actions</div>
-        </div>`;
-      for (const d of list) {
-        const statut = (d.statut || "").trim();
-        const badgeClass = statut === "VALIDEE" ? "badge-validated" : statut === "REFUSEE" ? "badge-rejected" : "badge-pending";
-        let actions = "";
-        if (statut === "EN_ATTENTE") {
-          actions = `
-            <div class="actions">
-              <button class="btn btn-validate" onclick="validateDecl('${d.demande_id}')" data-testid="validate-${d.demande_id}">Valider</button>
-              <button class="btn btn-reject" onclick="rejectDecl('${d.demande_id}')" data-testid="reject-${d.demande_id}">Refuser</button>
-            </div>`;
-        } else {
-          actions = `<span class="badge ${badgeClass}">${statut}</span>`;
-        }
-        html += `<div class="table-row" data-testid="row-${d.demande_id}">
-          <div><strong>${d.demande_id}</strong></div>
-          <div class="pio-id">${d.pio_id || ""}</div>
-          <div class="ns-value">${d.numero_serie || ""}</div>
-          <div>${fmtDate(d.date_demande)}</div>
-          <div style="font-size:12px;color:#5a6b85;">${d.commentaire || ""}</div>
-          <div>${actions}</div>
-        </div>`;
-      }
-      html += `</div>`;
-      container.innerHTML = html;
-    }
-
-    function switchTab(statut) {
-      currentTab = statut;
-      document.querySelectorAll(".tab").forEach(t => t.classList.toggle("active", t.dataset.statut === statut));
-      renderTable();
-    }
-
-    function renderApp() {
-      document.getElementById("app").innerHTML = `
-        <button class="btn-logout" onclick="logout()" data-testid="logout-btn">Déconnexion</button>
-        <h1>Déclarations de numéros de série</h1>
-        <p class="subtitle">Validez ou refusez les NS soumis par les pionniers.</p>
-        <div class="tabs">
-          <div class="tab active" data-statut="EN_ATTENTE" onclick="switchTab('EN_ATTENTE')" data-testid="tab-pending">En attente</div>
-          <div class="tab" data-statut="VALIDEE" onclick="switchTab('VALIDEE')" data-testid="tab-validated">Validées</div>
-          <div class="tab" data-statut="REFUSEE" onclick="switchTab('REFUSEE')" data-testid="tab-rejected">Refusées</div>
-        </div>
-        <div id="table-zone"></div>`;
-      renderTable();
-    }
-
-    if (token) renderApp(); else renderLogin();
-  </script>
-</body>
-</html>"""
 
 
 # =========================================================================
