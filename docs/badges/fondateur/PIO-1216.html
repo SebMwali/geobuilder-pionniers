@@ -12,6 +12,13 @@ html,body{
   display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
   padding:40px 20px 60px;-webkit-font-smoothing:antialiased;
 }
+/* Responsive scaling : si le viewport est plus étroit que 740px (cas iframe slot statut),
+   on rétrécit toute la wrap proportionnellement pour qu'elle reste entièrement visible. */
+@media (max-width: 740px) {
+  html, body { padding: 0; overflow: hidden; min-height: 0; }
+  .wrap { transform: scale(calc(100vw / 740)); transform-origin: top left; }
+  .statut-fondateur { display: none; }
+}
 .wrap{
   position:relative;
   width:700px;height:933px;
