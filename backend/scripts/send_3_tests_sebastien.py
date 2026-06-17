@@ -86,7 +86,9 @@ def _append_install(sheets, iid, pid, produit, ns, date_inst, nom_client):
         "contrat_maintenance_type": "standard",
         "installation_active": "true",
         "photo_generateur_url": info.get("photo_generateur_url", ""),
-        "photo_emplacement_url": info.get("photo_generateur_url", ""),
+        # ⬇ photo emplacement = photo d'environnement catalogue (G10-cuisine, G60-snack…)
+        # Pour simuler la photo réelle d'installation d'un pionnier.
+        "photo_emplacement_url": info.get("photo_environnement_url", ""),
         "report_id": f"TEST-{int(time.time())}-{iid}",
     }
     row = _build_row_for_tab(sheets, "installations", values)
@@ -110,11 +112,16 @@ def _append_maintenances(sheets, pid, iid, dates):
     print(f"  ✓ {len(rows)} maintenances ajoutées")
 
 
-def _build_email_ctx(pio_id, install_id, produit_label, territoire="Mayotte"):
+def _build_email_ctx(pio_id, install_id, produit_label, is_fondateur=False, territoire="Mayotte"):
     annee = str(datetime.now(timezone.utc).year)
+    # "Ma carte" : Fondateurs → badge Fondateur numéroté ; sinon badge Pionnier
+    url_carte = (
+        f"{PAGES_BASE}/badges/fondateur/{pio_id}.html"
+        if is_fondateur else f"{PAGES_BASE}/cartes/{pio_id}.html"
+    )
     return {
         "ANNEE": annee, "INSTALL_ID": install_id, "PAYS": territoire, "PIO_ID": pio_id,
-        "URL_CARTE": f"{PAGES_BASE}/cartes/{pio_id}.html",
+        "URL_CARTE": url_carte,
         "URL_CERTIFICAT": f"{PAGES_BASE}/certificats/pionnier/{pio_id}.html",
         "URL_ESPACE": f"{PAGES_BASE}/pionniers/{pio_id}/index.html",
         "URL_FAMILLE": f"{PAGES_BASE}/index.html",
@@ -164,17 +171,29 @@ async def main():
         "subject": "[TEST C — G60 Ambassadeur+Super] Bienvenue Pionnier",
     }
 
+    # ─── TEST D : G10 SANS numéro de série (vérif fallback mailto) ───────
+    test_d = {
+        "pio_id": f"PIO-{pid_n + 3}", "install_id": f"INST-{iid_n + 3}",
+        "nom": "TestSansNS", "prenom": "Pionnier D",
+        "produit": "G10", "ns": "",  # ← VIDE volontairement
+        "fondateur": False, "ambassadeur": False, "super": False,
+        "subject": "[TEST D — G10 sans NS] Bienvenue Pionnier",
+    }
+
     cleanup_pio = []
     cleanup_inst = []
     cleanup_maint = []
 
-    for t in (test_a, test_b, test_c):
+    for t in (test_a, test_b, test_c, test_d):
         print(f"\n→ Préparation {t['pio_id']} ({t['produit']}) ...")
         communaute = ""
         roles = []
-        if t["fondateur"]: roles.append("Fondateur")
-        if t["ambassadeur"]: roles.append("Ambassadeur")
-        if t["super"]: roles.append("Super Ambassadeur")
+        if t["fondateur"]:
+            roles.append("Fondateur")
+        if t["ambassadeur"]:
+            roles.append("Ambassadeur")
+        if t["super"]:
+            roles.append("Super Ambassadeur")
         communaute = " · ".join(roles)
 
         _append_pioneer(
@@ -201,8 +220,8 @@ async def main():
     # Petit délai pour que les ajouts soient bien visibles côté Sheets
     time.sleep(3)
 
-    # ─── RÉGÉNÉRATION DES DOCS POUR LES 3 TESTS ───────────────────────────
-    for t in (test_a, test_b, test_c):
+    # ─── RÉGÉNÉRATION DES DOCS POUR LES 4 TESTS ───────────────────────────
+    for t in (test_a, test_b, test_c, test_d):
         print(f"\n→ Régénération docs pour {t['pio_id']}…")
         pio_row = sheets.find_row_by("pionniers", "pio_id", t["pio_id"])
         inst_row = sheets.find_row_by("installations", "install_id", t["install_id"])
@@ -220,14 +239,14 @@ async def main():
     print("\n→ Attente 60s pour propagation GH Pages…")
     time.sleep(60)
 
-    # ─── ENVOI DES 3 EMAILS ───────────────────────────────────────────────
-    print("\n→ Envoi des 3 emails à", DEST_EMAIL)
-    for t in (test_a, test_b, test_c):
-        ctx = _build_email_ctx(t["pio_id"], t["install_id"], t["produit"])
+    # ─── ENVOI DES 4 EMAILS ───────────────────────────────────────────────
+    print(f"\n→ Envoi des 4 emails à {DEST_EMAIL}")
+    for t in (test_a, test_b, test_c, test_d):
+        ctx = _build_email_ctx(t["pio_id"], t["install_id"], t["produit"], is_fondateur=t["fondateur"])
         html = render_template("email-final.html", ctx)
         tags = {
             "pio_id": t["pio_id"], "install_id": t["install_id"],
-            "template": "test_run_20260616", "scenario": t["pio_id"][-1:],
+            "template": "test_run_20260617", "scenario": t["pio_id"][-1:],
         }
         res = await send_email_mock(
             to=DEST_EMAIL,
@@ -240,7 +259,7 @@ async def main():
         await asyncio.sleep(2)
 
     print("\n" + "=" * 70)
-    print("✅ 3 emails envoyés. Liste à nettoyer :")
+    print("✅ 4 emails envoyés. Liste à nettoyer :")
     print(f"   pio_id   : {cleanup_pio}")
     print(f"   install_id : {cleanup_inst}")
     print(f"   maintenances pio_id : {cleanup_maint}")

@@ -819,7 +819,12 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
                 sheets.log_event("github_push_photo", install_id, pio_id, "ERROR", str(e), "")
 
     if not photo_emplacement_url:
-        photo_emplacement_url = HISTORIC_FALLBACK_PHOTO
+        # Fallback : photo "environnement" du catalogue (G10-cuisine, G60-snack, etc.)
+        # Si absent, fallback historique
+        photo_emplacement_url = (
+            produit_info.get("photo_environnement_url", "")
+            or HISTORIC_FALLBACK_PHOTO
+        )
 
     # Photo générateur : payload > catalog Cloudinary > fallback historique
     photo_generateur_url = (
@@ -1007,7 +1012,8 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
         "INSTALL_ID": install_id,
         "PAYS": pays_affiche,
         "PIO_ID": pio_id,
-        "URL_CARTE": url_carte,
+        # "Ma carte" sur l'email : Fondateur → badge fondateur numéroté ; sinon badge pionnier
+        "URL_CARTE": url_badge_fondateur if payload.fondateur else url_carte,
         "URL_CERTIFICAT": url_certificat,
         "URL_ESPACE": url_portail,
         "URL_FAMILLE": url_famille,
@@ -1709,7 +1715,11 @@ def _regenerate_passeport(install_row: dict, sheets, gh) -> str:
     localisation_precise = install_row.get("localisation_precise") or territoire
     numero_serie = install_row.get("numero_serie") or install_row.get("numéro_serie") or install_row.get("Numéro série") or ""
     photo_gen = install_row.get("photo_generateur_url") or produit_info.get("photo_generateur_url") or HISTORIC_FALLBACK_PHOTO
-    photo_emp = install_row.get("photo_emplacement_url") or HISTORIC_FALLBACK_PHOTO
+    photo_emp = (
+        install_row.get("photo_emplacement_url")
+        or produit_info.get("photo_environnement_url", "")
+        or HISTORIC_FALLBACK_PHOTO
+    )
 
     # Lecture du pionnier pour déterminer les badges acquis (3x1 grid statut communauté)
     pio_row = sheets.find_row_by("pionniers", "pio_id", pio_id) or {}
@@ -1831,7 +1841,11 @@ def _regenerate_all_docs_for_pioneer(pio_row: dict, install_row: dict, sheets, g
     pays_affiche = (install_row.get("territoire_installation") or territoire or pays).strip()
     numero_serie = install_row.get("numero_serie") or install_row.get("numéro_serie") or install_row.get("Numéro série") or ""
     photo_gen = install_row.get("photo_generateur_url") or produit_info.get("photo_generateur_url") or HISTORIC_FALLBACK_PHOTO
-    photo_emp = install_row.get("photo_emplacement_url") or HISTORIC_FALLBACK_PHOTO
+    photo_emp = (
+        install_row.get("photo_emplacement_url")
+        or produit_info.get("photo_environnement_url", "")
+        or HISTORIC_FALLBACK_PHOTO
+    )
 
     pages_base = _github_pages_base()
     url_certificat = f"{pages_base}/certificats/pionnier/{pio_id}.html"

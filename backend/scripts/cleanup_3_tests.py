@@ -8,8 +8,8 @@ load_dotenv()
 
 from services.sheets_service import get_sheets_service  # noqa: E402
 
-PIO_IDS = ["PIO-1215", "PIO-1216", "PIO-1217"]
-INSTALL_IDS = ["INST-2219", "INST-2220", "INST-2221"]
+PIO_IDS = ["PIO-1215", "PIO-1216", "PIO-1217", "PIO-1218"]
+INSTALL_IDS = ["INST-2219", "INST-2220", "INST-2221", "INST-2222"]
 
 
 def main():

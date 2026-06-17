@@ -68,6 +68,7 @@ def _load_from_sheet() -> Dict[str, Dict[str, Any]]:
             "manuel_url": str(row.get("manuel_url") or "").strip(),
             "image_cloudinary_id": str(row.get("image_cloudinary_id") or "").strip(),
             "photo_generateur_url": str(row.get("photo_generateur_url") or "").strip(),
+            "photo_environnement_url": str(row.get("photo_environnement_url") or "").strip(),
         }
     return catalog
 
