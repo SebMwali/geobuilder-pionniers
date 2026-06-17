@@ -528,6 +528,27 @@ async def _normalize_livraison_payload(payload: LivraisonInput) -> LivraisonInpu
     return payload
 
 
+import re as _re_validate
+
+_EMAIL_RE = _re_validate.compile(r"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$")
+_PHONE_RE = _re_validate.compile(r"^[+0-9\s().-]{6,30}$")
+
+
+def _is_valid_email(s: str) -> bool:
+    """Accepte email simple OU liste séparée par ';' ou ','."""
+    if not s:
+        return False
+    parts = _re_validate.split(r"[;,]", s)
+    return all(_EMAIL_RE.match(p.strip()) for p in parts if p.strip())
+
+
+def _is_valid_phone(s: str) -> bool:
+    """Téléphone optionnel — si présent, doit matcher un format raisonnable."""
+    if not s:
+        return True  # vide = autorisé
+    return bool(_PHONE_RE.match(s.strip().lstrip("'")))
+
+
 def _validate_livraison_payload(payload: LivraisonInput) -> None:
     """Vérifie qu'après normalisation, les champs critiques sont présents.
     Lève HTTPException(422) avec un message explicite en cas de manque."""
@@ -544,6 +565,12 @@ def _validate_livraison_payload(payload: LivraisonInput) -> None:
         missing.append("produit (ou PDF avec champ 'Modèle')")
     if missing:
         raise HTTPException(422, f"Champs manquants après normalisation: {', '.join(missing)}")
+
+    # Validation forte (format) — uniquement quand le champ est présent
+    if payload.email and not _is_valid_email(payload.email):
+        raise HTTPException(422, f"Email invalide: '{payload.email}'")
+    if payload.telephone and not _is_valid_phone(payload.telephone):
+        raise HTTPException(422, f"Téléphone invalide: '{payload.telephone}'")
 
 
 # Limite "100 1ers Fondateurs" par territoire
@@ -745,6 +772,32 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
                 "url_garantie": f"{pages_base}/certificats/garantie/{inst_id}.html",
                 "idempotent_replay": True,
                 "report_id": payload.report_id,
+            }
+
+    # 0b. Idempotence secondaire via numero_serie (au cas où report_id absent)
+    # Évite de créer 2 lignes pour le même appareil si le SAV oublie report_id.
+    if payload.numero_serie:
+        try:
+            existing_ns = sheets.find_row_by("installations", "numero_serie", payload.numero_serie)
+        except Exception:
+            existing_ns = None
+        if existing_ns:
+            pages_base = _github_pages_base()
+            inst_id = existing_ns.get("install_id", "")
+            pio_id = existing_ns.get("pio_id", "")
+            logger.warning(
+                f"Idempotent replay via numero_serie={payload.numero_serie} -> {inst_id}/{pio_id} "
+                f"(report_id manquant ou différent)"
+            )
+            return {
+                "pio_id": pio_id,
+                "install_id": inst_id,
+                "url_portail": f"{pages_base}/pionniers/{pio_id}/index.html",
+                "url_passeport": f"{pages_base}/passeports/{inst_id}/index.html",
+                "url_certificat": f"{pages_base}/certificats/pionnier/{pio_id}.html",
+                "url_garantie": f"{pages_base}/certificats/garantie/{inst_id}.html",
+                "idempotent_replay": True,
+                "idempotent_via": "numero_serie",
             }
 
     # 1. IDs

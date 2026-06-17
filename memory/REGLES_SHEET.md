@@ -124,6 +124,53 @@ un AJOUT à l'existant**, **JAMAIS un remplacement**.
 
 ---
 
+## R9 — JAMAIS de formule sur les colonnes `pio_id` et `install_id`
+
+### ❌ Interdit
+- Utiliser une formule type `="INST-"&(ROW()+1998)` ou `=PIO-` + ROW() pour générer les IDs.
+- Pourquoi ? Toute suppression de ligne au-dessus **décale la formule** et change l'install_id /
+  pio_id de toutes les lignes en-dessous. Conséquence : désalignement sheet ↔ fichiers GH Pages.
+
+### ✅ Obligatoire
+- Les colonnes `pio_id` (01_Pionniers) et `install_id` (02_Installations) doivent contenir
+  des **valeurs statiques** (strings simples, type "INST-2147").
+- Le compteur est géré centralement via `services/counter_service.py` qui lit/écrit
+  dans `04_Parametres` avec un Lock thread-safe.
+- Pour figer une colonne en formule existante en valeur statique :
+  utiliser le script `/app/backend/scripts/freeze_install_ids.py`.
+
+### Origine
+- 17/06/2026 — Suite à la suppression de 6 lignes du Groupe B (PIO-1012, 1057, 1070,
+  1076, 1078, 1086), les install_ids de 142 pionniers se sont décalés (effet domino
+  des formules), désalignant la sheet de tous les fichiers HTML existants sur GH Pages.
+  Fix : script `freeze_install_ids.py` qui restaure les install_id ORIGINAUX
+  (pré-suppression) en valeurs statiques.
+
+
+---
+
+## R10 — Idempotence du webhook livraison
+
+### Règle
+Le webhook `POST /api/webhook/livraison` est **idempotent** sur 2 champs :
+1. **Primary** : `report_id` (col W de 02_Installations) → si déjà présent, retour HTTP 200
+   avec les URLs existantes (pas de duplicate).
+2. **Secondary** : `numero_serie` → si déjà présent dans 02_Installations, retour idempotent
+   également (au cas où le SAV oublierait `report_id`).
+
+### Validation forte du payload
+- `email` doit matcher `^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$` (ou liste séparée par `;`/`,`)
+- `telephone` doit matcher `^[+0-9\s().-]{6,30}$` (si présent)
+- Toute violation → HTTP 422 avec message explicite
+
+### Origine
+- 17/06/2026 — Renforcement post-audit : ajout idempotence numero_serie + validation email/phone
+  pour éviter les anomalies type `;+262...` ou `07 70 / +33...` qui sont passées en base
+  pendant la phase d'import historique de Mayotte.
+
+
+---
+
 ## Historique de la règle
 
 - 16/06/2026 — Règle formalisée à la demande de l'utilisateur après constat que `append_row` empilait les nouvelles fiches en bas de la zone vide (lignes 198+ au lieu de 151+). Réordonnancement effectué et fonction utilitaire à intégrer dans `SheetsService`.

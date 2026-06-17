@@ -25,6 +25,20 @@ Remplacer une automatisation Make.com défaillante par un backend Python/FastAPI
 
 Si `fondateur=true` : push supplémentaire `docs/ambassadeurs/{PIO_ID}.html`.
 
+### Session du 17/06/2026 (audit + verrouillage)
+- ✅ Fix badge Fondateur : refactorisé en 100% responsive (asset PNG sur GH Pages + positions en cqw/%), affichage parfait en miniature dans les slots du passeport.
+- ✅ Logique portail/passeport cohérente : statut "Ambassadeur" basé strictement sur `ambassadeur=TRUE` (plus de confusion avec `fondateur=TRUE`).
+- ✅ Régénération auto du portail à la signature Ambassadeur (en plus du passeport).
+- ✅ Slot Fondateur caché pour les non-Fondateurs (validé visuellement sur PIO-1027).
+- ✅ Purge Groupe B (6 pionniers) + sync 00_Fondateurs ↔ 01_Pionniers + nettoyage Lacombe (xx → PIO-1029).
+- ✅ Freeze install_ids : remplacement de la formule `="INST-"&(ROW()+1998)` par valeurs statiques (142 cellules) pour éviter les drifts lors de suppressions futures.
+- ✅ Audit complet du Sheet : 12 anomalies → 1 anomalie restante après correctifs.
+- ✅ Verrouillage webhook : ajout idempotence secondaire sur `numero_serie` + validation forte email/téléphone.
+- ✅ REGLES_SHEET.md mis à jour avec R9 (interdiction formule sur pio_id/install_id) et R10 (idempotence + validation).
+- ⏳ EN VEILLE : régénération des 95 Fondateurs avec badge miniature (attente liste 100 finalisée).
+- ⏳ BLOQUÉ : envoi mass-email (attente GO utilisateur).
+
+
 ### Session du 17/02/2026 (suite — nettoyage Fondateurs)
 - ✅ Suppression de PIO-1069 ASSANI Abdou Rahamane dans `00_Fondateurs` (était la 101e entrée, ramenée à 100 fondateurs strict).
 - ⏳ Pending P0 : régénération massive des documents HTML individuels manquants sur GitHub Pages (utilisateur a demandé d'attendre — "Autre approche; on attend").
