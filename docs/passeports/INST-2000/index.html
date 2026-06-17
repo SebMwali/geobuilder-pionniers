@@ -226,7 +226,7 @@
     aspect-ratio:16/10;border-radius:var(--radius-sm);overflow:hidden;
     background:#0a0f1a;border:1px solid var(--line);
   }
-  .emp-photo img{width:100%;height:100%;object-fit:cover}
+  .emp-photo img{width:100%;height:100%;object-fit:contain;background:#0d0f17}
   .emp-loc{
     margin-top:14px;display:flex;align-items:center;gap:10px;justify-content:center;
   }
@@ -637,8 +637,8 @@
               </div>
             </div>
 
-            <!-- Slot 3 : FONDATEUR -->
-            <div class="gb-badge-slot">
+            <!-- Slot 3 : FONDATEUR (caché pour les non-fondateurs car réservé aux 100 1ers) -->
+            <div class="gb-badge-slot" style="display: flex;">
               <a href="https://sebmwali.github.io/geobuilder-pionniers/badges/fondateur/PIO-1000.html" target="_blank" rel="noopener" class="gb-badge-frame" style="display: block;" title="Voir le badge Fondateur en grand">
                 <iframe src="https://sebmwali.github.io/geobuilder-pionniers/badges/fondateur/PIO-1000.html" scrolling="no" sandbox="allow-same-origin"></iframe>
               </a>
