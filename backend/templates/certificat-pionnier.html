@@ -44,10 +44,6 @@ html,body{
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
 
-/* Masque + nouvelle signature Geobuilde (screen) */
-.sig-mask{position:absolute;left:230px;top:1270px;width:594px;height:160px;background:#060810;z-index:5;}
-img.z-sig{position:absolute;left:362px;top:1310px;width:330px;height:90px;z-index:6;object-fit:contain;}
-
 /* IMPRESSION : couleurs solides — background-clip non supporté */
 @media print{
   html,body{background:#000;padding:0;margin:0;display:block;-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -80,8 +76,6 @@ img.z-sig{position:absolute;left:362px;top:1310px;width:330px;height:90px;z-inde
   .z-pays {left:33.1mm;top:209.5mm;width:45.4mm;height:9.1mm;font-size:6mm}
   .z-annee{left:80.4mm;top:209.5mm;width:37.9mm;height:9.1mm;font-size:7mm}
   .z-pio  {left:124.1mm;top:209.5mm;width:41.6mm;height:9.1mm;font-size:6mm}
-  .sig-mask{left:45.8mm;top:252.6mm;width:118.3mm;height:31.8mm}
-  img.z-sig{left:72.0mm;top:260.5mm;width:65.6mm;height:17.9mm}
 }
 @page{size:A4 portrait;margin:0}
 
@@ -101,8 +95,6 @@ img.z-sig{position:absolute;left:362px;top:1310px;width:330px;height:90px;z-inde
   <div class="z z-pays" id="cert-pays">{{PAYS}}</div>
   <div class="z z-annee" id="cert-annee">{{ANNEE}}</div>
   <div class="z z-pio"  id="cert-pio">{{PIO_ID}}</div>
-  <div class="sig-mask"></div>
-  <img class="z-sig" src="https://sebmwali.github.io/geobuilder-pionniers/assets/signature-geobuilde.png?v=1" alt="">
 </div>
 <button class="print-btn" onclick="window.print()">Imprimer / Sauvegarder en PDF</button>
 <script>
