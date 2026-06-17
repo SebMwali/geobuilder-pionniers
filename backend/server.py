@@ -1689,7 +1689,7 @@ async def ambassadeur_signature(
 # ROUTES — SAV (Maintenance) — pipeline minimal
 # =========================================================================
 # Statuts qui rendent une maintenance visible dans le passeport (cf. spec).
-_STATUTS_VISIBLES = {"réalisé", "realise", "réalisée", "terminé", "termine", "terminée", "ok"}
+_STATUTS_VISIBLES = {"réalisé", "realise", "réalisée", "realisee", "terminé", "termine", "terminée", "terminee", "effectué", "effectue", "effectuée", "effectuee", "ok"}
 
 
 def _build_historique_html(install_id: str, install_row: dict, sheets) -> str:
