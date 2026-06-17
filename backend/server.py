@@ -934,17 +934,13 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
     date_garantie_fin_fr = _fmt_date_fr(date_garantie_fin)
 
     # Distinctions — règles V1
-    # Statut Ambassadeur : "Acquis" UNIQUEMENT si la signature électronique a été
-    # enregistrée (`ambassadeur=TRUE` en sheet, mis à jour par /api/ambassadeur/signature).
-    # À la livraison initiale, la signature n'est pas encore réalisée → on affiche
-    # "À signer" (lien actif vers la page de signature personnalisée).
-    url_signature_personnelle = f"{pages_base}/ambassadeurs/{pio_id}.html" if payload.fondateur else ""
-    if payload.fondateur:
-        amb_class, amb_label, amb_dot = "encours", "À signer", ""
-        carte_amb_class, carte_amb_status, url_carte_amb = "acquis", "Engagement à signer", url_signature_personnelle
-    else:
-        amb_class, amb_label, amb_dot = "non-acquis", "Non acquis", ""
-        carte_amb_class, carte_amb_status, url_carte_amb = "locked", "Non acquise", "#"
+    # Statut/Carte Ambassadeur : UNIQUEMENT basé sur `ambassadeur=TRUE` (signature
+    # électronique effectuée). Tant que pas signé : "Non acquis", carte grisée
+    # (identique à Super Ambassadeur). Le formulaire de signature reste accessible
+    # via le bouton "DEVENEZ AMBASSADEUR" du passeport.
+    # À la livraison initiale, ambassadeur=FALSE par défaut.
+    amb_class, amb_label, amb_dot = "non-acquis", "Non acquis", ""
+    carte_amb_class, carte_amb_status, url_carte_amb = "locked", "Non acquise", "#"
     sup_class, sup_label, sup_dot = "non-acquis", "Non acquis", ""
     carte_sup_class, carte_sup_status, url_carte_sup = "locked", "Non acquise", "#"
 
@@ -1886,14 +1882,13 @@ def _regenerate_all_docs_for_pioneer(pio_row: dict, install_row: dict, sheets, g
     except Exception:
         mois_annee_adhesion = annee
 
+    # Statut/Carte Ambassadeur : UNIQUEMENT basé sur ambassadeur=TRUE (cohérent
+    # avec le passeport). Le formulaire de signature reste accessible via le
+    # bouton "DEVENEZ AMBASSADEUR" du passeport.
     if is_ambassadeur:
         amb_class, amb_label = "acquis", "Acquis"
         amb_dot = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
         carte_amb_class, carte_amb_status, url_carte_amb = "acquis", "Acquise", url_badge_ambassadeur
-    elif is_fondateur:
-        amb_class, amb_label, amb_dot = "encours", "À signer", ""
-        url_signature_personnelle = f"{pages_base}/ambassadeurs/{pio_id}.html"
-        carte_amb_class, carte_amb_status, url_carte_amb = "acquis", "Engagement à signer", url_signature_personnelle
     else:
         amb_class, amb_label, amb_dot = "non-acquis", "Non acquis", ""
         carte_amb_class, carte_amb_status, url_carte_amb = "locked", "Non acquise", "#"
