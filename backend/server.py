@@ -1152,27 +1152,29 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
     try:
         sheets.append_row("pionniers", [
             pio_id,                       # A  pio_id
-            payload.nom,                  # B  nom
-            payload.prenom,               # C  prenom
-            payload.email,                # D  email
-            payload.telephone,            # E  telephone
-            payload.pays,                 # F  pays
-            payload.territoire,           # G  territoire
-            "",                           # H  client_type (V1 vide)
-            now_iso,                      # I  date_entree
-            "Pionnier",                   # J  statut
-            "true" if payload.fondateur else "false",  # K  fondateur
-            "false",                                  # L  ambassadeur (déclaratif uniquement — via /api/ambassadeur/signature)
-            "Fondateur" if payload.fondateur else "",  # M  communaute_statut (mis à jour à la signature ambassadeur)
-            "",                           # N  droit_image
-            "",                           # O  temoignage_autorise
-            "",                           # P  visite_possible
-            "backend_livraison",          # Q  source_creation
-            "livraison_complete",         # R  workflow_status (Q4=b)
-            "true",                       # S  welcome_email_sent
-            url_certificat,               # T  certificat_url
-            url_carte,                    # U  carte_url
-            "",                           # V  qr_code_url (V1)
+            payload.numero_serie,         # B  NS
+            payload.produit,              # C  produits
+            payload.nom,                  # D  nom
+            payload.prenom,               # E  prenom
+            payload.email,                # F  email
+            payload.telephone,            # G  telephone
+            payload.pays,                 # H  pays
+            payload.territoire,           # I  territoire
+            "",                           # J  client_type (V1 vide)
+            now_iso,                      # K  date_entree
+            "Pionnier",                   # L  statut
+            "true" if payload.fondateur else "false",  # M  fondateur
+            "false",                                  # N  ambassadeur (déclaratif uniquement — via /api/ambassadeur/signature)
+            "Fondateur" if payload.fondateur else "",  # O  communaute_statut (mis à jour à la signature ambassadeur)
+            "",                           # P  droit_image
+            "",                           # Q  temoignage_autorise
+            "",                           # R  visite_possible
+            "backend_livraison",          # S  source_creation
+            "livraison_complete",         # T  workflow_status (Q4=b)
+            "true",                       # U  welcome_email_sent
+            url_certificat,               # V  certificat_url
+            url_carte,                    # W  carte_url
+            "",                           # X  qr_code_url (V1)
         ])
     except Exception as e:
         logger.error(f"Sheet append pionniers failed: {e}")
