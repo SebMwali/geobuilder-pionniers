@@ -38,7 +38,7 @@ def main():
         email_raw = (r.get("email") or "").strip()
         welcome_sent = (str(r.get("welcome_email_sent") or "").strip().lower() in ("true", "1", "yes", "oui"))
 
-        if statut and statut.lower() not in ("pionnier", "fondateur"):
+        if statut and statut.lower() not in ("pionnier", "fondateur", "en attente"):
             skipped_inactif.append((pio_id, statut))
             continue
 
