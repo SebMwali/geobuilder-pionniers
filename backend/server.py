@@ -1845,9 +1845,11 @@ def _regenerate_passeport(install_row: dict, sheets, gh) -> str:
         "display_badge_fondateur": display_badge_fondateur,
         "display_locked_fondateur": display_locked_fondateur,
         "display_slot_fondateur": "flex" if is_fondateur else "none",
-        "url_badge_ambassadeur": f"{pages_base}/badges/ambassadeur/{pio_id}.html",
-        "url_badge_super_ambassadeur": f"{pages_base}/badges/super-ambassadeur/{pio_id}.html",
-        "url_badge_fondateur": f"{pages_base}/badges/fondateur/{pio_id}.html",
+        # Cache-buster pour forcer le navigateur à recharger après chaque promotion
+        # (sinon le navigateur sert un ancien 404 ou un ancien badge en cache).
+        "url_badge_ambassadeur": f"{pages_base}/badges/ambassadeur/{pio_id}.html?v={int(datetime.now(timezone.utc).timestamp())}",
+        "url_badge_super_ambassadeur": f"{pages_base}/badges/super-ambassadeur/{pio_id}.html?v={int(datetime.now(timezone.utc).timestamp())}",
+        "url_badge_fondateur": f"{pages_base}/badges/fondateur/{pio_id}.html?v={int(datetime.now(timezone.utc).timestamp())}",
         "photo_generateur_url": photo_gen,
         "photo_emplacement_url": photo_emp,
         **_compute_prochaine_intervention(date_inst),
