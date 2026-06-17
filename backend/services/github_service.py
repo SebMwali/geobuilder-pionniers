@@ -92,6 +92,27 @@ class GitHubService:
                 raise
         return self._public_url(path)
 
+    def delete_file(self, path: str, commit_message: str) -> bool:
+        """Supprime un fichier du repo s'il existe. Renvoie True si supprimé,
+        False si déjà absent (404)."""
+        branch = os.environ.get("GITHUB_BRANCH", "main")
+        repo = self._get_repo()
+        try:
+            existing = repo.get_contents(path, ref=branch)
+            repo.delete_file(
+                path=path,
+                message=commit_message,
+                sha=existing.sha,
+                branch=branch,
+            )
+            logger.info(f"Deleted {path} on {branch}")
+            return True
+        except GithubException as e:
+            if e.status == 404:
+                logger.info(f"Skip delete {path}: already absent")
+                return False
+            raise
+
     def _public_url(self, path: str) -> str:
         base = os.environ.get(
             "GITHUB_PAGES_URL", "https://sebmwali.github.io/geobuilder-pionniers"
