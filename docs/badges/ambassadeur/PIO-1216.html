@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Badge Ambassadeur — Pionnier B TestFondateur</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{
+    background:#000; min-height:100vh;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Cinzel','Trajan Pro',Georgia,serif;
+  }
+  .badge{
+    position:relative;
+    width: min(95vw, 760px);
+    aspect-ratio: 1086 / 1448;
+    background-image: url("https://sebmwali.github.io/geobuilder-pionniers/assets/badge-ambassadeur-bg.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    container-type: inline-size;
+    font-family:'Cinzel',serif;
+  }
+  /* Tous les textes en bleu électrique Geobuilder */
+  .ovl{
+    position:absolute;
+    color:#3A8FE8;
+    text-shadow: 0 0 14px rgba(58,143,232,.55), 0 1px 2px rgba(0,0,0,.7);
+    text-transform:uppercase;
+    font-weight:700;
+  }
+  /* Territoire — centré (même hauteur que le pin), +20% taille */
+  .ovl-territoire{
+    top: 62%;
+    left: 0; width: 100%;
+    text-align:center;
+    font-size: 3.6cqw;
+    letter-spacing: .18em;
+  }
+  /* Année — centrée pixel-exact entre bas de "PIONNIER..." (71,3%) et la barre bleue (80,8%) → centre Y = 76% */
+  .ovl-annee{
+    top: 76%;
+    transform: translateY(-50%);
+    left: 0; width: 100%;
+    text-align:center;
+    font-size: 8cqw;
+    letter-spacing: .14em;
+    font-weight:700;
+  }
+  /* Nom du client — centré pixel-exact entre la barre bleue (80,8%) et la pointe de la goutte (84,25%) → centre Y = 82,5% */
+  .ovl-nom{
+    top: 82.5%;
+    transform: translateY(-50%);
+    left: 0; width: 100%;
+    text-align:center;
+    font-size: 1.9cqw;
+    letter-spacing: .14em;
+    font-weight:700;
+  }
+  /* PIO ID — bas droite, discret, sans cadre */
+  .ovl-pio{
+    right: 9%; bottom: 5%;
+    font-size: 1.7cqw;
+    letter-spacing: .22em;
+    color:#3A8FE8;
+    text-shadow: 0 0 10px rgba(58,143,232,.6);
+    font-weight:600;
+  }
+</style>
+</head>
+<body>
+  <div class="badge">
+    <div class="ovl ovl-territoire">Mayotte</div>
+    <div class="ovl ovl-annee">2026</div>
+    <div class="ovl ovl-nom">Pionnier B TestFondateur</div>
+    <div class="ovl ovl-pio">PIO-1216</div>
+  </div>
+</body>
+</html>
