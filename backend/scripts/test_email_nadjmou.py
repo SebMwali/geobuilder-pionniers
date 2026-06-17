@@ -131,21 +131,25 @@ async def main():
     # === Envoi mail ===
     print(f"\n[4/4] Envoi du mail de bienvenue (test)...")
     pages_base = "https://sebmwali.github.io/geobuilder-pionniers"
+    # Pour cohérence parfaite avec la prod : on récupère le pio_row à jour
+    # et on détermine fondateur (pour switcher URL_CARTE vers badge fondateur).
+    pio_row_final = sheets.find_row_by("pionniers", "pio_id", pio_id) or {}
+    is_fondateur = str(pio_row_final.get("fondateur", "")).strip().upper() in ("TRUE", "OUI", "1", "YES", "VRAI")
+    url_carte = f"{pages_base}/cartes/{pio_id}.html"
+    url_badge_fondateur = f"{pages_base}/badges/fondateur/{pio_id}.html"
     ctx_email = {
-        "NOM": "BOINA",
-        "PRENOM": "Nadjmou",
-        "PIO_ID": pio_id,
-        "PRODUIT": "G30",
-        "PAYS": "France",
-        "TERRITOIRE": "Mayotte",
-        "URL_PORTAIL": f"{pages_base}/pionniers/{pio_id}/index.html",
-        "URL_PASSEPORT": f"{pages_base}/passeports/{install_id}/index.html",
-        "URL_CERTIFICAT_PIONNIER": f"{pages_base}/certificats/pionnier/{pio_id}.html",
-        "URL_CERTIFICAT_GARANTIE": f"{pages_base}/certificats/garantie/{install_id}.html",
-        "URL_CARTE_PIONNIER": f"{pages_base}/cartes/{pio_id}.html",
-        "URL_AMBASSADEUR": f"{pages_base}/ambassadeurs/{pio_id}.html",
-        "URL_BADGE_FONDATEUR": f"{pages_base}/badges/fondateur/{pio_id}.html",
         "ANNEE": "2026",
+        "INSTALL_ID": install_id,
+        "PAYS": "Mayotte",
+        "PIO_ID": pio_id,
+        "URL_CARTE": url_badge_fondateur if is_fondateur else url_carte,
+        "URL_CERTIFICAT": f"{pages_base}/certificats/pionnier/{pio_id}.html",
+        "URL_ESPACE": f"{pages_base}/pionniers/{pio_id}/index.html",
+        "URL_GARANTIE": f"{pages_base}/certificats/garantie/{install_id}.html",
+        "URL_PASSEPORT": f"{pages_base}/passeports/{install_id}/index.html",
+        "URL_AMBASSADEUR_CTA": f"{pages_base}/ambassadeur.html",
+        "CTA_AMBASSADEUR_TITLE": "Devenez Ambassadeur",
+        "CTA_AMBASSADEUR_DESC": "Les Pionniers ouvrent la voie.",
     }
     email_html = render_template("email-final.html", ctx_email)
 
