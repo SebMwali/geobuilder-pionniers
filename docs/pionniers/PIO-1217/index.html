@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Espace Pionnier — Lidiana MBOTY</title>
+<title>Espace Pionnier — Pionnier C TestSuper</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -140,28 +140,34 @@
     color:var(--text-dim); font-size:14px;
     margin-bottom:18px; letter-spacing:0.04em;
   }
-  /* Bloc NS manquant — invitation à transmettre par email */
+  /* Bloc NS / Date manquant — invitation à transmettre par email
+     Les 2 blocs (NS + Date de livraison) doivent avoir une taille
+     identique pour assurer l'harmonie visuelle dans la colonne droite. */
   .ns-missing {
-    margin: 8px 0 18px;
-    padding: 12px 14px;
+    margin: 6px 0 10px;
+    padding: 10px 12px;
     background: rgba(255, 184, 0, 0.10);
     border: 1px solid rgba(255, 184, 0, 0.35);
     border-radius: 10px;
+    min-height: 120px;
+    display: flex; flex-direction: column;
   }
   .ns-missing .ns-missing-title {
-    font-size: 13px; font-weight: 600;
+    font-size: 12px; font-weight: 600;
     color: #ffb800; margin-bottom: 4px;
     letter-spacing: 0.02em;
   }
   .ns-missing .ns-missing-text {
-    font-size: 12.5px; color: var(--text-dim);
-    line-height: 1.45; margin-bottom: 10px;
+    font-size: 11.5px; color: var(--text-dim);
+    line-height: 1.4; margin-bottom: 8px;
+    flex: 1;
   }
   .ns-missing .ns-missing-cta {
     display: inline-flex; align-items: center; gap: 8px;
-    padding: 8px 14px; border-radius: 8px;
+    padding: 7px 12px; border-radius: 8px;
     background: var(--blue); color: #0d1626;
-    text-decoration: none; font-size: 13px; font-weight: 700;
+    text-decoration: none; font-size: 12px; font-weight: 700;
+    align-self: flex-start;
     transition: background 0.2s;
   }
   .ns-missing .ns-missing-cta:hover { background: #7fbcff; }
@@ -475,7 +481,7 @@
   <!-- HERO -->
   <div class="hero">
     <div class="hero-left">
-      <h1>Bonjour <span class="name">Lidiana</span></h1>
+      <h1>Bonjour <span class="name">Pionnier C</span></h1>
       <p>Bienvenue dans votre espace personnel Pionnier. Retrouvez vos documents officiels, vos distinctions et rejoignez la communauté Geobuilder.</p>
       <div class="hero-meta">
         <div class="pio-pill">PIO-1217</div>
@@ -488,21 +494,18 @@
 
     <div class="hero-right">
       <div class="title">Mon installation</div>
-      <img class="product-image" src="https://res.cloudinary.com/dahmkv4ra/image/upload/v1781308463/G30-_fqyqhz.png" alt="G30">
+      <img class="product-image" src="https://res.cloudinary.com/dahmkv4ra/image/upload/v1781637367/G60-_nkg4le.png" alt="Mon installation — Mayotte, France">
       <div class="install-info">
-        <div class="product-name">G30</div>
-        <div class="ns-missing"><div class="ns-missing-title">N° de série non renseigné</div><div class="ns-missing-text">Merci de nous transmettre le numéro de série inscrit sur l'étiquette située sur le côté de votre générateur pour finaliser votre suivi.</div><a class="ns-missing-cta" href="mailto:contact@geobuilder.fr?subject=Transmission%20N%C2%B0%20de%20s%C3%A9rie%20%E2%80%94%20PIO-1217&body=Bonjour%20Geobuilder%2C%0A%0AJe%20vous%20transmets%20le%20num%C3%A9ro%20de%20s%C3%A9rie%20de%20mon%20g%C3%A9n%C3%A9rateur%20%3A%0A%0AN%C2%B0%20de%20s%C3%A9rie%20%3A%20__________________________%0A%0AInformations%20de%20mon%20installation%20%3A%0A%20%20-%20R%C3%A9f%C3%A9rence%20Pionnier%20%3A%20PIO-1217%0A%20%20-%20R%C3%A9f%C3%A9rence%20Installation%20%3A%20INST-2221%0A%20%20-%20Produit%20%3A%20G30%0A%20%20-%20Date%20d%27installation%20%3A%2016/06/2026%0A%20%20-%20Nom%20%3A%20Lidiana%20MBOTY%0A%0ABien%20cordialement%2C">Transmettre mon N° de série →</a></div>
+        <div class="product-name">G60</div>
+        <div class="serial">N° TEST-G60-C001</div>
         <div class="meta-line">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
-          <span>Comores, Moheli</span>
+          <span>Mayotte, France</span>
         </div>
-        <div class="meta-line">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg>
-          <div class="ns-missing"><div class="ns-missing-title">Date de livraison non renseignée</div><div class="ns-missing-text">Merci de nous communiquer la date de livraison de votre générateur pour finaliser votre suivi.</div><a class="ns-missing-cta" href="mailto:contact@geobuilder.fr?subject=Transmission%20date%20de%20livraison%20%E2%80%94%20PIO-1217&body=Bonjour%20Geobuilder%2C%0A%0AJe%20vous%20transmets%20la%20date%20de%20livraison%20/%20installation%20de%20mon%20g%C3%A9n%C3%A9rateur%20%3A%0A%0ADate%20de%20livraison%20%3A%20____%20/%20____%20/%20________%0A%0AInformations%20de%20mon%20installation%20%3A%0A%20%20-%20R%C3%A9f%C3%A9rence%20Pionnier%20%3A%20PIO-1217%0A%20%20-%20R%C3%A9f%C3%A9rence%20Installation%20%3A%20INST-2221%0A%20%20-%20Produit%20%3A%20G30%0A%20%20-%20Nom%20%3A%20Lidiana%20MBOTY%0A%0ABien%20cordialement%2C">Communiquer ma date de livraison →</a></div>
-        </div>
+        <div class="meta-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg><span>Installée le 17/06/2026</span></div>
         <div class="meta-line">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          <span class="warranty">Garantie active <span class="warranty-dim">jusqu'au 16/06/2028</span></span>
+          <span class="warranty">Garantie active <span class="warranty-dim">jusqu'au 17/06/2028</span></span>
         </div>
       </div>
     </div>
@@ -556,9 +559,9 @@
         <div class="dist-info">
           <div class="name">AMBASSADEUR</div>
           <div class="desc">Vous recommandez Geobuilder et partagez votre expérience.</div>
-          <div class="dist-status encours">
+          <div class="dist-status acquis">
             <span class="dot"></span>
-            En cours
+            Acquis
           </div>
         </div>
       </div>
@@ -644,7 +647,7 @@
           <span class="doc-link">Voir la carte →</span>
         </a>
 
-        <a class="doc-card locked" href="#" target="_blank" rel="noopener">
+        <a class="doc-card acquis" href="https://sebmwali.github.io/geobuilder-pionniers/badges/ambassadeur/PIO-1217.html" target="_blank" rel="noopener">
           <div class="icon">
             <svg viewBox="0 0 80 80"><defs><linearGradient id="ic5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3A8FE8"/><stop offset="100%" stop-color="#1a5ec4"/></linearGradient></defs>
               <rect x="6" y="18" width="68" height="44" rx="4" fill="url(#ic5)"/>
@@ -655,7 +658,7 @@
             </svg>
           </div>
           <div class="doc-title">Carte Ambassadeur</div>
-          <div class="doc-desc">Non acquise</div>
+          <div class="doc-desc">Acquise</div>
           <span class="doc-link">Voir la carte →</span>
         </a>
 
@@ -731,7 +734,7 @@
       <a href="https://www.facebook.com/profile.php?id=100086466894702" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.5 9.9V14.9H8v-2.9h2.5v-2.2c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12H16l-.4 2.9h-2.1v7c5.1-.8 9-5.1 9-10z"/></svg></a>
       <a href="https://www.instagram.com/geobuilderoceanindien/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="18" cy="6" r="1" fill="currentColor"/></svg></a>
       <a href="https://www.youtube.com/@geobuilder8089" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.6 7.2c-.2-.9-.9-1.6-1.8-1.8C18 5 12 5 12 5s-6 0-7.8.4c-.9.2-1.6.9-1.8 1.8C2 9 2 12 2 12s0 3 .4 4.8c.2.9.9 1.6 1.8 1.8C6 19 12 19 12 19s6 0 7.8-.4c.9-.2 1.6-.9 1.8-1.8C22 15 22 12 22 12s0-3-.4-4.8zM10 15V9l5 3-5 3z"/></svg></a>
-      <a href="https://www.linkedin.com/company/104828603/admin/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM8.5 18H6V10h2.5v8zM7.25 8.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM18 18h-2.5v-4.3c0-1-.4-1.7-1.3-1.7-1 0-1.5.7-1.5 1.7V18H10V10h2.5v1.1c.4-.7 1.3-1.3 2.5-1.3 1.8 0 3 1.2 3 3.5V18z"/></svg></a>
+      <a href="https://www.linkedin.com/company/104828603" target="_blank" rel="noopener" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM8.5 18H6V10h2.5v8zM7.25 8.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zM18 18h-2.5v-4.3c0-1-.4-1.7-1.3-1.7-1 0-1.5.7-1.5 1.7V18H10V10h2.5v1.1c.4-.7 1.3-1.3 2.5-1.3 1.8 0 3 1.2 3 3.5V18z"/></svg></a>
     </div>
   </footer>
 
