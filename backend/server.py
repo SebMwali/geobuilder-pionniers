@@ -1952,6 +1952,25 @@ def _regenerate_all_docs_for_pioneer(pio_row: dict, install_row: dict, sheets, g
         }
         html_badge_fondateur = render_template("badge-fondateur.html", ctx_badge_luxe)
 
+    # --- 7b. Badge Ambassadeur (luxe)
+    html_badge_ambassadeur = ""
+    if is_ambassadeur:
+        ctx_amb = {
+            "PIO_ID": pio_id, "ANNEE": annee, "PAYS": pays_affiche,
+            "NOM_COMPLET": nom_complet, "TERRITOIRE": pays_affiche,
+        }
+        html_badge_ambassadeur = render_template("badge-ambassadeur.html", ctx_amb)
+
+    # --- 7c. Badge Super Ambassadeur (luxe)
+    is_super = _truthy(pio_row.get("super_ambassadeur") or pio_row.get("super"))
+    html_badge_super = ""
+    if is_super:
+        ctx_sup = {
+            "PIO_ID": pio_id, "ANNEE": annee, "PAYS": pays_affiche,
+            "NOM_COMPLET": nom_complet, "TERRITOIRE": pays_affiche,
+        }
+        html_badge_super = render_template("badge-super-ambassadeur.html", ctx_sup)
+
     # === Push GitHub Pages ===
     pushed = {"passeport": url_passeport}
     pushed["certificat_pionnier"] = gh.push_file(
@@ -1974,6 +1993,14 @@ def _regenerate_all_docs_for_pioneer(pio_row: dict, install_row: dict, sheets, g
         pushed["badge_fondateur"] = gh.push_file(
             f"docs/badges/fondateur/{pio_id}.html", html_badge_fondateur,
             f"Regen badge fondateur {pio_id}")
+    if is_ambassadeur and html_badge_ambassadeur:
+        pushed["badge_ambassadeur"] = gh.push_file(
+            f"docs/badges/ambassadeur/{pio_id}.html", html_badge_ambassadeur,
+            f"Regen badge ambassadeur {pio_id}")
+    if is_super and html_badge_super:
+        pushed["badge_super_ambassadeur"] = gh.push_file(
+            f"docs/badges/super-ambassadeur/{pio_id}.html", html_badge_super,
+            f"Regen badge super-ambassadeur {pio_id}")
     return pushed
 
 
