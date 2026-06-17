@@ -559,10 +559,20 @@
               text-decoration: none;
               display: block;
               transition: transform .25s ease, box-shadow .25s ease;
+              background: #000;
+              border-radius: 12px;
+              overflow: hidden;
             }
             .gb-badge-frame:hover {
               transform: translateY(-3px);
               filter: brightness(1.08);
+            }
+            .gb-badge-frame iframe {
+              position: absolute; inset: 0;
+              width: 100%; height: 100%;
+              border: 0;
+              pointer-events: none;
+              background: transparent;
             }
             /* État "acquis" — bloc statique cohérent avec gb-badge-locked,
                cliquable, dégradé selon le rang (bleu Ambassadeur, gold Fondateur). */
@@ -661,20 +671,16 @@
             }
             @media (max-width: 520px){
               .gb-badges{ gap: 10px; }
-              .gb-badge-locked .lock-label,
-              .gb-badge-acquis .acquis-label { font-size: 9px; }
-              .gb-badge-locked .lock-icon,
-              .gb-badge-acquis .acquis-icon { width: 24px; height: 24px; margin-bottom: 8px; }
+              .gb-badge-locked .lock-label{ font-size: 9px; }
+              .gb-badge-locked .lock-icon{ width: 24px; height: 24px; margin-bottom: 8px; }
             }
           </style>
           <div class="gb-badges">
 
             <!-- Slot 1 : AMBASSADEUR -->
             <div class="gb-badge-slot">
-              <a href="{{url_badge_ambassadeur}}" target="_blank" rel="noopener" class="gb-badge-acquis blue" style="display: {{display_badge_ambassadeur}};" title="Voir la carte Ambassadeur">
-                <svg class="acquis-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"><path d="M6 9a6 6 0 0 0 12 0V3H6v6z"/><path d="M6 3H4a2 2 0 0 0-2 2v1a3 3 0 0 0 3 3h1"/><path d="M18 3h2a2 2 0 0 1 2 2v1a3 3 0 0 1-3 3h-1"/><path d="M9 21h6"/><path d="M12 17v4"/></svg>
-                <div class="acquis-label">Ambassadeur</div>
-                <div class="acquis-status">Acquis</div>
+              <a href="{{url_badge_ambassadeur}}" target="_blank" rel="noopener" class="gb-badge-frame" style="display: {{display_badge_ambassadeur}};" title="Voir la carte Ambassadeur">
+                <iframe src="{{url_badge_ambassadeur}}" scrolling="no" sandbox="allow-same-origin"></iframe>
               </a>
               <div class="gb-badge-locked" style="display: {{display_locked_ambassadeur}};">
                 <svg class="lock-icon" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
@@ -685,10 +691,8 @@
 
             <!-- Slot 2 : SUPER AMBASSADEUR -->
             <div class="gb-badge-slot">
-              <a href="{{url_badge_super_ambassadeur}}" target="_blank" rel="noopener" class="gb-badge-acquis blue" style="display: {{display_badge_super_ambassadeur}};" title="Voir la carte Super Ambassadeur">
-                <svg class="acquis-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <div class="acquis-label">Super Ambassadeur</div>
-                <div class="acquis-status">Acquis</div>
+              <a href="{{url_badge_super_ambassadeur}}" target="_blank" rel="noopener" class="gb-badge-frame" style="display: {{display_badge_super_ambassadeur}};" title="Voir la carte Super Ambassadeur">
+                <iframe src="{{url_badge_super_ambassadeur}}" scrolling="no" sandbox="allow-same-origin"></iframe>
               </a>
               <div class="gb-badge-locked" style="display: {{display_locked_super_ambassadeur}};">
                 <svg class="lock-icon" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
@@ -699,10 +703,8 @@
 
             <!-- Slot 3 : FONDATEUR (caché pour les non-fondateurs car réservé aux 100 1ers) -->
             <div class="gb-badge-slot" style="display: {{display_slot_fondateur}};">
-              <a href="{{url_badge_fondateur}}" target="_blank" rel="noopener" class="gb-badge-acquis gold" style="display: {{display_badge_fondateur}};" title="Voir la carte Fondateur en grand">
-                <svg class="acquis-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"><path d="M6 9a6 6 0 0 0 12 0V3H6v6z"/><path d="M6 3H4a2 2 0 0 0-2 2v1a3 3 0 0 0 3 3h1"/><path d="M18 3h2a2 2 0 0 1 2 2v1a3 3 0 0 1-3 3h-1"/><path d="M9 21h6"/><path d="M12 17v4"/></svg>
-                <div class="acquis-label">Fondateur</div>
-                <div class="acquis-status">Acquis</div>
+              <a href="{{url_badge_fondateur}}" target="_blank" rel="noopener" class="gb-badge-frame" style="display: {{display_badge_fondateur}};" title="Voir la carte Fondateur en grand">
+                <iframe src="{{url_badge_fondateur}}" scrolling="no" sandbox="allow-same-origin"></iframe>
               </a>
               <div class="gb-badge-locked" style="display: {{display_locked_fondateur}};">
                 <svg class="lock-icon" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
