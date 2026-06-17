@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Badge Fondateur — PIO-1224</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{
+    background:#060810; min-height:100vh;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    font-family:'Cinzel','Trajan Pro',Georgia,serif;
+    padding: 24px 12px;
+  }
+  /* Cadre badge : responsive, aspect-ratio identique à l'image source (1086x1448) */
+  .badge{
+    position:relative;
+    width: min(95vw, 760px);
+    aspect-ratio: 1086 / 1448;
+    background-image: url("https://sebmwali.github.io/geobuilder-pionniers/assets/badge-fondateur-bg.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    container-type: inline-size;
+    font-family:'Cinzel',serif;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  /* Année 2026 — centrée dans la couronne de lauriers (bleu) */
+  .ovl-annee{
+    position:absolute;
+    left: 37.7%; top: 77.5%;
+    width: 25.7%;
+    text-align:center;
+    color:#3A8FE8;
+    font-weight:900;
+    font-size: 3.86cqw;
+    letter-spacing: .08em;
+    text-shadow: 0 0 12px rgba(58,143,232,.5);
+  }
+  /* PIO-ID en bas droite (argent discret) */
+  .ovl-pio{
+    position:absolute;
+    left: 62.6%; top: 88.4%;
+    width: 30.4%;
+    text-align:right;
+    padding-right: 0.6%;
+    color: rgba(192,200,212,0.7);
+    font-weight:600;
+    font-size: 2.71cqw;
+    letter-spacing: .12em;
+    text-transform:uppercase;
+  }
+  /* Numéro Fondateur — coin haut-droit (or) "001/100 + FONDATEUR" */
+  .ovl-numero{
+    position:absolute;
+    top: 5.8%; right: 10.3%;
+    display:flex; flex-direction:column; align-items:flex-end;
+    color:#C8A65B;
+    letter-spacing:.06em;
+    text-shadow:0 0 14px rgba(200,166,91,.4);
+  }
+  .ovl-numero .num{
+    font-size: 5.14cqw; font-weight:900; line-height:1;
+    white-space:nowrap;
+  }
+  .ovl-numero .num small{
+    font-size: 2.14cqw; font-weight:600; opacity:.7; margin-left:2px;
+  }
+  .ovl-numero .lbl{
+    font-size: 1.29cqw; font-weight:700; opacity:.8;
+    letter-spacing:.24em; text-transform:uppercase;
+    margin-top: 0.5cqw;
+  }
+
+  /* Bloc statut sous le badge (visible uniquement en plein écran) */
+  .statut-fondateur{
+    width: min(95vw, 760px);
+    margin: 28px auto 0;
+    padding: 28px 32px;
+    background: linear-gradient(180deg, #0E1320 0%, #0A0D17 100%);
+    border: 1px solid rgba(200,166,91,.28);
+    border-radius: 10px;
+    color: #E8EAF0;
+    font-family: 'Cinzel', serif;
+    text-align: center;
+    box-shadow: 0 18px 60px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.02);
+  }
+  .statut-fondateur .title{
+    color:#C8A65B; font-size:18px; font-weight:700;
+    letter-spacing:.22em; text-transform:uppercase;
+    margin-bottom: 14px;
+  }
+  .statut-fondateur .lead{
+    font-size:13px; color:#C7CCD8; line-height:1.7;
+    margin-bottom:18px; max-width: 560px; margin-left:auto; margin-right:auto;
+  }
+  .statut-fondateur ul{
+    list-style:none; display:flex; flex-direction:column; gap:10px;
+    font-size:12.5px; color:#C7CCD8; letter-spacing:.02em;
+  }
+  .statut-fondateur ul li{
+    display:flex; align-items:center; justify-content:center; gap:10px;
+  }
+  .statut-fondateur ul li::before{
+    content:"✔"; color:#C8A65B; font-size:14px; font-weight:700;
+  }
+  .statut-fondateur .outro{
+    font-style:italic; font-size:12px;
+    color:rgba(200,166,91,.85);
+    letter-spacing:.08em; margin-top:14px;
+  }
+  .print-btn{
+    margin-top:24px; background:rgba(58,143,232,0.1);
+    border:1px solid rgba(58,143,232,0.25);
+    color:#3A8FE8; font-family:'Cinzel',serif;
+    font-size:11px; font-weight:700;
+    letter-spacing:.2em; text-transform:uppercase;
+    padding:10px 28px; border-radius:4px; cursor:pointer;
+  }
+  .print-btn:hover{background:rgba(58,143,232,0.2)}
+
+  /* === Mode iframe étroite (slot Statut Communauté) : afficher uniquement le
+        badge, masquer le bloc statut et le bouton imprimer. === */
+  @media (max-width: 740px) {
+    html, body {
+      padding: 0 !important;
+      min-height: 0 !important;
+      background: transparent;
+    }
+    .badge { width: 100vw; }
+    .statut-fondateur, .print-btn { display: none !important; }
+  }
+
+  @media print{
+    html,body{background:#000;padding:0;margin:0}
+    .print-btn{display:none}
+    .badge{ width: 794px; }
+    .statut-fondateur{ page-break-before:always; width: 794px; }
+  }
+  @page{size:portrait;margin:0}
+</style>
+</head>
+<body>
+<div class="badge">
+  <div class="ovl-annee">2026</div>
+  <div class="ovl-pio">PIO-1224</div>
+  <div class="ovl-numero">
+    <span class="num">—<small>/100</small></span>
+    <span class="lbl">Fondateur</span>
+  </div>
+</div>
+
+<section class="statut-fondateur">
+  <div class="title">🏆 Statut Fondateur</div>
+  <p class="lead">Seulement 100 Fondateurs par territoire.</p>
+  <ul>
+    <li>Statut attribué à vie</li>
+    <li>Numéro de Fondateur unique</li>
+    <li>Avantages exclusifs réservés aux Fondateurs</li>
+  </ul>
+  <p class="outro">Une place rare dans l'histoire de Geobuilder.</p>
+</section>
+
+<button class="print-btn" onclick="window.print()">Imprimer / Sauvegarder en PDF</button>
+
+</body>
+</html>
