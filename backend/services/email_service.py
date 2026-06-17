@@ -61,6 +61,15 @@ async def send_email_mock(
     `cc` : liste d'adresses en copie (utilisé pour les pionniers multi-contacts comme
     les associations / entreprises).
     """
+    # Gestion automatique des emails multiples séparés par ';' ou ','
+    # Si `to` contient plusieurs adresses et qu'aucun `cc` explicite n'a été fourni,
+    # la 1re adresse devient le TO et les suivantes sont ajoutées en CC.
+    if to and not cc and any(sep in str(to) for sep in (";", ",")):
+        parsed_to, parsed_cc = parse_email_field(to)
+        if parsed_to:
+            to = parsed_to
+            cc = parsed_cc or None
+
     record = {
         "to": to,
         "cc": cc or [],
