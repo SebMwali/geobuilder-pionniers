@@ -132,10 +132,10 @@
   .info-text .v.garantie-active{color:var(--ok)}
   .info-text .v.garantie-expiree{color:var(--bad)}
   /* Bloc NS manquant — invitation à transmettre par email */
-  .ns-missing-pass{margin-top:6px;padding:10px 12px;background:rgba(255,184,0,0.08);border:1px solid rgba(255,184,0,0.30);border-radius:8px}
+  .ns-missing-pass{margin-top:6px;padding:10px 12px;background:rgba(255,184,0,0.08);border:1px solid rgba(255,184,0,0.30);border-radius:8px;min-height:110px;display:flex;flex-direction:column}
   .ns-missing-pass .ns-missing-title{font-size:11px;font-weight:700;color:#c98800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
-  .ns-missing-pass .ns-missing-text{font-size:12px;color:var(--text-dim);line-height:1.4;margin-bottom:8px}
-  .ns-missing-pass .ns-missing-cta{display:inline-block;padding:7px 12px;border-radius:6px;background:#0a1424;color:#fff;text-decoration:none;font-size:12px;font-weight:600}
+  .ns-missing-pass .ns-missing-text{font-size:11.5px;color:var(--text-dim);line-height:1.4;margin-bottom:8px;flex:1}
+  .ns-missing-pass .ns-missing-cta{display:inline-block;padding:7px 12px;border-radius:6px;background:#0a1424;color:#fff;text-decoration:none;font-size:12px;font-weight:600;align-self:flex-start}
   .ns-missing-pass .ns-missing-cta:hover{background:#1a2438}
   .info-text .hint{font-size:12px;color:var(--text-mute);margin-top:3px;font-weight:400}
 
@@ -401,7 +401,7 @@
                 </div>
                 <div class="info-text">
                   <div class="k">NUMÉRO DE SÉRIE</div>
-                  <div class="ns-missing-pass"><div class="ns-missing-title">Non renseigné</div><div class="ns-missing-text">Merci de transmettre le N° de série figurant sur l'étiquette arrière de votre générateur.</div><a class="ns-missing-cta" href="mailto:contact@geobuilder.fr?subject=Transmission%20N%C2%B0%20de%20s%C3%A9rie%20%E2%80%94%20PIO-1216&body=Bonjour%20Geobuilder%2C%0A%0AJe%20vous%20transmets%20le%20num%C3%A9ro%20de%20s%C3%A9rie%20de%20mon%20g%C3%A9n%C3%A9rateur%20%3A%0A%0AN%C2%B0%20de%20s%C3%A9rie%20%3A%20__________________________%0A%0AInformations%20de%20mon%20installation%20%3A%0A%20%20-%20R%C3%A9f%C3%A9rence%20Pionnier%20%3A%20PIO-1216%0A%20%20-%20R%C3%A9f%C3%A9rence%20Installation%20%3A%20INST-2220%0A%20%20-%20Produit%20%3A%20G30%0A%20%20-%20Date%20d%27installation%20%3A%2016/06/2026%0A%20%20-%20Nom%20%3A%20Lidiana%20MBOTY%0A%0ABien%20cordialement%2C">Transmettre mon N° de série</a></div>
+                  <div class="v">TEST-G30-B001</div>
                 </div>
               </div>
 
@@ -411,7 +411,7 @@
                 </div>
                 <div class="info-text">
                   <div class="k">DATE D'INSTALLATION</div>
-                  <div class="v">16/06/2026</div>
+                  <div class="v">17/06/2026</div>
                 </div>
               </div>
 
@@ -421,7 +421,7 @@
                 </div>
                 <div class="info-text">
                   <div class="k">TERRITOIRE</div>
-                  <div class="v">Comores</div>
+                  <div class="v">Mayotte</div>
                 </div>
               </div>
 
@@ -432,7 +432,7 @@
                 <div class="info-text">
                   <div class="k">GARANTIE</div>
                   <div class="v garantie-active">Active</div>
-                  <div class="hint">Expire le 16/06/2028</div>
+                  <div class="hint">Expire le 17/06/2028</div>
                 </div>
               </div>
             </div>
@@ -455,7 +455,7 @@
             <div>RAPPORT</div>
           </div>
 
-          <div class="histo-row"><div class="histo-icon"></div><div class="histo-date">16/06/2026</div><div class="histo-type">Installation initiale</div><div class="histo-tech">—</div><div class="histo-pdf"></div></div>
+          <div class="histo-row"><div class="histo-icon"></div><div class="histo-date">17/06/2026</div><div class="histo-type">Installation initiale</div><div class="histo-tech">—</div><div class="histo-pdf"></div></div>
 
           <a class="voir-tout" href="#">
             VOIR TOUT L'HISTORIQUE
@@ -504,13 +504,13 @@
         <section class="card">
           <div class="card-title">EMPLACEMENT</div>
           <div class="emp-photo">
-            <img src="https://res.cloudinary.com/dahmkv4ra/image/upload/v1781392846/G-30_myykrz.png" alt="Emplacement Moheli, Comores" />
+            <img src="https://res.cloudinary.com/dahmkv4ra/image/upload/v1781308463/G30-_fqyqhz.png" alt="Emplacement Mayotte" />
           </div>
           <div class="emp-loc">
             <svg class="pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
             <div class="l">
-              Moheli, Comores
-              <span class="country">Comores</span>
+              Mayotte
+              <span class="country">Mayotte</span>
             </div>
           </div>
         </section>
@@ -615,10 +615,10 @@
 
             <!-- Slot 1 : AMBASSADEUR -->
             <div class="gb-badge-slot">
-              <a href="https://sebmwali.github.io/geobuilder-pionniers/badges/ambassadeur/PIO-1216.html" target="_blank" rel="noopener" class="gb-badge-frame" style="display: none;" title="Voir le badge Ambassadeur en grand">
+              <a href="https://sebmwali.github.io/geobuilder-pionniers/badges/ambassadeur/PIO-1216.html" target="_blank" rel="noopener" class="gb-badge-frame" style="display: block;" title="Voir le badge Ambassadeur en grand">
                 <iframe src="https://sebmwali.github.io/geobuilder-pionniers/badges/ambassadeur/PIO-1216.html" scrolling="no" sandbox="allow-same-origin"></iframe>
               </a>
-              <div class="gb-badge-locked" style="display: flex;">
+              <div class="gb-badge-locked" style="display: none;">
                 <svg class="lock-icon" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
                 <div class="lock-label">Ambassadeur</div>
                 <div class="lock-status">À acquérir</div>
@@ -637,12 +637,12 @@
               </div>
             </div>
 
-            <!-- Slot 3 : FONDATEUR -->
-            <div class="gb-badge-slot">
-              <a href="" target="_blank" rel="noopener" class="gb-badge-frame" style="display: none;" title="Voir le badge Fondateur en grand">
-                <iframe src="" scrolling="no" sandbox="allow-same-origin"></iframe>
+            <!-- Slot 3 : FONDATEUR (caché pour les non-fondateurs car réservé aux 100 1ers) -->
+            <div class="gb-badge-slot" style="display: flex;">
+              <a href="https://sebmwali.github.io/geobuilder-pionniers/badges/fondateur/PIO-1216.html" target="_blank" rel="noopener" class="gb-badge-frame" style="display: block;" title="Voir le badge Fondateur en grand">
+                <iframe src="https://sebmwali.github.io/geobuilder-pionniers/badges/fondateur/PIO-1216.html" scrolling="no" sandbox="allow-same-origin"></iframe>
               </a>
-              <div class="gb-badge-locked" style="display: flex;">
+              <div class="gb-badge-locked" style="display: none;">
                 <svg class="lock-icon" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
                 <div class="lock-label">Fondateur</div>
                 <div class="lock-status">Réservé aux 1<sup>ers</sup></div>
