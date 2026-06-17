@@ -1721,13 +1721,21 @@ def _build_historique_html(install_id: str, install_row: dict, sheets) -> str:
         logger.warning(f"read maintenances failed: {e}")
         maint_rows = []
 
-    # Tri par date décroissante (interventions récentes en haut)
+    # Tri chronologique ascendant (installation initiale en tête, puis 6m, 12m, 18m...)
     filtered = [
         r for r in maint_rows
         if str(r.get("install_id", "")).strip() == install_id
         and str(r.get("statut", "")).strip().lower() in _STATUTS_VISIBLES
     ]
-    filtered.sort(key=lambda r: str(r.get("date_intervention", "")), reverse=True)
+    def _parse_date_fr(s: str):
+        s = str(s or "").strip()
+        for fmt in ("%d/%m/%Y", "%Y-%m-%d", "%d-%m-%Y"):
+            try:
+                return datetime.strptime(s, fmt)
+            except Exception:
+                continue
+        return datetime.max  # entrées non parsables placées en fin
+    filtered.sort(key=lambda r: _parse_date_fr(r.get("date_intervention", "")))
 
     for r in filtered:
         date = str(r.get("date_intervention", "") or "")
