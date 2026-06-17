@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Attestation Ambassadeur — PIO-1219</title>
+<style>
+  :root{
+    --cyan:#3A8FE8; --dark:#0a1424; --darker:#06101f;
+    --text:#e8edf5; --muted:#8a96a8; --line:rgba(255,255,255,.08);
+    --ok:#22c55e;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', system-ui, sans-serif;
+    background: var(--darker);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 40px 20px;
+    line-height: 1.6;
+  }
+  .container{
+    max-width: 860px;
+    margin: 0 auto;
+    background: var(--dark);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,.5);
+    border: 1px solid var(--line);
+  }
+  .header{
+    background: linear-gradient(135deg, #0d1830 0%, #0a1424 100%);
+    border-bottom: 2px solid var(--cyan);
+    padding: 32px 40px;
+    text-align: center;
+    position: relative;
+  }
+  .header::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:3px;
+    background: linear-gradient(90deg, transparent 0%, var(--cyan) 50%, transparent 100%);
+  }
+  .brand{
+    font-size: 11px;
+    letter-spacing: .35em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+  .title{
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    line-height: 1.25;
+  }
+  .ref{
+    margin-top: 14px;
+    display: inline-block;
+    padding: 6px 14px;
+    border: 1px solid var(--cyan);
+    border-radius: 999px;
+    font-size: 12px;
+    letter-spacing: .15em;
+    color: var(--cyan);
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+  }
+
+  .body{padding: 36px 40px;}
+
+  .section-title{
+    font-size: 11px;
+    letter-spacing: .28em;
+    color: var(--cyan);
+    text-transform: uppercase;
+    margin: 28px 0 14px;
+    font-weight: 700;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  .section-title:first-child{margin-top:0}
+
+  .grid{
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 10px 24px;
+    font-size: 14px;
+  }
+  .grid .k{color: var(--muted); font-weight: 500; letter-spacing: .04em;}
+  .grid .v{color: var(--text); font-weight: 600; word-break: break-all;}
+
+  .consents{
+    background: rgba(58, 143, 232, .06);
+    border: 1px solid rgba(58, 143, 232, .25);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-top: 6px;
+  }
+  .consent-item{
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 10px 0;
+    border-bottom: 1px dashed rgba(255,255,255,.06);
+    font-size: 14.5px;
+  }
+  .consent-item:last-child{border-bottom: 0}
+  .check{
+    flex-shrink: 0;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    background: var(--ok);
+    color: #0a1424;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 14px;
+  }
+  .check.no{background: #ef4444; color: white;}
+  .consent-text{flex: 1; padding-top: 2px;}
+  .consent-text strong{color: var(--text); font-weight: 700;}
+  .consent-text em{color: var(--muted); font-style: normal; font-size: 12.5px; display: block; margin-top: 2px;}
+
+  .proof{
+    background: rgba(0,0,0,.25);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 18px 22px;
+    font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    font-size: 12.5px;
+    line-height: 1.85;
+  }
+  .proof .k{color: var(--cyan); display: inline-block; min-width: 130px;}
+  .proof .v{color: var(--text); word-break: break-all;}
+
+  .legal{
+    margin-top: 28px;
+    padding: 18px 22px;
+    background: rgba(58, 143, 232, .04);
+    border-left: 3px solid var(--cyan);
+    border-radius: 4px;
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  .legal strong{color: var(--text); font-weight: 700;}
+
+  .actions{
+    text-align: center;
+    padding: 28px 40px;
+    border-top: 1px solid var(--line);
+    background: rgba(0,0,0,.2);
+  }
+  .btn{
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 32px;
+    background: var(--cyan);
+    color: #0a1424;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    border-radius: 999px;
+    border: 0;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s;
+    font-family: inherit;
+  }
+  .btn:hover{transform: translateY(-2px); box-shadow: 0 12px 30px rgba(58, 143, 232, .4);}
+  .btn svg{width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2;}
+
+  .footer{
+    padding: 20px 40px 28px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: .15em;
+    text-transform: uppercase;
+  }
+
+  /* ====== PRINT ====== */
+  @media print{
+    body{
+      background: white !important;
+      color: #0a1424 !important;
+      padding: 0;
+    }
+    .container{
+      background: white !important;
+      box-shadow: none !important;
+      border: 0 !important;
+      max-width: 100%;
+    }
+    .header{
+      background: white !important;
+      border-bottom: 2px solid #3A8FE8 !important;
+      color: #0a1424;
+    }
+    .title{color: #0a1424 !important;}
+    .grid .v, .consent-text strong, .proof .v, .legal strong{color: #0a1424 !important;}
+    .grid .k, .legal, .footer{color: #555 !important;}
+    .consents{background: #f5fafe !important; border-color: #3A8FE8 !important;}
+    .proof{background: #f7f7f7 !important; color: #0a1424 !important;}
+    .proof .v{color: #0a1424 !important;}
+    .legal{background: #f5fafe !important;}
+    .actions{display: none !important;}
+    .section-title{color: #3A8FE8 !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <div class="brand">Geobuilder · Programme Pionniers</div>
+    <h1 class="title">Attestation de Signature Électronique<br>Engagement Ambassadeur</h1>
+    <div class="ref">AMB-PIO-1219-20260617T17300</div>
+  </div>
+
+  <div class="body">
+    <div class="section-title">Signataire</div>
+    <div class="grid">
+      <div class="k">Nom complet</div><div class="v">Stéphane BERTRAND</div>
+      <div class="k">Adresse email</div><div class="v">test@test.com</div>
+      <div class="k">Identifiant Pionnier</div><div class="v">PIO-1219</div>
+      <div class="k">Territoire</div><div class="v">2026-06-17T15:14:02.540685+00:00</div>
+    </div>
+
+    <div class="section-title">Consentements donnés</div>
+    <div class="consents">
+      <div class="consent-item">
+        <div class="check ">✓</div>
+        <div class="consent-text">
+          <strong>Droit à l'image</strong>
+          <em>J'autorise Geobuilder à utiliser les photos et vidéos prises lors de mon installation.</em>
+        </div>
+      </div>
+      <div class="consent-item">
+        <div class="check ">✓</div>
+        <div class="consent-text">
+          <strong>Témoignage</strong>
+          <em>J'autorise Geobuilder à publier mon témoignage sur ses supports.</em>
+        </div>
+      </div>
+      <div class="consent-item">
+        <div class="check ">✓</div>
+        <div class="consent-text">
+          <strong>Diffusion sur supports de communication</strong>
+          <em>J'autorise Geobuilder à diffuser ce contenu dans ses supports de communication (site web, réseaux sociaux, plaquettes, salons).</em>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Preuve technique</div>
+    <div class="proof">
+      <div><span class="k">Date &amp; heure (UTC) :</span><span class="v">2026-06-17T17:30:00Z</span></div>
+      <div><span class="k">Date (Europe/Paris) :</span><span class="v">17/06/2026 à 17:30:00 UTC</span></div>
+      <div><span class="k">Adresse IP :</span><span class="v">10.232.133.130</span></div>
+      <div><span class="k">Navigateur :</span><span class="v">curl/7.88.1</span></div>
+      <div><span class="k">Empreinte SHA-256 :</span><span class="v">4c14b62bac7a53dbd5969cc49ff91bd2843718c4e64c848a6cad6bb0d10c36ee</span></div>
+      <div><span class="k">URL signature :</span><span class="v">https://sebmwali.github.io/geobuilder-pionniers/ambassadeurs/PIO-1219.html</span></div>
+    </div>
+
+    <div class="legal">
+      <strong>Valeur juridique</strong> — Cette attestation constitue une <strong>signature électronique simple</strong> au sens du Règlement européen <strong>eIDAS n°910/2014 (article 25.1)</strong>. Elle vaut preuve du consentement donné par le signataire identifié ci-dessus, à la date et l'heure indiquées. L'empreinte SHA-256 garantit l'intégrité du consentement enregistré : toute modification ultérieure du contenu signé serait détectable. Le signataire peut retirer son autorisation à tout moment par simple demande écrite à <strong>contact@geobuilder.fr</strong> (art. L221-18 Code de la consommation).
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="btn" onclick="window.print()" type="button">
+      <svg viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Imprimer / Télécharger PDF
+    </button>
+  </div>
+
+  <div class="footer">
+    Document généré automatiquement · Geobuilder 2026
+  </div>
+</div>
+
+</body>
+</html>
