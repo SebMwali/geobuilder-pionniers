@@ -153,6 +153,37 @@ html,body{
   }
 }
 @page{size:portrait;margin:0}
+
+/* === Auto-scale quand affiché en iframe étroite (slot du passeport) === */
+/* Le sandbox du passeport bloque le JS → fallback CSS pur via media query. */
+/* On utilise `zoom` (plus fiable que transform:scale pour scaler du contenu
+   en positions absolues px). */
+@media (max-width: 740px) {
+  html, body {
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: 0 !important;
+    height: 100% !important;
+    overflow: hidden !important;
+    display: block !important;
+    background: #060810;
+  }
+  .wrap {
+    zoom: 0.33;
+    margin: 0 auto;
+  }
+  .statut-fondateur,
+  .print-btn { display: none !important; }
+}
+@media (max-width: 540px) {
+  .wrap { zoom: 0.32; }
+}
+@media (max-width: 380px) {
+  .wrap { zoom: 0.28; }
+}
+@media (max-width: 280px) {
+  .wrap { zoom: 0.25; }
+}
 </style>
 </head>
 <body>

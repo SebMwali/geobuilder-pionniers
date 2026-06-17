@@ -934,19 +934,19 @@ async def _process_livraison(payload: LivraisonInput, pdf_bytes: Optional[bytes]
     date_garantie_fin_fr = _fmt_date_fr(date_garantie_fin)
 
     # Distinctions — règles V1
-    # Carte Ambassadeur (Acquis si fondateur) : pointe vers badge personnalisé /badges/ambassadeur/{PIO}.html
-    # Carte Super Ambassadeur : reste verrouillée (statut + template pas encore implémentés)
+    # Statut Ambassadeur : "Acquis" UNIQUEMENT si la signature électronique a été
+    # enregistrée (`ambassadeur=TRUE` en sheet, mis à jour par /api/ambassadeur/signature).
+    # À la livraison initiale, la signature n'est pas encore réalisée → on affiche
+    # "À signer" (lien actif vers la page de signature personnalisée).
+    url_signature_personnelle = f"{pages_base}/ambassadeurs/{pio_id}.html" if payload.fondateur else ""
     if payload.fondateur:
-        amb_class, amb_label = "acquis", "Acquis"
-        amb_dot = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
-        sup_class, sup_label, sup_dot = "non-acquis", "Non acquis", ""
-        carte_amb_class, carte_amb_status, url_carte_amb = "acquis", "Acquise", url_badge_ambassadeur
-        carte_sup_class, carte_sup_status, url_carte_sup = "locked", "Non acquise", "#"
+        amb_class, amb_label, amb_dot = "encours", "À signer", ""
+        carte_amb_class, carte_amb_status, url_carte_amb = "acquis", "Engagement à signer", url_signature_personnelle
     else:
-        amb_class, amb_label, amb_dot = "encours", "En cours", ""
-        sup_class, sup_label, sup_dot = "non-acquis", "Non acquis", ""
+        amb_class, amb_label, amb_dot = "non-acquis", "Non acquis", ""
         carte_amb_class, carte_amb_status, url_carte_amb = "locked", "Non acquise", "#"
-        carte_sup_class, carte_sup_status, url_carte_sup = "locked", "Non acquise", "#"
+    sup_class, sup_label, sup_dot = "non-acquis", "Non acquis", ""
+    carte_sup_class, carte_sup_status, url_carte_sup = "locked", "Non acquise", "#"
 
     territoire_complet = f"{pays_affiche}, {payload.pays}" if payload.pays and payload.pays != pays_affiche else pays_affiche
 
@@ -1503,15 +1503,16 @@ async def ambassadeur_signature(
         except Exception as e:
             logger.error(f"Génération badge ambassadeur échouée: {e}")
 
-        # 5c. Régénération automatique du passeport pour afficher le nouveau badge
-        # (option 2C : passeport reflète immédiatement le statut Ambassadeur acquis)
+        # 5c. Régénération automatique de TOUS les documents (passeport + portail
+        # + badges) pour refléter immédiatement le statut Ambassadeur acquis.
         try:
             install_row = sheets.find_row_by("installations", "pio_id", payload.pio_id)
-            if install_row:
-                new_url = _regenerate_passeport(install_row, sheets, gh)
-                logger.info(f"Passeport régénéré après signature: {new_url}")
+            pio_row_updated = sheets.find_row_by("pionniers", "pio_id", payload.pio_id)
+            if install_row and pio_row_updated:
+                pushed = _regenerate_all_docs_for_pioneer(pio_row_updated, install_row, sheets, gh)
+                logger.info(f"Documents régénérés après signature: {list(pushed.keys())}")
         except Exception as e:
-            logger.error(f"Régénération passeport après signature échouée: {e}")
+            logger.error(f"Régénération docs après signature échouée: {e}")
     except Exception as e:
         logger.error(f"Génération attestation échouée: {e}")
         # On continue : la signature est déjà enregistrée en Sheets, l'attestation
@@ -1885,15 +1886,17 @@ def _regenerate_all_docs_for_pioneer(pio_row: dict, install_row: dict, sheets, g
     except Exception:
         mois_annee_adhesion = annee
 
-    if is_fondateur:
+    if is_ambassadeur:
         amb_class, amb_label = "acquis", "Acquis"
         amb_dot = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
-        carte_amb_class, carte_amb_status, url_carte_amb = "acquis", "Acquise", (url_badge_ambassadeur or "#")
+        carte_amb_class, carte_amb_status, url_carte_amb = "acquis", "Acquise", url_badge_ambassadeur
+    elif is_fondateur:
+        amb_class, amb_label, amb_dot = "encours", "À signer", ""
+        url_signature_personnelle = f"{pages_base}/ambassadeurs/{pio_id}.html"
+        carte_amb_class, carte_amb_status, url_carte_amb = "acquis", "Engagement à signer", url_signature_personnelle
     else:
-        amb_class, amb_label, amb_dot = ("acquis" if is_ambassadeur else "encours"), ("Acquis" if is_ambassadeur else "En cours"), ""
-        carte_amb_class = "acquis" if is_ambassadeur else "locked"
-        carte_amb_status = "Acquise" if is_ambassadeur else "Non acquise"
-        url_carte_amb = url_badge_ambassadeur or "#"
+        amb_class, amb_label, amb_dot = "non-acquis", "Non acquis", ""
+        carte_amb_class, carte_amb_status, url_carte_amb = "locked", "Non acquise", "#"
     sup_class, sup_label, sup_dot = "non-acquis", "Non acquis", ""
     carte_sup_class, carte_sup_status, url_carte_sup = "locked", "Non acquise", "#"
 
