@@ -38,6 +38,15 @@ Si `fondateur=true` : push supplémentaire `docs/ambassadeurs/{PIO_ID}.html`.
 - ⏳ EN VEILLE : régénération des 95 Fondateurs avec badge miniature (attente liste 100 finalisée).
 - ⏳ BLOQUÉ : envoi mass-email (attente GO utilisateur).
 
+### Session du 18/06/2026 (préparation mass-mailing)
+- ✅ Fix `email_service.send_email_mock` : gestion automatique des emails multiples (`;`/`,`) → split en TO + CC (s'applique à tous les call sites existants : livraison, ambassadeur, portail, mass mailing).
+- ✅ Tentative de remplacement de la signature sur `certificat-pionnier.html` (overlay HTML + masque) — **abandonnée** sur demande utilisateur, template restauré à l'état initial.
+- ✅ Création de `/app/backend/scripts/dryrun_mass_mailing.py` — récapitulatif sans envoi.
+- ✅ Création de `/app/backend/scripts/mass_mailing_send.py` — envoi réel avec garde-fou `--confirm-send`, throttle 0.6s, marquage automatique `welcome_email_sent=true` après chaque envoi OK (reprise possible si interruption).
+- ✅ Dry-run final : **156 destinataires éligibles** (statut Pionnier/Fondateur/En attente), 8 cas d'emails multiples gérés, 1 email manquant (PIO-1201 Alice JUDIC), 6 exclus (Revendu/Sortie/Inactif).
+- ⏳ EN ATTENTE vendredi : feu vert utilisateur pour `python3 scripts/mass_mailing_send.py --confirm-send`.
+
+
 
 ### Session du 17/02/2026 (suite — nettoyage Fondateurs)
 - ✅ Suppression de PIO-1069 ASSANI Abdou Rahamane dans `00_Fondateurs` (était la 101e entrée, ramenée à 100 fondateurs strict).
