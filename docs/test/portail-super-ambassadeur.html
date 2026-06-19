@@ -293,41 +293,14 @@
     box-shadow:0 0 36px rgba(58,143,232,0.30), inset 0 0 0 1px rgba(255,255,255,0.04);
   }
   .super-explainer .badge-visual {
-    width:130px; height:130px;
+    width:160px; height:160px;
     position:relative;
     flex-shrink:0;
   }
-  .super-explainer .badge-visual svg.hex-big {
-    position:absolute; inset:0;
+  .super-explainer .badge-visual img {
     width:100%; height:100%;
-    filter:drop-shadow(0 8px 22px rgba(58,143,232,0.55));
-  }
-  .super-explainer .badge-visual .crown {
-    position:absolute;
-    top:-14px; left:50%;
-    transform:translateX(-50%);
-    width:38px; height:30px;
-    filter:drop-shadow(0 2px 4px rgba(0,0,0,0.55));
-  }
-  .super-explainer .badge-visual .laurel-l,
-  .super-explainer .badge-visual .laurel-r {
-    position:absolute;
-    bottom:6%;
-    width:36px; height:48px;
-    color:#9EB5C8;
-    opacity:1;
-  }
-  .super-explainer .badge-visual .laurel-l { left:-18px; transform:scaleX(-1); }
-  .super-explainer .badge-visual .laurel-r { right:-18px; }
-  .super-explainer .badge-visual .g-letter {
-    position:absolute;
-    inset:0;
-    display:flex; align-items:center; justify-content:center;
-    font-family:'Montserrat', sans-serif;
-    font-size:56px; font-weight:700;
-    color:#3A8FE8;
-    z-index:2;
-    text-shadow:0 1px 4px rgba(0,0,0,0.5);
+    object-fit:contain;
+    filter:drop-shadow(0 8px 22px rgba(58,143,232,0.45));
   }
   .super-explainer .content { min-width:0; }
   .super-explainer h2 {
@@ -730,46 +703,7 @@
   <div class="super-row">
     <div class="section super-explainer" style="margin-bottom:0;">
       <div class="badge-visual">
-        <svg class="hex-big" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="hexBig" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#e8eef7"/>
-              <stop offset="50%" stop-color="#5a7090"/>
-              <stop offset="100%" stop-color="#1a2230"/>
-            </linearGradient>
-            <linearGradient id="goldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stop-color="#FFE9A0"/>
-              <stop offset="50%" stop-color="#E8B530"/>
-              <stop offset="100%" stop-color="#B8861F"/>
-            </linearGradient>
-            <linearGradient id="chromeRim" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#f4f7fa"/>
-              <stop offset="100%" stop-color="#6b7888"/>
-            </linearGradient>
-          </defs>
-          <polygon points="50,4 92,28 92,82 50,106 8,82 8,28" fill="url(#hexBig)" stroke="url(#chromeRim)" stroke-width="2.5"/>
-          <polygon points="50,11 86,32 86,78 50,99 14,78 14,32" fill="#0d1626" opacity="0.7"/>
-        </svg>
-        <svg class="crown" viewBox="0 0 24 18" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 16L1 5l5 4 6-7 6 7 5-4-2 11H3z" fill="url(#goldGrad)" stroke="#8a6512" stroke-width="0.4"/>
-          <circle cx="2" cy="4" r="1.2" fill="#FFE9A0" stroke="#8a6512" stroke-width="0.2"/>
-          <circle cx="12" cy="1.5" r="1.2" fill="#FFE9A0" stroke="#8a6512" stroke-width="0.2"/>
-          <circle cx="22" cy="4" r="1.2" fill="#FFE9A0" stroke="#8a6512" stroke-width="0.2"/>
-          <rect x="3" y="16" width="18" height="1.5" fill="url(#goldGrad)"/>
-        </svg>
-        <svg class="laurel-l" viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-          <path d="M20 58 Q4 40 6 22 Q10 8 22 4"/>
-          <path d="M12 50 Q4 46 4 38"/><path d="M10 42 Q4 38 6 30"/>
-          <path d="M8 32 Q4 28 8 22"/><path d="M8 24 Q6 18 12 14"/>
-          <path d="M12 16 Q14 10 20 8"/>
-        </svg>
-        <svg class="laurel-r" viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
-          <path d="M20 58 Q4 40 6 22 Q10 8 22 4"/>
-          <path d="M12 50 Q4 46 4 38"/><path d="M10 42 Q4 38 6 30"/>
-          <path d="M8 32 Q4 28 8 22"/><path d="M8 24 Q6 18 12 14"/>
-          <path d="M12 16 Q14 10 20 8"/>
-        </svg>
-        <div class="g-letter">G</div>
+        <img src="https://sebmwali.github.io/geobuilder-pionniers/assets/mascot-super-ambassadeur.png" alt="Super Ambassadeur" />
       </div>
       <div class="content">
         <h2>
