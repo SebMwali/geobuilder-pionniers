@@ -274,62 +274,78 @@
     margin-bottom:22px;
   }
   .super-explainer {
-    background:linear-gradient(135deg, rgba(58,143,232,0.08) 0%, rgba(26,109,196,0.04) 100%);
+    background:linear-gradient(135deg, rgba(58,143,232,0.10) 0%, rgba(26,109,196,0.05) 100%);
     border:1px solid #3A8FE8;
     border-radius:16px;
     padding:28px 32px;
     display:grid;
     grid-template-columns:auto 1fr;
-    gap:28px;
+    gap:32px;
     align-items:center;
-    box-shadow:0 0 24px rgba(58,143,232,0.15);
+    box-shadow:0 0 40px rgba(58,143,232,0.30), inset 0 0 0 1px rgba(255,255,255,0.04);
   }
   .super-explainer .badge-visual {
-    width:180px; height:180px;
+    width:200px; height:200px;
     position:relative;
     flex-shrink:0;
   }
   .super-explainer .badge-visual svg.hex-big {
     position:absolute; inset:0;
     width:100%; height:100%;
-    filter:drop-shadow(0 8px 20px rgba(58,143,232,0.4));
+    filter:drop-shadow(0 10px 28px rgba(58,143,232,0.55));
   }
   .super-explainer .badge-visual .crown {
     position:absolute;
-    top:-14px; left:50%;
+    top:-18px; left:50%;
     transform:translateX(-50%);
-    color:#FFD66E;
-    width:42px; height:42px;
+    width:54px; height:42px;
+    filter:drop-shadow(0 3px 4px rgba(0,0,0,0.5));
   }
   .super-explainer .badge-visual .laurel-l,
   .super-explainer .badge-visual .laurel-r {
     position:absolute;
-    bottom:8%;
-    width:46px; height:60px;
+    bottom:6%;
+    width:52px; height:68px;
     color:#9EB5C8;
-    opacity:0.85;
+    opacity:1;
   }
-  .super-explainer .badge-visual .laurel-l { left:-22px; transform:scaleX(-1); }
-  .super-explainer .badge-visual .laurel-r { right:-22px; }
+  .super-explainer .badge-visual .laurel-l { left:-26px; transform:scaleX(-1); }
+  .super-explainer .badge-visual .laurel-r { right:-26px; }
   .super-explainer .badge-visual .g-letter {
     position:absolute;
     inset:0;
     display:flex; align-items:center; justify-content:center;
     font-family:'Montserrat', sans-serif;
-    font-size:78px; font-weight:700;
+    font-size:88px; font-weight:700;
     color:#3A8FE8;
     z-index:2;
+    text-shadow:0 2px 6px rgba(0,0,0,0.5);
   }
   .super-explainer .content { min-width:0; }
   .super-explainer h2 {
     font-size:22px; font-weight:700;
     letter-spacing:0.04em;
     text-transform:uppercase;
-    margin:0 0 12px;
+    margin:0 0 8px;
     color:#fff;
     display:flex; align-items:center; gap:10px;
   }
-  .super-explainer h2 .star { color:#FFD66E; font-size:24px; }
+  .super-explainer h2 .star {
+    width:22px; height:22px;
+    display:inline-block;
+  }
+  .super-explainer .tag {
+    display:inline-block;
+    font-size:11px; font-weight:600;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:#9EB5C8;
+    background:rgba(158,181,200,0.08);
+    border:1px solid rgba(158,181,200,0.25);
+    border-radius:999px;
+    padding:5px 12px;
+    margin:0 0 14px;
+  }
   .super-explainer .lead {
     font-size:14px; line-height:1.55;
     color:var(--text-dim);
@@ -337,8 +353,8 @@
   }
   .super-explainer .bullets {
     display:grid;
-    grid-template-columns:1fr 1fr 1fr;
-    gap:10px 24px;
+    grid-template-columns:1fr 1fr;
+    gap:10px 28px;
     margin:0 0 18px;
     padding:0;
     list-style:none;
@@ -368,6 +384,37 @@
     flex-shrink:0;
     color:#3A8FE8;
     margin-top:2px;
+  }
+  /* WhatsApp version sobre */
+  .community-section.sober { padding:24px 20px; }
+  .community-section.sober .title { color:var(--blue); }
+  .community-section.sober .wa-compact {
+    background:transparent;
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:14px 16px;
+    display:flex; align-items:center; gap:12px;
+    color:var(--text);
+    text-decoration:none;
+    transition:border-color .2s, transform .2s;
+  }
+  .community-section.sober .wa-compact:hover {
+    border-color:#25D366;
+    transform:translateY(-2px);
+  }
+  .community-section.sober .wa-compact > svg {
+    width:24px; height:24px;
+    color:#25D366;
+    flex-shrink:0;
+  }
+  .community-section.sober .wa-compact .wac-title {
+    font-size:13px; font-weight:600;
+    color:var(--text);
+    margin-bottom:2px;
+  }
+  .community-section.sober .wa-compact .wac-sub {
+    font-size:11.5px;
+    color:var(--text-dim);
   }
 
   /* === DOCUMENTS + COMMUNAUTÉ === */
@@ -710,27 +757,48 @@
               <stop offset="50%" stop-color="#5a7090"/>
               <stop offset="100%" stop-color="#1a2230"/>
             </linearGradient>
+            <linearGradient id="chromeGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#f4f7fa"/>
+              <stop offset="50%" stop-color="#a8b5c2"/>
+              <stop offset="100%" stop-color="#6b7888"/>
+            </linearGradient>
+            <linearGradient id="chromeRim" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#f4f7fa"/>
+              <stop offset="100%" stop-color="#6b7888"/>
+            </linearGradient>
           </defs>
-          <polygon points="50,4 92,28 92,82 50,106 8,82 8,28" fill="url(#hexBig)" stroke="#5BA6FF" stroke-width="1.5"/>
+          <polygon points="50,4 92,28 92,82 50,106 8,82 8,28" fill="url(#hexBig)" stroke="url(#chromeRim)" stroke-width="2.5"/>
           <polygon points="50,11 86,32 86,78 50,99 14,78 14,32" fill="#0d1626" opacity="0.7"/>
         </svg>
-        <svg class="crown" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18L1 7l5 4 6-8 6 8 5-4-2 11H3zm0 2h18v2H3v-2z"/></svg>
-        <svg class="laurel-l" viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <svg class="crown" viewBox="0 0 24 18" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 16L1 5l5 4 6-7 6 7 5-4-2 11H3z" fill="url(#chromeGrad)" stroke="#dde4ef" stroke-width="0.4"/>
+          <circle cx="2" cy="4" r="1.1" fill="#f4f7fa"/>
+          <circle cx="12" cy="1.5" r="1.1" fill="#f4f7fa"/>
+          <circle cx="22" cy="4" r="1.1" fill="#f4f7fa"/>
+          <rect x="3" y="16" width="18" height="1.5" fill="url(#chromeGrad)"/>
+        </svg>
+        <svg class="laurel-l" viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
           <path d="M20 58 Q4 40 6 22 Q10 8 22 4"/>
-          <path d="M12 50 Q4 46 4 38" /><path d="M10 42 Q4 38 6 30"/>
+          <path d="M12 50 Q4 46 4 38"/><path d="M10 42 Q4 38 6 30"/>
           <path d="M8 32 Q4 28 8 22"/><path d="M8 24 Q6 18 12 14"/>
           <path d="M12 16 Q14 10 20 8"/>
         </svg>
-        <svg class="laurel-r" viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <svg class="laurel-r" viewBox="0 0 40 60" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round">
           <path d="M20 58 Q4 40 6 22 Q10 8 22 4"/>
-          <path d="M12 50 Q4 46 4 38" /><path d="M10 42 Q4 38 6 30"/>
+          <path d="M12 50 Q4 46 4 38"/><path d="M10 42 Q4 38 6 30"/>
           <path d="M8 32 Q4 28 8 22"/><path d="M8 24 Q6 18 12 14"/>
           <path d="M12 16 Q14 10 20 8"/>
         </svg>
         <div class="g-letter">G</div>
       </div>
       <div class="content">
-        <h2><span class="star">★</span> DISTINCTION SUPER AMBASSADEUR</h2>
+        <h2>
+          <svg class="star" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="12,2 15,9 22,9 16.5,14 19,21 12,17 5,21 7.5,14 2,9 9,9" fill="url(#chromeGrad)" stroke="#dde4ef" stroke-width="0.4"/>
+          </svg>
+          DISTINCTION SUPER AMBASSADEUR
+        </h2>
+        <div class="tag">Distinction attribuée par Geobuilder aux Ambassadeurs les plus engagés</div>
         <p class="lead">Les Super Ambassadeurs contribuent activement au développement de la communauté Geobuilder.</p>
         <ul class="bullets">
           <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Recommandent Geobuilder à leur entourage</li>
@@ -741,11 +809,11 @@
         </ul>
         <div class="info-banner">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-          <span>Cette distinction n'est pas une fonction, c'est <strong style="color:#fff;">une reconnaissance</strong> : celle des Ambassadeurs qui font grandir la communauté Geobuilder.</span>
+          <span>Cette distinction n'est pas une fonction, c'est <strong style="color:#fff;">une reconnaissance</strong> attribuée aux Ambassadeurs qui contribuent activement au développement de la communauté Geobuilder.</span>
         </div>
       </div>
     </div>
-    <div class="section community-section" style="margin-bottom:0;">
+    <div class="section community-section sober" style="margin-bottom:0;">
       <div class="title">Communauté</div>
       <a class="wa-compact" href="https://chat.whatsapp.com/KudAhDPyGnRLDiEBF3WL31?s=sh&p=a&mlu=0&amv=1" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4l-2.4-1c-.3-.1-.7 0-.9.2l-1 1.2c-1.6-.8-2.9-2.1-3.7-3.7l1.2-1c.2-.2.3-.6.2-.9l-1-2.4c-.2-.4-.6-.6-1-.5L7 6.7c-.4.1-.7.5-.7.9 0 5.5 4.5 10 10 10 .5 0 .8-.3.9-.7l.5-1.9c.1-.4-.1-.8-.5-1zM12 1.5C6.2 1.5 1.5 6.2 1.5 12c0 2 .6 3.9 1.6 5.4L1.7 22.3l5-1.4c1.5 1 3.4 1.6 5.3 1.6 5.8 0 10.5-4.7 10.5-10.5S17.8 1.5 12 1.5z"/></svg>
