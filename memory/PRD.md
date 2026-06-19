@@ -5,6 +5,13 @@ Remplacer une automatisation Make.com défaillante par un backend Python/FastAPI
 
 **Langue utilisateur**: Français uniquement.
 
+## ⚠️ RÈGLE ABSOLUE (19/06/2026 — instruction utilisateur)
+**Ne JAMAIS exécuter d'action sans accord explicite préalable de l'utilisateur.**
+- Répondre librement à toute question.
+- Toute action (script, modification de fichier, envoi email, push GitHub, écriture Sheet, supervisorctl, etc.) doit être **proposée d'abord** et **attendre un "oui"/"GO" explicite** avant d'être lancée.
+- Cette règle s'applique à toutes les sessions futures (forks inclus).
+
+
 ## Architecture
 - Backend: FastAPI (Python)
 - Database: Google Sheets ONLY
