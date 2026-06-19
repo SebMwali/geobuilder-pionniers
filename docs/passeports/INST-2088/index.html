@@ -226,7 +226,7 @@
     aspect-ratio:16/10;border-radius:var(--radius-sm);overflow:hidden;
     background:#0a0f1a;border:1px solid var(--line);
   }
-  .emp-photo img{width:100%;height:100%;object-fit:cover}
+  .emp-photo img{width:100%;height:100%;object-fit:contain;background:#0d0f17}
   .emp-loc{
     margin-top:14px;display:flex;align-items:center;gap:10px;justify-content:center;
   }
@@ -457,10 +457,6 @@
 
           <div class="histo-row"><div class="histo-icon"></div><div class="histo-date">06/05/2026</div><div class="histo-type">Installation initiale</div><div class="histo-tech">—</div><div class="histo-pdf"></div></div><div class="histo-row"><div class="histo-icon"></div><div class="histo-date">08/04/2026</div><div class="histo-type">Mensuelle<span class="desc">Bandabroua</span></div><div class="histo-tech">Assani</div><div class="histo-pdf"></div></div>
 
-          <a class="voir-tout" href="#">
-            VOIR TOUT L'HISTORIQUE
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
-          </a>
         </section>
 
         <!-- BLOC : DOCUMENTS -->
@@ -559,6 +555,9 @@
               text-decoration: none;
               display: block;
               transition: transform .25s ease, box-shadow .25s ease;
+              background: #000;
+              border-radius: 12px;
+              overflow: hidden;
             }
             .gb-badge-frame:hover {
               transform: translateY(-3px);
@@ -569,7 +568,68 @@
               width: 100%; height: 100%;
               border: 0;
               pointer-events: none;
+              background: transparent;
             }
+            /* État "acquis" — bloc statique cohérent avec gb-badge-locked,
+               cliquable, dégradé selon le rang (bleu Ambassadeur, gold Fondateur). */
+            .gb-badge-acquis {
+              position: absolute; inset: 0;
+              display: flex; flex-direction: column;
+              align-items: center; justify-content: center;
+              text-align: center;
+              padding: 12px;
+              text-decoration: none;
+              font-family: 'Cinzel', 'Trajan Pro', Georgia, serif;
+              border-radius: 12px;
+              transition: transform .25s ease, filter .25s ease, box-shadow .25s ease;
+              cursor: pointer;
+            }
+            .gb-badge-acquis:hover {
+              transform: translateY(-3px);
+              filter: brightness(1.15);
+            }
+            .gb-badge-acquis .acquis-icon {
+              width: 38px; height: 38px;
+              margin-bottom: 14px;
+              fill: none; stroke-width: 1.6;
+            }
+            .gb-badge-acquis .acquis-label {
+              font-size: 11px;
+              letter-spacing: .22em;
+              text-transform: uppercase;
+              font-weight: 700;
+              margin-bottom: 6px;
+            }
+            .gb-badge-acquis .acquis-status {
+              font-size: 10px;
+              letter-spacing: .18em;
+              text-transform: uppercase;
+              opacity: .9;
+            }
+            /* Variante bleue (Ambassadeur / Super Ambassadeur acquis) */
+            .gb-badge-acquis.blue {
+              background:
+                linear-gradient(180deg, rgba(58,143,232,.18) 0%, rgba(0,0,0,.85) 100%),
+                radial-gradient(ellipse at center, rgba(58,143,232,.22) 0%, rgba(0,0,0,1) 70%);
+              border: 1px solid rgba(58,143,232,.55);
+              color: rgba(220,232,250,.95);
+              box-shadow: 0 0 24px rgba(58,143,232,.18), inset 0 0 18px rgba(58,143,232,.12);
+            }
+            .gb-badge-acquis.blue .acquis-icon { stroke: #3A8FE8; }
+            .gb-badge-acquis.blue .acquis-label { color: #3A8FE8; }
+            .gb-badge-acquis.blue .acquis-status { color: #4FB585; }
+            /* Variante or (Fondateur acquis) */
+            .gb-badge-acquis.gold {
+              background:
+                linear-gradient(180deg, rgba(200,166,91,.15) 0%, rgba(10,8,5,.92) 100%),
+                radial-gradient(ellipse at center, rgba(200,166,91,.18) 0%, rgba(0,0,0,1) 75%);
+              border: 1px solid rgba(200,166,91,.55);
+              color: rgba(240,228,200,.95);
+              box-shadow: 0 0 28px rgba(200,166,91,.22), inset 0 0 18px rgba(200,166,91,.12);
+            }
+            .gb-badge-acquis.gold .acquis-icon { stroke: #C8A65B; }
+            .gb-badge-acquis.gold .acquis-label { color: #C8A65B; }
+            .gb-badge-acquis.gold .acquis-status { color: #4FB585; }
             .gb-badge-locked {
               position: absolute; inset: 0;
               display: flex; flex-direction: column;
@@ -615,32 +675,32 @@
 
             <!-- Slot 1 : AMBASSADEUR -->
             <div class="gb-badge-slot">
-              <a href="https://sebmwali.github.io/geobuilder-pionniers/badges/ambassadeur/PIO-1090.html" target="_blank" rel="noopener" class="gb-badge-frame" style="display: none;" title="Voir le badge Ambassadeur en grand">
-                <iframe src="https://sebmwali.github.io/geobuilder-pionniers/badges/ambassadeur/PIO-1090.html" scrolling="no" sandbox="allow-same-origin"></iframe>
+              <a href="https://sebmwali.github.io/geobuilder-pionniers/badges/ambassadeur/PIO-1090.html?v=1781878797" target="_blank" rel="noopener" class="gb-badge-frame" style="display: none;" title="Voir la carte Ambassadeur">
+                <iframe src="https://sebmwali.github.io/geobuilder-pionniers/badges/ambassadeur/PIO-1090.html?v=1781878797" scrolling="no" sandbox="allow-same-origin"></iframe>
               </a>
               <div class="gb-badge-locked" style="display: flex;">
                 <svg class="lock-icon" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
                 <div class="lock-label">Ambassadeur</div>
-                <div class="lock-status">À acquérir</div>
+                <div class="lock-status">Non acquis</div>
               </div>
             </div>
 
             <!-- Slot 2 : SUPER AMBASSADEUR -->
             <div class="gb-badge-slot">
-              <a href="https://sebmwali.github.io/geobuilder-pionniers/badges/super-ambassadeur/PIO-1090.html" target="_blank" rel="noopener" class="gb-badge-frame" style="display: none;" title="Voir le badge Super Ambassadeur en grand">
-                <iframe src="https://sebmwali.github.io/geobuilder-pionniers/badges/super-ambassadeur/PIO-1090.html" scrolling="no" sandbox="allow-same-origin"></iframe>
+              <a href="https://sebmwali.github.io/geobuilder-pionniers/badges/super-ambassadeur/PIO-1090.html?v=1781878797" target="_blank" rel="noopener" class="gb-badge-frame" style="display: none;" title="Voir la carte Super Ambassadeur">
+                <iframe src="https://sebmwali.github.io/geobuilder-pionniers/badges/super-ambassadeur/PIO-1090.html?v=1781878797" scrolling="no" sandbox="allow-same-origin"></iframe>
               </a>
               <div class="gb-badge-locked" style="display: flex;">
                 <svg class="lock-icon" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
                 <div class="lock-label">Super Ambassadeur</div>
-                <div class="lock-status">À acquérir</div>
+                <div class="lock-status">Non acquis</div>
               </div>
             </div>
 
-            <!-- Slot 3 : FONDATEUR -->
-            <div class="gb-badge-slot">
-              <a href="https://sebmwali.github.io/geobuilder-pionniers/badges/fondateur/PIO-1090.html" target="_blank" rel="noopener" class="gb-badge-frame" style="display: block;" title="Voir le badge Fondateur en grand">
-                <iframe src="https://sebmwali.github.io/geobuilder-pionniers/badges/fondateur/PIO-1090.html" scrolling="no" sandbox="allow-same-origin"></iframe>
+            <!-- Slot 3 : FONDATEUR (caché pour les non-fondateurs car réservé aux 100 1ers) -->
+            <div class="gb-badge-slot" style="display: flex;">
+              <a href="https://sebmwali.github.io/geobuilder-pionniers/badges/fondateur/PIO-1090.html?v=1781878797" target="_blank" rel="noopener" class="gb-badge-frame" style="display: block;" title="Voir la carte Fondateur en grand">
+                <iframe src="https://sebmwali.github.io/geobuilder-pionniers/badges/fondateur/PIO-1090.html?v=1781878797" scrolling="no" sandbox="allow-same-origin"></iframe>
               </a>
               <div class="gb-badge-locked" style="display: none;">
                 <svg class="lock-icon" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
