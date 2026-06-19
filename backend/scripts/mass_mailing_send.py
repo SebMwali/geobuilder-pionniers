@@ -38,6 +38,7 @@ EMAIL_RX = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 PAGES_BASE = os.environ.get("GITHUB_PAGES_URL", "").rstrip("/")
 SUBJECT = "Bienvenue dans la Famille des Pionniers Geobuilder"
 THROTTLE_SECONDS = 0.6  # Resend: 2 req/s max → on reste sous la limite
+DAILY_QUOTA_CAP = 95  # Resend free plan = 100/jour. On garde une marge de 5.
 
 LOG_PATH = f"/tmp/mass_mailing_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log"
 
@@ -155,6 +156,10 @@ async def run(args):
         })
 
     log(f"✅ {len(eligible)} destinataires éligibles")
+    if args.confirm_send and len(eligible) > DAILY_QUOTA_CAP:
+        log(f"⚠️  Resend free = 100/jour. Cap appliqué à {DAILY_QUOTA_CAP} → "
+            f"{len(eligible) - DAILY_QUOTA_CAP} reste(nt) pour la prochaine campagne.")
+        eligible = eligible[:DAILY_QUOTA_CAP]
     if not args.confirm_send:
         log("⚠️  AUCUN ENVOI — passez --confirm-send pour déclencher l'envoi réel.")
 
@@ -162,7 +167,8 @@ async def run(args):
     for i, rec in enumerate(eligible, 1):
         status, info = await send_one(rec, dry=not args.confirm_send)
         if args.confirm_send:
-            if status in ("SENT", "OK"):
+            ok_statuses = ("sent", "SENT", "OK", "ok", "queued")
+            if status in ok_statuses:
                 sent_ok += 1
                 # Marque welcome_email_sent=true
                 try:

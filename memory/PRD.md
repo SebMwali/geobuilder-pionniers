@@ -48,6 +48,16 @@ Si `fondateur=true` : push supplémentaire `docs/ambassadeurs/{PIO_ID}.html`.
 
 
 
+### Campagne mass-mailing du 19/06/2026 (matin)
+- 🚀 Lancée sur **156 destinataires** éligibles depuis `mass_mailing_send.py --confirm-send`
+- ⚠️ Quota **Resend Free atteint à 100 emails/jour** → seuls les **100 premiers** (PIO-1000 → ~PIO-1112) ont été délivrés
+- 🛑 **56 derniers** (PIO-1113 → PIO-1223) acceptés par l'API Resend (`status=sent`) mais bloqués par le quota — à confirmer dans le dashboard Resend
+- 🐛 Bug script : `status=="SENT"` ne matchait pas le `"sent"` minuscule de Resend → tous loggés comme FAIL et Sheet pas marqué pendant l'envoi
+- 🩹 Backfill manuel : `mark_welcome_sent_backfill.py` a marqué `welcome_email_sent=true` pour les 156 (151 + 5 retry quota Sheets)
+- ↩️ `unmark_56_remaining.py` créé pour dé-marquer les 56 derniers AVANT de relancer demain (sinon ils seront skippés)
+- 🔧 Script amélioré : statuts OK = `("sent","SENT","OK","ok","queued")` + cap automatique `DAILY_QUOTA_CAP=95`/jour
+
+
 ### Session du 17/02/2026 (suite — nettoyage Fondateurs)
 - ✅ Suppression de PIO-1069 ASSANI Abdou Rahamane dans `00_Fondateurs` (était la 101e entrée, ramenée à 100 fondateurs strict).
 - ⏳ Pending P0 : régénération massive des documents HTML individuels manquants sur GitHub Pages (utilisateur a demandé d'attendre — "Autre approche; on attend").
