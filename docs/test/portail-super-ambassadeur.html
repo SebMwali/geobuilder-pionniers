@@ -214,6 +214,14 @@
     display:flex; align-items:center; justify-content:center;
     position:relative;
   }
+  .dist .badge-icon.mascot {
+    width:120px; height:120px;
+  }
+  .dist .badge-icon.mascot img {
+    width:100%; height:100%;
+    object-fit:contain;
+    filter:drop-shadow(0 6px 14px rgba(58,143,232,0.35));
+  }
   .dist .badge-icon svg.hex {
     position:absolute; inset:0;
     width:100%; height:100%;
@@ -673,22 +681,8 @@
     <div class="distinctions">
       <!-- PIONNIER -->
       <div class="dist">
-        <div class="badge-icon">
-          <svg class="hex" viewBox="0 0 100 110" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="hex1" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#e8eef7"/>
-                <stop offset="50%" stop-color="#5a7090"/>
-                <stop offset="100%" stop-color="#1a2230"/>
-              </linearGradient>
-            </defs>
-            <polygon points="50,4 92,28 92,82 50,106 8,82 8,28" fill="url(#hex1)" stroke="#5BA6FF" stroke-width="1.5"/>
-            <polygon points="50,11 86,32 86,78 50,99 14,78 14,32" fill="#0d1626" opacity="0.7"/>
-          </svg>
-          <div class="inner">
-            <svg viewBox="0 0 24 24" fill="#dde4ef"><polygon points="12,2 15,9 22,9 16.5,14 19,21 12,17 5,21 7.5,14 2,9 9,9"/></svg>
-          </div>
-          <div class="ribbon">PIONNIER</div>
+        <div class="badge-icon mascot">
+          <img src="https://sebmwali.github.io/geobuilder-pionniers/assets/mascot-pionnier.png" alt="Pionnier">
         </div>
         <div class="dist-info">
           <div class="name">PIONNIER</div>
@@ -702,15 +696,8 @@
 
       <!-- AMBASSADEUR -->
       <div class="dist">
-        <div class="badge-icon">
-          <svg class="hex" viewBox="0 0 100 110">
-            <polygon points="50,4 92,28 92,82 50,106 8,82 8,28" fill="url(#hex1)" stroke="#5BA6FF" stroke-width="1.5"/>
-            <polygon points="50,11 86,32 86,78 50,99 14,78 14,32" fill="#0d1626" opacity="0.7"/>
-          </svg>
-          <div class="inner">
-            <svg viewBox="0 0 24 24" fill="#dde4ef"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><path d="M14 20c0-2.5 2-4.5 5-4.5"/></svg>
-          </div>
-          <div class="ribbon">AMBASSADEUR</div>
+        <div class="badge-icon mascot">
+          <img src="https://sebmwali.github.io/geobuilder-pionniers/assets/mascot-ambassadeur.png" alt="Ambassadeur">
         </div>
         <div class="dist-info">
           <div class="name">AMBASSADEUR</div>
@@ -724,15 +711,8 @@
 
       <!-- SUPER AMBASSADEUR -->
       <div class="dist">
-        <div class="badge-icon">
-          <svg class="hex" viewBox="0 0 100 110">
-            <polygon points="50,4 92,28 92,82 50,106 8,82 8,28" fill="url(#hex1)" stroke="#5BA6FF" stroke-width="1.5"/>
-            <polygon points="50,11 86,32 86,78 50,99 14,78 14,32" fill="#0d1626" opacity="0.7"/>
-          </svg>
-          <div class="inner">
-            <svg viewBox="0 0 24 24" fill="#3A8FE8"><text x="50%" y="58%" text-anchor="middle" font-size="18" font-weight="700" font-family="Montserrat" fill="#3A8FE8">G</text></svg>
-          </div>
-          <div class="ribbon">SUPER AMBASSADEUR</div>
+        <div class="badge-icon mascot">
+          <img src="https://sebmwali.github.io/geobuilder-pionniers/assets/mascot-super-ambassadeur.png" alt="Super Ambassadeur">
         </div>
         <div class="dist-info">
           <div class="name">SUPER AMBASSADEUR</div>
