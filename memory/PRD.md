@@ -61,6 +61,16 @@ Si `fondateur=true` : push supplémentaire `docs/ambassadeurs/{PIO_ID}.html`.
 - 🛑 **56 derniers** (PIO-1113 → PIO-1223) acceptés par l'API Resend (`status=sent`) mais bloqués par le quota — à confirmer dans le dashboard Resend
 - 🐛 Bug script : `status=="SENT"` ne matchait pas le `"sent"` minuscule de Resend → tous loggés comme FAIL et Sheet pas marqué pendant l'envoi
 - 🩹 Backfill manuel : `mark_welcome_sent_backfill.py` a marqué `welcome_email_sent=true` pour les 156 (151 + 5 retry quota Sheets)
+
+### Refonte Espace Pionnier — Bloc Super Ambassadeur (19/06/2026, soir)
+- ✅ Nouveau bloc explicatif « ★ SUPER AMBASSADEUR » : mascotte couronne dorée (160px), tag de cadrage, 5 critères (Recommandent / Partagent / Participent / Soutiennent / Accompagnent), phrase institutionnelle
+- ✅ 3 mascottes (casque / argent / or) ajoutées dans `assets/mascot-*-v2.png` et utilisées dans « Mes Distinctions »
+- ✅ Description du badge Super Ambassadeur réécrite : « Distinction attribuée aux Ambassadeurs qui contribuent activement au développement de la communauté Geobuilder. »
+- ✅ WhatsApp passé en mode sobre (fond transparent, icône verte seule) — déplacé à droite du bloc Super Ambassadeur
+- ✅ Besoin d'aide remonté côte à côte avec Vos Documents Officiels
+- ✅ **162 portails Pionniers régénérés** sur GitHub Pages (0 erreur)
+- 🧹 Anciennes mascots v1 (mauvais mapping) et fichiers TEST supprimés
+
 - ↩️ `unmark_56_remaining.py` créé pour dé-marquer les 56 derniers AVANT de relancer demain (sinon ils seront skippés)
 - 🔧 Script amélioré : statuts OK = `("sent","SENT","OK","ok","queued")` + cap automatique `DAILY_QUOTA_CAP=95`/jour
 
