@@ -558,6 +558,15 @@
         <input type="hidden" name="prenom" value="" />
         <input type="hidden" name="email" value="" />
 
+        <!-- Champ visible affiché uniquement quand aucun pio_id n'est pré-rempli
+             (cas : accès direct à la landing universelle sans ?pio=…). -->
+        <div class="pio-manual" id="pioManualWrap" style="display:none;margin-bottom:14px;padding:14px 16px;border:1px solid rgba(58,143,232,0.35);border-radius:10px;background:#0d1220;">
+          <label for="pioManualInput" style="display:block;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#3A8FE8;margin-bottom:6px;">Votre référence Pionnier</label>
+          <input type="text" id="pioManualInput" placeholder="ex : PIO-1042" autocomplete="off" spellcheck="false"
+                 style="width:100%;padding:10px 12px;background:#0a0d14;border:1px solid rgba(58,143,232,0.4);border-radius:8px;color:#e8edf5;font-family:inherit;font-size:15px;letter-spacing:1px;text-transform:uppercase;" />
+          <div id="pioManualHint" style="font-size:11px;color:#7788aa;margin-top:8px;">Saisissez la référence indiquée dans votre email de bienvenue (format PIO-XXXX).</div>
+        </div>
+
         <label class="consent-row" data-row="droit_image">
           <input type="checkbox" name="droit_image" required />
           <span>J'autorise l'utilisation de photos et vidéos de mon installation</span>
@@ -619,6 +628,99 @@
   const overlay = document.getElementById('successOverlay');
   const countdown = document.getElementById('countdown');
 
+  // Champs hidden alimentés soit par le template (page perso), soit dynamiquement
+  // via ?pio=… ou saisie manuelle (landing universelle).
+  const pioHidden      = form.querySelector('input[name="pio_id"]');
+  const nomHidden      = form.querySelector('input[name="nom"]');
+  const prenomHidden   = form.querySelector('input[name="prenom"]');
+  const emailHidden    = form.querySelector('input[name="email"]');
+  const pioManualWrap  = document.getElementById('pioManualWrap');
+  const pioManualInput = document.getElementById('pioManualInput');
+  const pioManualHint  = document.getElementById('pioManualHint');
+
+  // Base backend — devinée depuis l'URL de signature du webhook_ambassadeur_url
+  // Ex: https://<host>/api/ambassadeur/signature → base = https://<host>/api
+  const SIGNATURE_URL = "https://pioneer-ecosystem.preview.emergentagent.com/api/ambassadeur/signature";
+  const API_BASE = SIGNATURE_URL.replace(/\/ambassadeur\/signature\/?$/, '');
+
+  // --- Lookup PIO via GET /api/pionniers/info?pio_id=… ---
+  async function fetchPioInfo(pioId){
+    if(!pioId) return null;
+    try {
+      const r = await fetch(API_BASE + '/pionniers/info?pio_id=' + encodeURIComponent(pioId), {
+        method: 'GET',
+        headers: { 'Accept': 'application/json' }
+      });
+      if(!r.ok) return null;
+      return await r.json();
+    } catch(e){
+      console.warn('fetchPioInfo failed', e);
+      return null;
+    }
+  }
+
+  function fillHiddenFrom(info){
+    if(!info) return;
+    if(info.pio_id) pioHidden.value = info.pio_id;
+    if(info.nom)    nomHidden.value = info.nom;
+    if(info.prenom) prenomHidden.value = info.prenom;
+    if(info.email)  emailHidden.value = info.email;
+  }
+
+  // --- Initialisation : détecte si on est sur une page perso (pio_id déjà rempli
+  // par le template) ou sur la landing universelle (hidden vide → besoin de ?pio ou saisie). ---
+  (async function initPio(){
+    // Si le template a déjà rempli (page perso /ambassadeurs/{PIO_ID}.html) → rien à faire
+    if(pioHidden.value && pioHidden.value.trim() && pioHidden.value.trim() !== ''){
+      return;
+    }
+    // Landing universelle : essaie de récupérer via query param ?pio=
+    const params = new URLSearchParams(window.location.search);
+    const queryPio = (params.get('pio') || params.get('pio_id') || '').trim();
+    if(queryPio){
+      const info = await fetchPioInfo(queryPio);
+      if(info){
+        fillHiddenFrom(info);
+        return;
+      }
+      // ?pio=… fourni mais inconnu → montre le champ visible avec le PIO pré-rempli
+      pioManualInput.value = queryPio;
+      pioManualHint.textContent = 'Référence Pionnier inconnue. Vérifiez la valeur ci-dessus.';
+      pioManualHint.style.color = '#ff6a6a';
+    }
+    // Aucun pio_id → affiche le champ visible pour saisie manuelle
+    pioManualWrap.style.display = 'block';
+  })();
+
+  // Lookup au blur/change du champ visible
+  let manualLookupTimer = null;
+  pioManualInput.addEventListener('input', function(){
+    const val = pioManualInput.value.trim().toUpperCase();
+    pioManualInput.value = val;
+    clearTimeout(manualLookupTimer);
+    // Debounce 400ms
+    manualLookupTimer = setTimeout(async () => {
+      if(!/^PIO-\d{3,6}$/.test(val)){
+        pioHidden.value = ''; nomHidden.value = ''; prenomHidden.value = ''; emailHidden.value = '';
+        pioManualHint.textContent = 'Format attendu : PIO- suivi du numéro (ex : PIO-1042).';
+        pioManualHint.style.color = '#7788aa';
+        refreshButton();
+        return;
+      }
+      const info = await fetchPioInfo(val);
+      if(info){
+        fillHiddenFrom(info);
+        pioManualHint.textContent = 'Reconnu : ' + [info.prenom, info.nom].filter(Boolean).join(' ');
+        pioManualHint.style.color = '#3A8FE8';
+      } else {
+        pioHidden.value = ''; nomHidden.value = ''; prenomHidden.value = ''; emailHidden.value = '';
+        pioManualHint.textContent = 'Référence Pionnier introuvable. Vérifiez votre email de bienvenue.';
+        pioManualHint.style.color = '#ff6a6a';
+      }
+      refreshButton();
+    }, 400);
+  });
+
   const checks = form.querySelectorAll('input[type="checkbox"][required]');
 
   // --- Activation conditionnelle du bouton ---
@@ -629,8 +731,15 @@
       if (c.checked){ row.classList.add('checked'); }
       else { row.classList.remove('checked'); allChecked = false; }
     });
-    submitBtn.disabled = !allChecked;
-    ctaHint.style.display = allChecked ? 'none' : 'block';
+    // Bouton actif seulement si les 3 cases + pio_id valide
+    const hasPio = !!(pioHidden.value && pioHidden.value.trim() && pioHidden.value.trim() !== '');
+    submitBtn.disabled = !(allChecked && hasPio);
+    ctaHint.style.display = (allChecked && hasPio) ? 'none' : 'block';
+    if(allChecked && !hasPio){
+      ctaHint.textContent = 'Saisissez d\'abord votre référence Pionnier ci-dessus';
+    } else if(!allChecked){
+      ctaHint.textContent = 'Cochez les 3 cases pour activer le bouton';
+    }
     ctaError.style.display = 'none';
   }
   checks.forEach(c => c.addEventListener('change', refreshButton));
